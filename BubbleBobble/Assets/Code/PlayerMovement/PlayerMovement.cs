@@ -1,5 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <remarks>
+/// auhtor: Hanna Repo
+/// </remarks>
+/// 
+/// <summary>
+/// Player movement script.
+/// Moves the player based on the input from the InputReader script.
+/// </summary>
+
 using UnityEngine;
 
 namespace BubbleBobble
