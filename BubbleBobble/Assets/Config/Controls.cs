@@ -33,7 +33,7 @@ namespace BubbleBobble
                     ""name"": ""Player1Move"",
                     ""type"": ""Value"",
                     ""id"": ""bafe0abb-84d5-41ed-a52c-979e78d38328"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
@@ -59,26 +59,59 @@ namespace BubbleBobble
             ],
             ""bindings"": [
                 {
-                    ""name"": """",
-                    ""id"": ""2309eacf-2930-4ea1-9b5a-b690d1f9c4c6"",
+                    ""name"": ""LeftRight"",
+                    ""id"": ""d612ba04-e3d3-4c33-9d1d-5cc0864e03e0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""75f468f9-f46a-445f-ac69-f5f1c5417431"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""2982df19-44b8-4622-b0fa-64678f81fefe"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""a9f73a99-6f6f-406e-ac85-f08c26f7803c"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Player1Move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": """",
-                    ""id"": ""2f74b53a-18df-467f-813c-f1ee0f17d8c1"",
+                    ""name"": ""right"",
+                    ""id"": ""0dcb7a6c-1aca-452d-b145-1caec66a9028"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Player1Move"",
                     ""isComposite"": false,
-                    ""isPartOfComposite"": false
+                    ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
