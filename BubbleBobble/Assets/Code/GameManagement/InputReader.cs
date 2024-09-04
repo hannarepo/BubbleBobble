@@ -1,5 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <remarks>
+/// auhtor: Hanna Repo
+/// </remarks>
+/// 
+/// <summary>
+/// Input reader for reading and storing the player input.
+/// Includes getters for use in other scripts.
+/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
