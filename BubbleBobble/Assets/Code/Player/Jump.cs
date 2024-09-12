@@ -21,7 +21,6 @@ namespace BubbleBobble
         [SerializeField] private LayerMask _dropDownLayer;
         [SerializeField] private float _circleCastRadius = 0.5f;
         [SerializeField] private float _circleCastDistance = 3f;
-        private bool _canJump = false;
         private float _timer = 0;
 
         private void Awake()
@@ -32,31 +31,46 @@ namespace BubbleBobble
 
         private void Update()
         {
-            if (Physics2D.CircleCast(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius,
-                new Vector2(transform.position.x, transform.position.y - 1), _circleCastDistance, _dropDownLayer))
+            Vector2 down = new Vector2(transform.position.x, transform.position.y-1);
+            _timer += Time.deltaTime;
+
+            // TODO : Fix: Should not jump when dropping down from a platform
+            //
+
+            // Do a circle cast to check if the player is on the a platform that can be dropped down from
+            if (Physics2D.CircleCast(transform.position, _circleCastRadius, down, _circleCastDistance, _dropDownLayer))
             {
+                // If player is pressing down and jump, drop through the platform
                 if (_inputReader.Movement.y < 0 && _inputReader.Jump)
                 {
-                    Debug.Log("drop down");
-                    Physics2D.IgnoreLayerCollision(3, 8, true);
+                    DropDown();
+                }
+                else if (_timer > 0.4f)
+                {
+                    Physics2D.IgnoreLayerCollision(3, 8, false);
                 }
             }
 
-            // Do a circle cast to check if the player is on the ground and set the _canJump variable accordingly
-            if (Physics2D.CircleCast(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius,
-                new Vector2(transform.position.x, transform.position.y - 1), _circleCastDistance, _jumpCheckLayers))
+            // Do a circle cast to check if the player is on the ground and can jump
+            if (Physics2D.CircleCast(transform.position, _circleCastRadius, down, _circleCastDistance, _jumpCheckLayers))
             {
-                _canJump = true;
+                if (_inputReader.Jump)
+                {
+                    PlayerJump();
+                }
             }
-            else
-            {
-                _canJump = false;
-            }
+        }
 
-            if (_inputReader.Jump && _canJump)
-            {
-                _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
-            }
+        private void PlayerJump()
+        {
+            _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+        }
+
+        private void DropDown()
+        {
+            Debug.Log("drop down");
+            Physics2D.IgnoreLayerCollision(3, 8, true);
+            _timer = 0;
         }
 
         private void OnDrawGizmos()
