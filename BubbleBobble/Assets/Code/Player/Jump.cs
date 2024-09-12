@@ -7,6 +7,7 @@
 /// Checks if the player is on the ground and if the player presses the jump button
 /// </summary>
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -16,10 +17,12 @@ namespace BubbleBobble
         private InputReader _inputReader;
         private Rigidbody2D _rb;
         [SerializeField] private float _jumpForce = 5f;
-        [SerializeField] private LayerMask _groundLayer;
-        [SerializeField] private float _cisrcleCastRadius = 0.5f;
+        [SerializeField] private LayerMask _jumpCheckLayers;
+        [SerializeField] private LayerMask _dropDownLayer;
+        [SerializeField] private float _circleCastRadius = 0.5f;
         [SerializeField] private float _circleCastDistance = 3f;
         private bool _canJump = false;
+        private float _timer = 0;
 
         private void Awake()
         {
@@ -29,9 +32,19 @@ namespace BubbleBobble
 
         private void Update()
         {
+            if (Physics2D.CircleCast(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius,
+                new Vector2(transform.position.x, transform.position.y - 1), _circleCastDistance, _dropDownLayer))
+            {
+                if (_inputReader.Movement.y < 0 && _inputReader.Jump)
+                {
+                    Debug.Log("drop down");
+                    Physics2D.IgnoreLayerCollision(3, 8, true);
+                }
+            }
+
             // Do a circle cast to check if the player is on the ground and set the _canJump variable accordingly
-            if (Physics2D.CircleCast(new Vector2(transform.position.x, transform.position.y-1f), _cisrcleCastRadius,
-                new Vector2(transform.position.x, transform.position.y - 1), _circleCastDistance, _groundLayer))
+            if (Physics2D.CircleCast(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius,
+                new Vector2(transform.position.x, transform.position.y - 1), _circleCastDistance, _jumpCheckLayers))
             {
                 _canJump = true;
             }
@@ -49,7 +62,7 @@ namespace BubbleBobble
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y-1f), _cisrcleCastRadius);
+            Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius);
         }
     }
 }

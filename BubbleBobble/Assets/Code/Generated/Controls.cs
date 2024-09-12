@@ -55,11 +55,20 @@ namespace BubbleBobble
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Player1DropDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""6915b64d-7e16-4f3a-8a4a-4c9e22fadb4f"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""LeftRight"",
+                    ""name"": ""WASD"",
                     ""id"": ""b3ee9a89-d854-43f1-9bc4-51e7d2cd10fc"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -83,7 +92,7 @@ namespace BubbleBobble
                 {
                     ""name"": ""down"",
                     ""id"": ""57e07f9a-cf54-4115-b0b1-4f7ad485b4e8"",
-                    ""path"": """",
+                    ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -134,6 +143,17 @@ namespace BubbleBobble
                     ""action"": ""Player1Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e83b1a7c-ea6a-4f7a-9b74-8f5a475d320f"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1DropDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -145,6 +165,7 @@ namespace BubbleBobble
             m_Game_Player1Move = m_Game.FindAction("Player1Move", throwIfNotFound: true);
             m_Game_Player1Jump = m_Game.FindAction("Player1Jump", throwIfNotFound: true);
             m_Game_Player1Shoot = m_Game.FindAction("Player1Shoot", throwIfNotFound: true);
+            m_Game_Player1DropDown = m_Game.FindAction("Player1DropDown", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -209,6 +230,7 @@ namespace BubbleBobble
         private readonly InputAction m_Game_Player1Move;
         private readonly InputAction m_Game_Player1Jump;
         private readonly InputAction m_Game_Player1Shoot;
+        private readonly InputAction m_Game_Player1DropDown;
         public struct GameActions
         {
             private @Controls m_Wrapper;
@@ -216,6 +238,7 @@ namespace BubbleBobble
             public InputAction @Player1Move => m_Wrapper.m_Game_Player1Move;
             public InputAction @Player1Jump => m_Wrapper.m_Game_Player1Jump;
             public InputAction @Player1Shoot => m_Wrapper.m_Game_Player1Shoot;
+            public InputAction @Player1DropDown => m_Wrapper.m_Game_Player1DropDown;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -234,6 +257,9 @@ namespace BubbleBobble
                 @Player1Shoot.started += instance.OnPlayer1Shoot;
                 @Player1Shoot.performed += instance.OnPlayer1Shoot;
                 @Player1Shoot.canceled += instance.OnPlayer1Shoot;
+                @Player1DropDown.started += instance.OnPlayer1DropDown;
+                @Player1DropDown.performed += instance.OnPlayer1DropDown;
+                @Player1DropDown.canceled += instance.OnPlayer1DropDown;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -247,6 +273,9 @@ namespace BubbleBobble
                 @Player1Shoot.started -= instance.OnPlayer1Shoot;
                 @Player1Shoot.performed -= instance.OnPlayer1Shoot;
                 @Player1Shoot.canceled -= instance.OnPlayer1Shoot;
+                @Player1DropDown.started -= instance.OnPlayer1DropDown;
+                @Player1DropDown.performed -= instance.OnPlayer1DropDown;
+                @Player1DropDown.canceled -= instance.OnPlayer1DropDown;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -269,6 +298,7 @@ namespace BubbleBobble
             void OnPlayer1Move(InputAction.CallbackContext context);
             void OnPlayer1Jump(InputAction.CallbackContext context);
             void OnPlayer1Shoot(InputAction.CallbackContext context);
+            void OnPlayer1DropDown(InputAction.CallbackContext context);
         }
     }
 }
