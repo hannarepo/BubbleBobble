@@ -415,7 +415,7 @@ GameObject:
   - component: {fileID: 541834484}
   m_Layer: 7
   m_Name: Platform (2)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -549,7 +549,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &615347882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,7 +1011,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   _circleCastRadius: 0.5
-  _circleCastDistance: 1
+  _circleCastDistance: 0.1
+  _groundCheckTarget: {fileID: 1283745296}
 --- !u!114 &1096802728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1101,7 +1102,8 @@ Transform:
   m_LocalPosition: {x: -9.5, y: -8.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1283745296}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!70 &1096802734
@@ -1203,7 +1205,7 @@ GameObject:
   - component: {fileID: 1185149600}
   m_Layer: 8
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: DropDownPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1320,6 +1322,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1283745295
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1283745296}
+  m_Layer: 3
+  m_Name: GroundCheckTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 2488908585195742037, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1283745296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1283745295}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.73, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1096802733}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1427971588
 GameObject:
   m_ObjectHideFlags: 0
@@ -1333,7 +1366,7 @@ GameObject:
   - component: {fileID: 1427971589}
   m_Layer: 8
   m_Name: Platform (3)
-  m_TagString: Untagged
+  m_TagString: DropDownPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1463,7 +1496,7 @@ GameObject:
   - component: {fileID: 1439030881}
   m_Layer: 7
   m_Name: Platform (1)
-  m_TagString: Untagged
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1723,7 +1756,7 @@ GameObject:
   - component: {fileID: 1521211282}
   m_Layer: 6
   m_Name: Floor (1)
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2181,7 +2214,7 @@ GameObject:
   - component: {fileID: 2018470205}
   m_Layer: 6
   m_Name: Floor
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

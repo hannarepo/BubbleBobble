@@ -20,7 +20,8 @@ namespace BubbleBobble
         [SerializeField] private LayerMask _jumpCheckLayers;
         [SerializeField] private LayerMask _dropDownLayer;
         [SerializeField] private float _circleCastRadius = 0.5f;
-        [SerializeField] private float _circleCastDistance = 3f;
+        [SerializeField] private float _circleCastDistance = 0.5f;
+        [SerializeField] private Transform _groundCheckTarget;
         private float _timer = 0;
 
         private void Awake()
@@ -31,30 +32,38 @@ namespace BubbleBobble
 
         private void Update()
         {
-            Vector2 down = new Vector2(transform.position.x, transform.position.y-1);
             _timer += Time.deltaTime;
 
-            // TODO : Fix: Should not jump when dropping down from a platform
-            //
+            // Do a CircleCast and save the resulting collider into a variable for ground check
+            RaycastHit2D hit = Physics2D.CircleCast(_groundCheckTarget.position, _circleCastRadius, Vector2.down,
+                                                    _circleCastDistance, _jumpCheckLayers);
 
-            // Do a circle cast to check if the player is on the a platform that can be dropped down from
-            if (Physics2D.CircleCast(transform.position, _circleCastRadius, down, _circleCastDistance, _dropDownLayer))
+            if (hit.collider == null)
             {
-                // If player is pressing down and jump, drop through the platform
+                return;
+            }
+
+            // If the collider hit with CircleCast is DropDownPlatform 
+            // and player is pressing down and jump, drop through the platform
+            if (hit.collider.CompareTag("DropDownPlatform"))
+            {
                 if (_inputReader.Movement.y < 0 && _inputReader.Jump)
                 {
                     DropDown();
                 }
-                else if (_timer > 0.4f)
+                else if (_timer > 0.3f)
                 {
                     Physics2D.IgnoreLayerCollision(3, 8, false);
                 }
             }
 
-            // Do a circle cast to check if the player is on the ground and can jump
-            if (Physics2D.CircleCast(transform.position, _circleCastRadius, down, _circleCastDistance, _jumpCheckLayers))
+            // If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
+            //  and player is not pressing down, player can jump
+            if (hit.collider.CompareTag("Ground") ||
+                hit.collider.CompareTag("Platform") ||
+                hit.collider.CompareTag("DropDownPlatform"))
             {
-                if (_inputReader.Jump)
+                if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
                 {
                     PlayerJump();
                 }
@@ -68,7 +77,6 @@ namespace BubbleBobble
 
         private void DropDown()
         {
-            Debug.Log("drop down");
             Physics2D.IgnoreLayerCollision(3, 8, true);
             _timer = 0;
         }
@@ -76,7 +84,12 @@ namespace BubbleBobble
         private void OnDrawGizmos()
         {
             Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(new Vector2(transform.position.x, transform.position.y-1f), _circleCastRadius);
+            if (_groundCheckTarget == null)
+            {
+                return;
+            }
+    
+            Gizmos.DrawWireSphere(_groundCheckTarget.position + new Vector3(0, _circleCastDistance, 0), _circleCastRadius);
         }
     }
 }
