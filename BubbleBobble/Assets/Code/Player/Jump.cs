@@ -16,6 +16,8 @@ namespace BubbleBobble
     {
         private InputReader _inputReader;
         private Rigidbody2D _rb;
+        private Collider2D _playerCollider;
+        private Collider2D _groundCollider;
         [SerializeField] private float _jumpForce = 5f;
         [SerializeField] private LayerMask _jumpCheckLayers;
         [SerializeField] private LayerMask _dropDownLayer;
@@ -28,6 +30,7 @@ namespace BubbleBobble
         {
             _inputReader = GetComponent<InputReader>();
             _rb = GetComponent<Rigidbody2D>();
+            _playerCollider = GetComponent<Collider2D>();
         }
 
         private void Update()
@@ -38,6 +41,8 @@ namespace BubbleBobble
             RaycastHit2D hit = Physics2D.CircleCast(_groundCheckTarget.position, _circleCastRadius, Vector2.down,
                                                     _circleCastDistance, _jumpCheckLayers);
 
+            _groundCollider = hit.collider;
+
             if (hit.collider == null)
             {
                 return;
@@ -45,7 +50,7 @@ namespace BubbleBobble
 
             // If the collider hit with CircleCast is DropDownPlatform 
             // and player is pressing down and jump, drop through the platform
-            if (hit.collider.CompareTag("DropDownPlatform"))
+            if (_groundCollider.CompareTag("DropDownPlatform"))
             {
                 if (_inputReader.Movement.y < 0 && _inputReader.Jump)
                 {
@@ -53,7 +58,8 @@ namespace BubbleBobble
                 }
                 else if (_timer > 0.3f)
                 {
-                    Physics2D.IgnoreLayerCollision(3, 8, false);
+                    print("collide");
+                    Physics2D.IgnoreCollision(_playerCollider, _groundCollider, false);
                 }
             }
 
@@ -77,7 +83,8 @@ namespace BubbleBobble
 
         private void DropDown()
         {
-            Physics2D.IgnoreLayerCollision(3, 8, true);
+            print("drop down");
+            Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
             _timer = 0;
         }
 
