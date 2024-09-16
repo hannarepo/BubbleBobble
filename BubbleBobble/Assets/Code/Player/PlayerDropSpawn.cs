@@ -1,3 +1,12 @@
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
+///
+/// <summary>
+/// When player drops out of the level, they will be moved to
+/// a random spawn point at the top of the level.
+/// </summary>
+
 using UnityEngine;
 
 namespace BubbleBobble
@@ -10,6 +19,7 @@ namespace BubbleBobble
 
         private void Awake()
         {
+            // Fiind all spawn points in level with tag and put them in an array
             _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
             _transform = GetComponent<Transform>();
         }
@@ -18,10 +28,11 @@ namespace BubbleBobble
         {
             if (collider.gameObject.CompareTag("DropTrigger"))
             {
+                // If there are more than one spawn points in the level, choose a random one
+                // Otherwise, use the only spawn point in the level
                 if (_spawnPointsInLevel.Length > 1)
                 {
                     int randomSpawnPos = Random.Range(0, _spawnPointsInLevel.Length);
-                    Debug.Log(_spawnPointsInLevel.Length);
                     _spawnPosition = _spawnPointsInLevel[randomSpawnPos].transform.position;
                 }
                 else

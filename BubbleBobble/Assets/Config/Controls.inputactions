@@ -31,11 +31,20 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Player1DropDown",
+                    "type": "Button",
+                    "id": "6915b64d-7e16-4f3a-8a4a-4c9e22fadb4f",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
-                    "name": "LeftRight",
+                    "name": "WASD",
                     "id": "b3ee9a89-d854-43f1-9bc4-51e7d2cd10fc",
                     "path": "2DVector",
                     "interactions": "",
@@ -59,7 +68,7 @@
                 {
                     "name": "down",
                     "id": "57e07f9a-cf54-4115-b0b1-4f7ad485b4e8",
-                    "path": "",
+                    "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -108,6 +117,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Player1Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e83b1a7c-ea6a-4f7a-9b74-8f5a475d320f",
+                    "path": "<Keyboard>/downArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Player1DropDown",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
