@@ -15,7 +15,7 @@ namespace BubbleBobble
         private Controls _controls;
         private Vector2 _movementControls;
         private bool _jump = false;
-        private bool _dropDown = false;
+        private bool _shootBubble = false;
 
         #region UnityMethods
         private void Awake()
@@ -37,7 +37,8 @@ namespace BubbleBobble
         {
             _movementControls = _controls.Game.Player1Move.ReadValue<Vector2>();
             _jump = _controls.Game.Player1Jump.WasPerformedThisFrame();
-            _dropDown = _controls.Game.Player1DropDown.WasPerformedThisFrame();
+            _shootBubble = _controls.Game.Player1Shoot.WasPerformedThisFrame();
+
         }
         #endregion
 
@@ -52,9 +53,9 @@ namespace BubbleBobble
             get { return _jump; }
         }
 
-        public bool DropDown
+        public bool ShootBubble
         {
-            get { return _dropDown; }
+            get { return _shootBubble; }
         }
         #endregion
     }
