@@ -28,7 +28,7 @@ namespace BubbleBobble
             bool shoot = _inputReader.ShootBubble;
             _shootBubble.Shoot(shoot, movement);
 
-            print(movement.x);
+            // print(movement.x);
 
             LookRight(movement);
         }
