@@ -7,7 +7,12 @@ namespace BubbleBobble
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private float _fireBubblesPopped = 0;
+        private BubbleSpawner _bubbleSpawner;
 
+        private void Start()
+        {
+            _bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+        }
 
         public void BubblePopped(string type)
         {
@@ -20,25 +25,26 @@ namespace BubbleBobble
             }
         }
 
+        #region Counters
         private void CheckCounters()
         {
             if (_fireBubblesPopped == 3)
             {
-                SpawnBomb();
+                _bubbleSpawner.SpawnBomb();
             }
         }
 
-        private void CountReset()
+        private void CounterReset()
         {
             // Reset counters here when loading a new level
             _fireBubblesPopped = 0;
         }
-
-        private void SpawnBomb()
-        {
-            GameObject bomb = Resources.Load("Prefabs/Bubbles/Special/BombBubble") as GameObject;
-            Instantiate(bomb);
-            bomb.transform.position = new Vector3(0, 0, 0);
-        }
+        #endregion
     }
 }
+
+
+// BubbleBobble notes: Enemies trapped in bubbles will float up through the roof and
+// teleport to the bottom in the same X position.
+// Special bubble spawns vary per level. Spawning from the roof and floating downward or
+// spawning from the bottom and floating upward.
