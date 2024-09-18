@@ -58,7 +58,6 @@ namespace BubbleBobble
                 }
                 else if (_timer > 0.3f)
                 {
-                    print("collide");
                     Physics2D.IgnoreCollision(_playerCollider, _groundCollider, false);
                 }
             }
@@ -83,7 +82,6 @@ namespace BubbleBobble
 
         private void DropDown()
         {
-            print("drop down");
             Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
             _timer = 0;
         }
