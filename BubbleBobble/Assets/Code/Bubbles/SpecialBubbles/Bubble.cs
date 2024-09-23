@@ -6,39 +6,36 @@ namespace BubbleBobble
     {
         [SerializeField] private bool _canPop = true;
         private GameManager _gameManager;
-        [SerializeField] private string _type;
+        //private BubbleSpawner _bubbleSpawner;
+        //private Rigidbody2D _rigidBody;
 
-        private void Start()
+        private void Awake()
         {
             _gameManager = FindObjectOfType<GameManager>();
+            //SetGravityScale();
         }
 
         void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Player") && _canPop)
             {
-                if (_type == "Bomb")
-                {
-                    Explode();
-                }
-                else
-                {
-                    PopBubble();
-                }
+                PopBubble();
             }
         }
 
         private void PopBubble()
         {
-            _gameManager.BubblePopped(_type);
+            //_gameManager.BubblePopped(_type);
             // TODO: Pop sound and animation
             Destroy(gameObject);
         }
-
-        private void Explode()
+        /* private void SetGravityScale()
         {
-            Debug.Log("Boom!");
-            Destroy(gameObject);
-        }
+            BubbleSpawner _bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+            if (_bubbleSpawner.SpawnFromTop)
+            {
+                gameObject.GetComponent<Rigidbody2D>().gravityScale *= -1;
+            }
+        } */
     }
 }
