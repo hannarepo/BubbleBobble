@@ -79,17 +79,6 @@ namespace BubbleBobble
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""up"",
-                    ""id"": ""d4bd63d9-9707-44e3-9dd2-6470b01991e6"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Player1Move"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": true
-                },
-                {
                     ""name"": ""down"",
                     ""id"": ""57e07f9a-cf54-4115-b0b1-4f7ad485b4e8"",
                     ""path"": ""<Keyboard>/s"",
