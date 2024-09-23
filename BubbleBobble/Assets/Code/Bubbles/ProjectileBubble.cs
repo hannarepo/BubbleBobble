@@ -1,5 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
+///
+/// <summary>
+/// After instantiating projectile bubble, check in which direction bubble
+/// should be moving. Move bubble in correct direction for range distance 
+/// after which set gravity scale to negative so that bubble floats up.
+/// When bubble reaches the top of the level, destroy bubble after a short delay.
+/// </summary>
+
 using UnityEngine;
 
 namespace BubbleBobble
@@ -29,6 +38,8 @@ namespace BubbleBobble
 
         private void Start()
         {
+            // Check which way player is facing from PlayerControl
+            // and calculate target x position accordingly.
             _shootRight = FindObjectOfType<PlayerControl>().LookingRight;
 
             if (_shootRight)
@@ -43,6 +54,10 @@ namespace BubbleBobble
 
         private void Update()
         {
+            // If player is facing right, move bubble right on x-axis.
+            // If player is facing left, move bubble left on x-axis.
+            // When bubble reaches target x position, set gravity scale to negative
+            // so that bubble floats up.
             if (_shootRight)
             {
                 if (transform.position.x >= _targetX)
@@ -66,6 +81,15 @@ namespace BubbleBobble
                 }
             }
 
+        }
+
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            if (collision.gameObject.CompareTag("Wall"))
+            {
+                _speed = 0;
+                _rb.gravityScale = _floatingGravityScale;
+            }
         }
     }
 }

@@ -28,12 +28,9 @@ namespace BubbleBobble
             Vector2 movement = _inputReader.Movement;
             _playerMover.Move(movement);
 
-            bool shoot = _inputReader.ShootBubble;
-            _shootBubble.Shoot(shoot, movement);
-
-            // print(movement.x);
-
             LookRight(movement);
+            bool shoot = _inputReader.ShootBubble;
+            _shootBubble.Shoot(shoot, movement, _lookRight);
         }
 
         private void LookRight(Vector2 movement)
