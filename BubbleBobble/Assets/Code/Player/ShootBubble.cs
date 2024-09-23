@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -12,11 +13,19 @@ namespace BubbleBobble
             _bubble = Resources.Load("Prefabs/Bubbles/ProjectileBubble") as GameObject;
         }
 
-        public void Shoot(bool shoot, Vector2 direction)
+        public void Shoot(bool shoot, Vector2 direction, bool lookingRight)
         {
             if (shoot)
             {
-                Instantiate(_bubble, transform.position, Quaternion.identity);
+                if (lookingRight)
+                {
+                    Instantiate(_bubble, new Vector3(transform.position.x -0.6f, transform.position.y, 0), Quaternion.identity);
+                }
+                else
+                {
+                    Instantiate(_bubble, new Vector3(transform.position.x +0.6f, transform.position.y, 0), Quaternion.identity);
+                }
+                
                 _projectileBubble.LaunchDirection = direction;
             }
         }
