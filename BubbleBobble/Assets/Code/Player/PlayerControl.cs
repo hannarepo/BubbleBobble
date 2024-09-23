@@ -10,6 +10,7 @@ namespace BubbleBobble
         private PlayerMover _playerMover;
         private ShootBubble _shootBubble;
         private SpriteRenderer _spriteRenderer;
+        bool _lookRight;
         
         private void Awake()
         {
@@ -35,8 +36,16 @@ namespace BubbleBobble
 
         private void LookRight(Vector2 movement)
         {
-            bool lookRight = movement.x < 0;
-            _spriteRenderer.flipX = lookRight;
+            if (movement.x < 0)
+            {
+                _lookRight = true;
+            }
+            else if (movement.x > 0)
+            {
+                _lookRight = false;
+            }
+
+            _spriteRenderer.flipX = _lookRight;
         }
     }
 }
