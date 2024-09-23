@@ -12,32 +12,60 @@ namespace BubbleBobble
         private float _targetX;
         [SerializeField] private float _speed;
         private Vector2 _direction;
-        [SerializeField] private float _floatGravityScale;
+        [SerializeField] private float _floatingGravityScale;
+        private bool _shootRight;
 
         public Vector2 LaunchDirection
         {
             get { return _direction; }
-            set  { _direction = value; }
+            set { _direction = value; }
         }
 
         private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
             _originalPosition = transform.position;
-            _targetX = _originalPosition.x + _range;
+        }
+
+        private void Start()
+        {
+            _shootRight = FindObjectOfType<PlayerControl>().LookingRight;
+
+            if (_shootRight)
+            {
+                _targetX = _originalPosition.x - _range;
+            }
+            else
+            {
+                _targetX = _originalPosition.x + _range;
+            }
         }
 
         private void Update()
         {
-
-            if (transform.position.x <= _targetX)
+            if (_shootRight)
             {
-                transform.position += new Vector3(_direction.x +1, _direction.y, 0) * _speed * Time.deltaTime;
+                if (transform.position.x >= _targetX)
+                {
+                    transform.position += new Vector3(_direction.x - 1, _direction.y, 0) * _speed * Time.deltaTime;
+                }
+                else
+                {
+                    _rb.gravityScale = _floatingGravityScale;
+                }
             }
             else
             {
-                _rb.gravityScale = _floatGravityScale;
+                if (transform.position.x <= _targetX)
+                {
+                    transform.position += new Vector3(_direction.x + 1, _direction.y, 0) * _speed * Time.deltaTime;
+                }
+                else
+                {
+                    _rb.gravityScale = _floatingGravityScale;
+                }
             }
+
         }
     }
 }

@@ -6,8 +6,8 @@ namespace BubbleBobble
 {
     public class BubbleSpawner : MonoBehaviour
     {
-        [SerializeField] private bool _spawnFromTop = false;
-        [SerializeField] private float _spawnRate = 5f;
+        //[SerializeField] private bool _spawnFromTop = false;
+        //[SerializeField] private float _spawnRate = 5f;
 
         #region Spawners
         public void SpawnBomb()

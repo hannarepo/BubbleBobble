@@ -10,7 +10,9 @@ namespace BubbleBobble
         private PlayerMover _playerMover;
         private ShootBubble _shootBubble;
         private SpriteRenderer _spriteRenderer;
-        bool _lookRight;
+        private bool _lookRight;
+
+        public bool LookingRight => _lookRight;
         
         private void Awake()
         {

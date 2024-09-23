@@ -9,7 +9,7 @@ namespace BubbleBobble
 
         private void Awake()
         {
-            _bubble = Resources.Load("Prefabs/Bubble") as GameObject;
+            _bubble = Resources.Load("Prefabs/Bubbles/ProjectileBubble") as GameObject;
         }
 
         public void Shoot(bool shoot, Vector2 direction)
