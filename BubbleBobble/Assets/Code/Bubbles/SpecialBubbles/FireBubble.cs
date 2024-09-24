@@ -1,14 +1,16 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class Bubble : MonoBehaviour
+    public class FireBubble : MonoBehaviour, IBubble
     {
         [SerializeField] private bool _canPop = true;
         private GameManager _gameManager;
-        [SerializeField] private string _type;
+        private string _type = "Fire";
 
-        private void Start()
+        void Awake()
         {
             _gameManager = FindObjectOfType<GameManager>();
         }
@@ -17,27 +19,13 @@ namespace BubbleBobble
         {
             if (collision.gameObject.CompareTag("Player") && _canPop)
             {
-                if (_type == "Bomb")
-                {
-                    Explode();
-                }
-                else
-                {
-                    PopBubble();
-                }
+                PopBubble();
             }
         }
 
-        private void PopBubble()
+        void PopBubble()
         {
             _gameManager.BubblePopped(_type);
-            // TODO: Pop sound and animation
-            Destroy(gameObject);
-        }
-
-        private void Explode()
-        {
-            Debug.Log("Boom!");
             Destroy(gameObject);
         }
     }
