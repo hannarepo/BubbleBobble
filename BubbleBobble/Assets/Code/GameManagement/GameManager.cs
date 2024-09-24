@@ -22,6 +22,9 @@ namespace BubbleBobble
                     _fireBubblesPopped++;
                     CheckCounters();
                     break;
+                case "Bomb":
+                    DestroyEnemies();
+                    break;
             }
         }
 
@@ -31,6 +34,7 @@ namespace BubbleBobble
             if (_fireBubblesPopped == 3)
             {
                 _bubbleSpawner.SpawnBomb();
+                _fireBubblesPopped = 0;
             }
         }
 
@@ -40,6 +44,11 @@ namespace BubbleBobble
             _fireBubblesPopped = 0;
         }
         #endregion
+
+        private void DestroyEnemies()
+        {
+            // Destroy all enemies on screen
+        }
     }
 }
 
