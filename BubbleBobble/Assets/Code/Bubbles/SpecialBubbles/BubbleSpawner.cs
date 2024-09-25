@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -39,9 +36,7 @@ namespace BubbleBobble
         public void SpawnBomb()
         {
             GameObject bomb = Resources.Load("Prefabs/Bubbles/Special/BombBubble") as GameObject;
-            Instantiate(bomb);
-            // TODO: Rework spawn position
-            bomb.transform.position = new Vector3(0, 0, 0);
+            Instantiate(bomb, gameObject.transform.position, Quaternion.identity);
         }
         private void SpawnFireBubble()
         {
