@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -8,10 +6,32 @@ namespace BubbleBobble
     {
         [SerializeField] private float _fireBubblesPopped = 0;
         private BubbleSpawner _bubbleSpawner;
+        [SerializeField] private int _maxProjectiles = 10;
+        private ShootBubble _projectileShot;
+        private ProjectileBubble _projectile;
+        private bool _hasPopped = false;
+
+        public bool HasPopped
+        {
+            get { return  _hasPopped; }
+            set { _hasPopped = value; }
+        }
 
         private void Start()
         {
             _bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+            _projectileShot = FindObjectOfType<ShootBubble>();
+        }
+
+        private void Update()
+        {
+            GameObject[] projectilesInLevel;
+            projectilesInLevel = GameObject.FindGameObjectsWithTag("Projectile");
+
+            if (projectilesInLevel.Length == _maxProjectiles)
+            {
+                Destroy(projectilesInLevel[0]);
+            }
         }
 
         public void BubblePopped(Bubble.BubbleType type)
@@ -26,6 +46,8 @@ namespace BubbleBobble
                     DestroyEnemies();
                     break;
             }
+
+            _hasPopped = true;
         }
 
         #region Counters

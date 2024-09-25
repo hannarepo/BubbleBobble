@@ -7,10 +7,11 @@ namespace BubbleBobble
         public enum BubbleType
         {
             Fire,
-            Bomb
+            Bomb,
+            Projectile
         }
-        [SerializeField] private bool _canPop = true;
-        private GameManager _gameManager;
+        private bool _canPop = false;
+        protected GameManager _gameManager;
         protected abstract BubbleType Type
         {
             get;
@@ -18,12 +19,30 @@ namespace BubbleBobble
 
         protected virtual void Awake()
         {
+        }
+
+        protected virtual void Start()
+        {
             _gameManager = FindObjectOfType<GameManager>();
+        }
+
+        private void Update()
+        {
+            if (CanPop())
+            {
+                PopBubble();
+            }
         }
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Player") && _canPop)
+            if (collision.gameObject.CompareTag("Bubble") && _gameManager.HasPopped)
+            {
+                PopBubble();
+                _gameManager.HasPopped = true;
+            }
+
+            if (collision.gameObject.CompareTag("Player") && CanPop())
             {
                 PopBubble();
             }
@@ -33,6 +52,11 @@ namespace BubbleBobble
         {
             _gameManager.BubblePopped(Type);
             Destroy(gameObject);
+        }
+
+        public virtual bool CanPop()
+        {
+            return _canPop;
         }
         
     }

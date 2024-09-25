@@ -7,6 +7,9 @@ namespace BubbleBobble
     {
         private GameObject _bubble;
         [SerializeField] private ProjectileBubble _projectileBubble;
+        private int _projectileCount;
+
+        public int ProjectileCount => _projectileCount;
 
         private void Awake()
         {
@@ -27,6 +30,7 @@ namespace BubbleBobble
                 }
                 
                 _projectileBubble.LaunchDirection = direction;
+                _projectileCount ++;
             }
         }
     }

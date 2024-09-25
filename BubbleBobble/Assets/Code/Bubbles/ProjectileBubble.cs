@@ -9,19 +9,20 @@
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class ProjectileBubble : MonoBehaviour
+    public class ProjectileBubble : Bubble
     {
         private Rigidbody2D _rb;
         private Vector2 _originalPosition;
         [SerializeField] private float _range;
-        private float _targetX;
         [SerializeField] private float _speed;
-        private Vector2 _direction;
         [SerializeField] private float _floatingGravityScale;
+        private float _targetX;
+        private Vector2 _direction;
         private bool _shootRight;
 
         public Vector2 LaunchDirection
@@ -30,14 +31,21 @@ namespace BubbleBobble
             set { _direction = value; }
         }
 
-        private void Awake()
+        protected override BubbleType Type
         {
-            _rb = GetComponent<Rigidbody2D>();
-            _originalPosition = transform.position;
+            get { return BubbleType.Projectile; }
         }
 
-        private void Start()
+        protected override void Awake()
         {
+            _rb = GetComponent<Rigidbody2D>();
+            _originalPosition = transform.position;            
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
             // Check which way player is facing from PlayerControl
             // and calculate target x position accordingly.
             _shootRight = FindObjectOfType<PlayerControl>().LookingRight;
@@ -80,10 +88,9 @@ namespace BubbleBobble
                     _rb.gravityScale = _floatingGravityScale;
                 }
             }
-
         }
 
-        private void OnCollisionEnter2D(Collision2D collision)
+        protected override void OnCollisionEnter2D(Collision2D collision)
         {
             if (collision.gameObject.CompareTag("Wall"))
             {
