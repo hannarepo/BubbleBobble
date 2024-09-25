@@ -14,15 +14,15 @@ namespace BubbleBobble
             _bubbleSpawner = FindObjectOfType<BubbleSpawner>();
         }
 
-        public void BubblePopped(string type)
+        public void BubblePopped(Bubble.BubbleType type)
         {
             switch (type)
             {
-                case "Fire":
+                case Bubble.BubbleType.Fire:
                     _fireBubblesPopped++;
                     CheckCounters();
                     break;
-                case "Bomb":
+                case Bubble.BubbleType.Bomb:
                     DestroyEnemies();
                     break;
             }
