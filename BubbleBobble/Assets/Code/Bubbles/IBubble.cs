@@ -1,4 +1,3 @@
-using UnityEngine;
 
 namespace BubbleBobble
 {
@@ -6,5 +5,7 @@ namespace BubbleBobble
     {
         // Pop the bubble and call the GameManager to handle the bubble type (if needed)
         void PopBubble();
+
+        bool CanPop();
     }
 }
