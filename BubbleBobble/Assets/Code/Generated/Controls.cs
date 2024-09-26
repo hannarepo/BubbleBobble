@@ -55,15 +55,6 @@ namespace BubbleBobble
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Player1DropDown"",
-                    ""type"": ""Button"",
-                    ""id"": ""6915b64d-7e16-4f3a-8a4a-4c9e22fadb4f"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -112,9 +103,108 @@ namespace BubbleBobble
                     ""isPartOfComposite"": true
                 },
                 {
+                    ""name"": ""Left stick"",
+                    ""id"": ""a166c820-71f7-4402-aae3-497c964aee44"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""0f669c0a-9215-4f49-81b4-2badb25cd673"",
+                    ""path"": ""<Gamepad>/leftStick/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""657276db-f8d1-444b-945a-3741cc008b45"",
+                    ""path"": ""<Gamepad>/leftStick/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""c8e72209-20c4-40b7-952c-7c359e1077b6"",
+                    ""path"": ""<Gamepad>/leftStick/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""D-pad"",
+                    ""id"": ""16ef04d2-fbff-49b6-92dd-b02ed3d7eb33"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""73e7ec25-e3c2-4c7c-bad2-d982d60f03a0"",
+                    ""path"": ""<Gamepad>/dpad/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""2c724960-dde3-4518-b42e-c882dc8865f6"",
+                    ""path"": ""<Gamepad>/dpad/left"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""9e7a5750-f473-41e1-b1c1-9cfd703060fa"",
+                    ""path"": ""<Gamepad>/dpad/right"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
                     ""name"": """",
                     ""id"": ""4d217204-88a3-4812-9d43-5aea1045a3df"",
                     ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Player1Jump"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e2393da-d197-413f-acf1-b2734989edf3"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -135,12 +225,12 @@ namespace BubbleBobble
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e83b1a7c-ea6a-4f7a-9b74-8f5a475d320f"",
-                    ""path"": ""<Keyboard>/downArrow"",
+                    ""id"": ""694daecb-459e-493a-8db0-e7fe2b8cbf97"",
+                    ""path"": ""<Gamepad>/rightTrigger"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1DropDown"",
+                    ""action"": ""Player1Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -154,7 +244,6 @@ namespace BubbleBobble
             m_Game_Player1Move = m_Game.FindAction("Player1Move", throwIfNotFound: true);
             m_Game_Player1Jump = m_Game.FindAction("Player1Jump", throwIfNotFound: true);
             m_Game_Player1Shoot = m_Game.FindAction("Player1Shoot", throwIfNotFound: true);
-            m_Game_Player1DropDown = m_Game.FindAction("Player1DropDown", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -219,7 +308,6 @@ namespace BubbleBobble
         private readonly InputAction m_Game_Player1Move;
         private readonly InputAction m_Game_Player1Jump;
         private readonly InputAction m_Game_Player1Shoot;
-        private readonly InputAction m_Game_Player1DropDown;
         public struct GameActions
         {
             private @Controls m_Wrapper;
@@ -227,7 +315,6 @@ namespace BubbleBobble
             public InputAction @Player1Move => m_Wrapper.m_Game_Player1Move;
             public InputAction @Player1Jump => m_Wrapper.m_Game_Player1Jump;
             public InputAction @Player1Shoot => m_Wrapper.m_Game_Player1Shoot;
-            public InputAction @Player1DropDown => m_Wrapper.m_Game_Player1DropDown;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -246,9 +333,6 @@ namespace BubbleBobble
                 @Player1Shoot.started += instance.OnPlayer1Shoot;
                 @Player1Shoot.performed += instance.OnPlayer1Shoot;
                 @Player1Shoot.canceled += instance.OnPlayer1Shoot;
-                @Player1DropDown.started += instance.OnPlayer1DropDown;
-                @Player1DropDown.performed += instance.OnPlayer1DropDown;
-                @Player1DropDown.canceled += instance.OnPlayer1DropDown;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -262,9 +346,6 @@ namespace BubbleBobble
                 @Player1Shoot.started -= instance.OnPlayer1Shoot;
                 @Player1Shoot.performed -= instance.OnPlayer1Shoot;
                 @Player1Shoot.canceled -= instance.OnPlayer1Shoot;
-                @Player1DropDown.started -= instance.OnPlayer1DropDown;
-                @Player1DropDown.performed -= instance.OnPlayer1DropDown;
-                @Player1DropDown.canceled -= instance.OnPlayer1DropDown;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -287,7 +368,6 @@ namespace BubbleBobble
             void OnPlayer1Move(InputAction.CallbackContext context);
             void OnPlayer1Jump(InputAction.CallbackContext context);
             void OnPlayer1Shoot(InputAction.CallbackContext context);
-            void OnPlayer1DropDown(InputAction.CallbackContext context);
         }
     }
 }
