@@ -8,5 +8,11 @@ namespace BubbleBobble
         {
             get { return BubbleType.Bomb; }
         }
+        public override void PopBubble()
+        {
+            // Explosion animation/sprite flash
+            _gameManager.BubblePopped(Type);
+            Destroy(gameObject);
+        }
     }
 }
