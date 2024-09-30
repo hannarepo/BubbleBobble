@@ -2,14 +2,8 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-    public abstract class Bubble : MonoBehaviour, IBubble
+    public abstract partial class Bubble : MonoBehaviour, IBubble
     {
-        public enum BubbleType
-        {
-            Fire,
-            Bomb,
-            Projectile
-        }
         private bool _canPop = false;
         protected GameManager _gameManager;
         protected abstract BubbleType Type
@@ -28,7 +22,7 @@ namespace BubbleBobble
 
         private void Update()
         {
-            if (CanPop())
+            if (_canPop)
             {
                 PopBubble();
             }
@@ -42,7 +36,7 @@ namespace BubbleBobble
                 _gameManager.HasPopped = true;
             }
 
-            if (collision.gameObject.CompareTag("Player") && CanPop())
+            if (collision.gameObject.CompareTag("Player") && _canPop)
             {
                 PopBubble();
             }
@@ -54,8 +48,9 @@ namespace BubbleBobble
             Destroy(gameObject);
         }
 
-        public virtual bool CanPop()
+        public virtual bool CanPop(bool canPop)
         {
+            _canPop = canPop;
             return _canPop;
         }
         
