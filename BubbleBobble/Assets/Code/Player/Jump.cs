@@ -77,7 +77,7 @@ namespace BubbleBobble
 
             // If collider hit with CircleCast is a bubble and player is holding down jump button,
             // do a bubble jump with less jump forve due to bubble having bounciness
-            if (hit.collider.CompareTag("Bubble"))
+            if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
             {
                 if (_inputReader.JumpOnBubble)
                 {
