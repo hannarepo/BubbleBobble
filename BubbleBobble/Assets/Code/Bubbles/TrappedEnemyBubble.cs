@@ -21,6 +21,13 @@ namespace BubbleBobble
             CanPop(true);
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            _enemy.SetActive(false);
+
+        }
+
         protected override BubbleType Type
         {
             get { return BubbleType.TrappedEnemy; }
@@ -36,6 +43,18 @@ namespace BubbleBobble
                 print("times up");
                 _enemy.SetActive(true);
                 _enemy.transform.position = _transform.position;
+                Destroy(gameObject);
+            }
+        }
+
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            base.OnCollisionEnter2D(collision);
+
+            if (collision.gameObject.CompareTag("Player"))
+            {
+                PopBubble();
+                Destroy(_enemy);
             }
         }
     }
