@@ -22,11 +22,11 @@ namespace BubbleBobble
             {
                 if (lookingRight)
                 {
-                    Instantiate(_bubble, new Vector3(transform.position.x -0.6f, transform.position.y, 0), Quaternion.identity);
+                    Instantiate(_bubble, new Vector3(transform.position.x -0.8f, transform.position.y, 0), Quaternion.identity);
                 }
                 else
                 {
-                    Instantiate(_bubble, new Vector3(transform.position.x +0.6f, transform.position.y, 0), Quaternion.identity);
+                    Instantiate(_bubble, new Vector3(transform.position.x +0.8f, transform.position.y, 0), Quaternion.identity);
                 }
                 
                 _projectileBubble.LaunchDirection = direction;

@@ -20,14 +20,6 @@ namespace BubbleBobble
             _gameManager = FindObjectOfType<GameManager>();
         }
 
-        /* private void Update()
-        {
-            if (_canPop)
-            {
-                PopBubble();
-            }
-        } */
-
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
             print("collided with bubble");
@@ -43,16 +35,24 @@ namespace BubbleBobble
             }
         }
 
+        protected virtual void OnTriggerEnter2D(Collider2D collider)
+        {
+            if (collider.CompareTag("PlayerFeet"))
+            {
+                CanPop(false);
+            }
+        }
+
         public virtual void PopBubble()
         {
             _gameManager.BubblePopped(Type);
             Destroy(gameObject);
         }
 
-        public virtual bool CanPop(bool canPop)
+        public virtual void CanPop(bool canPop)
         {
             _canPop = canPop;
-            return _canPop;
+            print(_canPop);
         }
         
     }
