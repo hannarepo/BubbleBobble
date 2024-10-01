@@ -1,9 +1,12 @@
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace BubbleBobble
 {
     public class GameManager : MonoBehaviour
     {
+        // [SerializeField] private LayerMask _enemyLayer;
         [SerializeField] private float _fireBubblesPopped = 0;
         private BubbleSpawner _bubbleSpawner;
         [SerializeField] private int _maxProjectiles = 10;
@@ -70,12 +73,7 @@ namespace BubbleBobble
         private void DestroyEnemies()
         {
             // Destroy all enemies on screen
+            // List<GameObject> enemyList = new List<GameObject>();
         }
     }
 }
-
-
-// BubbleBobble notes: Enemies trapped in bubbles will float up through the roof and
-// teleport to the bottom in the same X position.
-// Special bubble spawns vary per level. Spawning from the roof and floating downward or
-// spawning from the bottom and floating upward.

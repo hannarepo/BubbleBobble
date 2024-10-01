@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6558023756650887758}
   - component: {fileID: 3239763949274791018}
-  - component: {fileID: 4124248723714967138}
   - component: {fileID: -7553758864087421375}
+  - component: {fileID: 6155238283761177043}
   m_Layer: 0
   m_Name: BombBubble
   m_TagString: Untagged
@@ -86,20 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4124248723714967138
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2412479027599052718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2152bdb5346ca4478d2f3bba3a20872, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _canPop: 1
-  _type: Bomb
 --- !u!58 &-7553758864087421375
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135,3 +121,15 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.49999997
+--- !u!114 &6155238283761177043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2412479027599052718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3ecdd71dcfbb9b4b9c96f5944a46dfd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

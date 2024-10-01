@@ -12,22 +12,20 @@ namespace BubbleBobble
         [SerializeField] private float _spawnRate = 5f;
         private float _timeToSpawn = 0f;
 
-
-
         #region Unity Functions
         private void Update()
         {
             _timeToSpawn += Time.deltaTime;
             if (_timeToSpawn >= _spawnRate)
             {
-                SpawnBubble();
+                SpawnSpecialBubble();
             }
         }
 
         #endregion
 
         #region Spawners
-        private void SpawnBubble()
+        private void SpawnSpecialBubble()
         {
             // To be reworked
             SpawnFireBubble();
@@ -38,29 +36,31 @@ namespace BubbleBobble
             GameObject bomb = Resources.Load("Prefabs/Bubbles/Special/BombBubble") as GameObject;
             Instantiate(bomb, gameObject.transform.position, Quaternion.identity);
         }
+
+        // Spawns a fire bubble prefab and changes it's gravity
+        // so it floats up or down
+        // depending on the spawn location boolean.
         private void SpawnFireBubble()
         {
             GameObject fireBubble = Resources.Load("Prefabs/Bubbles/Special/FireBubble") as GameObject;
-            Rigidbody2D rb = fireBubble.GetComponent<Rigidbody2D>();
-            if (!_spawnFromTop)
-            {
-                if (rb.gravityScale < 0)
-                {
-                    rb.gravityScale *= -1;
-                }
-                Debug.Log("Spawning fire bubble");
-                Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
-            }
-            else
-            {
-                if (rb.gravityScale > 0)
-                {
-                    rb.gravityScale *= -1;
-                }
-                Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
-            }
+            FloatDirection(fireBubble);
+            Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
         }
 
         #endregion
+
+        private GameObject FloatDirection(GameObject bubble)
+        {
+            Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
+            if (_spawnFromTop && rb.gravityScale < 0)
+            {
+                rb.gravityScale *= -1;
+            }
+            else if (!_spawnFromTop && rb.gravityScale > 0)
+            {
+                rb.gravityScale *= -1;
+            }
+            return bubble;
+        }
     }
 }
