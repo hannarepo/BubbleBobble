@@ -1,3 +1,10 @@
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
+/// 
+/// <summary>
+/// Used to spawn special bubbles.
+/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
@@ -37,7 +44,7 @@ namespace BubbleBobble
             Instantiate(bomb, gameObject.transform.position, Quaternion.identity);
         }
 
-        // Spawns a fire bubble prefab and changes it's gravity
+        // Spawns a fire bubble prefab and changes its' gravity
         // so it floats up or down
         // depending on the spawn location boolean.
         private void SpawnFireBubble()
