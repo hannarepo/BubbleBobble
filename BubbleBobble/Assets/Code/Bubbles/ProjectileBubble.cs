@@ -9,7 +9,6 @@
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -39,7 +38,8 @@ namespace BubbleBobble
         protected override void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _originalPosition = transform.position;            
+            _originalPosition = transform.position;
+            CanPop(true);     
         }
 
         protected override void Start()
@@ -92,11 +92,39 @@ namespace BubbleBobble
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {
+            base.OnCollisionEnter2D(collision);
+
             if (collision.gameObject.CompareTag("Wall"))
             {
                 _speed = 0;
                 _rb.gravityScale = _floatingGravityScale;
             }
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                GameObject enemy = collision.gameObject;
+                GameObject trappedEnemy = Resources.Load("Prefabs/Bubbles/TrappedEnemyBubble") as GameObject;
+                trappedEnemy.GetComponent<TrappedEnemyBubble>().Enemy = enemy;
+                enemy.SetActive(false);
+                print(enemy);
+
+                Instantiate(trappedEnemy, transform.position, Quaternion.identity);
+                Destroy(gameObject);
+            }         
         }
+
+        // protected override void OnTriggerEnter2D(Collider2D other)
+        // {
+        //     print("trigger");
+        //     if (other.CompareTag("PlayerFeet"))
+        //     {
+        //         print("playerfeet");
+        //         CanPop(false);
+        //     }
+        //     else
+        //     {
+        //         CanPop(true);
+        //     }
+        // }
     }
 }
