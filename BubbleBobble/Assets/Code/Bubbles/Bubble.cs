@@ -51,7 +51,6 @@ namespace BubbleBobble
         public virtual void CanPop(bool canPop)
         {
             _canPop = canPop;
-            print(_canPop);
         }
         
     }
