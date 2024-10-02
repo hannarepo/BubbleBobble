@@ -5,6 +5,7 @@ namespace BubbleBobble
     public class EnemyTestScript : MonoBehaviour
     {
         private GameManager _gameManager;
+        public bool _kill = false;
 
         // Find the Game Manager and add this enemy object to the list of enemies
         void Start()
@@ -16,13 +17,16 @@ namespace BubbleBobble
         // Add enemy death events here
         public void Die()
         {
+            _gameManager.RemoveEnemyFromList(gameObject);
             Destroy(gameObject);
         }
 
-        // Remove enemyobject from the gamemanager list when destroyed.
-        private void OnDestroy()
+        void Update()
         {
-            _gameManager._enemyList.Remove(gameObject);
+            if(_kill)
+            {
+                Die();
+            }
         }
     }
 }

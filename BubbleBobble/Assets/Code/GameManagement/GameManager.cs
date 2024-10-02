@@ -5,6 +5,7 @@
 /// <summary>
 /// Keeps track of most things that happen in-game
 /// </summary>
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,6 +13,7 @@ namespace BubbleBobble
 {
     public class GameManager : MonoBehaviour
     {
+        private LevelChanger _levelChanger;
         [SerializeField] private float _fireBubblesPopped = 0;
         private BubbleSpawner _bubbleSpawner;
         [SerializeField] private int _maxProjectiles = 10;
@@ -30,6 +32,7 @@ namespace BubbleBobble
         #region Unity Functions
         private void Start()
         {
+            _levelChanger = GetComponent<LevelChanger>();
             _bubbleSpawner = FindObjectOfType<BubbleSpawner>();
             _projectileShot = FindObjectOfType<ShootBubble>();
         }
@@ -59,7 +62,7 @@ namespace BubbleBobble
             {
                 case Bubble.BubbleType.Fire:
                     _fireBubblesPopped++;
-                    CheckCounters();
+                    CheckCounters("Fire");
                     break;
                 case Bubble.BubbleType.Bomb:
                     DestroyEnemies();
@@ -69,13 +72,27 @@ namespace BubbleBobble
             _hasPopped = true;
         }
 
-        #region Counters
-        private void CheckCounters()
+        private void NextLevel()
         {
-            if (_fireBubblesPopped == 3)
+            _levelChanger.LoadLevel();
+        }
+
+        #region Counters
+        private void CheckCounters(string name)
+        {
+            switch (name)
             {
-                _bubbleSpawner.SpawnBomb();
-                _fireBubblesPopped = 0;
+                case "Fire":
+                    if (_fireBubblesPopped == 3)
+                    {
+                    _bubbleSpawner.SpawnBomb();
+                    _fireBubblesPopped = 0;
+                    }
+                    break; 
+                case "Enemy":
+                    print("Invoking level change");
+                    Invoke("NextLevel", 4);
+                    break;
             }
         }
 
@@ -93,14 +110,24 @@ namespace BubbleBobble
             for (int i = _enemyList.Count - 1; i >= 0; i--)
             {
                 _enemyList[0].GetComponent<EnemyTestScript>().Die();
-                _enemyList.RemoveAt(0);
             }
         }
 
         // Adds an enemy object to a list
         public void AddEnemyToList(GameObject enemyObject)
         {
+            print("Enemies in list: " + _enemyList.Count);
             _enemyList.Add(enemyObject);
+        }
+
+        public void RemoveEnemyFromList(GameObject enemyObject)
+        {
+            _enemyList.Remove(enemyObject);
+            print(_enemyList.Count);
+            if (_enemyList.Count == 0)
+                {
+                    CheckCounters("Enemy");
+                }
         }
         #endregion
     }
