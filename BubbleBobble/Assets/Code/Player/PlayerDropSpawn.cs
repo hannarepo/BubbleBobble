@@ -19,8 +19,8 @@ namespace BubbleBobble
 
         private void Awake()
         {
-            // Fiind all spawn points in level with tag and put them in an array
-            _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("PlayerSpawnPoint");
+            // Find all spawn points in level with tag and put them in an array
+            _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("TopSpawnPoint");
             _transform = GetComponent<Transform>();
         }
 

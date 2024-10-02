@@ -19,6 +19,7 @@ namespace BubbleBobble
         private Collider2D _playerCollider;
         private Collider2D _groundCollider;
         [SerializeField] private float _jumpForce = 5f;
+        [SerializeField] private float _bubbleJumpForce = 1f;
         [SerializeField] private LayerMask _jumpCheckLayers;
         [SerializeField] private LayerMask _dropDownLayer;
         [SerializeField] private float _circleCastRadius = 0.5f;
@@ -73,6 +74,16 @@ namespace BubbleBobble
                     PlayerJump();
                 }
             }
+
+            // If collider hit with CircleCast is a bubble and player is holding down jump button,
+            // do a bubble jump with less jump forve due to bubble having bounciness
+            if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
+            {
+                if (_inputReader.JumpOnBubble)
+                {
+                    BubbleJump();
+                }
+            }
         }
 
         private void PlayerJump()
@@ -84,6 +95,11 @@ namespace BubbleBobble
         {
             Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
             _timer = 0;
+        }
+
+        private void BubbleJump()
+        {
+            _rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
         }
 
         private void OnDrawGizmos()
