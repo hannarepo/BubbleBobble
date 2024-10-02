@@ -26,6 +26,7 @@ namespace BubbleBobble
         [SerializeField] private float _circleCastDistance = 0.5f;
         [SerializeField] private Transform _groundCheckTarget;
         private float _timer = 0;
+        private PlatformEffector2D _platformEffector;
 
         private void Awake()
         {
@@ -53,13 +54,18 @@ namespace BubbleBobble
             // and player is pressing down and jump, drop through the platform
             if (_groundCollider.CompareTag("DropDownPlatform"))
             {
+                _platformEffector = hit.collider.gameObject.GetComponent<PlatformEffector2D>();
+
                 if (_inputReader.Movement.y < 0 && _inputReader.Jump)
                 {
+                    print("should drop down");
+                    _platformEffector.rotationalOffset = 180;
                     DropDown();
                 }
-                else if (_timer > 0.3f)
+                else if (_timer > 1f)
                 {
-                    Physics2D.IgnoreCollision(_playerCollider, _groundCollider, false);
+                    //Physics2D.IgnoreCollision(_playerCollider, _groundCollider, false);
+                    _platformEffector.rotationalOffset = 0;
                 }
             }
 
@@ -93,8 +99,11 @@ namespace BubbleBobble
 
         private void DropDown()
         {
-            Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
-            _timer = 0;
+            // print("drop down");
+            // Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
+            // _timer = 0;
+
+            _platformEffector.rotationalOffset = 180;
         }
 
         private void BubbleJump()
