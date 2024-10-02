@@ -1,63 +1,93 @@
 using System.Collections;
 using System.Collections.Generic;
+using BubbleBobble;
+using Unity.VisualScripting;
 using UnityEngine;
-
-public class EnemyMovement : MonoBehaviour
+namespace BubbleBobble
 {
-    public GameObject pointA;
-    public GameObject pointB;
-    private Rigidbody2D rb;
-    private Transform currentPoint;
-    public float speed;
-    private bool isGrounded;
-    // Start is called before the first frame update
-    void Start()
+    public class EnemyMovement : MonoBehaviour
     {
-        rb = GetComponent<Rigidbody2D>();
-        currentPoint = pointB.transform;
-    }
+        public GameObject _pointA;
+        public GameObject _pointB;
+        private Rigidbody2D _rb;
+        private Transform _currentPoint;
+        [SerializeField] private float _speed;
+        [SerializeField] private float _jumpForce = 5f;
+        private bool _isGrounded;
+        private static Vector2 _enemyPosition;
+        // Start is called before the first frame update
+        void Start()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+            _currentPoint = _pointB.transform;
+            _isGrounded = true;
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        Vector2 point = currentPoint.position - transform.position;
-        if (currentPoint == pointB.transform)
+        // Update is called once per frame
+        void Update()
         {
-            rb.velocity = new Vector2(speed, 0);
-        }
-        else
-        {
-            rb.velocity = new Vector2(-speed, 0);
-        }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointB.transform)
-        {
-            flip();
-            currentPoint = pointA.transform;
-        }
-        if (Vector2.Distance(transform.position, currentPoint.position) < 0.5f && currentPoint == pointA.transform)
-        {
-            flip();
-            currentPoint = pointB.transform;
-        }
-    }
+            Vector2 point = _currentPoint.position - transform.position;
+            if (_currentPoint == _pointB.transform)
+            {
+                _rb.velocity = new Vector2(_speed, 0);
+            }
+            else
+            {
+                _rb.velocity = new Vector2(-_speed, 0);
+            }
+            if (Vector2.Distance(transform.position, _currentPoint.position) < 0.5f && _currentPoint == _pointB.transform)
+            {
+                flip();
+                _currentPoint = _pointA.transform;
+            }
+            if (Vector2.Distance(transform.position, _currentPoint.position) < 0.5f && _currentPoint == _pointA.transform)
+            {
+                flip();
+                _currentPoint = _pointB.transform;
+            }
 
+        
+            _enemyPosition = transform.position;
 
-    //Flips the enemy
-    private void flip()
-    {
-        Vector3 localScale = transform.localScale;
-        localScale.x = -1;
-        transform.localScale = localScale;
-    }
+            if (PlayerPosition.playerPosition.y > _enemyPosition.y && _isGrounded == true)
+            {           
+                Jump();
+            }
+        }
+
+        void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.gameObject.CompareTag("Ground"))
+            {
+                _isGrounded = false;
+            }
+        }
+
+        private void Jump()
+        {
+            _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+        }
+
+       
+
+        //Flips the enemy
+        private void flip()
+        {
+            Vector3 localScale = transform.localScale;
+            localScale.x = -1;
+            transform.localScale = localScale;
+        }
 
     
     
-    //Draws spheres and lines in the scene view to visualize the path and the turning points
-    private void OnDrawGizmos()
-    {
-        Gizmos.DrawWireSphere(pointA.transform.position, 0.5f);
-        Gizmos.DrawWireSphere(pointB.transform.position, 0.5f);
-        Gizmos.DrawLine(pointA.transform.position, pointB.transform.position);
+        //Draws spheres and lines in the scene view to visualize the path and the turning points
+        private void OnDrawGizmos()
+        {
+            Gizmos.DrawWireSphere(_pointA.transform.position, 0.5f);
+            Gizmos.DrawWireSphere(_pointB.transform.position, 0.5f);
+            Gizmos.DrawLine(_pointA.transform.position, _pointB.transform.position);
+        }
     }
 }
+
 
