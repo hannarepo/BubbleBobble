@@ -22,7 +22,6 @@ namespace BubbleBobble
 
         protected virtual void OnCollisionEnter2D(Collision2D collision)
         {
-            print("collided with bubble");
             if (collision.gameObject.CompareTag("Bubble") && _gameManager.HasPopped)
             {
                 PopBubble();
