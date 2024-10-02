@@ -1162,18 +1162,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1734995062032256410, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Mass
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1734995062032256410, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Material
-      value: 
-      objectReference: {fileID: 6200000, guid: e68cc48957819194ca592b18fcc8098a, type: 2}
-    - target: {fileID: 2468433531726562314, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: 12357c36697fac842b05c8b4f993e5f6, type: 2}
     - target: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.1654024
@@ -1217,70 +1205,6 @@ PrefabInstance:
     - target: {fileID: 4398036962778295810, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: m_Name
       value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536968231860357183, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536968231860357183, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536968231860357183, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536968231860357183, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.025
-      objectReference: {fileID: 0}
-    - target: {fileID: 4536968231860357183, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -0.313
-      objectReference: {fileID: 0}
-    - target: {fileID: 5249333326575547431, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Radius
-      value: 0.46237743
-      objectReference: {fileID: 0}
-    - target: {fileID: 5249333326575547431, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.04000002
-      objectReference: {fileID: 0}
-    - target: {fileID: 5249333326575547431, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Offset.y
-      value: 0.011127353
-      objectReference: {fileID: 0}
-    - target: {fileID: 6451602585216522067, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: -1575656711, guid: ac3f51e26690eb646a74f8b3cb6cef2e, type: 3}
-    - target: {fileID: 6451602585216522067, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: _jumpForce
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: _bubbleJumpForce
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: _circleCastRadius
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: _jumpCheckLayers.m_Bits
-      value: 1472
-      objectReference: {fileID: 0}
-    - target: {fileID: 8195212590064195094, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: _projectileSpawnPos
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 9032662658068158579, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-      propertyPath: m_Name
-      value: GroundCheckTarget
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2308,7 +2232,7 @@ GameObject:
   - component: {fileID: 2062628547}
   - component: {fileID: 2062628546}
   m_Layer: 8
-  m_Name: DropDwonPlatforms
+  m_Name: DropDownPlatforms
   m_TagString: DropDownPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2340,7 +2264,7 @@ PlatformEffector2D:
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 1416
   m_RotationalOffset: 0
   m_UseOneWay: 1
   m_UseOneWayGrouping: 0
