@@ -5,8 +5,10 @@ namespace BubbleBobble
     public class TrappedEnemyBubble : Bubble
     {
         private Transform _transform;
+        private Rigidbody2D _rb;
         private float _timer;
         [SerializeField] private float _timeLimit = 10f;
+        [SerializeField] private float _floatingGravityScale = -0.5f;
         private GameObject _enemy;
 
         public GameObject Enemy
@@ -19,6 +21,8 @@ namespace BubbleBobble
         {
             _transform = transform;
             CanPop(true);
+            _rb = GetComponent<Rigidbody2D>();
+            _rb.gravityScale = _floatingGravityScale;
         }
 
         protected override void Start()
@@ -40,7 +44,6 @@ namespace BubbleBobble
 
             if (_timer >= _timeLimit)
             {
-                print("times up");
                 _enemy.SetActive(true);
                 _enemy.transform.position = _transform.position;
                 Destroy(gameObject);
