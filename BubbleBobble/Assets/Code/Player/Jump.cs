@@ -58,15 +58,16 @@ namespace BubbleBobble
 
                 if (_inputReader.Movement.y < 0 && _inputReader.Jump)
                 {
-                    print("should drop down");
-                    _platformEffector.rotationalOffset = 180;
                     DropDown();
                 }
-                else if (_timer > 1f)
+                else if (_timer > 0.4f)
                 {
-                    //Physics2D.IgnoreCollision(_playerCollider, _groundCollider, false);
                     _platformEffector.rotationalOffset = 0;
                 }
+            }
+            else if (_platformEffector != null)
+            {
+                _platformEffector.rotationalOffset = 0;
             }
 
             // If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
@@ -99,10 +100,7 @@ namespace BubbleBobble
 
         private void DropDown()
         {
-            // print("drop down");
-            // Physics2D.IgnoreCollision(_playerCollider, _groundCollider, true);
-            // _timer = 0;
-
+            _timer = 0;
             _platformEffector.rotationalOffset = 180;
         }
 
