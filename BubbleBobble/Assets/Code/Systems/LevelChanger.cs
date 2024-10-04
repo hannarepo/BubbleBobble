@@ -1,7 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Unity.VisualScripting;
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
+/// 
+/// <summary>
+/// Used to change the level.
+/// Loads the prefab of the next level below the current level
+/// and moves the current and next level up together until
+/// the next level is in place and then destroys the previous level.
+/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble

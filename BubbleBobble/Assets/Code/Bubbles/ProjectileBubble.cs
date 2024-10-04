@@ -23,6 +23,7 @@ namespace BubbleBobble
         private float _targetX;
         private Vector2 _direction;
         private bool _shootRight;
+        [SerializeField] GameObject _trappedEnemyPrefab;
 
         public Vector2 LaunchDirection
         {
@@ -103,28 +104,17 @@ namespace BubbleBobble
             if (collision.gameObject.CompareTag("Enemy"))
             {
                 GameObject enemy = collision.gameObject;
-                GameObject trappedEnemy = Resources.Load("Prefabs/Bubbles/TrappedEnemyBubble") as GameObject;
-                trappedEnemy.GetComponent<TrappedEnemyBubble>().Enemy = enemy;
-                enemy.SetActive(false);
-                print(enemy);
+                GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
 
-                Instantiate(trappedEnemy, transform.position, Quaternion.identity);
+                TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
+
+                if (trappedEnemyBubble != null)
+                {
+                    trappedEnemyBubble.Enemy = enemy;
+                }
+
                 Destroy(gameObject);
-            }         
+            }
         }
-
-        // protected override void OnTriggerEnter2D(Collider2D other)
-        // {
-        //     print("trigger");
-        //     if (other.CompareTag("PlayerFeet"))
-        //     {
-        //         print("playerfeet");
-        //         CanPop(false);
-        //     }
-        //     else
-        //     {
-        //         CanPop(true);
-        //     }
-        // }
     }
 }
