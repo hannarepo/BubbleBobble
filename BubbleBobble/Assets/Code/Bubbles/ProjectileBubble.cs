@@ -9,7 +9,6 @@
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -24,6 +23,7 @@ namespace BubbleBobble
         private float _targetX;
         private Vector2 _direction;
         private bool _shootRight;
+        [SerializeField] GameObject _trappedEnemyPrefab;
 
         public Vector2 LaunchDirection
         {
@@ -39,7 +39,8 @@ namespace BubbleBobble
         protected override void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
-            _originalPosition = transform.position;            
+            _originalPosition = transform.position;
+            CanPop(true);     
         }
 
         protected override void Start()
@@ -92,10 +93,27 @@ namespace BubbleBobble
 
         protected override void OnCollisionEnter2D(Collision2D collision)
         {
+            base.OnCollisionEnter2D(collision);
+
             if (collision.gameObject.CompareTag("Wall"))
             {
                 _speed = 0;
                 _rb.gravityScale = _floatingGravityScale;
+            }
+
+            if (collision.gameObject.CompareTag("Enemy"))
+            {
+                GameObject enemy = collision.gameObject;
+                GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
+
+                TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
+
+                if (trappedEnemyBubble != null)
+                {
+                    trappedEnemyBubble.Enemy = enemy;
+                }
+
+                Destroy(gameObject);
             }
         }
     }

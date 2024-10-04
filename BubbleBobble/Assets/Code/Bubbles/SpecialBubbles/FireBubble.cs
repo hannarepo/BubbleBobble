@@ -8,5 +8,10 @@ namespace BubbleBobble
         {
             get { return BubbleType.Fire; }
         }
+
+        protected override void Awake()
+        {
+            CanPop(true);
+        }
     }
 }
