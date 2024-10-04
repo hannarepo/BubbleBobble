@@ -11,6 +11,7 @@ namespace BubbleBobble
 {
     public class BubbleSpawner : MonoBehaviour
     {
+        private int _fireBubblesSpawned = 0;
         [SerializeField] private bool _spawnFromTop = false;
         public bool SpawnFromTop 
         {
@@ -34,8 +35,13 @@ namespace BubbleBobble
         #region Spawners
         private void SpawnSpecialBubble()
         {
+            if (_fireBubblesSpawned > 5)
+            {
+                return;
+            } 
             // To be reworked
             SpawnFireBubble();
+            _fireBubblesSpawned++;
             _timeToSpawn = 0f;
         }
         public void SpawnBomb()
