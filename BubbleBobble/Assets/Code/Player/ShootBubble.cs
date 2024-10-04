@@ -7,6 +7,7 @@ namespace BubbleBobble
     {
         private GameObject _bubble;
         [SerializeField] private ProjectileBubble _projectileBubble;
+        [SerializeField] private float _spawnOffset = 0.9f;
         private int _projectileCount;
 
         public int ProjectileCount => _projectileCount;
@@ -22,11 +23,11 @@ namespace BubbleBobble
             {
                 if (lookingRight)
                 {
-                    Instantiate(_bubble, new Vector3(transform.position.x -0.6f, transform.position.y, 0), Quaternion.identity);
+                    Instantiate(_bubble, new Vector3(transform.position.x - _spawnOffset, transform.position.y, 0), Quaternion.identity);
                 }
                 else
                 {
-                    Instantiate(_bubble, new Vector3(transform.position.x +0.6f, transform.position.y, 0), Quaternion.identity);
+                    Instantiate(_bubble, new Vector3(transform.position.x + _spawnOffset, transform.position.y, 0), Quaternion.identity);
                 }
                 
                 _projectileBubble.LaunchDirection = direction;

@@ -1,6 +1,13 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
+/// 
+/// <summary>
+/// Used to change the level.
+/// Loads the prefab of the next level below the current level
+/// and moves the current and next level up together until
+/// the next level is in place and then destroys the previous level.
+/// </summary>
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -14,6 +21,8 @@ namespace BubbleBobble
         [SerializeField] private GameObject _currentLevel;
         [SerializeField] private GameObject _newLevelSpawnPoint;
         [SerializeField] private float _speed = 1.0f;
+        [SerializeField] private GameObject _player;
+        [SerializeField] private Transform _playerReturnPoint;
 
         void Update()
         {
@@ -22,11 +31,13 @@ namespace BubbleBobble
             {
                 _newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
                 _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, 11f, 0f), _speed * Time.deltaTime);
+                _player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
                 if (_newLevel.transform.position == new Vector3(0f, 0f, 0f))
                 {
                     Destroy(_currentLevel);
                     _currentLevel = _newLevel;
                     _isLevelLoaded = false;
+                    UnRestrainPlayer();
                 }
             }
         }
@@ -38,6 +49,21 @@ namespace BubbleBobble
             GameObject _levelPrefab = Resources.Load<GameObject>("Prefabs/Levels/Level" + _levelIndex);
             _newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.transform.position, Quaternion.identity);
             _isLevelLoaded = true;
+            RestrainPlayer();
+        }
+
+        private void RestrainPlayer()
+        {
+            _player.GetComponent<Rigidbody2D>().isKinematic = true;
+            _player.GetComponent<Collider2D>().enabled = false;
+            _player.GetComponent<InputReader>().enabled = false;
+        }
+
+        private void UnRestrainPlayer()
+        {
+            _player.GetComponent<Rigidbody2D>().isKinematic = false;
+            _player.GetComponent<Collider2D>().enabled = true;
+            _player.GetComponent<InputReader>().enabled = true;
         }
     }
 }
