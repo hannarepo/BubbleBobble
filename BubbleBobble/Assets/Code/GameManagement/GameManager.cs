@@ -21,13 +21,6 @@ namespace BubbleBobble
         // Serialized for debugging
         public List<GameObject> _enemyList = new List<GameObject>();
         private ProjectileBubble _projectile;
-        private bool _hasPopped = false;
-
-        public bool HasPopped
-        {
-            get { return  _hasPopped; }
-            set { _hasPopped = value; }
-        }
 
         #region Unity Functions
         private void Start()
@@ -68,8 +61,6 @@ namespace BubbleBobble
                     DestroyEnemies();
                     break;
             }
-
-            _hasPopped = true;
         }
 
         private void NextLevel()
