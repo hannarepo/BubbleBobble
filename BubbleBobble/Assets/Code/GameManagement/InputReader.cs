@@ -1,5 +1,5 @@
 /// <remarks>
-/// auhtor: Hanna Repo
+/// author: Hanna Repo
 /// </remarks>
 /// 
 /// <summary>
