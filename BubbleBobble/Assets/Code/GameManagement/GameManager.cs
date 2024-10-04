@@ -77,7 +77,6 @@ namespace BubbleBobble
                     if (_fireBubblesPopped == 3)
                     {
                     _bubbleSpawner.SpawnBomb();
-                    _fireBubblesPopped = 0;
                     }
                     break; 
                 case "Enemy":
