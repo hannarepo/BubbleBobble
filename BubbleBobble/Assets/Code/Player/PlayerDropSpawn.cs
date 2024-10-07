@@ -20,14 +20,16 @@ namespace BubbleBobble
         private void Awake()
         {
             // Find all spawn points in level with tag and put them in an array
-            _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("TopSpawnPoint");
+            
             _transform = GetComponent<Transform>();
         }
 
-        private void OnTriggerEnter2D(Collider2D collider)
+        private void Update()
         {
-            if (collider.gameObject.CompareTag("DropTrigger"))
+            if (_transform.position.y < -5)
             {
+                _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("TopSpawnPoint");
+
                 // If there are more than one spawn points in the level, choose a random one
                 // Otherwise, use the only spawn point in the level
                 if (_spawnPointsInLevel.Length > 1)
