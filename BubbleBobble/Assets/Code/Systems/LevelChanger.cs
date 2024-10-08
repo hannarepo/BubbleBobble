@@ -8,26 +8,27 @@
 /// and moves the current and next level up together until
 /// the next level is in place and then destroys the previous level.
 /// </summary>
-using Unity.VisualScripting;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
     public class LevelChanger : MonoBehaviour
     {
-        private float _levelIndex = 1;
-        private bool _isLevelLoaded = false;
+        private int _levelIndex = 0;
+        private bool _isLevelLoaded = true;
         private GameObject _newLevel;
         [SerializeField] private GameObject _currentLevel;
         [SerializeField] private GameObject _newLevelSpawnPoint;
         [SerializeField] private float _speed = 1.0f;
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _playerReturnPoint;
+        [SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
 
         void Update()
         {
             // If the new level is loaded, move the current and the new level up until the new level is centered
-            if (_isLevelLoaded)
+            if (!_isLevelLoaded && _levelIndex != _levelPrefabs.Count -1)
             {
                 _newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
                 _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, 11f, 0f), _speed * Time.deltaTime);
@@ -36,8 +37,8 @@ namespace BubbleBobble
                 {
                     Destroy(_currentLevel);
                     _currentLevel = _newLevel;
-                    _isLevelLoaded = false;
                     UnRestrainPlayer();
+                    _isLevelLoaded = true;
                 }
             }
         }
@@ -45,11 +46,11 @@ namespace BubbleBobble
         // Load the prefab of the next level and instantiate it at the spawn point
         public void LoadLevel()
         {
-            _levelIndex++;
-            GameObject _levelPrefab = Resources.Load<GameObject>("Prefabs/Levels/Level" + _levelIndex);
+            GameObject _levelPrefab = _levelPrefabs[_levelIndex];
             _newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.transform.position, Quaternion.identity);
-            _isLevelLoaded = true;
             RestrainPlayer();
+            _isLevelLoaded = false;
+            _levelIndex++;
         }
 
         private void RestrainPlayer()
