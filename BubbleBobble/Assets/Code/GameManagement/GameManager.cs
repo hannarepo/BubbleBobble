@@ -21,7 +21,7 @@ namespace BubbleBobble
         // Serialized for debugging
         public List<GameObject> _enemyList = new List<GameObject>();
         private ProjectileBubble _projectile;
-        [SerializeField] private float _levelChangeDelay = 0f;
+        [SerializeField] private float _levelChangeDelay = 2f;
 
         #region Unity Functions
         private void Start()
@@ -81,7 +81,7 @@ namespace BubbleBobble
                     }
                     break; 
                 case "Enemy":
-                    print("Invoking level change");
+                    // print("Invoking level change");
                     Invoke("NextLevel", _levelChangeDelay);
                     break;
             }
@@ -114,7 +114,7 @@ namespace BubbleBobble
         public void RemoveEnemyFromList(GameObject enemyObject)
         {
             _enemyList.Remove(enemyObject);
-            print(_enemyList.Count);
+            // print(_enemyList.Count);
             if (_enemyList.Count == 0)
                 {
                     CheckCounters("Enemy");
