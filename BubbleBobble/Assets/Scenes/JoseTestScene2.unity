@@ -1194,9 +1194,9 @@ GameObject:
   - component: {fileID: 343705784}
   - component: {fileID: 343705786}
   - component: {fileID: 343705785}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DropDownCollider
-  m_TagString: DropDownPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3280,6 +3280,18 @@ PrefabInstance:
       propertyPath: _jumpForce
       value: 14
       objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _dropDownLayer.m_Bits
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _jumpCheckLayers.m_Bits
+      value: 9408
+      objectReference: {fileID: 0}
+    - target: {fileID: 9032662658068158579, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4253600419853033756, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
     m_RemovedGameObjects: []
@@ -3402,9 +3414,9 @@ GameObject:
   - component: {fileID: 1186268112}
   - component: {fileID: 1186268114}
   - component: {fileID: 1186268113}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DropDownPlatforms
-  m_TagString: DropDownPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3562,6 +3574,63 @@ Transform:
   m_Children: []
   m_Father: {fileID: 100960770}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &1279707292
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6837634895228288178, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_Name
+      value: BombBubbleV
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2.980655
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.643151
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
 --- !u!1001 &1289465259
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3835,9 +3904,9 @@ GameObject:
   - component: {fileID: 1425180826}
   - component: {fileID: 1425180828}
   - component: {fileID: 1425180827}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DropDownCollider (1)
-  m_TagString: DropDownPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3937,9 +4006,9 @@ GameObject:
   - component: {fileID: 1508486977}
   - component: {fileID: 1508486979}
   - component: {fileID: 1508486978}
-  m_Layer: 8
+  m_Layer: 7
   m_Name: DropDownCollider (2)
-  m_TagString: DropDownPlatform
+  m_TagString: Platform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5233,3 +5302,4 @@ SceneRoots:
   - {fileID: 861440220}
   - {fileID: 2137020040}
   - {fileID: 218732047}
+  - {fileID: 1279707292}
