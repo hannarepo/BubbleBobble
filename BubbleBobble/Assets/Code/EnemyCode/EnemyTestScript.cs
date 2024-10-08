@@ -18,7 +18,6 @@ namespace BubbleBobble
         public void Die()
         {
             _gameManager.RemoveEnemyFromList(gameObject);
-            Destroy(gameObject);
         }
 
         void Update()
