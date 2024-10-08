@@ -107,7 +107,7 @@ namespace BubbleBobble
         // Adds an enemy object to a list
         public void AddEnemyToList(GameObject enemyObject)
         {
-            print("Enemies in list: " + _enemyList.Count);
+            //print("Enemies in list: " + _enemyList.Count);
             _enemyList.Add(enemyObject);
         }
 
