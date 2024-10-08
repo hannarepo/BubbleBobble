@@ -24,14 +24,20 @@ namespace BubbleBobble
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _playerReturnPoint;
         [SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
+        private float _currentLevelMovePosY = 0f;
+
+        private void Start()
+        {
+            _currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.transform.position.y);
+        }
 
         void Update()
         {
             // If the new level is loaded, move the current and the new level up until the new level is centered
-            if (!_isLevelLoaded && _levelIndex != _levelPrefabs.Count -1)
+            if (!_isLevelLoaded && _levelIndex != _levelPrefabs.Count)
             {
                 _newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
-                _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, 11f, 0f), _speed * Time.deltaTime);
+                _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, _currentLevelMovePosY, 0f), _speed * Time.deltaTime);
                 _player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
                 if (_newLevel.transform.position == new Vector3(0f, 0f, 0f))
                 {
@@ -58,6 +64,8 @@ namespace BubbleBobble
             _player.GetComponent<Rigidbody2D>().isKinematic = true;
             _player.GetComponent<Collider2D>().enabled = false;
             _player.GetComponent<InputReader>().enabled = false;
+            _player.GetComponent<PlayerMover>().enabled = false;
+            _player.GetComponent<PlayerControl>().enabled = false;
         }
 
         private void UnRestrainPlayer()
@@ -65,6 +73,8 @@ namespace BubbleBobble
             _player.GetComponent<Rigidbody2D>().isKinematic = false;
             _player.GetComponent<Collider2D>().enabled = true;
             _player.GetComponent<InputReader>().enabled = true;
+            _player.GetComponent<PlayerMover>().enabled = true;
+            _player.GetComponent<PlayerControl>().enabled = true;
         }
     }
 }
