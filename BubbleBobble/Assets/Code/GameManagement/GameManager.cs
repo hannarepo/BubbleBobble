@@ -21,7 +21,7 @@ namespace BubbleBobble
         // Serialized for debugging
         public List<GameObject> _enemyList = new List<GameObject>();
         private ProjectileBubble _projectile;
-        [SerializeField] private float _levelChangeDelay = 0f;
+        [SerializeField] private float _levelChangeDelay = 2f;
 
         #region Unity Functions
         private void Start()

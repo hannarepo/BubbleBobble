@@ -1107,6 +1107,14 @@ PrefabInstance:
       propertyPath: _dropDownLayer.m_Bits
       value: 128
       objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _jumpCheckLayers.m_Bits
+      value: 9408
+      objectReference: {fileID: 0}
+    - target: {fileID: 8195212590064195094, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _projectileBubble
+      value: 
+      objectReference: {fileID: -8792089088421141749, guid: dd14cbac5e50ffe4daf02975ce8f26fa, type: 3}
     m_RemovedComponents:
     - {fileID: 4253600419853033756, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
     m_RemovedGameObjects: []
@@ -1153,7 +1161,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.010319471, y: -0.025798678}
+  m_Offset: {x: -0.010319471, y: -0.006334543}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -1164,7 +1172,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.9484029, y: 0.94840264}
+  m_Size: {x: 0.9484029, y: 0.9094744}
   m_EdgeRadius: 0
 --- !u!1 &1342961097
 GameObject:
@@ -1474,9 +1482,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentLevel: {fileID: 100960769}
   _newLevelSpawnPoint: {fileID: 987786895}
-  _speed: 3
+  _speed: 2
   _player: {fileID: 1333773070}
   _playerReturnPoint: {fileID: 1923604258}
+  _levelPrefabs:
+  - {fileID: 2713228957434252496, guid: c03b4c620804b774b9dc1fcec037d66e, type: 3}
 --- !u!114 &1825230046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1492,6 +1502,7 @@ MonoBehaviour:
   _fireBubblesPopped: 0
   _maxProjectiles: 10
   _enemyList: []
+  _levelChangeDelay: 0
 --- !u!4 &1825230047
 Transform:
   m_ObjectHideFlags: 0
@@ -1532,7 +1543,7 @@ Transform:
   m_GameObject: {fileID: 1923604257}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.5, y: -3.5, z: 0}
+  m_LocalPosition: {x: -4.88, y: -4.03, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1606,6 +1617,14 @@ PrefabInstance:
       propertyPath: m_ColliderMask.m_Bits
       value: 7935
       objectReference: {fileID: 0}
+    - target: {fileID: 6027397162972077698, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: _bombBubblePrefab
+      value: 
+      objectReference: {fileID: 6837634895228288178, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+    - target: {fileID: 6027397162972077698, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: _fireBubblePrefab
+      value: 
+      objectReference: {fileID: 4402626030762059499, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
     - target: {fileID: 8159492536229110193, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_ColliderMask.m_Bits
       value: 7935
