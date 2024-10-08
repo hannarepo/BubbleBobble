@@ -27,6 +27,7 @@ namespace BubbleBobble
         [SerializeField] private Transform _groundCheckTarget;
         private float _timer = 0;
         private PlatformEffector2D _platformEffector;
+        private bool _canDropDown;
 
         private void Awake()
         {
@@ -52,29 +53,26 @@ namespace BubbleBobble
 
             // If the collider hit with CircleCast is DropDownPlatform 
             // and player is pressing down and jump, drop through the platform
-            if (_groundCollider.CompareTag("DropDownPlatform"))
-            {
-                _platformEffector = hit.collider.gameObject.GetComponent<PlatformEffector2D>();
+            // if (_groundCollider.CompareTag("DropDownPlatform"))
+            // {
+            //     _platformEffector = hit.collider.gameObject.GetComponent<PlatformEffector2D>();
 
-                if (_inputReader.Movement.y < 0 && _inputReader.Jump)
+            if (_platformEffector != null)
+            {
+                if (_inputReader.Movement.y < 0 && _inputReader.Jump && _canDropDown)
                 {
-                    DropDown();
+                    _platformEffector.rotationalOffset = 180;
                 }
-                else if (_timer > 0.4f)
+                else if (!_canDropDown)
                 {
                     _platformEffector.rotationalOffset = 0;
                 }
-            }
-            else if (_platformEffector != null)
-            {
-                _platformEffector.rotationalOffset = 0;
             }
 
             // If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
             //  and player is not pressing down, player can jump
             if (hit.collider.CompareTag("Ground") ||
-                hit.collider.CompareTag("Platform") ||
-                hit.collider.CompareTag("DropDownPlatform"))
+                hit.collider.CompareTag("Platform"))
             {
                 if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
                 {
@@ -107,6 +105,32 @@ namespace BubbleBobble
         private void BubbleJump()
         {
             _rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
+        }
+
+        private void OnCollisionEnter2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Platform"))
+            {
+                _platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
+            }
+
+            if (_platformEffector != null)
+            {
+                _canDropDown = true;
+            }
+        }
+
+        private void OnCollisionExit2D(Collision2D other)
+        {
+            if (other.gameObject.CompareTag("Platform"))
+            {
+                _platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
+            }
+
+            if (_platformEffector != null)
+            {
+                _canDropDown = false;
+            }
         }
 
         private void OnDrawGizmos()
