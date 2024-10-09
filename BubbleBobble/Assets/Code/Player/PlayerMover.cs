@@ -26,7 +26,7 @@ namespace BubbleBobble
         {
             Vector2 velocity = _rb.velocity;
             velocity.x = movement.x * _speed;
-            _rb.velocity = velocity;
+            _rb.velocity = velocity;   
         }
     }
 }

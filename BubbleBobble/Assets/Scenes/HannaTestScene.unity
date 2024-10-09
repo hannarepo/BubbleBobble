@@ -1286,6 +1286,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4398036962778295810, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1333773082}
+    - targetCorrespondingSourceObject: {fileID: 4398036962778295810, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1333773083}
   m_SourcePrefab: {fileID: 100100000, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
 --- !u!1 &1333773070 stripped
 GameObject:
@@ -1354,6 +1357,18 @@ MonoBehaviour:
   _gameOverText: {fileID: 587296743}
   _invincibilityTime: 1
   _flashRate: 0.1
+--- !u!114 &1333773083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1333773070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8125a683b741bac45ab60a97941b1493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1342961097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1754,6 +1769,14 @@ PrefabInstance:
       propertyPath: m_ColliderMask.m_Bits
       value: 7935
       objectReference: {fileID: 0}
+    - target: {fileID: 4001000309773058877, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_Size.x
+      value: 6.5081124
+      objectReference: {fileID: 0}
+    - target: {fileID: 4001000309773058877, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.22538304
+      objectReference: {fileID: 0}
     - target: {fileID: 5236705795139877546, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1806,6 +1829,10 @@ PrefabInstance:
       propertyPath: _fireBubblePrefab
       value: 
       objectReference: {fileID: 4402626030762059499, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
+    - target: {fileID: 7378571200290221693, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8159492536229110193, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_ColliderMask.m_Bits
       value: 7935
