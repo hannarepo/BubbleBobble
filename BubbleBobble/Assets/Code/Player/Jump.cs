@@ -7,141 +7,150 @@
 /// Checks if the player is on the ground and if the player presses the jump button
 /// </summary>
 
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class Jump : MonoBehaviour
-    {
-        private InputReader _inputReader;
-        private Rigidbody2D _rb;
-        private Collider2D _playerCollider;
-        private Collider2D _groundCollider;
-        [SerializeField] private float _jumpForce = 5f;
-        [SerializeField] private float _bubbleJumpForce = 1f;
-        [SerializeField] private LayerMask _jumpCheckLayers;
-        [SerializeField] private LayerMask _dropDownLayer;
-        [SerializeField] private float _circleCastRadius = 0.5f;
-        [SerializeField] private float _circleCastDistance = 0.5f;
-        [SerializeField] private Transform _groundCheckTarget;
-        private float _timer = 0;
-        private PlatformEffector2D _platformEffector;
-        private bool _canDropDown;
+	public class Jump : MonoBehaviour
+	{
+		private InputReader _inputReader;
+		private Rigidbody2D _rb;
+		[SerializeField] private float _jumpForce = 5f;
+		[SerializeField] private float _defaultGravityScale;
+		[SerializeField] private float _jumpGravityScale;
+		[SerializeField] private float _dropDownGravityScale;
+		[SerializeField] private float _bubbleJumpForce = 1f;
+		[SerializeField] private LayerMask _jumpCheckLayers;
+		[SerializeField] private LayerMask _dropDownLayer;
+		[SerializeField] private Vector2 _boxCastSize;
+		[SerializeField] private float _boxCastDistance = 0.3f;
+		[SerializeField] private Transform _groundCheckTarget;
+		private PlatformEffector2D _platformEffector;
+		private bool _canDropDown;
 
-        private void Awake()
-        {
-            _inputReader = GetComponent<InputReader>();
-            _rb = GetComponent<Rigidbody2D>();
-            _playerCollider = GetComponent<Collider2D>();
-        }
+		private void Awake()
+		{
+			_inputReader = GetComponent<InputReader>();
+			_rb = GetComponent<Rigidbody2D>();
+			_rb.gravityScale = _defaultGravityScale;
+		}
 
-        private void Update()
-        {
-            _timer += Time.deltaTime;
+		private void Update()
+		{
+			// Do a BoxCast and save the resulting collider into a variable for ground check
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0,
+												new Vector2(_groundCheckTarget.position.x, _groundCheckTarget.position.y - 0.4f),
+												_boxCastDistance, _jumpCheckLayers);
 
-            // Do a CircleCast and save the resulting collider into a variable for ground check
-            RaycastHit2D hit = Physics2D.CircleCast(_groundCheckTarget.position, _circleCastRadius, Vector2.down,
-                                                    _circleCastDistance, _jumpCheckLayers);
+			if (hit.collider == null)
+			{
+				return;
+			}
 
-            _groundCollider = hit.collider;
+			if (_rb.velocity.y < 0)
+			{
+				_rb.gravityScale = _dropDownGravityScale;
+			}
+			else if (_rb.velocity.y > 0)
+			{
+				_rb.gravityScale = _jumpGravityScale;
+				print(_rb.velocity.y);
+			}
+			else
+			{
+				_rb.gravityScale = _defaultGravityScale;
+			}
 
-            if (hit.collider == null)
-            {
-                return;
-            }
+			// If platform effector is not null and player is pressing down and jump,
+			// turn the platform effector 180 degrees so that player can pass down through the platform
+			if (_platformEffector != null)
+			{
+				if (_inputReader.Movement.y < 0 && _inputReader.Jump && _canDropDown)
+				{
+					_platformEffector.rotationalOffset = 180;
+					_rb.gravityScale = 4;
+				}
+				else if (!_canDropDown)
+				{
+					_platformEffector.rotationalOffset = 0;
+					_rb.gravityScale = _defaultGravityScale;
+				}
+			}
 
-            // If the collider hit with CircleCast is DropDownPlatform 
-            // and player is pressing down and jump, drop through the platform
-            // if (_groundCollider.CompareTag("DropDownPlatform"))
-            // {
-            //     _platformEffector = hit.collider.gameObject.GetComponent<PlatformEffector2D>();
+			// If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
+			//  and player is not pressing down, player can jump
+			if (hit.collider.CompareTag("Ground") ||
+				hit.collider.CompareTag("Platform"))
+			{
+				if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
+				{
+					GroundJump();
+				}
+			}
 
-            if (_platformEffector != null)
-            {
-                if (_inputReader.Movement.y < 0 && _inputReader.Jump && _canDropDown)
-                {
-                    _platformEffector.rotationalOffset = 180;
-                }
-                else if (!_canDropDown)
-                {
-                    _platformEffector.rotationalOffset = 0;
-                }
-            }
+			// If collider hit with CircleCast is a bubble and player is holding down jump button,
+			// do a bubble jump with less jump force due to bubble having bounciness
+			if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
+			{
+				Bubble bubble = hit.collider.GetComponent<Bubble>();
+				if (_inputReader.JumpOnBubble)
+				{
+					bubble.CanPop(false);
+					BubbleJump();
+				}
+				else
+				{
+					bubble.CanPop(true);
+				}
+			}
+		}
 
-            // If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
-            //  and player is not pressing down, player can jump
-            if (hit.collider.CompareTag("Ground") ||
-                hit.collider.CompareTag("Platform"))
-            {
-                if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
-                {
-                    PlayerJump();
-                }
-            }
+		private void GroundJump()
+		{
+			_rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
+		}
 
-            // If collider hit with CircleCast is a bubble and player is holding down jump button,
-            // do a bubble jump with less jump forve due to bubble having bounciness
-            if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
-            {
-                if (_inputReader.JumpOnBubble)
-                {
-                    BubbleJump();
-                }
-            }
-        }
+		private void BubbleJump()
+		{
+			//_rb.gravityScale = _jumpGravityScale;
+			_rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
+		}
 
-        private void PlayerJump()
-        {
-            _rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
-        }
+		private void OnCollisionEnter2D(Collision2D other)
+		{
+			if (other.gameObject.CompareTag("Platform"))
+			{
+				_platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
+			}
 
-        private void DropDown()
-        {
-            _timer = 0;
-            _platformEffector.rotationalOffset = 180;
-        }
+			if (_platformEffector != null)
+			{
+				_canDropDown = true;
+			}
+		}
 
-        private void BubbleJump()
-        {
-            _rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
-        }
+		private void OnCollisionExit2D(Collision2D other)
+		{
+			if (other.gameObject.CompareTag("Platform"))
+			{
+				_platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
+			}
 
-        private void OnCollisionEnter2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Platform"))
-            {
-                _platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
-            }
+			if (_platformEffector != null)
+			{
+				_canDropDown = false;
+			}
+		}
 
-            if (_platformEffector != null)
-            {
-                _canDropDown = true;
-            }
-        }
+		private void OnDrawGizmos()
+		{
+			Gizmos.color = Color.yellow;
+			if (_groundCheckTarget == null)
+			{
+				return;
+			}
 
-        private void OnCollisionExit2D(Collision2D other)
-        {
-            if (other.gameObject.CompareTag("Platform"))
-            {
-                _platformEffector = other.gameObject.GetComponent<PlatformEffector2D>();
-            }
-
-            if (_platformEffector != null)
-            {
-                _canDropDown = false;
-            }
-        }
-
-        private void OnDrawGizmos()
-        {
-            Gizmos.color = Color.yellow;
-            if (_groundCheckTarget == null)
-            {
-                return;
-            }
-    
-            Gizmos.DrawWireSphere(_groundCheckTarget.position + new Vector3(0, _circleCastDistance, 0), _circleCastRadius);
-        }
-    }
+			Gizmos.DrawWireCube(_groundCheckTarget.position - new Vector3(0, _boxCastDistance, 0), _boxCastSize);
+		}
+	}
 }
