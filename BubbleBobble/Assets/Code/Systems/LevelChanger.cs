@@ -61,19 +61,17 @@ namespace BubbleBobble
 
         private void RestrainPlayer()
         {
-            _player.GetComponent<Rigidbody2D>().isKinematic = true;
+            _player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
             _player.GetComponent<Collider2D>().enabled = false;
             _player.GetComponent<InputReader>().enabled = false;
-            _player.GetComponent<PlayerMover>().enabled = false;
             _player.GetComponent<PlayerControl>().enabled = false;
         }
 
         private void UnRestrainPlayer()
         {
-            _player.GetComponent<Rigidbody2D>().isKinematic = false;
+            _player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
             _player.GetComponent<Collider2D>().enabled = true;
             _player.GetComponent<InputReader>().enabled = true;
-            _player.GetComponent<PlayerMover>().enabled = true;
             _player.GetComponent<PlayerControl>().enabled = true;
         }
     }
