@@ -61,7 +61,6 @@ namespace BubbleBobble
 			{
 				_currentLives--;
 				Invoke("Respawn", 1f);
-				print("current lives: " + _currentLives);
 
 				if (_currentLives > 0)
 				{
