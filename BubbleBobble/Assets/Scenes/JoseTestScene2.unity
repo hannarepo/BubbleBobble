@@ -2939,8 +2939,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireBubblesPopped: 0
   _maxProjectiles: 10
-  _enemyList: []
   _levelChangeDelay: 2
+  _enemyList: []
 --- !u!4 &994129428
 Transform:
   m_ObjectHideFlags: 0
@@ -3281,6 +3281,18 @@ PrefabInstance:
       value: 14
       objectReference: {fileID: 0}
     - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _boxCastSize.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _boxCastSize.y
+      value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _boxCastDistance
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 6944072107254937807, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _dropDownLayer.m_Bits
       value: 0
       objectReference: {fileID: 0}
@@ -3290,10 +3302,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9032662658068158579, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4253600419853033756, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+    - {fileID: 7629759777410486662, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -3585,6 +3598,10 @@ PrefabInstance:
     - target: {fileID: 6837634895228288178, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
       propertyPath: m_Name
       value: BombBubbleV
+      objectReference: {fileID: 0}
+    - target: {fileID: 6837634895228288178, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7146809909848376598, guid: 1f5e3dc0d613e434ea557b7d6dc7ccab, type: 3}
       propertyPath: m_LocalPosition.x
