@@ -7,6 +7,7 @@
 /// </summary>
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -104,6 +105,13 @@ namespace BubbleBobble
             for (int i = _enemyList.Count - 1; i >= 0; i--)
             {
                 _enemyList[0].GetComponent<EnemyTestScript>().Die();
+            }
+
+            TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
+
+            for (int i=0; i < trappedEnemies.Length; i++)
+            {
+                Destroy(trappedEnemies[i].gameObject);
             }
         }
 

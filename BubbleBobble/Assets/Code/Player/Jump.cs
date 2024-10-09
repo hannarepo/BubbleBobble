@@ -16,9 +16,9 @@ namespace BubbleBobble
 		private InputReader _inputReader;
 		private Rigidbody2D _rb;
 		[SerializeField] private float _jumpForce = 5f;
-		[SerializeField] private float _defaultGravityScale;
-		[SerializeField] private float _jumpGravityScale;
-		[SerializeField] private float _dropDownGravityScale;
+		[SerializeField] private float _defaultGravityScale = 3f;
+		[SerializeField] private float _jumpGravityScale = 2f;
+		[SerializeField] private float _dropDownGravityScale = 4f;
 		[SerializeField] private float _bubbleJumpForce = 1f;
 		[SerializeField] private LayerMask _jumpCheckLayers;
 		[SerializeField] private LayerMask _dropDownLayer;
@@ -54,7 +54,6 @@ namespace BubbleBobble
 			else if (_rb.velocity.y > 0)
 			{
 				_rb.gravityScale = _jumpGravityScale;
-				print(_rb.velocity.y);
 			}
 			else
 			{
