@@ -46,6 +46,7 @@ namespace BubbleBobble
             {
                 _enemy.SetActive(true);
                 _enemy.transform.position = _transform.position;
+				_enemy.GetComponent<EnemyInvincibility>().FreeEnemy();
                 Destroy(gameObject);
             }
         }
