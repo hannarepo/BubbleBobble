@@ -1,5 +1,5 @@
 /// <remarks>
-/// author: Jose Mäntylä
+/// author: Jose Mäntylä, Hanna Repo
 /// </remarks>
 /// 
 /// <summary>
@@ -18,10 +18,10 @@ namespace BubbleBobble
         private BubbleSpawner _bubbleSpawner;
         [SerializeField] private int _maxProjectiles = 10;
         private ShootBubble _projectileShot;
-        // Serialized for debugging
-        public List<GameObject> _enemyList = new List<GameObject>();
         private ProjectileBubble _projectile;
         [SerializeField] private float _levelChangeDelay = 2f;
+        // List is serialized for debugging
+        [SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 
         #region Unity Functions
         private void Start()
@@ -111,7 +111,7 @@ namespace BubbleBobble
         public void AddEnemyToList(GameObject enemyObject)
         {
             _enemyList.Add(enemyObject);
-            print("Enemies in list: " + _enemyList.Count);
+            // print("Enemies in list: " + _enemyList.Count);
         }
 
         public void RemoveEnemyFromList(GameObject enemyObject)
