@@ -11,6 +11,7 @@ namespace BubbleBobble
         private ShootBubble _shootBubble;
         private SpriteRenderer _spriteRenderer;
         private bool _lookRight;
+        private PlayerAnimationController _playerAnimator;
 
         public bool LookingRight => _lookRight;
         
@@ -21,12 +22,22 @@ namespace BubbleBobble
             _playerMover = GetComponent<PlayerMover>();
             _shootBubble = GetComponent<ShootBubble>();
             _spriteRenderer = GetComponent<SpriteRenderer>();
+            _playerAnimator = GetComponent<PlayerAnimationController>();
         }
 
         private void Update()
         {
             Vector2 movement = _inputReader.Movement;
             _playerMover.Move(movement);
+
+            if (movement.x < 0 || movement.x > 0)
+            {
+                _playerAnimator.IsMoving = true;
+            }
+            else
+            {
+                _playerAnimator.IsMoving = false;
+            }
 
             LookRight(movement);
             bool shoot = _inputReader.ShootBubble;

@@ -20,10 +20,14 @@ namespace BubbleBobble
         [SerializeField] private float _range;
         [SerializeField] private float _speed;
         [SerializeField] private float _floatingGravityScale;
+        [SerializeField] private float _launchForce = 5f;
+        [SerializeField] private float _trapWindow = 3f;
         private float _targetX;
         private Vector2 _direction;
         private bool _shootRight;
         [SerializeField] GameObject _trappedEnemyPrefab;
+        [SerializeField] private float _lifeTime = 10f;
+        private float _timer = 0;
 
         public Vector2 LaunchDirection
         {
@@ -63,6 +67,8 @@ namespace BubbleBobble
 
         private void Update()
         {
+            _timer += Time.deltaTime;
+
             // If player is facing right, move bubble right on x-axis.
             // If player is facing left, move bubble left on x-axis.
             // When bubble reaches target x position, set gravity scale to negative
@@ -71,7 +77,7 @@ namespace BubbleBobble
             {
                 if (transform.position.x >= _targetX)
                 {
-                    transform.position += new Vector3(_direction.x - 1, _direction.y, 0) * _speed * Time.deltaTime;
+                    _rb.AddForce(transform.right*-1 * _launchForce, ForceMode2D.Impulse);
                 }
                 else
                 {
@@ -82,12 +88,27 @@ namespace BubbleBobble
             {
                 if (transform.position.x <= _targetX)
                 {
-                    transform.position += new Vector3(_direction.x + 1, _direction.y, 0) * _speed * Time.deltaTime;
+                    _rb.AddForce(transform.right * _launchForce, ForceMode2D.Impulse);
                 }
                 else
                 {
                     _rb.gravityScale = _floatingGravityScale;
                 }
+            }
+
+            if (_timer >= _lifeTime)
+            {
+                Destroy(gameObject);
+            }
+
+            if (_timer >= _trapWindow)
+            {
+                Physics2D.IgnoreLayerCollision(12, 13, true);
+                transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            }
+            else
+            {
+                Physics2D.IgnoreLayerCollision(12, 13, false);
             }
         }
 
@@ -101,19 +122,22 @@ namespace BubbleBobble
                 _rb.gravityScale = _floatingGravityScale;
             }
 
-            if (collision.gameObject.CompareTag("Enemy"))
+            if (collision.gameObject.CompareTag("Enemy") && _timer < _trapWindow)
             {
-                GameObject enemy = collision.gameObject;
-                GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
-
-                TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
-
-                if (trappedEnemyBubble != null)
+                if (!collision.gameObject.GetComponent<EnemyInvincibility>().IsInvincible)
                 {
-                    trappedEnemyBubble.Enemy = enemy;
-                }
+                    GameObject enemy = collision.gameObject;
+                    GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
 
-                Destroy(gameObject);
+                    TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
+
+                    if (trappedEnemyBubble != null)
+                    {
+                        trappedEnemyBubble.Enemy = enemy;
+                    }
+
+                    Destroy(gameObject);
+                }
             }
         }
     }
