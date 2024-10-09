@@ -1,5 +1,5 @@
 /// <remarks>
-/// author: Jose Mäntylä
+/// author: Jose Mäntylä, Hanna Repo
 /// </remarks>
 /// 
 /// <summary>
@@ -111,7 +111,7 @@ namespace BubbleBobble
         public void AddEnemyToList(GameObject enemyObject)
         {
             _enemyList.Add(enemyObject);
-            print("Enemies in list: " + _enemyList.Count);
+            // print("Enemies in list: " + _enemyList.Count);
         }
 
         public void RemoveEnemyFromList(GameObject enemyObject)
