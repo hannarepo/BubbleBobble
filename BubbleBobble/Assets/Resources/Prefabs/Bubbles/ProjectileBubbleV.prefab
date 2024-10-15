@@ -20,6 +20,18 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2062637850632044735, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062637850632044735, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      propertyPath: m_GravityScale
+      value: -0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2062637850632044735, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5373977086672838139, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.5
@@ -109,10 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78f0f084302ab8d469934ca7eb70ae47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _range: 5
-  _speed: 2
   _floatingGravityScale: -0.5
-  _launchForce: 1
-  _trapWindow: 3
+  _launchForce: 9
+  _trapWindow: 1
   _trappedEnemyPrefab: {fileID: 137609360599401121, guid: d82409b2ad435624eb4a20d8efa1376f, type: 3}
   _lifeTime: 10
