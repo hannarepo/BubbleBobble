@@ -8,6 +8,7 @@ namespace BubbleBobble
     {
         private Animator _animator;
         private PlayerControl _playerControl;
+        private Jump _jump;
         private bool _isWalking;
 
         public bool IsMoving
@@ -20,6 +21,7 @@ namespace BubbleBobble
         {
             _animator = GetComponent<Animator>();
             _playerControl = GetComponent<PlayerControl>();
+            _jump = GetComponent<Jump>();
         }
 
         void Update()
@@ -34,6 +36,20 @@ namespace BubbleBobble
             {
                 _animator.SetBool("IsWalking", false);
             }
+
+            if (_jump.Jumping)
+            {
+                _animator.SetTrigger("Jumped");
+            }
+            else if (_jump.Falling)
+            {
+                _animator.SetTrigger("Falling");
+            }
+            else if (_jump.Grounded)
+            {
+                _animator.SetTrigger("Grounded");
+            }
+
         }
     }
 }

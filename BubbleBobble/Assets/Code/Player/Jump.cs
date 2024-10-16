@@ -21,12 +21,19 @@ namespace BubbleBobble
 		[SerializeField] private float _dropDownGravityScale = 4f;
 		[SerializeField] private float _bubbleJumpForce = 1f;
 		[SerializeField] private LayerMask _jumpCheckLayers;
-		[SerializeField] private LayerMask _dropDownLayer;
 		[SerializeField] private Vector2 _boxCastSize;
 		[SerializeField] private float _boxCastDistance = 0.3f;
 		[SerializeField] private Transform _groundCheckTarget;
 		private PlatformEffector2D _platformEffector;
 		private bool _canDropDown;
+		private bool _jumping = false;
+		private bool _grounded = false;
+		private bool _falling = false;
+		private int _bubbleJumpCounter = 0;
+
+		public bool Jumping => _jumping;
+		public bool Grounded => _grounded;
+		public bool Falling => _falling;
 
 		private void Awake()
 		{
@@ -50,15 +57,25 @@ namespace BubbleBobble
 			if (_rb.velocity.y < 0)
 			{
 				_rb.gravityScale = _dropDownGravityScale;
+				_jumping = false;
+				_falling = true;
+				_grounded = false;
 			}
 			else if (_rb.velocity.y > 0)
 			{
 				_rb.gravityScale = _jumpGravityScale;
+				_grounded = false;
+				_jumping = true;
+				_falling = false;
 			}
 			else
 			{
 				_rb.gravityScale = _defaultGravityScale;
+				_jumping = false;
+				_falling = false;
 			}
+
+			print($"velocity.y: {_rb.velocity.y}");
 
 			// If platform effector is not null and player is pressing down and jump,
 			// turn the platform effector 180 degrees so that player can pass down through the platform
@@ -67,7 +84,8 @@ namespace BubbleBobble
 				if (_inputReader.Movement.y < 0 && _inputReader.Jump && _canDropDown)
 				{
 					_platformEffector.rotationalOffset = 180;
-					_rb.gravityScale = 4;
+					_rb.gravityScale = _dropDownGravityScale;
+					_falling = true;
 				}
 				else if (!_canDropDown)
 				{
@@ -76,31 +94,41 @@ namespace BubbleBobble
 				}
 			}
 
-			// If the collider hit with CircleCast is either Ground, Platform or DropDownPlatform
+			// If the collider hit with CircleCast is Ground or Platform
 			//  and player is not pressing down, player can jump
 			if (hit.collider.CompareTag("Ground") ||
 				hit.collider.CompareTag("Platform"))
 			{
+				_grounded = true;
+
 				if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
 				{
 					GroundJump();
 				}
 			}
 
-			// If collider hit with CircleCast is a bubble and player is holding down jump button,
-			// do a bubble jump with less jump force due to bubble having bounciness
+			// If collider hit with CircleCast is a bubble and player is holding down jump button.
+			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
+			// Do a bubble jump with less jump force due to bubble having bounciness.
 			if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
-				if (_inputReader.JumpOnBubble)
+				if (bubble != null)
 				{
-					bubble.CanPop(false);
-					BubbleJump();
+					if (_inputReader.JumpOnBubble && _bubbleJumpCounter < 2)
+					{
+						bubble.CanPop(false);
+						BubbleJump();
+					}
+					else
+					{
+						bubble.CanPop(true);
+					}
 				}
-				else
-				{
-					bubble.CanPop(true);
-				}
+			}
+			else
+			{
+				_bubbleJumpCounter = 0;
 			}
 		}
 
@@ -111,8 +139,8 @@ namespace BubbleBobble
 
 		private void BubbleJump()
 		{
-			//_rb.gravityScale = _jumpGravityScale;
 			_rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
+			_bubbleJumpCounter++;
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)
