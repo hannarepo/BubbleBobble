@@ -4,8 +4,8 @@
 ///
 /// <summary>
 /// After instantiating projectile bubble, check in which direction bubble
-/// should be moving. Move bubble in correct direction for range distance 
-/// after which set gravity scale to negative so that bubble floats up.
+/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
+/// After force is applied, set gravity scale to negative so that bubble floats up.
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
@@ -20,8 +20,6 @@ namespace BubbleBobble
 		[SerializeField] private float _floatingGravityScale;
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private float _trapWindow = 3f;
-		//[SerializeField] private PlayerControl _playerControl;
-		private bool _shootRight;
 		[SerializeField] GameObject _trappedEnemyPrefab;
 		[SerializeField] private float _lifeTime = 10f;
 		private float _timer = 0;
@@ -40,9 +38,6 @@ namespace BubbleBobble
 		{
 			_rb = GetComponent<Rigidbody2D>();
 			base.Start();
-
-			// Check which way player is facing from PlayerControl
-			//_shootRight = FindObjectOfType<PlayerControl>().LookingRight;
 		}
 
 		private void Update()
@@ -72,8 +67,8 @@ namespace BubbleBobble
 		{
 			_rb = GetComponent<Rigidbody2D>();
 
-			// If player is facing right, bubble get force applied to right from transform.
-			// If player is facing left, bubble get force applied to left from transform.
+			// If player is facing right, bubble gets force applied to right from transform.
+			// If player is facing left, bubble gets force applied to left from transform.
 			if (shootRight)
 			{
 				_rb.AddForce(transform.right * _launchForce, ForceMode2D.Impulse);
@@ -88,11 +83,14 @@ namespace BubbleBobble
 		{
 			base.OnCollisionEnter2D(collision);
 
+			// If projectile bubble hits wall, set gravity scale to floating gravity scale.
 			if (collision.gameObject.CompareTag("Wall"))
 			{
 				_rb.gravityScale = _floatingGravityScale;
 			}
 
+			// If projectile bubble hits enemy within given time window, trap the enemy.
+			// If enemy is not invincible, instantiate trapped enemy bubble and destroy projectile bubble.
 			if (collision.gameObject.CompareTag("Enemy") && _timer < _trapWindow)
 			{
 				if (!collision.gameObject.GetComponent<EnemyInvincibility>().IsInvincible)

@@ -40,14 +40,17 @@ namespace BubbleBobble
             if (_jump.Jumping)
             {
                 _animator.SetTrigger("Jumped");
+                //print("jumping");
             }
             else if (_jump.Falling)
             {
                 _animator.SetTrigger("Falling");
+                //print("falling");
             }
             else if (_jump.Grounded)
             {
                 _animator.SetTrigger("Grounded");
+                //print("grounded");
             }
 
         }

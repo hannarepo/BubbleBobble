@@ -4,7 +4,9 @@
 ///
 /// <summary>
 /// Player jump script
-/// Checks if the player is on the ground and if the player presses the jump button
+/// Checks if the player is on the ground or a platform and if the player presses the jump button.
+/// If player is on a platform, player can drop down through the platform.
+/// Player can jump on bubbles to bounce higher, but only once per bubble.
 /// </summary>
 
 using UnityEngine;
@@ -17,9 +19,9 @@ namespace BubbleBobble
 		private Rigidbody2D _rb;
 		[SerializeField] private float _jumpForce = 5f;
 		[SerializeField] private float _defaultGravityScale = 3f;
-		[SerializeField] private float _jumpGravityScale = 2f;
+		[SerializeField] private float _jumpGravityScale = 1.5f;
 		[SerializeField] private float _dropDownGravityScale = 4f;
-		[SerializeField] private float _bubbleJumpForce = 1f;
+		[SerializeField] private float _bubbleJumpForce = 8f;
 		[SerializeField] private LayerMask _jumpCheckLayers;
 		[SerializeField] private Vector2 _boxCastSize;
 		[SerializeField] private float _boxCastDistance = 0.3f;
@@ -31,6 +33,7 @@ namespace BubbleBobble
 		private bool _falling = false;
 		private int _bubbleJumpCounter = 0;
 
+		// Properties for animation controller to check if player is jumping, grounded or falling.
 		public bool Jumping => _jumping;
 		public bool Grounded => _grounded;
 		public bool Falling => _falling;
@@ -54,6 +57,9 @@ namespace BubbleBobble
 				return;
 			}
 
+			// print(hit.collider);
+
+			// If player is moving down (falling), change gravity scale higher so player drops faster.
 			if (_rb.velocity.y < 0)
 			{
 				_rb.gravityScale = _dropDownGravityScale;
@@ -61,6 +67,7 @@ namespace BubbleBobble
 				_falling = true;
 				_grounded = false;
 			}
+			// If player is moving up (jumping), change gravity scale lower so player jumps faster.
 			else if (_rb.velocity.y > 0)
 			{
 				_rb.gravityScale = _jumpGravityScale;
@@ -68,6 +75,7 @@ namespace BubbleBobble
 				_jumping = true;
 				_falling = false;
 			}
+			// If player is not moving up or down, set gravity scale to default.
 			else
 			{
 				_rb.gravityScale = _defaultGravityScale;
@@ -75,10 +83,8 @@ namespace BubbleBobble
 				_falling = false;
 			}
 
-			print($"velocity.y: {_rb.velocity.y}");
-
 			// If platform effector is not null and player is pressing down and jump,
-			// turn the platform effector 180 degrees so that player can pass down through the platform
+			// turn the platform effector 180 degrees so that player can pass down through the platform.
 			if (_platformEffector != null)
 			{
 				if (_inputReader.Movement.y < 0 && _inputReader.Jump && _canDropDown)
@@ -94,8 +100,8 @@ namespace BubbleBobble
 				}
 			}
 
-			// If the collider hit with CircleCast is Ground or Platform
-			//  and player is not pressing down, player can jump
+			// If the collider hit with BoxCast is Ground or Platform
+			//  and player is not pressing down, player can jump.
 			if (hit.collider.CompareTag("Ground") ||
 				hit.collider.CompareTag("Platform"))
 			{
@@ -107,7 +113,7 @@ namespace BubbleBobble
 				}
 			}
 
-			// If collider hit with CircleCast is a bubble and player is holding down jump button.
+			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
 			// Do a bubble jump with less jump force due to bubble having bounciness.
 			if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
@@ -143,6 +149,8 @@ namespace BubbleBobble
 			_bubbleJumpCounter++;
 		}
 
+		// Only set platform effector if player is on top of the platform to avoid null reference exceptions.
+		// If the platform effector is not null, player can drop down through the platform.
 		private void OnCollisionEnter2D(Collision2D other)
 		{
 			if (other.gameObject.CompareTag("Platform"))

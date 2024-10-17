@@ -1,3 +1,10 @@
+/// <remarks>
+/// author: Jose Mäntylä, Hanna Repo
+/// </remarks>
+/// 
+/// <summary>
+/// Abstract base class for the bubbles in the game.
+/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
@@ -42,6 +49,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
+		/// Play pop effect and destroy the bubble after the effect has finished.
+		/// </summary>
 		public virtual void PopBubble()
 		{
 			_spriteRenderer.enabled = false;
@@ -52,9 +63,9 @@ namespace BubbleBobble
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = effect.main.duration + 0.2f;
+				delay = effect.main.duration + 0.1f;
 				effect.Play(withChildren: true);
-				Destroy(effect, delay);
+				Destroy(effect.gameObject, delay);
 			}
 
 			_gameManager.BubblePopped(Type);

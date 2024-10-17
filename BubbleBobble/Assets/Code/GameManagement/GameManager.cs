@@ -139,12 +139,14 @@ namespace BubbleBobble
 		#endregion
 
 		#region ProjectileRelated
+		// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
 			CheckCounters("Projectile");
 			_projectileList.Add(projectileObject);
 		}
 
+		// Removes a projectile object from the list when it is destroyed.
 		public void RemoveProjectileFromList(GameObject projectileObject)
 		{
 			_projectileList.Remove(projectileObject);
