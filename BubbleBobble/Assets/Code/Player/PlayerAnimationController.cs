@@ -11,7 +11,7 @@ namespace BubbleBobble
 		private Jump _jump;
 		private bool _isWalking;
 		private float _timer = 0f;
-		[SerializeField] private float _blinkTime = 2f;
+		[SerializeField] private float _blinkInterval = 2f;
 
 		public bool IsMoving
 		{
@@ -53,7 +53,7 @@ namespace BubbleBobble
 				_animator.SetTrigger("Grounded");
 			}
 
-			if (_timer >= _blinkTime)
+			if (_timer >= _blinkInterval)
 			{
 				_animator.SetTrigger("Blink");
 				_timer = 0f;
