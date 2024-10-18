@@ -27,7 +27,7 @@ namespace BubbleBobble
 		[SerializeField] private float _boxCastDistance = 0.3f;
 		[SerializeField] private Transform _groundCheckTarget;
 		private PlatformEffector2D _platformEffector;
-		private bool _canDropDown;
+		private bool _canDropDown = false;
 		private bool _jumping = false;
 		private bool _grounded = false;
 		private bool _falling = false;
@@ -48,8 +48,7 @@ namespace BubbleBobble
 		private void Update()
 		{
 			// Do a BoxCast and save the resulting collider into a variable for ground check
-			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0,
-												new Vector2(_groundCheckTarget.position.x, _groundCheckTarget.position.y - 0.4f),
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
 												_boxCastDistance, _jumpCheckLayers);
 
 			if (hit.collider == null)
@@ -60,7 +59,7 @@ namespace BubbleBobble
 			// print(hit.collider);
 
 			// If player is moving down (falling), change gravity scale higher so player drops faster.
-			if (_rb.velocity.y < 0)
+			if (_rb.velocity.y < -0.1f)
 			{
 				_rb.gravityScale = _dropDownGravityScale;
 				_jumping = false;
@@ -82,6 +81,8 @@ namespace BubbleBobble
 				_jumping = false;
 				_falling = false;
 			}
+
+			// print(_rb.velocity.y);
 
 			// If platform effector is not null and player is pressing down and jump,
 			// turn the platform effector 180 degrees so that player can pass down through the platform.
@@ -184,7 +185,8 @@ namespace BubbleBobble
 			{
 				return;
 			}
-
+			// Draw a wire cube to visualize the BoxCast.
+			// WireCube center is the player position - the box cast distance.
 			Gizmos.DrawWireCube(_groundCheckTarget.position - new Vector3(0, _boxCastDistance, 0), _boxCastSize);
 		}
 	}
