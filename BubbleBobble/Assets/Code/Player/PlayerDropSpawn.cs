@@ -19,7 +19,6 @@ namespace BubbleBobble
 
         private void Awake()
         {
-            // Find all spawn points in level with tag and put them in an array
             
             _transform = GetComponent<Transform>();
         }
