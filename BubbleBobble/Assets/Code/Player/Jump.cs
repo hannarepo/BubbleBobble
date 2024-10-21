@@ -47,14 +47,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			// Do a BoxCast and save the resulting collider into a variable for ground check
-			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
-												_boxCastDistance, _jumpCheckLayers);
-
-			if (hit.collider == null)
-			{
-				return;
-			}
+			
 
 			// print(hit.collider);
 
@@ -99,6 +92,15 @@ namespace BubbleBobble
 					_platformEffector.rotationalOffset = 0;
 					_rb.gravityScale = _defaultGravityScale;
 				}
+			}
+
+			// Do a BoxCast and save the resulting collider into a variable for ground check
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
+												_boxCastDistance, _jumpCheckLayers);
+
+			if (hit.collider == null)
+			{
+				return;
 			}
 
 			// If the collider hit with BoxCast is Ground or Platform
