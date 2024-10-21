@@ -37,9 +37,7 @@ namespace BubbleBobble
             // If the new level is loaded, move the current and the new level up until the new level is centered
             if (!_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
             {
-                _newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
-                _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, _currentLevelMovePosY, 0f), _speed * Time.deltaTime);
-                _player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
+                LevelChangeMovement();
                 if (_newLevel.transform.position == new Vector3(0f, 0f, 0f))
                 {
                     Destroy(_currentLevel);
@@ -74,6 +72,13 @@ namespace BubbleBobble
             _player.GetComponent<Collider2D>().enabled = true;
             _player.GetComponent<InputReader>().enabled = true;
             _player.GetComponent<PlayerControl>().enabled = true;
+        }
+
+        private void LevelChangeMovement()
+        {
+            _newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
+            _currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, _currentLevelMovePosY, 0f), _speed * Time.deltaTime);
+            _player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
         }
     }
 }
