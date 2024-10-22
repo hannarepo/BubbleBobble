@@ -69,7 +69,7 @@ namespace BubbleBobble
 			}
 
 			_gameManager.BubblePopped(Type);
-			Destroy(gameObject, delay);
+			Destroy(gameObject);
 		}
 
 		public virtual void CanPop(bool canPop)
