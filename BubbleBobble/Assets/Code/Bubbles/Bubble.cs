@@ -77,7 +77,7 @@ namespace BubbleBobble
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = effect.main.duration + 0.1f;
+				delay = effect.main.duration + 0.5f;
 				effect.Play(withChildren: true);
 				Destroy(effect.gameObject, delay);
 			}
