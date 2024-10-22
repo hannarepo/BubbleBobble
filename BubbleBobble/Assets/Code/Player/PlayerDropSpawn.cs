@@ -16,6 +16,7 @@ namespace BubbleBobble
         private Vector3 _spawnPosition;
         private GameObject[] _spawnPointsInLevel;
         private Transform _transform;
+        [SerializeField] private int _triggerYPos = -6;
 
         private void Awake()
         {
@@ -25,7 +26,7 @@ namespace BubbleBobble
 
         private void Update()
         {
-            if (_transform.position.y < -5)
+            if (_transform.position.y < _triggerYPos)
             {
                 _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("TopSpawnPoint");
 
