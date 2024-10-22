@@ -17,7 +17,7 @@ namespace BubbleBobble
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
-		private bool _lookRight;
+		private bool _lookRight = true;
 		private PlayerAnimationController _playerAnimator;
 
 		public bool LookingRight => _lookRight;
