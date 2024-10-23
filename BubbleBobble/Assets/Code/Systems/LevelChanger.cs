@@ -28,7 +28,7 @@ namespace BubbleBobble
 
         private void Start()
         {
-            print(_levelPrefabs.Count);
+            //print(_levelPrefabs.Count);
             _currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.transform.position.y);
         }
 

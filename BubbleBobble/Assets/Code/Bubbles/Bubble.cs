@@ -74,6 +74,7 @@ namespace BubbleBobble
 
 			float delay = 0;
 
+
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
@@ -83,6 +84,7 @@ namespace BubbleBobble
 			}
 
 			_gameManager.BubblePopped(Type);
+
 			Destroy(gameObject);
 		}
 
