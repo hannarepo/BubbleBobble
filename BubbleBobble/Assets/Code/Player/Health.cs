@@ -6,15 +6,17 @@ namespace BubbleBobble
 		public class Health : MonoBehaviour
 		{
 		[SerializeField] private int _maxLives = 4;
-		private int _currentLives;
 		[SerializeField] private Transform _playerReturnPoint;
-		private Transform _transform;
 		[SerializeField] private TMP_Text _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
+		private int _currentLives;
+		private Transform _transform;
 		private float _invincibilityTimer = 0;
 		private SpriteRenderer _spriteRenderer;
 		private float _flashTimer = 0;
+		private Rigidbody2D _rb;
+		private InputReader _inputReader;
 
 		public bool IsInvincible
 		{
@@ -26,6 +28,8 @@ namespace BubbleBobble
 			_transform = transform;
 			_currentLives = _maxLives;
 			_spriteRenderer = GetComponent<SpriteRenderer>();
+			_inputReader = GetComponent<InputReader>();
+			_rb = GetComponent<Rigidbody2D>();
 		}
 
 		private void Update()
@@ -34,6 +38,8 @@ namespace BubbleBobble
 			{
 				_invincibilityTimer -= Time.deltaTime;
 				_flashTimer += Time.deltaTime;
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 				if (_flashTimer > _flashRate)
 				{
@@ -45,13 +51,16 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.enabled = true;
 				_flashTimer = 0;
+				_inputReader.enabled = true;
+				_rb.constraints = RigidbodyConstraints2D.None;
+				_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 			}
 
 			if (_currentLives == 0)
 			{
 				_gameOverText.gameObject.SetActive(true);
 				Flash();
-				Invoke("Die", 2f);
+				Die();
 			}
 		}
 
@@ -82,7 +91,7 @@ namespace BubbleBobble
 
 		private void Die()
 		{
-			Destroy(gameObject);
+			Destroy(gameObject, 2f);
 		}
 	}
 }
