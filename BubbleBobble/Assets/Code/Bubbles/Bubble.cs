@@ -18,6 +18,7 @@ namespace BubbleBobble
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
+		[SerializeField] private BubbleData _bubbleData;
 
 		protected abstract BubbleType Type
 		{
