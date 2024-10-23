@@ -15,6 +15,8 @@ namespace BubbleBobble
         [SerializeField] private GameObject _bombBubblePrefab;
         private int _fireBubblesSpawned = 0;
         [SerializeField] private bool _spawnFromTop = false;
+        [SerializeField] private bool _moveLeft = false;
+
         public bool SpawnFromTop 
         {
             get { return _spawnFromTop; }
@@ -60,6 +62,7 @@ namespace BubbleBobble
         {
             GameObject fireBubble = _fireBubblePrefab;
             FloatDirection(fireBubble);
+            fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
             Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
         }
 

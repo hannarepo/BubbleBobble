@@ -5,6 +5,7 @@
 /// <summary>
 /// Abstract base class for the bubbles in the game.
 /// </summary>
+using System;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -16,6 +17,7 @@ namespace BubbleBobble
 		[SerializeField] private ParticleSystem _popEffectPrefab;
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
+		protected bool _canMoveBubble = false;
 
 		protected abstract BubbleType Type
 		{
@@ -41,6 +43,18 @@ namespace BubbleBobble
 			}
 		}
 
+		protected virtual void OnCollisionStay2D(Collision2D collision)
+		{
+			if (Type == BubbleType.Fire || Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			{
+				_canMoveBubble = true;
+			}
+		}
+		protected virtual void OnCollisionExit2D(Collision2D collision)
+		{
+			_canMoveBubble = false;
+		}
+
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
 			if (collider.CompareTag("PlayerFeet"))
@@ -63,7 +77,7 @@ namespace BubbleBobble
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = effect.main.duration + 0.1f;
+				delay = effect.main.duration + 0.5f;
 				effect.Play(withChildren: true);
 				Destroy(effect.gameObject, delay);
 			}
