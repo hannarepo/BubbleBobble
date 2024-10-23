@@ -23,8 +23,7 @@ namespace BubbleBobble
             if (_canPanic)
             {
                 _inputReader.enabled = false;
-                _rb.constraints = RigidbodyConstraints2D.FreezePositionX;
-                FlipPlayer();
+                _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
             }
         }
         private void OnTriggerEnter2D(Collider2D trigger)
@@ -40,14 +39,8 @@ namespace BubbleBobble
             if(trigger.gameObject.GetComponent<GroundFireTrigger>())
             {
                 _canPanic = false;
-                
+                _inputReader.enabled = true;
             }
-        }
-
-        private void FlipPlayer()
-        {
-            transform.rotation = Quaternion.Euler(0, 180f, 0);
-            transform.rotation = Quaternion.Euler(0, 0, 0);
         }
     }
 }
