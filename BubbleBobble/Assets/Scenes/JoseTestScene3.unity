@@ -1309,7 +1309,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _panicTime: 2
-  _timeBeforePanic: 1
+  _panicImmuneTime: 1
 --- !u!1 &1342961097
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,6 +1641,7 @@ MonoBehaviour:
   _maxProjectiles: 10
   _levelChangeDelay: 2
   _enemyList: []
+  _projectileList: []
 --- !u!4 &1825230047
 Transform:
   m_ObjectHideFlags: 0
@@ -1755,6 +1756,10 @@ PrefabInstance:
     - target: {fileID: 124142013873846514, guid: 957e466da63918b4dba00e522e8ae5a7, type: 3}
       propertyPath: m_Name
       value: GroundFireMultiple
+      objectReference: {fileID: 0}
+    - target: {fileID: 666312724994006016, guid: 957e466da63918b4dba00e522e8ae5a7, type: 3}
+      propertyPath: _timeBeforeDestroy
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1034445288104515709, guid: 957e466da63918b4dba00e522e8ae5a7, type: 3}
       propertyPath: m_LocalPosition.x
