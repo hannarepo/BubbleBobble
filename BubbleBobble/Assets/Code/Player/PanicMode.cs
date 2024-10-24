@@ -8,9 +8,10 @@ namespace BubbleBobble
     {
         private bool _canPanic = false;
         [SerializeField] private float _panicTime = 2f;
-        [SerializeField] private float _timeBeforePanic = 1f;
+        [SerializeField] private float _panicImmuneTime = 1f;
         private InputReader _inputReader;
         private Rigidbody2D _rb;
+        private float _timer = 0f;
 
         private void Start()
         {
@@ -22,11 +23,19 @@ namespace BubbleBobble
         {
             if (_canPanic)
             {
-                _inputReader.enabled = false;
-                _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+                _timer += Time.deltaTime;
+                if (_timer <= _panicTime)
+                {
+                    Panic();
+                }
+                if (_timer >= _panicTime + _panicImmuneTime)
+                {
+                    _timer = 0f;
+                }
             }
         }
-        private void OnTriggerEnter2D(Collider2D trigger)
+
+        private void OnTriggerStay2D(Collider2D trigger)
         {
             if(trigger.gameObject.GetComponent<GroundFireTrigger>())
             {
@@ -39,8 +48,14 @@ namespace BubbleBobble
             if(trigger.gameObject.GetComponent<GroundFireTrigger>())
             {
                 _canPanic = false;
-                _inputReader.enabled = true;
+                _timer = 0f;
             }
+        }
+
+        private void Panic()
+        {
+            _inputReader.enabled = false;
+            _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 }
