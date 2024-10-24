@@ -10,6 +10,7 @@ namespace BubbleBobble
 		[SerializeField] private TMP_Text _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
+		[SerializeField] private GameObject[] _hearts;
 		private int _currentLives;
 		private Transform _transform;
 		private float _invincibilityTimer = 0;
@@ -69,6 +70,7 @@ namespace BubbleBobble
 			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible)
 			{
 				_currentLives--;
+				_hearts[_currentLives].SetActive(false);
 				Invoke("Respawn", 1f);
 
 				if (_currentLives > 0)
