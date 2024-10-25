@@ -5,7 +5,10 @@ namespace BubbleBobble
     public enum ItemType
     {
         None = 0,
-        Shell,
+        RedShell,
+        PurpleShell,
+        PurpleBlueShell,
+        BlueShell,
         Soap,
         Cd,
         Mp3Player,
