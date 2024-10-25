@@ -5,12 +5,17 @@ namespace BubbleBobble
 {
 		public class Health : MonoBehaviour
 		{
-		[SerializeField] private int _maxLives = 4;
+		[SerializeField] private int _maxLives = 6;
+		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
 		[SerializeField] private TMP_Text _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
-		[SerializeField] private GameObject[] _hearts;
+		[SerializeField] private Vector3[] _heartPositions;
+		[SerializeField] private GameObject _heartPrefab;
+		[SerializeField] private GameObject _brokenHeartPrefab;
+		private GameObject[] _hearts;
+		private GameObject[] _brokenHearts;
 		private int _currentLives;
 		private Transform _transform;
 		private float _invincibilityTimer = 0;
@@ -31,6 +36,18 @@ namespace BubbleBobble
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_inputReader = GetComponent<InputReader>();
 			_rb = GetComponent<Rigidbody2D>();
+		}
+
+		private void Start()
+		{
+			_currentLives = _startLives;
+			_hearts = new GameObject[_maxLives];
+			_brokenHearts = new GameObject[_maxLives];
+			
+			for (int i = 0; i < _startLives; i++)
+			{
+				_hearts[i] = Instantiate(_heartPrefab, _heartPositions[i], Quaternion.identity);
+			}
 		}
 
 		private void Update()
@@ -69,9 +86,10 @@ namespace BubbleBobble
 		{
 			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible)
 			{
+				Invoke("Respawn", 1f);
 				_currentLives--;
 				_hearts[_currentLives].SetActive(false);
-				Invoke("Respawn", 1f);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 
 				if (_currentLives > 0)
 				{
@@ -79,6 +97,8 @@ namespace BubbleBobble
 				}
 			}
 		}
+
+		
 
 		private void Respawn()
 		{
