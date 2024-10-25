@@ -66,10 +66,10 @@ namespace BubbleBobble
         // depending on the spawn location boolean.
         private void SpawnFireBubble()
         {
-            GameObject fireBubble = _fireBubblePrefab;
+            GameObject fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays:false);
             FloatDirection(fireBubble);
             fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
-            Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
+
         }
 
         #endregion
