@@ -16,6 +16,7 @@ namespace BubbleBobble
         private int _fireBubblesSpawned = 0;
         [SerializeField] private bool _spawnFromTop = false;
         [SerializeField] private bool _moveLeft = false;
+        public bool _canSpawn = false;
 
         public bool SpawnFromTop 
         {
@@ -28,7 +29,7 @@ namespace BubbleBobble
         private void Update()
         {
             _timeToSpawn += Time.deltaTime;
-            if (_timeToSpawn >= _spawnRate)
+            if (_timeToSpawn >= _spawnRate && _canSpawn)
             {
                 SpawnSpecialBubble();
             }
