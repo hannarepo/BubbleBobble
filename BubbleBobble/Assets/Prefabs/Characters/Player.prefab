@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 8195212590064195094}
   - component: {fileID: 7458938812928138293}
   - component: {fileID: 7613198819266639514}
+  - component: {fileID: 682509135643954411}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -243,7 +244,7 @@ MonoBehaviour:
   _defaultGravityScale: 3
   _jumpGravityScale: 2
   _dropDownGravityScale: 4.5
-  _bubbleJumpForce: 5
+  _bubbleJumpForce: 2
   _jumpCheckLayers:
     serializedVersion: 2
     m_Bits: 9408
@@ -296,6 +297,11 @@ MonoBehaviour:
   _gameOverText: {fileID: 0}
   _invincibilityTime: 2
   _flashRate: 0.1
+  _hearts:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!114 &7613198819266639514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -309,6 +315,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blinkInterval: 3
+--- !u!114 &682509135643954411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4398036962778295810}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a9b6ecc9d77adc48b2c4c5cf352b08d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panicTime: 2
+  _timeBeforePanic: 1.5
 --- !u!1 &9032662658068158579
 GameObject:
   m_ObjectHideFlags: 0
