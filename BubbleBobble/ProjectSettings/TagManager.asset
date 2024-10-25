@@ -7,7 +7,6 @@ TagManager:
   - DropTrigger
   - Ground
   - Platform
-  - DropDownPlatform
   - Wall
   - Bubble
   - TopSpawnPoint
@@ -15,6 +14,8 @@ TagManager:
   - Enemy
   - PlayerFeet
   - EnemyUp
+  - TopSpawnLeft
+  - TopSpawnRight
   layers:
   - Default
   - TransparentFX
@@ -24,14 +25,14 @@ TagManager:
   - UI
   - Ground
   - Platform
-  - DropDownPlatform
+  - 
   - Roof
   - ProjectileBubble
   - StopProjectile
   - Enemy
   - Bubble
-  - 
-  - 
+  - Fire
+  - GroundFire
   - 
   - 
   - 
@@ -57,4 +58,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 2966839885
+    locked: 0
+  - name: Fire
+    uniqueID: 3198906401
     locked: 0

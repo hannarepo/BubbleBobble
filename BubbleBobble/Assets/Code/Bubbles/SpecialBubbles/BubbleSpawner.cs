@@ -11,7 +11,12 @@ namespace BubbleBobble
 {
     public class BubbleSpawner : MonoBehaviour
     {
+        [SerializeField] private GameObject _fireBubblePrefab;
+        [SerializeField] private GameObject _bombBubblePrefab;
+        private int _fireBubblesSpawned = 0;
         [SerializeField] private bool _spawnFromTop = false;
+        [SerializeField] private bool _moveLeft = false;
+
         public bool SpawnFromTop 
         {
             get { return _spawnFromTop; }
@@ -34,13 +39,19 @@ namespace BubbleBobble
         #region Spawners
         private void SpawnSpecialBubble()
         {
+            if (_fireBubblesSpawned > 5)
+            {
+                return;
+            } 
             // To be reworked
             SpawnFireBubble();
+            _fireBubblesSpawned++;
             _timeToSpawn = 0f;
         }
         public void SpawnBomb()
         {
-            GameObject bomb = Resources.Load("Prefabs/Bubbles/Special/BombBubble") as GameObject;
+            GameObject bomb = _bombBubblePrefab;
+            FloatDirection(bomb);
             Instantiate(bomb, gameObject.transform.position, Quaternion.identity);
         }
 
@@ -49,8 +60,9 @@ namespace BubbleBobble
         // depending on the spawn location boolean.
         private void SpawnFireBubble()
         {
-            GameObject fireBubble = Resources.Load("Prefabs/Bubbles/Special/FireBubble") as GameObject;
+            GameObject fireBubble = _fireBubblePrefab;
             FloatDirection(fireBubble);
+            fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
             Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
         }
 

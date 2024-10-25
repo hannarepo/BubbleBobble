@@ -4,7 +4,12 @@ namespace BubbleBobble
 {
     public enum ItemType
     {
-        None,
-        Shell
+        None = 0,
+        Shell,
+        Soap,
+        Cd,
+        Mp3Player,
+        FloppyDisk,
+        Camera
     }
 }

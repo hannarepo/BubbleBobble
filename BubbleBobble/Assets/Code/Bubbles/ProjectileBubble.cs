@@ -4,8 +4,8 @@
 ///
 /// <summary>
 /// After instantiating projectile bubble, check in which direction bubble
-/// should be moving. Move bubble in correct direction for range distance 
-/// after which set gravity scale to negative so that bubble floats up.
+/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
+/// After force is applied, set gravity scale to negative so that bubble floats up.
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
@@ -13,108 +13,102 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class ProjectileBubble : Bubble
-    {
-        private Rigidbody2D _rb;
-        private Vector2 _originalPosition;
-        [SerializeField] private float _range;
-        [SerializeField] private float _speed;
-        [SerializeField] private float _floatingGravityScale;
-        private float _targetX;
-        private Vector2 _direction;
-        private bool _shootRight;
-        [SerializeField] GameObject _trappedEnemyPrefab;
+	[RequireComponent(typeof(Rigidbody2D))]
+	public class ProjectileBubble : Bubble
+	{
+		private Rigidbody2D _rb;
+		[SerializeField] private float _floatingGravityScale;
+		[SerializeField] private float _launchForce = 5f;
+		[SerializeField] private float _trapWindow = 3f;
+		[SerializeField] GameObject _trappedEnemyPrefab;
+		[SerializeField] private float _lifeTime = 10f;
+		private float _timer = 0;
 
-        public Vector2 LaunchDirection
-        {
-            get { return _direction; }
-            set { _direction = value; }
-        }
+		protected override BubbleType Type
+		{
+			get { return BubbleType.Projectile; }
+		}
 
-        protected override BubbleType Type
-        {
-            get { return BubbleType.Projectile; }
-        }
+		protected override void Awake()
+		{
+			CanPop(true);
+		}
 
-        protected override void Awake()
-        {
-            _rb = GetComponent<Rigidbody2D>();
-            _originalPosition = transform.position;
-            CanPop(true);     
-        }
+		protected override void Start()
+		{
+			_rb = GetComponent<Rigidbody2D>();
+			base.Start();
+		}
 
-        protected override void Start()
-        {
-            base.Start();
+		private void Update()
+		{
+			_timer += Time.deltaTime;
 
-            // Check which way player is facing from PlayerControl
-            // and calculate target x position accordingly.
-            _shootRight = FindObjectOfType<PlayerControl>().LookingRight;
+			if (_timer >= _lifeTime)
+			{
+				PopBubble();
+			}
 
-            if (_shootRight)
-            {
-                _targetX = _originalPosition.x - _range;
-            }
-            else
-            {
-                _targetX = _originalPosition.x + _range;
-            }
-        }
+			// Projectile can trap enemies wihtin the given time window.
+			// If timer is outside given trap window, collision between enemy and projectile is ignored.
+			if (_timer >= _trapWindow)
+			{
+				Physics2D.IgnoreLayerCollision(12, 13, true);
+				transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+				_rb.gravityScale = _floatingGravityScale;
+			}
+			else
+			{
+				Physics2D.IgnoreLayerCollision(12, 13, false);
+			}
+		}
 
-        private void Update()
-        {
-            // If player is facing right, move bubble right on x-axis.
-            // If player is facing left, move bubble left on x-axis.
-            // When bubble reaches target x position, set gravity scale to negative
-            // so that bubble floats up.
-            if (_shootRight)
-            {
-                if (transform.position.x >= _targetX)
-                {
-                    transform.position += new Vector3(_direction.x - 1, _direction.y, 0) * _speed * Time.deltaTime;
-                }
-                else
-                {
-                    _rb.gravityScale = _floatingGravityScale;
-                }
-            }
-            else
-            {
-                if (transform.position.x <= _targetX)
-                {
-                    transform.position += new Vector3(_direction.x + 1, _direction.y, 0) * _speed * Time.deltaTime;
-                }
-                else
-                {
-                    _rb.gravityScale = _floatingGravityScale;
-                }
-            }
-        }
+		public void Launch(bool shootRight)
+		{
+			_rb = GetComponent<Rigidbody2D>();
 
-        protected override void OnCollisionEnter2D(Collision2D collision)
-        {
-            base.OnCollisionEnter2D(collision);
+			// If player is facing right, bubble gets force applied to right from transform.
+			// If player is facing left, bubble gets force applied to left from transform.
+			if (shootRight)
+			{
+				_rb.AddForce(transform.right * _launchForce, ForceMode2D.Impulse);
+			}
+			else
+			{
+				_rb.AddForce(transform.right*-1 * _launchForce, ForceMode2D.Impulse);
+			}
+		}
 
-            if (collision.gameObject.CompareTag("Wall"))
-            {
-                _speed = 0;
-                _rb.gravityScale = _floatingGravityScale;
-            }
+		protected override void OnCollisionEnter2D(Collision2D collision)
+		{
+			base.OnCollisionEnter2D(collision);
 
-            if (collision.gameObject.CompareTag("Enemy"))
-            {
-                GameObject enemy = collision.gameObject;
-                GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
+			// If projectile bubble hits wall, set gravity scale to floating gravity scale.
+			if (collision.gameObject.CompareTag("Wall"))
+			{
+				_rb.gravityScale = _floatingGravityScale;
+			}
 
-                TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
+			// If projectile bubble hits enemy within given time window, trap the enemy.
+			// If enemy is not invincible, instantiate trapped enemy bubble and destroy projectile bubble.
+			if (collision.gameObject.CompareTag("Enemy") && _timer < _trapWindow)
+			{
+				if (!collision.gameObject.GetComponent<EnemyInvincibility>().IsInvincible)
+				{
+					GameObject enemy = collision.gameObject;
+					GameObject trappedEnemy = Instantiate(_trappedEnemyPrefab, transform.position, Quaternion.identity);
 
-                if (trappedEnemyBubble != null)
-                {
-                    trappedEnemyBubble.Enemy = enemy;
-                }
+					TrappedEnemyBubble trappedEnemyBubble = trappedEnemy.GetComponent<TrappedEnemyBubble>();
 
-                Destroy(gameObject);
-            }
-        }
-    }
+					if (trappedEnemyBubble != null)
+					{
+						trappedEnemyBubble.Enemy = enemy;
+					}
+
+					Destroy(gameObject);
+					_gameManager.RemoveProjectileFromList(gameObject);
+				}
+			}
+		}
+	}
 }
