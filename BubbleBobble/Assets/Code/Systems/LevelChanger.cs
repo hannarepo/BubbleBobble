@@ -17,6 +17,8 @@ namespace BubbleBobble
     {
         private int _levelIndex = 0;
         private bool _isLevelLoaded = true;
+
+        public bool IsLevelLoaded { get { return _isLevelLoaded; }}
         private GameObject _newLevel;
         [SerializeField] private GameObject _currentLevel;
         [SerializeField] private GameObject _newLevelSpawnPoint;
