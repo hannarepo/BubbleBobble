@@ -7,8 +7,9 @@ namespace BubbleBobble
     public class Bounceable : MonoBehaviour
     {
         
-        [SerializeField] private GameObject _enemy;
-        private SpriteRenderer _renderer;        
+        //[SerializeField] private GameObject _enemy;
+        private SpriteRenderer _renderer;
+		public List<GameObject> _enemyList = new List<GameObject>();
 
         private void Awake()
         {
@@ -17,10 +18,15 @@ namespace BubbleBobble
 
         private void Update()
         {
-            if (CollisionCheck(_enemy.GetComponent<BouncingEnemyMovement>()))
+			for (int i = _enemyList.Count - 1; i >= 0; i--)
             {
-                Debug.Log("Collision (BOMBA!)");
+                if (CollisionCheck(_enemyList[i].GetComponent<BouncingEnemyMovement>()))
+            	{
+                	Debug.Log("Collision (BOMBA!)");
+            	}
             }
+
+            
         }
 
         private bool CollisionCheck(BouncingEnemyMovement enemy)
