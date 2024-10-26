@@ -69,7 +69,6 @@ namespace BubbleBobble
             GameObject fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays:false);
             FloatDirection(fireBubble);
             fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
-
         }
 
         #endregion

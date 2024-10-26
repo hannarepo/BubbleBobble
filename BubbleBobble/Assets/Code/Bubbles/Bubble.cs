@@ -46,14 +46,19 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire || Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
 			{
 				_canMoveBubble = true;
 			}
 		}
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			_canMoveBubble = false;
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			{
+				_canMoveBubble = false;
+			}
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)

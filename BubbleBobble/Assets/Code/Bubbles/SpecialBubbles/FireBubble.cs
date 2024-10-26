@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -16,9 +17,14 @@ namespace BubbleBobble
         protected override void Awake()
         {
             CanPop(true);
+        }
+
+        protected override void Start()
+        {
+            base.Start();
             if (_moveLeft)
             {
-                _moveSpeed *= -1;
+                ChangeXDirection();
             }
         }
 
@@ -28,6 +34,15 @@ namespace BubbleBobble
             {
                 BubbleMovement();
             }
+        }
+
+        protected override void OnCollisionEnter2D(Collision2D collision)
+        {
+            base.OnCollisionEnter2D(collision);
+        }
+        private void ChangeXDirection()
+        {
+            _moveSpeed *= -1;
         }
 
         private void BubbleMovement()
