@@ -249,9 +249,10 @@ MonoBehaviour:
   _jumpCheckLayers:
     serializedVersion: 2
     m_Bits: 9408
-  _boxCastSize: {x: 0.7, y: 0.3}
+  _boxCastSize: {x: 0.6, y: 0.3}
   _boxCastDistance: 0.2
   _groundCheckTarget: {fileID: 4536968231860357183}
+  _upCheckDistance: 1.5
 --- !u!114 &1038445150915856090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -294,15 +295,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _maxLives: 4
+  _startLives: 4
   _playerReturnPoint: {fileID: 0}
   _gameOverText: {fileID: 0}
   _invincibilityTime: 2
   _flashRate: 0.1
-  _hearts:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _heartPositions:
+  - {x: -7.6, y: -6.2, z: 0}
+  - {x: -7.1, y: -6.2, z: 0}
+  - {x: -6.6, y: -6.2, z: 0}
+  - {x: -6.1, y: -6.2, z: 0}
+  - {x: -5.6, y: -6.2, z: 0}
+  - {x: -5.1, y: -6.2, z: 0}
+  _heartPrefab: {fileID: 5161298891364490505, guid: e97cb947eaafb644e88722c6f96be4de, type: 3}
+  _brokenHeartPrefab: {fileID: 7109429307367759364, guid: 0b64710273e3d3143a9c1a66c8390438, type: 3}
 --- !u!114 &7613198819266639514
 MonoBehaviour:
   m_ObjectHideFlags: 0
