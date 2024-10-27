@@ -18,29 +18,24 @@ namespace BubbleBobble
 		[SerializeField] private float _fireBubblesPopped = 0;
 		private BubbleSpawner _bubbleSpawner;
 		[SerializeField] private int _maxProjectiles = 10;
-		private ShootBubble _projectileShot;
-		private ProjectileBubble _projectile;
+
 		[SerializeField] private float _levelChangeDelay = 2f;
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
-		private List<GameObject> _projectileList = new List<GameObject>();
+		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
 
 		#region Unity Functions
 		private void Start()
 		{
 			_levelChanger = GetComponent<LevelChanger>();
 			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
-			_projectileShot = FindObjectOfType<ShootBubble>();
 		}
 
 		private void Update()
 		{
-			GameObject[] projectilesInLevel;
-			projectilesInLevel = GameObject.FindGameObjectsWithTag("Projectile");
-
-			if (projectilesInLevel.Length == _maxProjectiles)
+			if (_projectileList.Count == _maxProjectiles)
 			{
-				Destroy(projectilesInLevel[0]);
+				CheckCounters("Projectile");
 			}
 		}
 
@@ -150,7 +145,7 @@ namespace BubbleBobble
 		public void RemoveProjectileFromList(GameObject projectileObject)
 		{
 			_projectileList.Remove(projectileObject);
-			Destroy(projectileObject);
+			projectileObject.GetComponent<ProjectileBubble>().PopBubble();
 		}
 		#endregion
 	}

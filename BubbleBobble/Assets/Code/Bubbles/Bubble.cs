@@ -18,6 +18,7 @@ namespace BubbleBobble
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
+		[SerializeField] private BubbleData _bubbleData;
 
 		protected abstract BubbleType Type
 		{
@@ -45,14 +46,19 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire || Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
 			{
 				_canMoveBubble = true;
 			}
 		}
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			_canMoveBubble = false;
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			{
+				_canMoveBubble = false;
+			}
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
@@ -74,6 +80,7 @@ namespace BubbleBobble
 
 			float delay = 0;
 
+
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
@@ -83,6 +90,7 @@ namespace BubbleBobble
 			}
 
 			_gameManager.BubblePopped(Type);
+
 			Destroy(gameObject);
 		}
 
