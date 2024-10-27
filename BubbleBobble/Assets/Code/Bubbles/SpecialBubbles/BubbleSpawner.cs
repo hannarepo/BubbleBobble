@@ -15,6 +15,9 @@ namespace BubbleBobble
         [SerializeField] private GameObject _bombBubblePrefab;
         private int _fireBubblesSpawned = 0;
         [SerializeField] private bool _spawnFromTop = false;
+        [SerializeField] private bool _moveLeft = false;
+        private LevelChanger _levelChanger;
+
         public bool SpawnFromTop 
         {
             get { return _spawnFromTop; }
@@ -23,10 +26,15 @@ namespace BubbleBobble
         private float _timeToSpawn = 0f;
 
         #region Unity Functions
+
+        private void Awake()
+        {
+            _levelChanger = FindObjectOfType<LevelChanger>();
+        }
         private void Update()
         {
             _timeToSpawn += Time.deltaTime;
-            if (_timeToSpawn >= _spawnRate)
+            if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelLoaded)
             {
                 SpawnSpecialBubble();
             }
@@ -58,9 +66,9 @@ namespace BubbleBobble
         // depending on the spawn location boolean.
         private void SpawnFireBubble()
         {
-            GameObject fireBubble = _fireBubblePrefab;
+            GameObject fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays:false);
             FloatDirection(fireBubble);
-            Instantiate(fireBubble, gameObject.transform.position, Quaternion.identity);
+            fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
         }
 
         #endregion

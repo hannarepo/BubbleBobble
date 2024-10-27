@@ -17,8 +17,10 @@ namespace BubbleBobble
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
-		private bool _lookRight;
+		private bool _lookRight = true;
 		private PlayerAnimationController _playerAnimator;
+		[SerializeField] private float _fireRate = 1f;
+		private float _timer = 0;
 
 		public bool LookingRight => _lookRight;
 		
@@ -34,6 +36,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
+
 			Vector2 movement = _inputReader.Movement;
 			_playerMover.Move(movement);
 
@@ -47,8 +50,15 @@ namespace BubbleBobble
 			}
 
 			LookRight(movement);
+	
+			_timer += Time.deltaTime;
 			bool shoot = _inputReader.ShootBubble;
-			_shootBubble.Shoot(shoot, _lookRight);
+
+			if (_timer >= _fireRate && shoot)
+			{
+				_shootBubble.Shoot(shoot, _lookRight);
+				_timer = 0;
+			}
 		}
 
 		#region Private Implementation

@@ -16,6 +16,7 @@ namespace BubbleBobble
         private Vector3 _spawnPosition;
         private GameObject[] _spawnPointsInLevel;
         private Transform _transform;
+        [SerializeField] private int _triggerYPos = -6;
 
         private void Awake()
         {
@@ -25,20 +26,18 @@ namespace BubbleBobble
 
         private void Update()
         {
-            if (_transform.position.y < -5)
+            if (_transform.position.y < _triggerYPos)
             {
-                _spawnPointsInLevel = GameObject.FindGameObjectsWithTag("TopSpawnPoint");
+                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag("TopSpawnLeft");
+                GameObject topSpawnRight = GameObject.FindGameObjectWithTag("TopSpawnRight");
 
-                // If there are more than one spawn points in the level, choose a random one
-                // Otherwise, use the only spawn point in the level
-                if (_spawnPointsInLevel.Length > 1)
+                if (_transform.position.x < 0 && topSpawnLeft != null)
                 {
-                    int randomSpawnPos = Random.Range(0, _spawnPointsInLevel.Length);
-                    _spawnPosition = _spawnPointsInLevel[randomSpawnPos].transform.position;
+                    _spawnPosition = topSpawnLeft.transform.position;
                 }
-                else
+                else if (_transform.position.x >= 0 && topSpawnRight != null)
                 {
-                    _spawnPosition = _spawnPointsInLevel[0].transform.position;
+                    _spawnPosition = topSpawnRight.transform.position;
                 }
 
                 _transform.position = _spawnPosition;

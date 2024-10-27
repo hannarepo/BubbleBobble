@@ -105,11 +105,10 @@ namespace BubbleBobble
 						trappedEnemyBubble.Enemy = enemy;
 					}
 
-					PopBubble();
+					Destroy(gameObject);
+					_gameManager.RemoveProjectileFromList(gameObject);
 				}
 			}
 		}
-
-		
 	}
 }

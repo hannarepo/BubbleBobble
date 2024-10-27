@@ -5,16 +5,24 @@ namespace BubbleBobble
 {
 		public class Health : MonoBehaviour
 		{
-		[SerializeField] private int _maxLives = 4;
-		private int _currentLives;
+		[SerializeField] private int _maxLives = 6;
+		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
-		private Transform _transform;
 		[SerializeField] private TMP_Text _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
+		[SerializeField] private Vector3[] _heartPositions;
+		[SerializeField] private GameObject _heartPrefab;
+		[SerializeField] private GameObject _brokenHeartPrefab;
+		private GameObject[] _hearts;
+		private GameObject[] _brokenHearts;
+		private int _currentLives;
+		private Transform _transform;
 		private float _invincibilityTimer = 0;
 		private SpriteRenderer _spriteRenderer;
 		private float _flashTimer = 0;
+		private Rigidbody2D _rb;
+		private InputReader _inputReader;
 
 		public bool IsInvincible
 		{
@@ -26,6 +34,20 @@ namespace BubbleBobble
 			_transform = transform;
 			_currentLives = _maxLives;
 			_spriteRenderer = GetComponent<SpriteRenderer>();
+			_inputReader = GetComponent<InputReader>();
+			_rb = GetComponent<Rigidbody2D>();
+		}
+
+		private void Start()
+		{
+			_currentLives = _startLives;
+			_hearts = new GameObject[_maxLives];
+			_brokenHearts = new GameObject[_maxLives];
+			
+			for (int i = 0; i < _startLives; i++)
+			{
+				_hearts[i] = Instantiate(_heartPrefab, _heartPositions[i], Quaternion.identity);
+			}
 		}
 
 		private void Update()
@@ -34,6 +56,8 @@ namespace BubbleBobble
 			{
 				_invincibilityTimer -= Time.deltaTime;
 				_flashTimer += Time.deltaTime;
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 				if (_flashTimer > _flashRate)
 				{
@@ -45,22 +69,27 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.enabled = true;
 				_flashTimer = 0;
+				_inputReader.enabled = true;
+				_rb.constraints = RigidbodyConstraints2D.None;
+				_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 			}
 
 			if (_currentLives == 0)
 			{
 				_gameOverText.gameObject.SetActive(true);
 				Flash();
-				Invoke("Die", 2f);
+				Die();
 			}
 		}
 
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible)
+			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible && _currentLives > 0)
 			{
-				_currentLives--;
 				Invoke("Respawn", 1f);
+				_currentLives--;
+				_hearts[_currentLives].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 
 				if (_currentLives > 0)
 				{
@@ -68,6 +97,8 @@ namespace BubbleBobble
 				}
 			}
 		}
+
+		
 
 		private void Respawn()
 		{
@@ -82,7 +113,7 @@ namespace BubbleBobble
 
 		private void Die()
 		{
-			Destroy(gameObject);
+			Destroy(gameObject, 2f);
 		}
 	}
 }

@@ -37,7 +37,7 @@ namespace BubbleBobble
         private void Update()
         {
             _movementControls = _controls.Game.Player1Move.ReadValue<Vector2>();
-            _jump = _controls.Game.Player1Jump.WasPerformedThisFrame();
+            _jump = _controls.Game.Player1Jump.WasPressedThisFrame();
             _jumpOnBubble = _controls.Game.Player1Jump.IsPressed();
             _shootBubble = _controls.Game.Player1Shoot.WasPerformedThisFrame();
 
