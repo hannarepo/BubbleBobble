@@ -16,5 +16,6 @@ namespace BubbleBobble
         public ItemType ItemType => _type;
         public string Name => _name;
         public Sprite Sprite => _sprite;
+		public int Points => _points;
     }
 }

@@ -84,7 +84,7 @@ namespace BubbleBobble
 
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible)
+			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible && _currentLives > 0)
 			{
 				Invoke("Respawn", 1f);
 				_currentLives--;
