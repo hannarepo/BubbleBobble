@@ -17,12 +17,15 @@ namespace BubbleBobble
     {
         private int _levelIndex = 0;
         private bool _isLevelLoaded = true;
+
+        public bool IsLevelLoaded { get { return _isLevelLoaded; }}
         private GameObject _newLevel;
         [SerializeField] private GameObject _currentLevel;
         [SerializeField] private GameObject _newLevelSpawnPoint;
         [SerializeField] private float _speed = 1.0f;
         [SerializeField] private GameObject _player;
         [SerializeField] private Transform _playerReturnPoint;
+        [SerializeField] private GameObject _playerBubble;
         [SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
         private float _currentLevelMovePosY = 0f;
 
@@ -64,6 +67,7 @@ namespace BubbleBobble
             _player.GetComponent<Collider2D>().enabled = false;
             _player.GetComponent<InputReader>().enabled = false;
             _player.GetComponent<PlayerControl>().enabled = false;
+            _playerBubble.SetActive(true);
         }
 
         private void UnRestrainPlayer()
@@ -72,6 +76,7 @@ namespace BubbleBobble
             _player.GetComponent<Collider2D>().enabled = true;
             _player.GetComponent<InputReader>().enabled = true;
             _player.GetComponent<PlayerControl>().enabled = true;
+            _playerBubble.SetActive(false);
         }
 
         private void LevelChangeMovement()
