@@ -12,7 +12,7 @@ namespace BubbleBobble
             if(collider.gameObject.CompareTag("Bubble"))
             {
                 Transform bubblePos = collider.gameObject.transform;
-                bubblePos.position = new Vector2(bubblePos.position.x, transform.position.y);
+                bubblePos.position = new Vector2(transform.position.x, transform.position.y + 3f);
             }
         }
     }
