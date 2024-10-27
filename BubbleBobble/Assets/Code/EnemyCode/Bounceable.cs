@@ -1,6 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 namespace BubbleBobble
 {
@@ -8,12 +8,12 @@ namespace BubbleBobble
     {
         
         //[SerializeField] private GameObject _enemy;
-        private SpriteRenderer _renderer;
+        private TilemapRenderer _renderer;
 		public List<GameObject> _enemyList = new List<GameObject>();
 
         private void Awake()
         {
-            _renderer = GetComponent<SpriteRenderer>();
+            _renderer = GetComponentInParent<TilemapRenderer>();
         }
 
         private void Update()
@@ -22,7 +22,7 @@ namespace BubbleBobble
             {
                 if (CollisionCheck(_enemyList[i].GetComponent<BouncingEnemyMovement>()))
             	{
-                	Debug.Log("Collision (BOMBA!)");
+                	//Debug.Log("Collision (BOMBA!)");
             	}
             }
 
