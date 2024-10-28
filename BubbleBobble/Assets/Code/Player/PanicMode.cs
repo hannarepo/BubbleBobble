@@ -48,6 +48,7 @@ namespace BubbleBobble
             if(trigger.gameObject.GetComponent<GroundFireTrigger>())
             {
                 _canPanic = false;
+                gameObject.GetComponent<PlayerControl>().CanMove = true;
                 _timer = 0f;
             }
         }
@@ -55,6 +56,7 @@ namespace BubbleBobble
         private void Panic()
         {
             _inputReader.enabled = false;
+            gameObject.GetComponent<PlayerControl>().CanMove = false;
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }

@@ -67,7 +67,7 @@ namespace BubbleBobble
             _player.GetComponent<Collider2D>().enabled = false;
             _player.GetComponent<InputReader>().enabled = false;
             _player.GetComponent<PlayerControl>().enabled = false;
-            _playerBubble.SetActive(true);
+            _playerBubble.GetComponent<SpriteRenderer>().enabled = true;
         }
 
         private void UnRestrainPlayer()
@@ -76,7 +76,7 @@ namespace BubbleBobble
             _player.GetComponent<Collider2D>().enabled = true;
             _player.GetComponent<InputReader>().enabled = true;
             _player.GetComponent<PlayerControl>().enabled = true;
-            _playerBubble.SetActive(false);
+            _playerBubble.GetComponent<SpriteRenderer>().enabled = false;
         }
 
         private void LevelChangeMovement()
