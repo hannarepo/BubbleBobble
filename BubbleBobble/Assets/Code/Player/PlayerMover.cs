@@ -17,7 +17,7 @@ namespace BubbleBobble
         [SerializeField] private float _speed = 5f;
         private Rigidbody2D _rb;
 
-        private void Awake()
+        private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
@@ -26,7 +26,7 @@ namespace BubbleBobble
         {
             Vector2 velocity = _rb.velocity;
             velocity.x = movement.x * _speed;
-            _rb.velocity = velocity;
+            _rb.velocity = velocity;   
         }
     }
 }
