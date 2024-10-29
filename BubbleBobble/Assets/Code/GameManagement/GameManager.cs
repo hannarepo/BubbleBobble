@@ -18,6 +18,7 @@ namespace BubbleBobble
 		[SerializeField] private float _fireBubblesPopped = 0;
 		private BubbleSpawner _bubbleSpawner;
 		[SerializeField] private int _maxProjectiles = 10;
+		[SerializeField] private GameObject _player;
 
 		[SerializeField] private float _levelChangeDelay = 2f;
 		// List is serialized for debugging
@@ -64,6 +65,15 @@ namespace BubbleBobble
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
+			ResetAllPowerUps();
+		}
+
+		public void ResetAllPowerUps()
+		{
+			if (_player.GetComponent<PlayerMover>() != null)
+			{
+				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
+			}
 		}
 
 		#region Counters

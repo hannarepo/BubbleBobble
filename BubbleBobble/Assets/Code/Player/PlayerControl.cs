@@ -23,6 +23,7 @@ namespace BubbleBobble
 		private float _timer = 0;
 
 		public bool LookingRight => _lookRight;
+
 		
 		private void Awake()
 		{

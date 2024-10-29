@@ -97,7 +97,6 @@ namespace BubbleBobble
 		private void JumpThroughPlatform()
 		{
 			RaycastHit2D hit = Physics2D.BoxCast(_upCheckTarget.position, new Vector2(0.7f, 0.7f), 0, Vector2.up, _upCheckDistance);
-			print(hit.collider);
 
 			if (hit.collider == null)
 			{
@@ -108,7 +107,7 @@ namespace BubbleBobble
 			{
 				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
 			}
-			else if (_timer > 1f)
+			else if (_timer > 0.7f)
 			{
 				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
 			}
