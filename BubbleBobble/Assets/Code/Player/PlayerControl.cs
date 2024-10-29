@@ -21,6 +21,7 @@ namespace BubbleBobble
 		private PlayerAnimationController _playerAnimator;
 		[SerializeField] private float _fireRate = 1f;
 		private float _timer = 0;
+		public bool CanMove = true;
 
 		public bool LookingRight => _lookRight;
 		
@@ -38,7 +39,14 @@ namespace BubbleBobble
 		{
 
 			Vector2 movement = _inputReader.Movement;
-			_playerMover.Move(movement);
+			if (CanMove)
+			{
+				_playerMover.Move(movement);
+			}
+			if (!CanMove)
+			{
+				movement = Vector2.zero;
+			}
 
 			if (movement.x < 0 || movement.x > 0)
 			{
