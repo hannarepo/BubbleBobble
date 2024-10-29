@@ -5,9 +5,7 @@
 /// <summary>
 /// Keeps track of most things that happen in-game
 /// </summary>
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -21,6 +19,7 @@ namespace BubbleBobble
 		[SerializeField] private GameObject _player;
 
 		[SerializeField] private float _levelChangeDelay = 2f;
+		[SerializeField] private float _bombSpawnThreshold = 4f;
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
@@ -28,8 +27,7 @@ namespace BubbleBobble
 		#region Unity Functions
 		private void Start()
 		{
-			_levelChanger = GetComponent<LevelChanger>();
-			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+			_levelChanger = GetComponent<LevelChanger>();;
 		}
 
 		private void Update()
@@ -40,7 +38,7 @@ namespace BubbleBobble
 			}
 		}
 
-		#endregion
+		#endregion Unity Functions
 
 		/// <summary>
 		/// This method is used remotely from bubble objects when they are popped.
@@ -76,13 +74,18 @@ namespace BubbleBobble
 			}
 		}
 
+		public void BubbleSpawnerInitialization()
+		{
+			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+		}
+
 		#region Counters
 		private void CheckCounters(string name)
 		{
 			switch (name)
 			{
 				case "Fire":
-					if (_fireBubblesPopped == 3)
+					if (_fireBubblesPopped == _bombSpawnThreshold)
 					{
 						_bubbleSpawner.SpawnBomb();
 					}
@@ -108,9 +111,9 @@ namespace BubbleBobble
 			// Reset counters here when loading a new level
 			_fireBubblesPopped = 0;
 		}
-		#endregion
+		#endregion Counters
 
-		#region EnemyRelated
+		#region Enemy Related
 		private void DestroyEnemies()
 		{
 			// Destroy all enemies on screen at index 0
@@ -141,9 +144,9 @@ namespace BubbleBobble
 			CheckCounters("Enemy");
 			Destroy(enemyObject);
 		}
-		#endregion
+		#endregion Enemy Related
 
-		#region ProjectileRelated
+		#region Projectile Related
 		// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
@@ -157,6 +160,6 @@ namespace BubbleBobble
 			_projectileList.Remove(projectileObject);
 			projectileObject.GetComponent<ProjectileBubble>().PopBubble();
 		}
-		#endregion
+		#endregion Projectile Related
 	}
 }
