@@ -45,9 +45,6 @@ namespace BubbleBobble
 				_speed = _originalSpeed;
 			}
 
-            print(_speed);
-			print(_speedBoostIsActive);
-
 			velocity.x = movement.x * _speed;
 			_rb.velocity = velocity;
 		}
