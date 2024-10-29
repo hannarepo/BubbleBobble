@@ -34,7 +34,7 @@ namespace BubbleBobble
 		{
 			if (_projectileList.Count == _maxProjectiles)
 			{
-				CheckCounters("Projectile");
+				_projectileList[0].GetComponent<ProjectileBubble>().PopBubble();
 			}
 		}
 
@@ -97,12 +97,6 @@ namespace BubbleBobble
 						Invoke("NextLevel", _levelChangeDelay);
 					}
 					break;
-				case "Projectile":
-					if (_projectileList.Count == _maxProjectiles)
-					{
-						RemoveProjectileFromList(_projectileList[0]);
-					}
-					break;
 			}
 		}
 
@@ -158,7 +152,6 @@ namespace BubbleBobble
 		public void RemoveProjectileFromList(GameObject projectileObject)
 		{
 			_projectileList.Remove(projectileObject);
-			projectileObject.GetComponent<ProjectileBubble>().PopBubble();
 		}
 		#endregion Projectile Related
 	}
