@@ -26,6 +26,7 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _boxCastSize;
 		[SerializeField] private float _boxCastDistance = 0.3f;
 		[SerializeField] private Transform _groundCheckTarget;
+		[SerializeField] private Transform _upCheckTarget;
 		[SerializeField] private float _upCheckDistance = 1f;
 		private float _timer = 0f;
 		private bool _jumping = false;
@@ -87,7 +88,7 @@ namespace BubbleBobble
 			// Draw a wire cube to visualize the BoxCast.
 			// WireCube center is the player position - the box cast distance.
 			Gizmos.DrawWireCube(_groundCheckTarget.position - new Vector3(0, _boxCastDistance, 0), _boxCastSize);
-			Debug.DrawRay(new Vector2(transform.position.x, transform.position.y + 0.4f), transform.up * _upCheckDistance, Color.red, 0.2f);
+			Gizmos.DrawWireCube(_upCheckTarget.position, new Vector2(0.7f, 0.7f));
 		}
 		#endregion
 
@@ -95,7 +96,8 @@ namespace BubbleBobble
 
 		private void JumpThroughPlatform()
 		{
-			RaycastHit2D hit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y + 0.4f), transform.up, _upCheckDistance);
+			RaycastHit2D hit = Physics2D.BoxCast(_upCheckTarget.position, new Vector2(0.7f, 0.7f), 0, Vector2.up, _upCheckDistance);
+			print(hit.collider);
 
 			if (hit.collider == null)
 			{
