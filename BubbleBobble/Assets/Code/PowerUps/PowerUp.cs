@@ -12,6 +12,7 @@ namespace BubbleBobble
 			PlayerMover mover = _player.GetComponent<PlayerMover>();
 			ShootBubble shoot = _player.GetComponent<ShootBubble>();
 			PlayerControl playerControl = _player.GetComponent<PlayerControl>();
+			Health health = _player.GetComponent<Health>();
 
 			switch (_powerUpType)
 			{
@@ -38,6 +39,12 @@ namespace BubbleBobble
 					if (shoot != null)
 					{
 						shoot.SizeBoostIsActive = true;
+					}
+					break;
+				case PowerUpType.ExtraLife:
+					if (health != null && health.CurrentLives < health.MaxLives)
+					{
+						health.SetExtraLife(true);
 					}
 					break;
 			}
