@@ -20,10 +20,19 @@ namespace BubbleBobble
 		private bool _lookRight = true;
 		private PlayerAnimationController _playerAnimator;
 		[SerializeField] private float _fireRate = 1f;
+		[SerializeField] private float _fireRateWithBoost = 0.5f;
+		private float _originalFireRate = 0f;
 		private float _timer = 0;
 		public bool CanMove = true;
+		private bool _fireRateBoostIsActive = false;
 
 		public bool LookingRight => _lookRight;
+
+		public bool FireRateBoostIsActive
+		{
+			get { return _fireRateBoostIsActive; }
+			set { _fireRateBoostIsActive = value; }
+		}
 
 		
 		private void Awake()
@@ -36,9 +45,13 @@ namespace BubbleBobble
 			_playerAnimator = GetComponent<PlayerAnimationController>();
 		}
 
+		private void Start()
+		{
+			_originalFireRate = _fireRate;
+		}
+
 		private void Update()
 		{
-
 			Vector2 movement = _inputReader.Movement;
 			if (CanMove)
 			{
@@ -62,6 +75,11 @@ namespace BubbleBobble
 	
 			_timer += Time.deltaTime;
 			bool shoot = _inputReader.ShootBubble;
+
+			if (_fireRateBoostIsActive)
+			{
+				_fireRate = _fireRateWithBoost;
+			}
 
 			if (_timer >= _fireRate && shoot)
 			{

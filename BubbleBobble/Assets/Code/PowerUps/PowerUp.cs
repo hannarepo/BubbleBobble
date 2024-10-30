@@ -9,24 +9,37 @@ namespace BubbleBobble
 
 		public void ActivatePowerUp()
 		{
+			PlayerMover mover = _player.GetComponent<PlayerMover>();
+			ShootBubble shoot = _player.GetComponent<ShootBubble>();
+			PlayerControl playerControl = _player.GetComponent<PlayerControl>();
+
 			switch (_powerUpType)
 			{
 				case PowerUpType.Speed:
-					PlayerMover mover = _player.GetComponent<PlayerMover>();
 					if (mover != null)
 					{
 						mover.SpeedBoostIsActive = true;
 					}
 					break;
 				case PowerUpType.BubbleSpeed:
-					ShootBubble shoot = _player.GetComponent<ShootBubble>();
+					
 					if (shoot != null)
 					{
 						shoot.ForceBoostIsActive = true;
 					}
 					break;
-
-
+				case PowerUpType.FireRate:
+					if (playerControl != null)
+					{
+						playerControl.FireRateBoostIsActive = true;
+					}
+					break;
+				case PowerUpType.BubbleSize:
+					if (shoot != null)
+					{
+						shoot.SizeBoostIsActive = true;
+					}
+					break;
 			}
 		}
 	}
