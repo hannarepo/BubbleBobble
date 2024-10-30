@@ -5,19 +5,28 @@ namespace BubbleBobble
 	public class PowerUp : MonoBehaviour
 	{
 		[SerializeField] private PowerUpType _powerUpType;
-		//[SerializeField] private bool _activatePowerUp = false;
 		[SerializeField] private GameObject _player;
 
 		public void ActivatePowerUp()
 		{
-				if (_powerUpType == PowerUpType.Speed)
+			switch (_powerUpType)
 			{
-				PlayerMover mover = _player.GetComponent<PlayerMover>();
+				case PowerUpType.Speed:
+					PlayerMover mover = _player.GetComponent<PlayerMover>();
+					if (mover != null)
+					{
+						mover.SpeedBoostIsActive = true;
+					}
+					break;
+				case PowerUpType.BubbleSpeed:
+					ShootBubble shoot = _player.GetComponent<ShootBubble>();
+					if (shoot != null)
+					{
+						shoot.ForceBoostIsActive = true;
+					}
+					break;
 
-				if (mover != null)
-				{
-					mover.SpeedBoostIsActive = true;
-				}
+
 			}
 		}
 	}

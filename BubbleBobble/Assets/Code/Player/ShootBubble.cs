@@ -9,6 +9,13 @@ namespace BubbleBobble
 		[SerializeField] private ProjectileBubble _projectileBubble;
 		[SerializeField] private float _spawnOffset = 0.9f;
 		[SerializeField] private GameManager _gameManager;
+		private bool _forceBoostIsActive = false;
+
+		public bool ForceBoostIsActive
+		{
+			get { return _forceBoostIsActive; }
+			set { _forceBoostIsActive = value; }
+		}
 
 		public void Shoot(bool shoot, bool lookingRight)
 		{
@@ -26,7 +33,7 @@ namespace BubbleBobble
 
 				if (projectile.GetComponent<ProjectileBubble>() != null)
 				{
-					projectile.GetComponent<ProjectileBubble>().Launch(lookingRight);
+					projectile.GetComponent<ProjectileBubble>().Launch(lookingRight, _forceBoostIsActive);
 					_gameManager.AddProjectileToList(projectile);
 				}
 			}

@@ -18,11 +18,13 @@ namespace BubbleBobble
 	{
 		private Rigidbody2D _rb;
 		[SerializeField] private float _floatingGravityScale;
-		[SerializeField] private float _launchForce = 5f;
+		[SerializeField] private float _launchForce = 9f;
+		[SerializeField] private float _launchForceWithBoost = 15f;
 		[SerializeField] private float _trapWindow = 3f;
 		[SerializeField] GameObject _trappedEnemyPrefab;
 		[SerializeField] private float _lifeTime = 10f;
 		private float _timer = 0;
+		private float _originalLaunchForce = 0f;
 
 		protected override BubbleType Type
 		{
@@ -37,6 +39,7 @@ namespace BubbleBobble
 		protected override void Start()
 		{
 			_rb = GetComponent<Rigidbody2D>();
+			_originalLaunchForce = _launchForce;
 			base.Start();
 		}
 
@@ -63,9 +66,18 @@ namespace BubbleBobble
 			}
 		}
 
-		public void Launch(bool shootRight)
+		public void Launch(bool shootRight, bool forceBoostIsActive)
 		{
 			_rb = GetComponent<Rigidbody2D>();
+
+			if (forceBoostIsActive)
+			{
+				_launchForce = _launchForceWithBoost;
+			}
+			// else
+			// {
+			// 	_launchForce = _originalLaunchForce;
+			// }
 
 			// If player is facing right, bubble gets force applied to right from transform.
 			// If player is facing left, bubble gets force applied to left from transform.
