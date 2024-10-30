@@ -72,6 +72,15 @@ namespace BubbleBobble
 			{
 				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
 			}
+			if (_player.GetComponent<ShootBubble>() != null)
+			{
+				_player.GetComponent<ShootBubble>().ForceBoostIsActive = false;
+				_player.GetComponent<ShootBubble>().SizeBoostIsActive = false;
+			}
+			if (_player.GetComponent<PlayerControl>() != null)
+			{
+				_player.GetComponent<PlayerControl>().FireRateBoostIsActive = false;
+			}
 		}
 
 		public void BubbleSpawnerInitialization()
