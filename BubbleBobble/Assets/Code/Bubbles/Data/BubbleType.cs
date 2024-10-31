@@ -1,14 +1,15 @@
 namespace BubbleBobble
 {
-    public abstract partial class Bubble
-    {
-        public enum BubbleType
-        {
-            Fire,
-            Bomb,
-            Projectile,
-            TrappedEnemy
-        }
-        
-    }
+	public abstract partial class Bubble
+	{
+		public enum BubbleType
+		{
+			None = 0,
+			Fire,
+			Bomb,
+			Projectile,
+			TrappedEnemy
+		}
+
+	}
 }
