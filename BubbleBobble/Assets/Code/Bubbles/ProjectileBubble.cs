@@ -53,8 +53,6 @@ namespace BubbleBobble
 				PopBubble();
 			}
 
-			print (_size);
-
 			// Projectile can trap enemies wihtin the given time window.
 			// If timer is outside given trap window, collision between enemy and projectile is ignored.
 			if (_timer >= _trapWindow)

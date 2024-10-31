@@ -56,7 +56,6 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			print(_currentLives);
 			if (IsInvincible)
 			{
 				_invincibilityTimer -= Time.deltaTime;

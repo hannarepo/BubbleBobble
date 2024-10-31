@@ -1,53 +1,37 @@
 using UnityEngine;
+using TMPro;
 
 namespace BubbleBobble
 {
-	public class PowerUp : MonoBehaviour
+	public abstract class PowerUp : MonoBehaviour
 	{
-		[SerializeField] private PowerUpType _powerUpType;
-		[SerializeField] private GameObject _player;
+		[SerializeField] protected GameObject _player;
+		[SerializeField] private PowerUpData _powerUpData;
+		[SerializeField] private TextMeshProUGUI _priceText;
+		[SerializeField] private GameObject _activeStatus;
+		[SerializeField] protected float _powerUpTime = 20f;
+		protected float _timer = 0f;
 
-		public void ActivatePowerUp()
+		public PowerUpData PowerUpData => _powerUpData;
+
+		protected virtual void Start()
 		{
-			PlayerMover mover = _player.GetComponent<PlayerMover>();
-			ShootBubble shoot = _player.GetComponent<ShootBubble>();
-			PlayerControl playerControl = _player.GetComponent<PlayerControl>();
-			Health health = _player.GetComponent<Health>();
+			SetActiveStatus(false);
+		}
 
-			switch (_powerUpType)
-			{
-				case PowerUpType.Speed:
-					if (mover != null)
-					{
-						mover.SpeedBoostIsActive = true;
-					}
-					break;
-				case PowerUpType.BubbleSpeed:
-					
-					if (shoot != null)
-					{
-						shoot.ForceBoostIsActive = true;
-					}
-					break;
-				case PowerUpType.FireRate:
-					if (playerControl != null)
-					{
-						playerControl.FireRateBoostIsActive = true;
-					}
-					break;
-				case PowerUpType.BubbleSize:
-					if (shoot != null)
-					{
-						shoot.SizeBoostIsActive = true;
-					}
-					break;
-				case PowerUpType.ExtraLife:
-					if (health != null && health.CurrentLives < health.MaxLives)
-					{
-						health.SetExtraLife(true);
-					}
-					break;
-			}
+		public virtual void ActivatePowerUp()
+		{
+			SetActiveStatus(true);
+		}
+
+		public void SetPriceColor(Color color)
+		{
+			_priceText.color = color;
+		}
+
+		public virtual void SetActiveStatus(bool isActive)
+		{
+			_activeStatus.SetActive(isActive);
 		}
 	}
 }

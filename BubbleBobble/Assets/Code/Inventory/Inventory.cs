@@ -50,7 +50,7 @@ namespace BubbleBobble
 		/// <param name="amount"> The number of items to be removed. </param>
 		public bool Remove(ItemData item, uint amount)
 		{
-			if (_items.ContainsKey(item) || _items[item] < amount)
+			if (!_items.ContainsKey(item) || _items[item] < amount)
 			{
 				return false;
 			}
@@ -63,12 +63,27 @@ namespace BubbleBobble
 			{
 				_items[item] -= amount;
 			}
+
+			Debug.Log($"Removed item {item.Name}, amount: {amount}.");
+
 			return true;
 		}
 
 		public void Clear()
 		{
 			_items.Clear();
+		}
+
+		public bool ContainsKey(ItemData item)
+		{
+			if (_items.ContainsKey(item))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }
