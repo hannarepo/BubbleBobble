@@ -13,7 +13,7 @@ namespace BubbleBobble
 	public class PlayerControl : MonoBehaviour
 	{
 		private InputReader _inputReader;
-		private Inventory _inventory;
+		public Inventory _inventory;
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
@@ -80,6 +80,10 @@ namespace BubbleBobble
 			{
 				_fireRate = _fireRateWithBoost;
 			}
+			else
+			{
+				_fireRate = _originalFireRate;
+			}
 
 			if (_timer >= _fireRate && shoot)
 			{
@@ -105,13 +109,45 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-			if (_inventory.Add(item.ItemData, 1))
+			if (item.ItemData.ItemType == ItemType.RedShell || item.ItemData.ItemType == ItemType.BlueShell ||
+				item.ItemData.ItemType == ItemType.PurpleShell || item.ItemData.ItemType == ItemType.PurpleBlueShell)
+			{
+				if (_inventory.Add(item.ItemData, 1))
+				{
+					if (_inventory != null)
+					{
+						// TODO: Update inventory UI
+					}
+					item.Collect();
+				}
+			}
+			else
+			{
+				item.Collect();
+				// TODO: Add points
+			}
+		}
+
+		public bool CheckInventoryContent(ItemData item)
+		{
+			if (_inventory.ContainsKey(item))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public void RemoveFromInventory(ItemData item)
+		{
+			if (_inventory.Remove(item, 1))
 			{
 				if (_inventory != null)
 				{
 					// TODO: Update inventory UI
 				}
-				item.Collect();
 			}
 		}
 
