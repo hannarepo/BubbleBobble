@@ -28,12 +28,16 @@ namespace BubbleBobble
         {
             BounceObject _object = other.GetComponent<BounceObject>();
             if (_object == null)
-            {   
+            {
                 return;
             }
 
             Vector2 normal = _object.Normal;
+            Bounce(normal);
+        }
 
+        public void Bounce(Vector2 normal)
+        {
             Vector2 u = Vector2.Dot(_velocity, normal) * normal;
             Vector2 w = _velocity - u;
             _velocity = w - u;
