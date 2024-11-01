@@ -1,3 +1,8 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace BubbleBobble
+{
 /// <remarks>
 /// author: Jose Mäntylä
 /// </remarks>
@@ -8,11 +13,6 @@
 /// and moves the current and next level up together until
 /// the next level is in place and then destroys the previous level.
 /// </summary>
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace BubbleBobble
-{
 	public class LevelChanger : MonoBehaviour
 	{
 		private int _levelIndex = 0;
@@ -40,7 +40,7 @@ namespace BubbleBobble
 			if (!_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
 			{
 				LevelChangeMovement();
-				if (_newLevel.transform.position == new Vector3(0f, 0f, 0f))
+				if (_newLevel.transform.position == Vector3.zero)
 				{
 					Destroy(_currentLevel);
 					_currentLevel = _newLevel;
@@ -66,6 +66,9 @@ namespace BubbleBobble
 		/// <summary>
 		/// Restricts player movement, disables the collider and enables the bubble sprite.
 		/// </summary>
+
+		// TODO: Move restraining to player control
+		// TEST: Activate bubble first and move activate levelmovement after a delay
 		private void RestrainPlayer()
 		{
 			_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
@@ -91,7 +94,7 @@ namespace BubbleBobble
 		/// </summary>
 		private void LevelChangeMovement()
 		{
-			_newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, new Vector3(0f, 0f, 0f), _speed * Time.deltaTime);
+			_newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, Vector3.zero, _speed * Time.deltaTime);
 			_currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, _currentLevelMovePosY, 0f), _speed * Time.deltaTime);
 			_player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
 		}
