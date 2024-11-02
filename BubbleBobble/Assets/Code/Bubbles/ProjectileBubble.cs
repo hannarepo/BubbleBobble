@@ -1,19 +1,16 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-///
-/// <summary>
-/// After instantiating projectile bubble, check in which direction bubble
-/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
-/// After force is applied, set gravity scale to negative so that bubble floats up.
-/// When bubble reaches the top of the level, destroy bubble after a short delay.
-/// </summary>
-
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+/// <summary>
+/// After instantiating projectile bubble, check which direction bubble
+/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
+/// After force is applied, set gravity scale to negative so that bubble floats up.
+/// If bubble does not trap enemy or is not popped by player, destroy bubble after a short delay.
+/// </summary>
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class ProjectileBubble : Bubble
 	{
@@ -48,6 +45,7 @@ namespace BubbleBobble
 		{
 			_timer += Time.deltaTime;
 
+			// Pop bubble when it's lifetime runs out.
 			if (_timer >= _lifeTime)
 			{
 				PopBubble();
@@ -57,7 +55,7 @@ namespace BubbleBobble
 			// If timer is outside given trap window, collision between enemy and projectile is ignored.
 			if (_timer >= _trapWindow)
 			{
-				Physics2D.IgnoreLayerCollision(12, 13, true);
+				gameObject.layer = LayerMask.NameToLayer("IgnoreEnemy");
 				if (_size == _sizeWithBoost)
 				{
 					transform.localScale = _size * 1.2f;
@@ -70,12 +68,14 @@ namespace BubbleBobble
 			}
 			else
 			{
-				Physics2D.IgnoreLayerCollision(12, 13, false);
+				gameObject.layer = LayerMask.NameToLayer("ProjectileBubble");
 			}
 		}
 
 		public void Launch(bool shootRight, bool forceBoostIsActive, bool sizeBoostIsActive)
 		{
+			// If bubble size power up is active, bubble size will be size with boost,
+			// otherwise bubble size is as it's set in inspector.
 			if (sizeBoostIsActive)
 			{
 				_size = _sizeWithBoost;
@@ -88,6 +88,7 @@ namespace BubbleBobble
 
 			_rb = GetComponent<Rigidbody2D>();
 
+			// Check whether force power up is active, if it is set launchforce accordigly.
 			if (forceBoostIsActive)
 			{
 				_launchForce = _launchForceWithBoost;
@@ -139,6 +140,7 @@ namespace BubbleBobble
 
 		public override void PopBubble()
 		{
+			// Remove projectile from list when popped.
 			_gameManager.RemoveProjectileFromList(gameObject);
 
 			base.PopBubble();

@@ -3,6 +3,19 @@ using TMPro;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Class for managing player health. Player has set number of
+	/// lives at the start of the game. Max lives and start lives are
+	/// set in editor. When player loses a life, they are respawn at
+	/// set location and flash for a given time. Hearts indicate current lives
+	/// and when losing a life, hearts change to broken hearts. When player
+	/// loses all lives the game is over.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 		public class Health : MonoBehaviour
 		{
 		[SerializeField] private int _maxLives = 6;
@@ -48,14 +61,22 @@ namespace BubbleBobble
 			_hearts = new GameObject[_maxLives];
 			_brokenHearts = new GameObject[_maxLives];
 			
-			for (int i = 0; i < _startLives; i++)
+			for (int i = 0; i < _maxLives; i++)
 			{
 				_hearts[i] = Instantiate(_heartPrefab, _heartPositions[i], Quaternion.identity);
+				 if (i >= _startLives)
+				 {
+					_hearts[i].SetActive(false);
+				 }
 			}
 		}
 
 		private void Update()
 		{
+			// Player has a short invincibility time after losing a life
+			// so they won't lose one immidiately after.
+			// If player is invincible, freeze rigidbody so player can't
+			// move while respawning and do flashing method.
 			if (IsInvincible)
 			{
 				_invincibilityTimer -= Time.deltaTime;
@@ -88,11 +109,14 @@ namespace BubbleBobble
 
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
+			// If player hits an enemy, they lose a life and are respawned to set location.
+			// A heart is disabled and a broken heart is instatiated in it's place to
+			// indicate loss of life to player.
 			if (collision.gameObject.CompareTag("Enemy") && !IsInvincible && _currentLives > 0)
 			{
 				Invoke("Respawn", 1f);
 				_currentLives--;
-				Destroy(_hearts[_currentLives]);
+				_hearts[_currentLives].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 
 				if (_currentLives > 0)
@@ -102,12 +126,18 @@ namespace BubbleBobble
 			}
 		}
 
-		public void SetExtraLife(bool set)
+		public void SetExtraLife(bool value)
 		{
-			if (set)
+			// If player has bought an extra life from the shop, a heart
+			// is set active. If player has lost a life before bying the extra
+			// life, disble broken heart.
+			if (value)
 			{
-				Destroy(_brokenHearts[_currentLives]);
-				_hearts[_currentLives] = Instantiate(_heartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				if (_brokenHearts[_currentLives] != null)
+				{
+					_brokenHearts[_currentLives].SetActive(false);
+				}
+				_hearts[_currentLives].SetActive(true);
 				_currentLives++;
 			}
 		}

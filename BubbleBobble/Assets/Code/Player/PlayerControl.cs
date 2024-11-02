@@ -1,14 +1,16 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Script for controlling various player actions.
-/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Script for controlling various player actions.
+	/// Keeps track of inputs and relays informations to other classes.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	[RequireComponent(typeof(InputReader))]
 	public class PlayerControl : MonoBehaviour
 	{
@@ -57,7 +59,7 @@ namespace BubbleBobble
 			{
 				_playerMover.Move(movement);
 			}
-			if (!CanMove)
+			else
 			{
 				movement = Vector2.zero;
 			}
