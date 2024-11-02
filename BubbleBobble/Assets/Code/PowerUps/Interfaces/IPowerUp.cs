@@ -6,7 +6,7 @@ namespace BubbleBobble
 {
     public interface IPowerUp
     {
-        void ActivatePowerUp(bool activate);
+        void ActivatePowerUp();
 		void SetPriceColor(Color color);
 		void SetActiveStatus(bool isActive);
     }

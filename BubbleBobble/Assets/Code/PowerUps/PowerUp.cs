@@ -1,16 +1,27 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 namespace BubbleBobble
 {
-	public abstract class PowerUp : MonoBehaviour
+	/// <summary>
+	/// Base class for all power ups.
+	/// Includes setting a color for the price text in the shop,
+	/// activating power up on purchase, and activating an image on screen
+	/// to inform player when power up is active.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
+	public abstract class PowerUp : MonoBehaviour, IPowerUp
 	{
 		[SerializeField] protected GameObject _player;
 		[SerializeField] private PowerUpData _powerUpData;
 		[SerializeField] private TextMeshProUGUI _priceText;
-		[SerializeField] private GameObject _activeStatus;
-		[SerializeField] protected float _powerUpTime = 20f;
-		protected float _timer = 0f;
+		[SerializeField] protected GameObject _activeStatus;
+		[SerializeField] protected Image _statusImage;
 
 		public PowerUpData PowerUpData => _powerUpData;
 

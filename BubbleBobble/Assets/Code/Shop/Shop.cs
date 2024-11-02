@@ -33,6 +33,7 @@ namespace BubbleBobble
 
 		private bool CheckInventory()
 		{
+			// Check whether all shells are in inventory
 			if (_playerControl.CheckInventoryContent(_shells[0]) &&
 				_playerControl.CheckInventoryContent(_shells[1]) &&
 				_playerControl.CheckInventoryContent(_shells[2]) &&
@@ -57,6 +58,8 @@ namespace BubbleBobble
 			}
 			else if (index == 4)
 			{
+				// If player has all shells and doesn't have max lives, player can buy an extra life.
+				// Shells are removed from player inventory.
 				if (CheckInventory() && _health != null && _health.CurrentLives < _health.MaxLives)
 				{
 					_health.SetExtraLife(true);
