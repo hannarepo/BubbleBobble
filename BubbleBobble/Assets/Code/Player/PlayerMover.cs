@@ -1,16 +1,17 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Player movement script.
-/// Moves the player based on the input from the InputReader script.
-/// </summary>
 
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Player movement script.
+	/// Moves the player based on the input from the PlayerControl script.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class PlayerMover : MonoBehaviour
 	{
