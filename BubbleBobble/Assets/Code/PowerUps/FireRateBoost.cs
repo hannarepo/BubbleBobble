@@ -4,10 +4,7 @@ namespace BubbleBobble
 {
     public class FireRateBoost : PowerUp
     {
-		[SerializeField] private float _powerUpTime = 20f;
 		private PlayerControl _playerControl;
-		private float _timer = 0f;
-		private bool _isActive;
 
         protected override void Start()
 		{
@@ -15,23 +12,9 @@ namespace BubbleBobble
 			_playerControl = _player.GetComponent<PlayerControl>();
 		}
 
-		private void Update()
+		public override void PowerUpTimer()
 		{
-			print($"fire rate: {_isActive}");
-			_timer += Time.deltaTime;
-
-			if (_isActive)
-			{
-				_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
-			}
-
-			if (_timer >= _powerUpTime)
-			{
-				_playerControl.FireRateBoostIsActive = false;
-				_isActive = false;
-				SetActiveStatus(false);
-				_statusImage.fillAmount = 1;
-			}
+			_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
 		}
 
 		public override void ActivatePowerUp()
@@ -42,6 +25,15 @@ namespace BubbleBobble
 				_isActive = true;
 			}
 			base.ActivatePowerUp();
+		}
+
+		public override void DeactivatePowerUp()
+		{
+			if (_playerControl != null)
+			{
+				_playerControl.FireRateBoostIsActive = false;
+			}
+			base.DeactivatePowerUp();
 		}
 
 		public override void SetActiveStatus(bool isActive)

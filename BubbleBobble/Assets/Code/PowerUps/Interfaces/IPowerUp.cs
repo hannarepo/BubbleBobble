@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -7,6 +5,8 @@ namespace BubbleBobble
     public interface IPowerUp
     {
         void ActivatePowerUp();
+		void DeactivatePowerUp();
+		void PowerUpTimer();
 		void SetPriceColor(Color color);
 		void SetActiveStatus(bool isActive);
     }

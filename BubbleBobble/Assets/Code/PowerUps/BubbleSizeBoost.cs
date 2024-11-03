@@ -4,10 +4,7 @@ namespace BubbleBobble
 {
 	public class BubbleSizeBoost : PowerUp
 	{
-		[SerializeField] private float _powerUpTime = 20f;
 		private ShootBubble _shoot;
-		private float _timer = 0f;
-		private bool _isActive;
 
 		protected override void Start()
 		{
@@ -15,23 +12,9 @@ namespace BubbleBobble
 			_shoot = _player.GetComponent<ShootBubble>();
 		}
 
-		private void Update()
+		public override void PowerUpTimer()
 		{
-			print($"bubble size: {_isActive}");
-			_timer += Time.deltaTime;
-
-			if (_isActive)
-			{
-				_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
-			}
-
-			if (_timer >= _powerUpTime)
-			{
-				_shoot.SizeBoostIsActive = false;
-				_isActive = false;
-				SetActiveStatus(false);
-				_statusImage.fillAmount = 1;
-			}
+			_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
 		}
 
 		public override void ActivatePowerUp()
@@ -42,6 +25,15 @@ namespace BubbleBobble
 				_isActive = true;
 			}
 			base.ActivatePowerUp();
+		}
+
+		public override void DeactivatePowerUp()
+		{
+			if (_shoot != null)
+			{
+				_shoot.SizeBoostIsActive = false;
+			}
+			base.DeactivatePowerUp();
 		}
 
 		public override void SetActiveStatus(bool isActive)
