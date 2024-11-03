@@ -20,6 +20,8 @@ namespace BubbleBobble
 		protected bool _canMoveBubble = false;
 		[SerializeField] private BubbleData _bubbleData;
 		[SerializeField] private float _moveSpeed = 1f;
+		private Rigidbody2D _rigidBody;
+		private float _originalGravityScale;
 
 		protected abstract BubbleType Type
 		{
@@ -35,6 +37,8 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_collider = GetComponent<Collider2D>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+			_originalGravityScale = _rigidBody.gravityScale;
 		}
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -45,7 +49,7 @@ namespace BubbleBobble
 			}
 		}
 
-		protected virtual void OnCollisionStay2D(Collision2D collision)
+		/* protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
@@ -60,13 +64,32 @@ namespace BubbleBobble
 			{
 				_canMoveBubble = false;
 			}
-		}
+		} */
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
 			if (collider.CompareTag("PlayerFeet"))
 			{
 				CanPop(false);
+			}
+			if (Type == BubbleType.Fire && collider.CompareTag("PlatformTilemap")
+			|| Type == BubbleType.Bomb && collider.CompareTag("PlatformTilemap"))
+			{
+				print("Trigger enter");
+				_rigidBody.gravityScale = 0;
+				_canMoveBubble = true;
+			}
+		}
+
+		protected virtual void OnTriggerExit2D(Collider2D collider)
+		{
+			if (Type == BubbleType.Fire && collider.CompareTag("PlatformTilemap")
+			|| Type == BubbleType.Bomb && collider.CompareTag("PlatformTilemap"))
+			{
+				print("Trigger exit");
+				_rigidBody.gravityScale = _originalGravityScale;
+				_canMoveBubble = false;
+				ChangeXDirection();
 			}
 		}
 
