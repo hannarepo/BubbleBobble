@@ -1,45 +1,56 @@
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
+/// 
+/// <summary>
+/// Defines the features and functions of the fire bubbles.
+/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class FireBubble : Bubble
-    {
-        [SerializeField] private GameObject _fireBallPrefab;
-        [SerializeField] private float _moveSpeed = 1f;
-        [SerializeField] private bool _moveLeft = false;
-        public bool MoveLeft { set { _moveLeft = value; }}
-        protected override BubbleType Type
-        {
-            get { return BubbleType.Fire; }
-        }
+	public class FireBubble : Bubble
+	{
+		protected override BubbleType Type
+		{
+			get { return BubbleType.Fire; }
+		}
+		[SerializeField] private GameObject _fireBallPrefab;
+		[SerializeField] private bool _moveLeft = false;
+		public bool MoveLeft { set { _moveLeft = value; } }
 
-        protected override void Awake()
-        {
-            CanPop(true);
-            if (_moveLeft)
-            {
-                _moveSpeed *= -1;
-            }
-        }
+		#region Unity Functions
+		protected override void Awake()
+		{
+			CanPop(true);
+		}
 
-        private void Update()
-        {
-            if (_canMoveBubble)
-            {
-                BubbleMovement();
-            }
-        }
+		protected override void Start()
+		{
+			base.Start();
+			if (_moveLeft)
+			{
+				ChangeXDirection();
+			}
+		}
 
-        private void BubbleMovement()
-        {
-            Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-            rb.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
-        }
+		private void Update()
+		{
+			if (_canMoveBubble)
+			{
+				BubbleMovement();
+			}
+		}
 
-        public override void PopBubble()
-        {
-            base.PopBubble();
-            Instantiate(_fireBallPrefab, gameObject.transform.position, Quaternion.identity);
-        }
-    }
+		#endregion Unity Functions
+
+		/// <summary>
+		/// Instantiates a fireball when the bubble is popped.
+		/// </summary>
+		public override void PopBubble()
+		{
+			base.PopBubble();
+			Instantiate(_fireBallPrefab, gameObject.transform.position, Quaternion.identity);
+		}
+	}
 }

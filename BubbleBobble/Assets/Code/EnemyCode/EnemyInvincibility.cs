@@ -15,7 +15,7 @@ namespace BubbleBobble
 
         private void OnCollisionEnter2D(Collision2D collision)
         {
-            if (collision.gameObject.CompareTag("Platform") || collision.gameObject.CompareTag("Ground"))
+            if (collision.gameObject.CompareTag(Tags._platform) || collision.gameObject.CompareTag(Tags._ground))
             {
                 _isInvincible = false;
             }

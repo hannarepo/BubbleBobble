@@ -57,7 +57,7 @@ namespace BubbleBobble
 
         void OnTriggerExit2D(Collider2D other)
         {
-            if (other.gameObject.CompareTag("Ground"))
+            if (other.gameObject.CompareTag(Tags._ground))
             {
                 _isGrounded = false;
             }

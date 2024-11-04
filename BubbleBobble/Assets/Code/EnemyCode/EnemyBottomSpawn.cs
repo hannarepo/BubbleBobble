@@ -14,7 +14,7 @@ namespace BubbleBobble
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
-            if (collider.gameObject.CompareTag("EnemyUpTrigger"))
+            if (collider.gameObject.CompareTag(Tags._enemyUp))
             {
                 _transform.position = _spawnPoint.transform.position;
             }
