@@ -19,19 +19,20 @@ namespace BubbleBobble
 		private bool _isLevelLoaded = true;
 		public bool IsLevelLoaded { get { return _isLevelLoaded; } }
 		private GameObject _newLevel;
+		private PlayerControl _playerControl;
 		[SerializeField] private GameObject _currentLevel;
 		[SerializeField] private Transform _newLevelSpawnPoint;
 		[SerializeField] private float _speed = 1.0f;
 		[SerializeField] private GameObject _player;
 		[SerializeField] private Transform _playerReturnPoint;
-		[SerializeField] private SpriteRenderer _playerBubble;
+		[SerializeField] private float _levelChangeDelay = 1f;
 		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
 		private float _currentLevelMovePosY = 0f;
 
 		private void Start()
 		{
 			_currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.position.y);
-			_playerBubble.GetComponent<SpriteRenderer>();
+			_playerControl = _player.GetComponent<PlayerControl>();
 		}
 
 		void Update()
@@ -44,7 +45,7 @@ namespace BubbleBobble
 				{
 					Destroy(_currentLevel);
 					_currentLevel = _newLevel;
-					UnRestrainPlayer();
+					_playerControl.UnRestrainPlayer();
 					_isLevelLoaded = true;
 					_levelIndex++;
 				}
@@ -59,33 +60,8 @@ namespace BubbleBobble
 		{
 			GameObject _levelPrefab = _levelPrefabs[_levelIndex];
 			_newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.position, Quaternion.identity);
-			RestrainPlayer();
-			_isLevelLoaded = false;
-		}
-
-		/// <summary>
-		/// Restricts player movement, disables the collider and enables the bubble sprite.
-		/// </summary>
-
-		// TODO: Move restraining to player control
-		// TEST: Activate bubble first and move activate levelmovement after a delay
-		private void RestrainPlayer()
-		{
-			_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-			_player.GetComponent<Collider2D>().enabled = false;
-			_player.GetComponent<PlayerControl>().enabled = false;
-			_playerBubble.enabled = true;
-		}
-
-		/// <summary>
-		/// Unrestricts player movement, enables the collider and disables the bubble sprite.
-		/// </summary>
-		private void UnRestrainPlayer()
-		{
-			_player.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Dynamic;
-			_player.GetComponent<Collider2D>().enabled = true;
-			_player.GetComponent<PlayerControl>().enabled = true;
-			_playerBubble.enabled = false;
+			_playerControl.RestrainPlayer();
+			Invoke("DelayedBoolSwitch", _levelChangeDelay);
 		}
 
 		/// <summary>
@@ -97,6 +73,11 @@ namespace BubbleBobble
 			_newLevel.transform.position = Vector3.MoveTowards(_newLevel.transform.position, Vector3.zero, _speed * Time.deltaTime);
 			_currentLevel.transform.position = Vector3.MoveTowards(_currentLevel.transform.position, new Vector3(0f, _currentLevelMovePosY, 0f), _speed * Time.deltaTime);
 			_player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
+		}
+
+		private void DelayedBoolSwitch()
+		{
+			_isLevelLoaded = !_isLevelLoaded;
 		}
 	}
 }

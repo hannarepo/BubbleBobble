@@ -51,19 +51,12 @@ namespace BubbleBobble
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
 			{
 				_rigidBody.gravityScale = 0;
+				_rigidBody.velocity = Vector2.zero;
+				gameObject.transform.position = gameObject.transform.position;
 				_canMoveBubble = true;
 			}
 		}
 
-		/* protected virtual void OnCollisionStay2D(Collision2D collision)
-		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
-			{
-				_canMoveBubble = true;
-				print("Collision stay");
-			}
-		} */
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
@@ -74,33 +67,6 @@ namespace BubbleBobble
 				ChangeXDirection();
 			}
 		}
-
-		/* protected virtual void OnTriggerEnter2D(Collider2D collider)
-		{
-			if (collider.CompareTag("PlayerFeet"))
-			{
-				CanPop(false);
-			}
-			if (Type == BubbleType.Fire && collider.CompareTag("PlatformTilemap")
-			|| Type == BubbleType.Bomb && collider.CompareTag("PlatformTilemap"))
-			{
-				print("Trigger enter");
-				_rigidBody.gravityScale = 0;
-				_canMoveBubble = true;
-			}
-		}
-
-		protected virtual void OnTriggerExit2D(Collider2D collider)
-		{
-			if (Type == BubbleType.Fire && collider.CompareTag("PlatformTilemap")
-			|| Type == BubbleType.Bomb && collider.CompareTag("PlatformTilemap"))
-			{
-				print("Trigger exit");
-				_rigidBody.gravityScale = _originalGravityScale;
-				_canMoveBubble = false;
-				ChangeXDirection();
-			}
-		} */
 
 		/// <summary>
 		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
