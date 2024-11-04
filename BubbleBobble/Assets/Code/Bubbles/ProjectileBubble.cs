@@ -1,27 +1,28 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-///
-/// <summary>
-/// After instantiating projectile bubble, check in which direction bubble
-/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
-/// After force is applied, set gravity scale to negative so that bubble floats up.
-/// When bubble reaches the top of the level, destroy bubble after a short delay.
-/// </summary>
-
 using UnityEngine;
 
 namespace BubbleBobble
 {
+/// <summary>
+/// After instantiating projectile bubble, check which direction bubble
+/// should be moving. Add force to bubble in that direction. Set timer for bubble lifetime.
+/// After force is applied, set gravity scale to negative so that bubble floats up.
+/// If bubble does not trap enemy or is not popped by player, destroy bubble after a short delay.
+/// </summary>
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
 	[RequireComponent(typeof(Rigidbody2D))]
 	public class ProjectileBubble : Bubble
 	{
 		private Rigidbody2D _rb;
 		[SerializeField] private float _floatingGravityScale;
-		[SerializeField] private float _launchForce = 5f;
+		[SerializeField] private float _launchForce = 9f;
+		[SerializeField] private float _launchForceWithBoost = 15f;
 		[SerializeField] private float _trapWindow = 3f;
 		[SerializeField] GameObject _trappedEnemyPrefab;
 		[SerializeField] private float _lifeTime = 10f;
+		[SerializeField] private Vector3 _sizeWithBoost = new Vector3(0.7f, 0.7f, 0.7f);
+		private Vector3 _size;
 		private float _timer = 0;
 
 		protected override BubbleType Type
@@ -44,6 +45,7 @@ namespace BubbleBobble
 		{
 			_timer += Time.deltaTime;
 
+			// Pop bubble when it's lifetime runs out.
 			if (_timer >= _lifeTime)
 			{
 				PopBubble();
@@ -53,19 +55,44 @@ namespace BubbleBobble
 			// If timer is outside given trap window, collision between enemy and projectile is ignored.
 			if (_timer >= _trapWindow)
 			{
-				Physics2D.IgnoreLayerCollision(12, 13, true);
-				transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+				gameObject.layer = LayerMask.NameToLayer("IgnoreEnemy");
+				if (_size == _sizeWithBoost)
+				{
+					transform.localScale = _size * 1.2f;
+				}
+				else
+				{
+					transform.localScale = _size * 1.5f;
+				}
 				_rb.gravityScale = _floatingGravityScale;
 			}
 			else
 			{
-				Physics2D.IgnoreLayerCollision(12, 13, false);
+				gameObject.layer = LayerMask.NameToLayer("ProjectileBubble");
 			}
 		}
 
-		public void Launch(bool shootRight)
+		public void Launch(bool shootRight, bool forceBoostIsActive, bool sizeBoostIsActive)
 		{
+			// If bubble size power up is active, bubble size will be size with boost,
+			// otherwise bubble size is as it's set in inspector.
+			if (sizeBoostIsActive)
+			{
+				_size = _sizeWithBoost;
+			}
+			else
+			{
+				_size = transform.localScale;
+			}
+			transform.localScale = _size;
+
 			_rb = GetComponent<Rigidbody2D>();
+
+			// Check whether force power up is active, if it is set launchforce accordigly.
+			if (forceBoostIsActive)
+			{
+				_launchForce = _launchForceWithBoost;
+			}
 
 			// If player is facing right, bubble gets force applied to right from transform.
 			// If player is facing left, bubble gets force applied to left from transform.
@@ -113,6 +140,7 @@ namespace BubbleBobble
 
 		public override void PopBubble()
 		{
+			// Remove projectile from list when popped.
 			_gameManager.RemoveProjectileFromList(gameObject);
 
 			base.PopBubble();

@@ -1,16 +1,18 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Inventory class for storing items and their amounts.
-/// </summary>
-
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Inventory class for storing items and their amounts.
+	/// Only stores shells, because they are the only items
+	/// used in the shop.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	public class Inventory
 	{
 		// Creat a dectionary to store the items and their amount
@@ -50,7 +52,7 @@ namespace BubbleBobble
 		/// <param name="amount"> The number of items to be removed. </param>
 		public bool Remove(ItemData item, uint amount)
 		{
-			if (_items.ContainsKey(item) || _items[item] < amount)
+			if (!_items.ContainsKey(item) || _items[item] < amount)
 			{
 				return false;
 			}
@@ -63,12 +65,27 @@ namespace BubbleBobble
 			{
 				_items[item] -= amount;
 			}
+
+			Debug.Log($"Removed item {item.Name}, amount: {amount}.");
+
 			return true;
 		}
 
 		public void Clear()
 		{
 			_items.Clear();
+		}
+
+		public bool ContainsKey(ItemData item)
+		{
+			if (_items.ContainsKey(item))
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 	}
 }

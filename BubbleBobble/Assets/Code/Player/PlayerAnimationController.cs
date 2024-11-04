@@ -1,9 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Controls player animations.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// auhtor: Hanna Repo
+	/// </remarks>
+
 	public class PlayerAnimationController : MonoBehaviour
 	{
 		private Animator _animator;

@@ -1,15 +1,18 @@
-/// <remarks>
-/// author: Jose Mäntylä, Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Keeps track of most things that happen in-game
-/// </summary>
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Keeps track of most things that happen in-game,
+	/// e.g. number of projectile bubbles in the level and
+	/// number of enemies in the level.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Jose Mäntylä, Hanna Repo
+	/// </remarks>
+
 	public class GameManager : MonoBehaviour
 	{
 		private LevelChanger _levelChanger;
@@ -46,15 +49,15 @@ namespace BubbleBobble
 		/// and either activates an action or keeps track of the count.
 		/// </summary>
 		/// <param name="type">Received from the bubble object</param>
-		public void BubblePopped(Bubble.BubbleType type)
+		public void BubblePopped(BubbleType type)
 		{
 			switch (type)
 			{
-				case Bubble.BubbleType.Fire:
+				case BubbleType.Fire:
 					_fireBubblesPopped++;
 					CheckCounters("Fire");
 					break;
-				case Bubble.BubbleType.Bomb:
+				case BubbleType.Bomb:
 					DestroyEnemies();
 					break;
 			}
@@ -71,6 +74,15 @@ namespace BubbleBobble
 			if (_player.GetComponent<PlayerMover>() != null)
 			{
 				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
+			}
+			if (_player.GetComponent<ShootBubble>() != null)
+			{
+				_player.GetComponent<ShootBubble>().ForceBoostIsActive = false;
+				_player.GetComponent<ShootBubble>().SizeBoostIsActive = false;
+			}
+			if (_player.GetComponent<PlayerControl>() != null)
+			{
+				_player.GetComponent<PlayerControl>().FireRateBoostIsActive = false;
 			}
 		}
 

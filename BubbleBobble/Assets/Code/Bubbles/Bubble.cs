@@ -1,16 +1,17 @@
-/// <remarks>
-/// author: Jose Mäntylä, Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Abstract base class for the bubbles in the game.
-/// </summary>
 using System;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-	public abstract partial class Bubble : MonoBehaviour, IBubble
+/// <summary>
+/// Abstract base class for the bubbles in the game.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä, Hanna Repo
+/// </remarks>
+
+	public abstract class Bubble : MonoBehaviour, IBubble
 	{
 		private bool _canPop = false;
 		protected GameManager _gameManager;
@@ -18,7 +19,6 @@ namespace BubbleBobble
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
-		[SerializeField] private BubbleData _bubbleData;
 		[SerializeField] private float _moveSpeed = 1f;
 		private Rigidbody2D _rigidBody;
 		private float _originalGravityScale;
@@ -95,7 +95,7 @@ namespace BubbleBobble
 
 		/// <summary>
 		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
-		/// Play pop effect and destroy the bubble after the effect has finished.
+		/// Play pop effect and destroy the bubble and pop effect after the effect has finished.
 		/// </summary>
 		public virtual void PopBubble()
 		{
