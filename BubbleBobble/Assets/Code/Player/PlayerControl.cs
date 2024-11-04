@@ -23,9 +23,13 @@ namespace BubbleBobble
 		private PlayerAnimationController _playerAnimator;
 		[SerializeField] private float _fireRate = 1f;
 		[SerializeField] private float _fireRateWithBoost = 0.5f;
+		[SerializeField] private SpriteRenderer _playerBubbleRenderer;
+		private Rigidbody2D _rigidBody;
+		private Collider2D _playerCollider;
 		private float _originalFireRate = 0f;
 		private float _timer = 0;
-		public bool CanMove = true;
+		private bool _canMove = true;
+		public bool CanMove { get { return _canMove; } set { _canMove = value; } }
 		private bool _fireRateBoostIsActive = false;
 
 		public bool LookingRight => _lookRight;
@@ -45,6 +49,9 @@ namespace BubbleBobble
 			_shootBubble = GetComponent<ShootBubble>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_playerAnimator = GetComponent<PlayerAnimationController>();
+			_playerBubbleRenderer.GetComponent<SpriteRenderer>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+			_playerCollider = GetComponent<Collider2D>();
 		}
 
 		private void Start()
@@ -161,6 +168,30 @@ namespace BubbleBobble
 				Collect(item);
 			}
 		}
+
+		/// <summary>
+		/// Restricts player movement, disables the collider and enables the bubble sprite.
+		/// </summary>
+		public void RestrainPlayer()
+		{
+			_lookRight = true;
+			_rigidBody.bodyType = RigidbodyType2D.Static;
+			_playerCollider.enabled = false;
+			_canMove = false;
+			_playerBubbleRenderer.enabled = true;
+		}
+
+		/// <summary>
+		/// Unrestricts player movement, enables the collider and disables the bubble sprite.
+		/// </summary>
+		public void UnRestrainPlayer()
+		{
+			_rigidBody.bodyType = RigidbodyType2D.Dynamic;
+			_playerCollider.enabled = true;
+			_canMove = true;
+			_playerBubbleRenderer.enabled = false;
+		}
+
 		#endregion
 	}
 }
