@@ -47,6 +47,12 @@ namespace BubbleBobble
 			{
 				PopBubble();
 			}
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			{
+				_rigidBody.gravityScale = 0;
+				_canMoveBubble = true;
+			}
 		}
 
 		/* protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -55,18 +61,21 @@ namespace BubbleBobble
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
 			{
 				_canMoveBubble = true;
+				print("Collision stay");
 			}
-		}
+		} */
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
 			{
+				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;
+				ChangeXDirection();
 			}
-		} */
+		}
 
-		protected virtual void OnTriggerEnter2D(Collider2D collider)
+		/* protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
 			if (collider.CompareTag("PlayerFeet"))
 			{
@@ -91,7 +100,7 @@ namespace BubbleBobble
 				_canMoveBubble = false;
 				ChangeXDirection();
 			}
-		}
+		} */
 
 		/// <summary>
 		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
