@@ -43,12 +43,16 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Player") && _canPop)
+			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
 				PopBubble();
 			}
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+		}
+
+		protected virtual void OnCollisionStay2D(Collision2D collision)
+		{
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = 0;
 				_rigidBody.velocity = Vector2.zero;
@@ -59,12 +63,20 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;
 				ChangeXDirection();
+			}
+		}
+
+		protected virtual void OnTriggerEnter2D(Collider2D collider)
+		{
+			if (collider.CompareTag(Tags._playerFeet))
+			{
+				CanPop(false);
 			}
 		}
 
