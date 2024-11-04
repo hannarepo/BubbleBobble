@@ -111,14 +111,14 @@ namespace BubbleBobble
 			base.OnCollisionEnter2D(collision);
 
 			// If projectile bubble hits wall, set gravity scale to floating gravity scale.
-			if (collision.gameObject.CompareTag("Wall"))
+			if (collision.gameObject.CompareTag(Tags._wall))
 			{
 				_rb.gravityScale = _floatingGravityScale;
 			}
 
 			// If projectile bubble hits enemy within given time window, trap the enemy.
 			// If enemy is not invincible, instantiate trapped enemy bubble and destroy projectile bubble.
-			if (collision.gameObject.CompareTag("Enemy") && _timer < _trapWindow)
+			if (collision.gameObject.CompareTag(Tags._enemy) && _timer < _trapWindow)
 			{
 				if (!collision.gameObject.GetComponent<EnemyInvincibility>().IsInvincible)
 				{
