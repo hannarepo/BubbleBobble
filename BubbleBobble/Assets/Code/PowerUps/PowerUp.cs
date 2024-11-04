@@ -24,6 +24,7 @@ namespace BubbleBobble
 		[SerializeField] protected GameObject _activeStatus;
 		[SerializeField] protected Image _statusImage;
 		[SerializeField] protected float _powerUpTime = 20f;
+		[SerializeField] protected TMP_Text _timerText;
 		protected bool _isActive;
 		protected float _timer;
 
