@@ -64,7 +64,7 @@ namespace BubbleBobble
 
 		protected override void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Player"))
+			if (collision.gameObject.CompareTag(Tags._player))
 			{
 				PopBubble();
 				_enemy.GetComponent<EnemyTestScript>().Die();

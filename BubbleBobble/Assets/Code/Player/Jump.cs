@@ -106,8 +106,8 @@ namespace BubbleBobble
 
 			// If the collider hit with BoxCast is Ground or Platform
 			//  and player is not pressing down, player can jump.
-			if (hit.collider.CompareTag("Ground") ||
-				hit.collider.CompareTag("Platform"))
+			if (hit.collider.CompareTag(Tags._ground) ||
+				hit.collider.CompareTag(Tags._platform))
 			{
 				_grounded = true;
 
@@ -120,7 +120,7 @@ namespace BubbleBobble
 			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
 			// Do a bubble jump with less jump force due to bubble having bounciness.
-			if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
+			if (hit.collider.CompareTag(Tags._projectile) || hit.collider.CompareTag(Tags._bubble))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
 				if (bubble != null)
