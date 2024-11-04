@@ -15,6 +15,7 @@ namespace BubbleBobble
 		public override void PowerUpTimer()
 		{
 			_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
+			_timerText.text = $"{(int)_powerUpTime - (int)_timer}";
 		}
 
 		public override void ActivatePowerUp()
