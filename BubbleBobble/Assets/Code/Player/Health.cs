@@ -29,6 +29,10 @@ namespace BubbleBobble
 			get { return _invincibilityTimer > 0 ; }
 		}
 
+		public int CurrentLives => _currentLives;
+
+		public int MaxLives => _maxLives;
+
 		private void Awake()
 		{
 			_transform = transform;
@@ -88,7 +92,7 @@ namespace BubbleBobble
 			{
 				Invoke("Respawn", 1f);
 				_currentLives--;
-				_hearts[_currentLives].SetActive(false);
+				Destroy(_hearts[_currentLives]);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 
 				if (_currentLives > 0)
@@ -98,7 +102,15 @@ namespace BubbleBobble
 			}
 		}
 
-		
+		public void SetExtraLife(bool set)
+		{
+			if (set)
+			{
+				Destroy(_brokenHearts[_currentLives]);
+				_hearts[_currentLives] = Instantiate(_heartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_currentLives++;
+			}
+		}
 
 		private void Respawn()
 		{

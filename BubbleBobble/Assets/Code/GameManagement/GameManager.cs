@@ -5,9 +5,7 @@
 /// <summary>
 /// Keeps track of most things that happen in-game
 /// </summary>
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -18,8 +16,10 @@ namespace BubbleBobble
 		[SerializeField] private float _fireBubblesPopped = 0;
 		private BubbleSpawner _bubbleSpawner;
 		[SerializeField] private int _maxProjectiles = 10;
+		[SerializeField] private GameObject _player;
 
 		[SerializeField] private float _levelChangeDelay = 2f;
+		[SerializeField] private float _bombSpawnThreshold = 4f;
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
@@ -27,19 +27,18 @@ namespace BubbleBobble
 		#region Unity Functions
 		private void Start()
 		{
-			_levelChanger = GetComponent<LevelChanger>();
-			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+			_levelChanger = GetComponent<LevelChanger>();;
 		}
 
 		private void Update()
 		{
 			if (_projectileList.Count == _maxProjectiles)
 			{
-				CheckCounters("Projectile");
+				_projectileList[0].GetComponent<ProjectileBubble>().PopBubble();
 			}
 		}
 
-		#endregion
+		#endregion Unity Functions
 
 		/// <summary>
 		/// This method is used remotely from bubble objects when they are popped.
@@ -64,6 +63,29 @@ namespace BubbleBobble
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
+			ResetAllPowerUps();
+		}
+
+		public void ResetAllPowerUps()
+		{
+			if (_player.GetComponent<PlayerMover>() != null)
+			{
+				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
+			}
+			if (_player.GetComponent<ShootBubble>() != null)
+			{
+				_player.GetComponent<ShootBubble>().ForceBoostIsActive = false;
+				_player.GetComponent<ShootBubble>().SizeBoostIsActive = false;
+			}
+			if (_player.GetComponent<PlayerControl>() != null)
+			{
+				_player.GetComponent<PlayerControl>().FireRateBoostIsActive = false;
+			}
+		}
+
+		public void BubbleSpawnerInitialization()
+		{
+			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
 		}
 
 		#region Counters
@@ -72,7 +94,7 @@ namespace BubbleBobble
 			switch (name)
 			{
 				case "Fire":
-					if (_fireBubblesPopped == 3)
+					if (_fireBubblesPopped == _bombSpawnThreshold)
 					{
 						_bubbleSpawner.SpawnBomb();
 					}
@@ -84,12 +106,6 @@ namespace BubbleBobble
 						Invoke("NextLevel", _levelChangeDelay);
 					}
 					break;
-				case "Projectile":
-					if (_projectileList.Count == _maxProjectiles)
-					{
-						RemoveProjectileFromList(_projectileList[0]);
-					}
-					break;
 			}
 		}
 
@@ -98,9 +114,9 @@ namespace BubbleBobble
 			// Reset counters here when loading a new level
 			_fireBubblesPopped = 0;
 		}
-		#endregion
+		#endregion Counters
 
-		#region EnemyRelated
+		#region Enemy Related
 		private void DestroyEnemies()
 		{
 			// Destroy all enemies on screen at index 0
@@ -131,9 +147,9 @@ namespace BubbleBobble
 			CheckCounters("Enemy");
 			Destroy(enemyObject);
 		}
-		#endregion
+		#endregion Enemy Related
 
-		#region ProjectileRelated
+		#region Projectile Related
 		// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
@@ -145,8 +161,7 @@ namespace BubbleBobble
 		public void RemoveProjectileFromList(GameObject projectileObject)
 		{
 			_projectileList.Remove(projectileObject);
-			projectileObject.GetComponent<ProjectileBubble>().PopBubble();
 		}
-		#endregion
+		#endregion Projectile Related
 	}
 }

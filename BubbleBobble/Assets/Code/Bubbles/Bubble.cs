@@ -19,6 +19,7 @@ namespace BubbleBobble
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
 		[SerializeField] private BubbleData _bubbleData;
+		[SerializeField] private float _moveSpeed = 1f;
 
 		protected abstract BubbleType Type
 		{
@@ -80,7 +81,6 @@ namespace BubbleBobble
 
 			float delay = 0;
 
-
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
@@ -98,6 +98,22 @@ namespace BubbleBobble
 		{
 			_canPop = canPop;
 		}
-		
+
+		/// <summary>
+		/// Moves the bubble on the X-axis.
+		/// </summary>
+		public virtual void BubbleMovement()
+		{
+			Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+			rb.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
+		}
+
+		/// <summary>
+		/// Reverses the direction of the bubble movement on the X-axis.
+		/// </summary>
+		public virtual void ChangeXDirection()
+		{
+			_moveSpeed *= -1;
+		}
 	}
 }

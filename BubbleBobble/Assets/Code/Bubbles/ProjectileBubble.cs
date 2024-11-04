@@ -9,6 +9,7 @@
 /// When bubble reaches the top of the level, destroy bubble after a short delay.
 /// </summary>
 
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -18,10 +19,13 @@ namespace BubbleBobble
 	{
 		private Rigidbody2D _rb;
 		[SerializeField] private float _floatingGravityScale;
-		[SerializeField] private float _launchForce = 5f;
+		[SerializeField] private float _launchForce = 9f;
+		[SerializeField] private float _launchForceWithBoost = 15f;
 		[SerializeField] private float _trapWindow = 3f;
 		[SerializeField] GameObject _trappedEnemyPrefab;
 		[SerializeField] private float _lifeTime = 10f;
+		[SerializeField] private Vector3 _sizeWithBoost = new Vector3(0.7f, 0.7f, 0.7f);
+		private Vector3 _size;
 		private float _timer = 0;
 
 		protected override BubbleType Type
@@ -54,7 +58,14 @@ namespace BubbleBobble
 			if (_timer >= _trapWindow)
 			{
 				Physics2D.IgnoreLayerCollision(12, 13, true);
-				transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+				if (_size == _sizeWithBoost)
+				{
+					transform.localScale = _size * 1.2f;
+				}
+				else
+				{
+					transform.localScale = _size * 1.5f;
+				}
 				_rb.gravityScale = _floatingGravityScale;
 			}
 			else
@@ -63,9 +74,24 @@ namespace BubbleBobble
 			}
 		}
 
-		public void Launch(bool shootRight)
+		public void Launch(bool shootRight, bool forceBoostIsActive, bool sizeBoostIsActive)
 		{
+			if (sizeBoostIsActive)
+			{
+				_size = _sizeWithBoost;
+			}
+			else
+			{
+				_size = transform.localScale;
+			}
+			transform.localScale = _size;
+
 			_rb = GetComponent<Rigidbody2D>();
+
+			if (forceBoostIsActive)
+			{
+				_launchForce = _launchForceWithBoost;
+			}
 
 			// If player is facing right, bubble gets force applied to right from transform.
 			// If player is facing left, bubble gets force applied to left from transform.
@@ -105,10 +131,17 @@ namespace BubbleBobble
 						trappedEnemyBubble.Enemy = enemy;
 					}
 
-					Destroy(gameObject);
 					_gameManager.RemoveProjectileFromList(gameObject);
+					Destroy(gameObject);
 				}
 			}
+		}
+
+		public override void PopBubble()
+		{
+			_gameManager.RemoveProjectileFromList(gameObject);
+
+			base.PopBubble();
 		}
 	}
 }
