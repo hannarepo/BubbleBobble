@@ -30,7 +30,7 @@ namespace BubbleBobble
             ""id"": ""babbc889-d35c-4cb3-886f-0a30fe876614"",
             ""actions"": [
                 {
-                    ""name"": ""Player1Move"",
+                    ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""8b4a68ce-95cd-4376-8684-88cf126baf44"",
                     ""expectedControlType"": ""Vector2"",
@@ -39,7 +39,7 @@ namespace BubbleBobble
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Player1Jump"",
+                    ""name"": ""Jump"",
                     ""type"": ""Button"",
                     ""id"": ""10a9c9b9-ea9a-41ec-a5ce-a92e9d904720"",
                     ""expectedControlType"": ""Button"",
@@ -48,9 +48,18 @@ namespace BubbleBobble
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Player1Shoot"",
+                    ""name"": ""Shoot"",
                     ""type"": ""Button"",
                     ""id"": ""aa82399c-74c2-45b9-95ac-f4ba0563f786"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""48d6c8f1-f953-4b32-93bc-d971db72cb63"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -65,7 +74,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -76,7 +85,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -87,7 +96,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -98,7 +107,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -109,7 +118,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -120,7 +129,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -131,7 +140,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -142,7 +151,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -153,7 +162,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": true,
                     ""isPartOfComposite"": false
                 },
@@ -164,7 +173,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -175,7 +184,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -186,7 +195,51 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Move"",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""ArrowKeys"",
+                    ""id"": ""7b74c855-a638-4424-9625-2a197d9413ab"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""4d270d55-8b42-4743-bf71-ea50de0db927"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""1760e8eb-30b6-41eb-974f-65659a2bf8e6"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""3de0982f-ce95-459d-b7aa-bb2faac55a1f"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
@@ -197,7 +250,7 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Jump"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -208,18 +261,18 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Jump"",
+                    ""action"": ""Jump"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
                     ""id"": ""1dafd14b-4adb-4dc1-a019-3086a6687476"",
-                    ""path"": ""<Keyboard>/g"",
+                    ""path"": ""<Keyboard>/enter"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Shoot"",
+                    ""action"": ""Shoot"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -230,7 +283,29 @@ namespace BubbleBobble
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Player1Shoot"",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5e48596f-6528-4ea6-8637-57bcb4fa7840"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6742cc0a-491a-42b2-8120-8452df8de951"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -241,9 +316,10 @@ namespace BubbleBobble
 }");
             // Game
             m_Game = asset.FindActionMap("Game", throwIfNotFound: true);
-            m_Game_Player1Move = m_Game.FindAction("Player1Move", throwIfNotFound: true);
-            m_Game_Player1Jump = m_Game.FindAction("Player1Jump", throwIfNotFound: true);
-            m_Game_Player1Shoot = m_Game.FindAction("Player1Shoot", throwIfNotFound: true);
+            m_Game_Move = m_Game.FindAction("Move", throwIfNotFound: true);
+            m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
+            m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
+            m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -305,16 +381,18 @@ namespace BubbleBobble
         // Game
         private readonly InputActionMap m_Game;
         private List<IGameActions> m_GameActionsCallbackInterfaces = new List<IGameActions>();
-        private readonly InputAction m_Game_Player1Move;
-        private readonly InputAction m_Game_Player1Jump;
-        private readonly InputAction m_Game_Player1Shoot;
+        private readonly InputAction m_Game_Move;
+        private readonly InputAction m_Game_Jump;
+        private readonly InputAction m_Game_Shoot;
+        private readonly InputAction m_Game_Pause;
         public struct GameActions
         {
             private @Controls m_Wrapper;
             public GameActions(@Controls wrapper) { m_Wrapper = wrapper; }
-            public InputAction @Player1Move => m_Wrapper.m_Game_Player1Move;
-            public InputAction @Player1Jump => m_Wrapper.m_Game_Player1Jump;
-            public InputAction @Player1Shoot => m_Wrapper.m_Game_Player1Shoot;
+            public InputAction @Move => m_Wrapper.m_Game_Move;
+            public InputAction @Jump => m_Wrapper.m_Game_Jump;
+            public InputAction @Shoot => m_Wrapper.m_Game_Shoot;
+            public InputAction @Pause => m_Wrapper.m_Game_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -324,28 +402,34 @@ namespace BubbleBobble
             {
                 if (instance == null || m_Wrapper.m_GameActionsCallbackInterfaces.Contains(instance)) return;
                 m_Wrapper.m_GameActionsCallbackInterfaces.Add(instance);
-                @Player1Move.started += instance.OnPlayer1Move;
-                @Player1Move.performed += instance.OnPlayer1Move;
-                @Player1Move.canceled += instance.OnPlayer1Move;
-                @Player1Jump.started += instance.OnPlayer1Jump;
-                @Player1Jump.performed += instance.OnPlayer1Jump;
-                @Player1Jump.canceled += instance.OnPlayer1Jump;
-                @Player1Shoot.started += instance.OnPlayer1Shoot;
-                @Player1Shoot.performed += instance.OnPlayer1Shoot;
-                @Player1Shoot.canceled += instance.OnPlayer1Shoot;
+                @Move.started += instance.OnMove;
+                @Move.performed += instance.OnMove;
+                @Move.canceled += instance.OnMove;
+                @Jump.started += instance.OnJump;
+                @Jump.performed += instance.OnJump;
+                @Jump.canceled += instance.OnJump;
+                @Shoot.started += instance.OnShoot;
+                @Shoot.performed += instance.OnShoot;
+                @Shoot.canceled += instance.OnShoot;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
             {
-                @Player1Move.started -= instance.OnPlayer1Move;
-                @Player1Move.performed -= instance.OnPlayer1Move;
-                @Player1Move.canceled -= instance.OnPlayer1Move;
-                @Player1Jump.started -= instance.OnPlayer1Jump;
-                @Player1Jump.performed -= instance.OnPlayer1Jump;
-                @Player1Jump.canceled -= instance.OnPlayer1Jump;
-                @Player1Shoot.started -= instance.OnPlayer1Shoot;
-                @Player1Shoot.performed -= instance.OnPlayer1Shoot;
-                @Player1Shoot.canceled -= instance.OnPlayer1Shoot;
+                @Move.started -= instance.OnMove;
+                @Move.performed -= instance.OnMove;
+                @Move.canceled -= instance.OnMove;
+                @Jump.started -= instance.OnJump;
+                @Jump.performed -= instance.OnJump;
+                @Jump.canceled -= instance.OnJump;
+                @Shoot.started -= instance.OnShoot;
+                @Shoot.performed -= instance.OnShoot;
+                @Shoot.canceled -= instance.OnShoot;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -365,9 +449,10 @@ namespace BubbleBobble
         public GameActions @Game => new GameActions(this);
         public interface IGameActions
         {
-            void OnPlayer1Move(InputAction.CallbackContext context);
-            void OnPlayer1Jump(InputAction.CallbackContext context);
-            void OnPlayer1Shoot(InputAction.CallbackContext context);
+            void OnMove(InputAction.CallbackContext context);
+            void OnJump(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
     }
 }

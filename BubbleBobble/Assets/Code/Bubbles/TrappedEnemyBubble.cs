@@ -1,16 +1,17 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
+using UnityEngine;
+
+namespace BubbleBobble
+{
 /// <summary>
 /// When enemy is trapped in a bubble, it is not destroyed immediately. Instead, it is hidden and
 /// the bubble floats up. After a certain time, the enemy is freed from the bubble and bubble is destroyed.
 /// If player pops the bubble before the time limit, the enemy is destroyed.
 /// </summary>
-using UnityEngine;
+///
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
 
-namespace BubbleBobble
-{
 	public class TrappedEnemyBubble : Bubble
 	{
 		private Transform _transform;
@@ -63,7 +64,7 @@ namespace BubbleBobble
 
 		protected override void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Player"))
+			if (collision.gameObject.CompareTag(Tags._player))
 			{
 				PopBubble();
 				_enemy.GetComponent<EnemyTestScript>().Die();

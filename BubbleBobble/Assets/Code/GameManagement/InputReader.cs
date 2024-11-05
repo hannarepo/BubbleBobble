@@ -1,15 +1,16 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Input reader for reading and storing the player input.
-/// Includes getters for use in other scripts.
-/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Input reader for reading and storing the player input.
+	/// Includes getters for use in other scripts.
+	/// </summary>
+
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
     public class InputReader : MonoBehaviour
     {
         private Controls _controls;
@@ -17,6 +18,8 @@ namespace BubbleBobble
         private bool _jump = false;
         private bool _shootBubble = false;
         private bool _jumpOnBubble = false;
+
+		private bool _pauseEsc = false;
 
         #region UnityMethods
         private void Awake()
@@ -36,10 +39,11 @@ namespace BubbleBobble
 
         private void Update()
         {
-            _movementControls = _controls.Game.Player1Move.ReadValue<Vector2>();
-            _jump = _controls.Game.Player1Jump.WasPressedThisFrame();
-            _jumpOnBubble = _controls.Game.Player1Jump.IsPressed();
-            _shootBubble = _controls.Game.Player1Shoot.WasPerformedThisFrame();
+            _movementControls = _controls.Game.Move.ReadValue<Vector2>();
+            _jump = _controls.Game.Jump.WasPressedThisFrame();
+            _jumpOnBubble = _controls.Game.Jump.IsPressed();
+            _shootBubble = _controls.Game.Shoot.WasPerformedThisFrame();
+			_pauseEsc = _controls.Game.Pause.WasPressedThisFrame();
 
         }
         #endregion
@@ -64,6 +68,11 @@ namespace BubbleBobble
         {
             get { return _shootBubble; }
         }
+
+		public bool PauseEsc
+		{
+			get { return _pauseEsc; }
+		}
         #endregion
     }
 }

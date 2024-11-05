@@ -1,16 +1,17 @@
-/// <remarks>
-/// author: Jose Mäntylä, Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Abstract base class for the bubbles in the game.
-/// </summary>
 using System;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-	public abstract partial class Bubble : MonoBehaviour, IBubble
+/// <summary>
+/// Abstract base class for the bubbles in the game.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä, Hanna Repo
+/// </remarks>
+
+	public abstract class Bubble : MonoBehaviour, IBubble
 	{
 		private bool _canPop = false;
 		protected GameManager _gameManager;
@@ -18,7 +19,9 @@ namespace BubbleBobble
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
-		[SerializeField] private BubbleData _bubbleData;
+		[SerializeField] private float _moveSpeed = 1f;
+		private Rigidbody2D _rigidBody;
+		private float _originalGravityScale;
 
 		protected abstract BubbleType Type
 		{
@@ -34,11 +37,13 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_collider = GetComponent<Collider2D>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+			_originalGravityScale = _rigidBody.gravityScale;
 		}
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Player") && _canPop)
+			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
 				PopBubble();
 			}
@@ -46,24 +51,30 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
+				_rigidBody.gravityScale = 0;
+				_rigidBody.velocity = Vector2.zero;
+				gameObject.transform.position = gameObject.transform.position;
 				_canMoveBubble = true;
 			}
 		}
+
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
+			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
+				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;
+				ChangeXDirection();
 			}
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
-			if (collider.CompareTag("PlayerFeet"))
+			if (collider.CompareTag(Tags._playerFeet))
 			{
 				CanPop(false);
 			}
@@ -71,7 +82,7 @@ namespace BubbleBobble
 
 		/// <summary>
 		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
-		/// Play pop effect and destroy the bubble after the effect has finished.
+		/// Play pop effect and destroy the bubble and pop effect after the effect has finished.
 		/// </summary>
 		public virtual void PopBubble()
 		{
@@ -79,7 +90,6 @@ namespace BubbleBobble
 			_collider.enabled = false;
 
 			float delay = 0;
-
 
 			if (_popEffectPrefab != null)
 			{
@@ -98,6 +108,22 @@ namespace BubbleBobble
 		{
 			_canPop = canPop;
 		}
-		
+
+		/// <summary>
+		/// Moves the bubble on the X-axis.
+		/// </summary>
+		public virtual void BubbleMovement()
+		{
+			Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
+			rb.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
+		}
+
+		/// <summary>
+		/// Reverses the direction of the bubble movement on the X-axis.
+		/// </summary>
+		public virtual void ChangeXDirection()
+		{
+			_moveSpeed *= -1;
+		}
 	}
 }
