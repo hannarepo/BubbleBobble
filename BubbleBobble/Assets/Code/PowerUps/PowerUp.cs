@@ -1,7 +1,6 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-using System;
 
 namespace BubbleBobble
 {
@@ -21,6 +20,7 @@ namespace BubbleBobble
 		[SerializeField] protected GameObject _player;
 		[SerializeField] private PowerUpData _powerUpData;
 		[SerializeField] private TextMeshProUGUI _priceText;
+		[SerializeField] private Image _buttonImage;
 		[SerializeField] protected GameObject _activeStatus;
 		[SerializeField] protected Image _statusImage;
 		[SerializeField] protected float _powerUpTime = 20f;
@@ -75,6 +75,11 @@ namespace BubbleBobble
 		public void SetPriceColor(Color color)
 		{
 			_priceText.color = color;
+		}
+
+		public void SetButtonColor(Color color)
+		{
+			_buttonImage.color = color;
 		}
 
 		/// <summary>
