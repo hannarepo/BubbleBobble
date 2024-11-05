@@ -1,12 +1,19 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Gets shoot information from PlayerControl.
+	/// When player can shoot, instatiates a projectile bubble and calls it's launch method.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	public class ShootBubble : MonoBehaviour
 	{
 		[SerializeField] private GameObject _projectilePrefab;
-		[SerializeField] private ProjectileBubble _projectileBubble;
 		[SerializeField] private float _spawnOffset = 0.9f;
 		[SerializeField] private GameManager _gameManager;
 		private bool _forceBoostIsActive = false;
@@ -31,16 +38,19 @@ namespace BubbleBobble
 				GameObject projectile;
 				if (lookingRight)
 				{
-					projectile = Instantiate(_projectilePrefab, new Vector3(transform.position.x + _spawnOffset, transform.position.y, 0), Quaternion.identity);
+					projectile = Instantiate(_projectilePrefab, new Vector3(transform.position.x + _spawnOffset,
+											transform.position.y, 0), Quaternion.identity);
 				}
 				else
 				{
-					projectile = Instantiate(_projectilePrefab, new Vector3(transform.position.x - _spawnOffset, transform.position.y, 0), Quaternion.identity);
+					projectile = Instantiate(_projectilePrefab, new Vector3(transform.position.x - _spawnOffset,
+											transform.position.y, 0), Quaternion.identity);
 				}
 
-				if (projectile.GetComponent<ProjectileBubble>() != null)
+				ProjectileBubble projectileBubble = projectile.GetComponent<ProjectileBubble>();
+				if (projectileBubble != null)
 				{
-					projectile.GetComponent<ProjectileBubble>().Launch(lookingRight, _forceBoostIsActive, _sizeBoostIsActive);
+					projectileBubble.Launch(lookingRight, _forceBoostIsActive, _sizeBoostIsActive);
 					_gameManager.AddProjectileToList(projectile);
 				}
 			}

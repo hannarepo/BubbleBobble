@@ -1,16 +1,16 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-///
-/// <summary>
-/// When player drops out of the level, they will be moved to
-/// a random spawn point at the top of the level.
-/// </summary>
-
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// When player drops out of the level, they will be moved to
+	/// spawn point at the top of the level.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
     public class PlayerDropSpawn : MonoBehaviour
     {
         private Vector3 _spawnPosition;

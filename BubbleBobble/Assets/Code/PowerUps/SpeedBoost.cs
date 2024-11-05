@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -12,15 +13,10 @@ namespace BubbleBobble
 			_mover = _player.GetComponent<PlayerMover>();
 		}
 
-		private void Update()
+		public override void PowerUpTimer()
 		{
-			_timer += Time.deltaTime;
-
-			if (_timer >= _powerUpTime)
-			{
-				_mover.SpeedBoostIsActive = false;
-				SetActiveStatus(false);
-			}
+			_statusImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
+			_timerText.text = $"{(int)_powerUpTime - (int)_timer}";
 		}
 
 		public override void ActivatePowerUp()
@@ -28,8 +24,23 @@ namespace BubbleBobble
 			if (_mover != null)
 			{
 				_mover.SpeedBoostIsActive = true;
+				_isActive = true;
 			}
 			base.ActivatePowerUp();
+		}
+
+		public override void DeactivatePowerUp()
+		{
+			if (_mover != null)
+			{
+				_mover.SpeedBoostIsActive = false;
+			}
+			base.DeactivatePowerUp();
+		}
+
+		public override void SetActiveStatus(bool isActive)
+		{
+			_activeStatus.SetActive(isActive);
 		}
 	}
 }
