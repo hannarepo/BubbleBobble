@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -29,10 +30,18 @@ namespace BubbleBobble
 		private float _originalFireRate = 0f;
 		private float _timer = 0;
 		private bool _canMove = true;
-		public bool CanMove { get { return _canMove; } set { _canMove = value; } }
+		public bool CanMove 
+		{ 
+			get { return _canMove; } 
+			set { _canMove = value; } 
+		}
 		private bool _fireRateBoostIsActive = false;
 
-		public bool LookingRight => _lookRight;
+		public bool LookingRight 
+		{ 
+			get { return _lookRight; } 
+			set { _lookRight = value; }
+		}
 
 		public bool FireRateBoostIsActive
 		{
@@ -69,6 +78,7 @@ namespace BubbleBobble
 			else
 			{
 				movement = Vector2.zero;
+				_playerMover.Move(Vector2.zero);
 			}
 
 			if (movement.x < 0 || movement.x > 0)
