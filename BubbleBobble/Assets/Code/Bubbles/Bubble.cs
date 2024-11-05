@@ -20,6 +20,8 @@ namespace BubbleBobble
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
 		[SerializeField] private float _moveSpeed = 1f;
+		private Rigidbody2D _rigidBody;
+		private float _originalGravityScale;
 
 		protected abstract BubbleType Type
 		{
@@ -35,6 +37,8 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_collider = GetComponent<Collider2D>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+			_originalGravityScale = _rigidBody.gravityScale;
 		}
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -50,15 +54,21 @@ namespace BubbleBobble
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
+				_rigidBody.gravityScale = 0;
+				_rigidBody.velocity = Vector2.zero;
+				gameObject.transform.position = gameObject.transform.position;
 				_canMoveBubble = true;
 			}
 		}
+
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
+				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;
+				ChangeXDirection();
 			}
 		}
 

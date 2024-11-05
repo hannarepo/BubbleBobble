@@ -2,15 +2,15 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class EnemyBottomSpawn : MonoBehaviour
-    {
-        [SerializeField] private GameObject _spawnPoint;
-        private Transform _transform;
+	public class EnemyBottomSpawn : MonoBehaviour
+	{
+		[SerializeField] private GameObject _spawnPoint;
+		private Transform _transform;
 
-        private void Awake()
-        {
-            _transform = GetComponent<Transform>();
-        }
+		private void Awake()
+		{
+			_transform = GetComponent<Transform>();
+		}
 
         private void OnTriggerEnter2D(Collider2D collider)
         {
