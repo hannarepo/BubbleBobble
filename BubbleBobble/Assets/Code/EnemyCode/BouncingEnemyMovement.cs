@@ -9,7 +9,7 @@ namespace BubbleBobble
 
 		[SerializeField] private float _speed = 5;
 		private Rigidbody2D _rigidbody;
-		private Transform _transform;
+		//private Transform _transform;
 		private Vector2 _velocity = Vector2.zero;
 		
 		void Start()
