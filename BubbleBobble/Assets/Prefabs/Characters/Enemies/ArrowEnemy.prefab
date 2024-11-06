@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6753440425597136487}
   - component: {fileID: 6995417988814426785}
   - component: {fileID: -8653876645881671493}
+  - component: {fileID: 7201647075945622654}
   m_Layer: 12
   m_Name: ArrowEnemy
   m_TagString: Enemy
@@ -183,3 +184,30 @@ CircleCollider2D:
   m_Offset: {x: 0.010255396, y: 0.027036756}
   serializedVersion: 2
   m_Radius: 0.3843947
+--- !u!50 &7201647075945622654
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1618292080154657774}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 6200000, guid: 6ad9baebcc4064346995e82a09c73bd4, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0

@@ -1732,7 +1732,7 @@ GameObject:
   m_Layer: 0
   m_Name: PointA
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -1745,7 +1745,7 @@ Transform:
   m_GameObject: {fileID: 708208416}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.4, y: 3.5, z: 0}
+  m_LocalPosition: {x: -6.03, y: 0.4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3196,6 +3196,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 854007187648571463, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1199892044300570983, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _fireRate
       value: 0.4
@@ -3451,39 +3455,6 @@ MonoBehaviour:
   _pointA: {fileID: 708208416}
   _pointB: {fileID: 1445498640}
   _speed: 1
-  _jumpForce: 5
---- !u!1 &1127161008 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1618292080154657774, guid: 5599b90b850fcf34da56399b24aa8ccd, type: 3}
-  m_PrefabInstance: {fileID: 2034702163}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1127161016
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127161008}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 6200000, guid: 6ad9baebcc4064346995e82a09c73bd4, type: 2}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!4 &1172747726 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4929320722030426550, guid: 7a68644cf630f0a4790cac457098460f, type: 3}
@@ -4083,7 +4054,7 @@ GameObject:
   m_Layer: 0
   m_Name: PointB
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -5209,10 +5180,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1618292080154657774, guid: 5599b90b850fcf34da56399b24aa8ccd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1127161016}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5599b90b850fcf34da56399b24aa8ccd, type: 3}
 --- !u!1 &2047261594
 GameObject:
