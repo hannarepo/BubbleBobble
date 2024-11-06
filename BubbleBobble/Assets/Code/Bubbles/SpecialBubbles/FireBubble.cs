@@ -34,7 +34,7 @@ namespace BubbleBobble
 			}
 		}
 
-		private void Update()
+		private void FixedUpdate()
 		{
 			if (_canMoveBubble)
 			{
