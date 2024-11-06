@@ -47,18 +47,17 @@ namespace BubbleBobble
 			{
 				PopBubble();
 			}
-		}
-
-		protected virtual void OnCollisionStay2D(Collision2D collision)
-		{
 			if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
 			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = 0;
 				_rigidBody.velocity = Vector2.zero;
-				gameObject.transform.position = gameObject.transform.position;
 				_canMoveBubble = true;
 			}
+		}
+
+		protected virtual void OnCollisionStay2D(Collision2D collision)
+		{
 		}
 
 		protected virtual void OnCollisionExit2D(Collision2D collision)
@@ -114,8 +113,7 @@ namespace BubbleBobble
 		/// </summary>
 		public virtual void BubbleMovement()
 		{
-			Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-			rb.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
+			_rigidBody.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
 		}
 
 		/// <summary>

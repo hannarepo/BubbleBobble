@@ -78,7 +78,6 @@ namespace BubbleBobble
 			else
 			{
 				movement = Vector2.zero;
-				_playerMover.Move(Vector2.zero);
 			}
 
 			if (movement.x < 0 || movement.x > 0)

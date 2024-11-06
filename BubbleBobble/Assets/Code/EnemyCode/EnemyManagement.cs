@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-	public class EnemyTestScript : MonoBehaviour
+	public class EnemyManagement : MonoBehaviour
 	{
 		private GameManager _gameManager;
 		public bool _kill = false;
