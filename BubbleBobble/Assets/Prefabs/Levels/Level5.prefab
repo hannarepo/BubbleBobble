@@ -119,8 +119,6 @@ GameObject:
   - component: {fileID: 2640090497567661662}
   - component: {fileID: 6891974395320636892}
   - component: {fileID: 2781219487175773249}
-  - component: {fileID: 6327479768707392537}
-  - component: {fileID: 4714834855720804503}
   m_Layer: 7
   m_Name: PlatformCollider (2)
   m_TagString: Platform
@@ -207,34 +205,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &6327479768707392537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144289050966084838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &4714834855720804503
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1144289050966084838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &1310636901102005245
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,8 +219,6 @@ GameObject:
   - component: {fileID: 4726750600614870958}
   - component: {fileID: 6712736727527481331}
   - component: {fileID: 6065287918119275041}
-  - component: {fileID: 4132419054829345760}
-  - component: {fileID: 5384970769405575970}
   m_Layer: 9
   m_Name: Roof
   m_TagString: Untagged
@@ -703,33 +671,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 3.5881329, y: 0.7703066}
   m_EdgeRadius: 0
---- !u!114 &4132419054829345760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310636901102005245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList: []
---- !u!114 &5384970769405575970
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1310636901102005245}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: -1}
 --- !u!1 &1807590568449591425
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,8 +682,6 @@ GameObject:
   - component: {fileID: 1641599929608752439}
   - component: {fileID: 887365028688805889}
   - component: {fileID: 2591659842408437665}
-  - component: {fileID: 2634515488907940308}
-  - component: {fileID: 6822292585674167428}
   m_Layer: 7
   m_Name: PlatformCollider (7)
   m_TagString: Platform
@@ -829,34 +768,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &2634515488907940308
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807590568449591425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &6822292585674167428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1807590568449591425}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &1866005747045140893
 GameObject:
   m_ObjectHideFlags: 0
@@ -909,8 +820,6 @@ GameObject:
   - component: {fileID: 4615878722165623331}
   - component: {fileID: 7699621348802074160}
   - component: {fileID: 3430459640766757815}
-  - component: {fileID: 7089669242190283488}
-  - component: {fileID: 4981784023415111083}
   m_Layer: 6
   m_Name: Ground
   m_TagString: Ground
@@ -1339,34 +1248,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.5340724, y: 0.5523567}
   m_EdgeRadius: 0
---- !u!114 &7089669242190283488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012893178111184193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
---- !u!114 &4981784023415111083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2012893178111184193}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
 --- !u!1 &3044169136425089215
 GameObject:
   m_ObjectHideFlags: 0
@@ -1378,8 +1259,6 @@ GameObject:
   - component: {fileID: 1176297744166968694}
   - component: {fileID: 3835541547447309423}
   - component: {fileID: 7507726861214170574}
-  - component: {fileID: 6004932859171742936}
-  - component: {fileID: 9059425468501331226}
   m_Layer: 7
   m_Name: PlatformCollider (6)
   m_TagString: Platform
@@ -1466,34 +1345,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &6004932859171742936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044169136425089215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: -1}
---- !u!114 &9059425468501331226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3044169136425089215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &3794389287522043686
 GameObject:
   m_ObjectHideFlags: 0
@@ -1536,8 +1387,6 @@ GameObject:
   - component: {fileID: 7846634269418032383}
   - component: {fileID: 4172940678845246474}
   - component: {fileID: 6041204400640509596}
-  - component: {fileID: 163063654811636595}
-  - component: {fileID: 6606798888109705252}
   m_Layer: 7
   m_Name: PlatformCollider (8)
   m_TagString: Platform
@@ -1624,34 +1473,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &163063654811636595
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4291551227232290441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &6606798888109705252
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4291551227232290441}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &4354690137259740793
 GameObject:
   m_ObjectHideFlags: 0
@@ -1662,8 +1483,7 @@ GameObject:
   m_Component:
   - component: {fileID: 588541284223104063}
   - component: {fileID: 5646609256932357831}
-  - component: {fileID: 9146271188056308081}
-  - component: {fileID: 8634585784376093185}
+  - component: {fileID: 2234734525165234383}
   m_Layer: 7
   m_Name: PlatformCollider (14)
   m_TagString: Platform
@@ -1716,7 +1536,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.033355713, y: -0.37808335}
   m_SpriteTilingProperty:
@@ -1731,34 +1551,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7073755, y: 2.2050822}
   m_EdgeRadius: 0
---- !u!114 &9146271188056308081
-MonoBehaviour:
+--- !u!251 &2234734525165234383
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4354690137259740793}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &8634585784376093185
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4354690137259740793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &4442443561705291661
 GameObject:
   m_ObjectHideFlags: 0
@@ -1846,8 +1657,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3458845287043677692}
   - component: {fileID: 976085914220374866}
-  - component: {fileID: 8118036080647590688}
-  - component: {fileID: 21443308473875990}
+  - component: {fileID: 3057108208519599808}
   m_Layer: 7
   m_Name: PlatformCollider (10)
   m_TagString: Platform
@@ -1900,7 +1710,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.045564175, y: -1.4806211}
   m_SpriteTilingProperty:
@@ -1915,34 +1725,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.70935535, y: 5.700217}
   m_EdgeRadius: 0
---- !u!114 &8118036080647590688
-MonoBehaviour:
+--- !u!251 &3057108208519599808
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4479113683707617565}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 1, y: 0}
---- !u!114 &21443308473875990
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4479113683707617565}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &4696401401109943293
 GameObject:
   m_ObjectHideFlags: 0
@@ -1953,8 +1754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8155598938449628881}
   - component: {fileID: 2205730873443020127}
-  - component: {fileID: 8917029831831820618}
-  - component: {fileID: 6514601235065068099}
+  - component: {fileID: 5334981100642767702}
   m_Layer: 7
   m_Name: PlatformCollider (13)
   m_TagString: Platform
@@ -2007,7 +1807,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.03154087, y: -0.37563908}
   m_SpriteTilingProperty:
@@ -2022,34 +1822,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.70374584, y: 2.2099707}
   m_EdgeRadius: 0
---- !u!114 &8917029831831820618
-MonoBehaviour:
+--- !u!251 &5334981100642767702
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4696401401109943293}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &6514601235065068099
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4696401401109943293}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &4869093938308532054
 GameObject:
   m_ObjectHideFlags: 0
@@ -2144,8 +1935,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7500874801440042286}
   - component: {fileID: 3425522895863933118}
-  - component: {fileID: 5111646730757515443}
-  - component: {fileID: 6364504770210730508}
+  - component: {fileID: 8618876978353779991}
   m_Layer: 7
   m_Name: PlatformCollider (12)
   m_TagString: Platform
@@ -2198,7 +1988,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.038124084, y: -0.4948547}
   m_SpriteTilingProperty:
@@ -2213,34 +2003,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.72423553, y: 3.7323308}
   m_EdgeRadius: 0
---- !u!114 &5111646730757515443
-MonoBehaviour:
+--- !u!251 &8618876978353779991
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5509016559946986320}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &6364504770210730508
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5509016559946986320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &5976809537882321819
 GameObject:
   m_ObjectHideFlags: 0
@@ -2872,8 +2653,6 @@ GameObject:
   - component: {fileID: 233983982910643479}
   - component: {fileID: 1219851258698647936}
   - component: {fileID: 6539252114702463002}
-  - component: {fileID: 63894129965761430}
-  - component: {fileID: 9086846897958136759}
   m_Layer: 7
   m_Name: PlatformCollider (5)
   m_TagString: Platform
@@ -2960,34 +2739,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &63894129965761430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7049609755264764944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: -1}
---- !u!114 &9086846897958136759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7049609755264764944}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &7361955851499398385
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,8 +3411,6 @@ GameObject:
   - component: {fileID: 4251783761528556272}
   - component: {fileID: 4186249893051152598}
   - component: {fileID: 3536836890339285089}
-  - component: {fileID: 5086726660458053739}
-  - component: {fileID: 1503475205234067753}
   m_Layer: 7
   m_Name: PlatformCollider
   m_TagString: Platform
@@ -3748,34 +3497,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &5086726660458053739
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7390993837678429969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &1503475205234067753
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7390993837678429969}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &7709149333405875574
 GameObject:
   m_ObjectHideFlags: 0
@@ -3835,8 +3556,6 @@ GameObject:
   - component: {fileID: 6949467197376282657}
   - component: {fileID: 860818422485374495}
   - component: {fileID: 1562316873471956896}
-  - component: {fileID: 8672756622513435157}
-  - component: {fileID: 3392798921764460696}
   m_Layer: 7
   m_Name: PlatformCollider (1)
   m_TagString: Platform
@@ -3923,34 +3642,6 @@ PlatformEffector2D:
   m_UseSideFriction: 0
   m_UseSideBounce: 0
   m_SideArc: 1
---- !u!114 &8672756622513435157
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7755116703072100755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 1}
---- !u!114 &3392798921764460696
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7755116703072100755}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
 --- !u!1 &7825424583101478649
 GameObject:
   m_ObjectHideFlags: 0
@@ -3961,8 +3652,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4891577354990375362}
   - component: {fileID: 3189769474515080608}
-  - component: {fileID: 7884193970777929004}
-  - component: {fileID: 3391227393726462410}
+  - component: {fileID: 4499924172982213426}
   m_Layer: 7
   m_Name: PlatformCollider (9)
   m_TagString: Platform
@@ -4015,7 +3705,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.05059123, y: -0.482363}
   m_SpriteTilingProperty:
@@ -4030,34 +3720,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.71940947, y: 3.703652}
   m_EdgeRadius: 0
---- !u!114 &7884193970777929004
-MonoBehaviour:
+--- !u!251 &4499924172982213426
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7825424583101478649}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: -1, y: 0}
---- !u!114 &3391227393726462410
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7825424583101478649}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1 &7857340533691960440
 GameObject:
   m_ObjectHideFlags: 0
@@ -4068,8 +3749,7 @@ GameObject:
   m_Component:
   - component: {fileID: 42547171312087416}
   - component: {fileID: 8285910473427778183}
-  - component: {fileID: 7160036717386760679}
-  - component: {fileID: 9196721581056510554}
+  - component: {fileID: 4751097082185424731}
   m_Layer: 7
   m_Name: PlatformCollider (11)
   m_TagString: Platform
@@ -4122,7 +3802,7 @@ BoxCollider2D:
     serializedVersion: 2
     m_Bits: 4294967295
   m_IsTrigger: 0
-  m_UsedByEffector: 0
+  m_UsedByEffector: 1
   m_UsedByComposite: 0
   m_Offset: {x: 0.045564175, y: -1.4799654}
   m_SpriteTilingProperty:
@@ -4137,34 +3817,25 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.70935535, y: 5.701528}
   m_EdgeRadius: 0
---- !u!114 &7160036717386760679
-MonoBehaviour:
+--- !u!251 &4751097082185424731
+PlatformEffector2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7857340533691960440}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bbbfad18910dfb4291d4c0ab8a46e9c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: -1, y: 0}
---- !u!114 &9196721581056510554
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7857340533691960440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 51ce9b0417268f84aba24e2f8e65d18f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _normal: {x: 0, y: 0}
-  _enemyList:
-  - {fileID: 0}
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 131071
+  m_RotationalOffset: 0
+  m_UseOneWay: 1
+  m_UseOneWayGrouping: 0
+  m_SurfaceArc: 180
+  m_UseSideFriction: 0
+  m_UseSideBounce: 0
+  m_SideArc: 1
 --- !u!1001 &4291330652522738371
 PrefabInstance:
   m_ObjectHideFlags: 0
