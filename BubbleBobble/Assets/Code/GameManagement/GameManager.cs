@@ -16,11 +16,11 @@ namespace BubbleBobble
 	public class GameManager : MonoBehaviour
 	{
 		private LevelChanger _levelChanger;
+		private bool _canChangeLevel = true;
 		[SerializeField] private float _fireBubblesPopped = 0;
 		private BubbleSpawner _bubbleSpawner;
 		[SerializeField] private int _maxProjectiles = 10;
 		[SerializeField] private GameObject _player;
-
 		[SerializeField] private float _levelChangeDelay = 2f;
 		[SerializeField] private float _bombSpawnThreshold = 4f;
 		// List is serialized for debugging
@@ -66,6 +66,10 @@ namespace BubbleBobble
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
+			CounterReset();
+			_canChangeLevel = true;
+
+		}
 
 			foreach (GameObject projectile in _projectileList)
 			{
@@ -90,10 +94,11 @@ namespace BubbleBobble
 					}
 					break; 
 				case "Enemy":
-					if (_enemyList.Count == 0)
+					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						print("Invoking level change");
 						Invoke("NextLevel", _levelChangeDelay);
+						_canChangeLevel = false;
 					}
 					break;
 			}
