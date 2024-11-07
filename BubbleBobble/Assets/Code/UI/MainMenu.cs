@@ -9,7 +9,7 @@ namespace BubbleBobble
     {
         public void PlayGame()
         {
-            SceneManager.LoadSceneAsync("DemoScene2");
+            SceneManager.LoadSceneAsync("DemoScene3");
         }
 
         public void QuitGame()

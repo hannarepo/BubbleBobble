@@ -127,8 +127,7 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-			if (item.ItemData.ItemType == ItemType.RedShell || item.ItemData.ItemType == ItemType.BlueShell ||
-				item.ItemData.ItemType == ItemType.PurpleShell || item.ItemData.ItemType == ItemType.PurpleBlueShell)
+			if (item.ItemData.ItemType == ItemType.Shell)
 			{
 				if (_inventory.Add(item.ItemData, 1))
 				{

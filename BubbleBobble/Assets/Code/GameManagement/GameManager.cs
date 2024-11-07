@@ -66,27 +66,14 @@ namespace BubbleBobble
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
-			ResetAllPowerUps();
 			CounterReset();
 			_canChangeLevel = true;
 
-		}
+			foreach (GameObject projectile in _projectileList)
+			{
+				projectile.GetComponent<ProjectileBubble>().PopBubble();
+			}
 
-		public void ResetAllPowerUps()
-		{
-			if (_player.GetComponent<PlayerMover>() != null)
-			{
-				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
-			}
-			if (_player.GetComponent<ShootBubble>() != null)
-			{
-				_player.GetComponent<ShootBubble>().ForceBoostIsActive = false;
-				_player.GetComponent<ShootBubble>().SizeBoostIsActive = false;
-			}
-			if (_player.GetComponent<PlayerControl>() != null)
-			{
-				_player.GetComponent<PlayerControl>().FireRateBoostIsActive = false;
-			}
 		}
 
 		public void BubbleSpawnerInitialization()
