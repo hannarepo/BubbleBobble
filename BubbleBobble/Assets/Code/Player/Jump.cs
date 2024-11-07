@@ -159,13 +159,11 @@ namespace BubbleBobble
 
 		private void GroundJump()
 		{
-			_timer = 0;
 			_rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
 		}
 
 		private void BubbleJump()
 		{
-			_timer = 0;
 			_rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
 		}
 		#endregion
