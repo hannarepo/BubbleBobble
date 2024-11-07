@@ -22,10 +22,12 @@ namespace BubbleBobble
 		{
 			get { return _spawnFromTop; }
 		}
+		[SerializeField] private Transform _secondarySpawnPoint;
 		[SerializeField] private float _spawnRate = 5f;
 		[SerializeField] private float _spawnLimit = 5f;
 		[SerializeField] private GameManager _gameManager;
 		private float _timeToSpawn = 0f;
+		private bool _spawnSwitch = false;
 
 		#region Unity Functions
 
@@ -33,6 +35,7 @@ namespace BubbleBobble
 		{
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_gameManager = FindObjectOfType<GameManager>();
+			_secondarySpawnPoint = transform.Find("SecondarySpawnPoint");
 		}
 
 		private void Start()
@@ -59,7 +62,6 @@ namespace BubbleBobble
 			}
 			// To be reworked
 			SpawnFireBubble();
-			_fireBubblesSpawned++;
 			_timeToSpawn = 0f;
 		}
 		public void SpawnBomb()
@@ -74,9 +76,21 @@ namespace BubbleBobble
 		/// </summary>
 		private void SpawnFireBubble()
 		{
-			GameObject fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
+			GameObject fireBubble;
+			if (_spawnSwitch)
+			{
+				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity);
+				_spawnSwitch = false;
+			}
+			else
+			{
+				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity);
+				_spawnSwitch = true;
+			}
+			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
 			FloatDirection(fireBubble);
 			fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
+			_fireBubblesSpawned++;
 		}
 
 		#endregion
