@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1130621250192179804}
   - component: {fileID: 2481868612667135813}
-  - component: {fileID: 1563939291802659742}
   - component: {fileID: 5107391822350383745}
-  m_Layer: 0
-  m_Name: PurpleBlue
+  - component: {fileID: 1563939291802659742}
+  m_Layer: 18
+  m_Name: PurpleBlueShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1563939291802659742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 716850163749411442}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemData: {fileID: 11400000, guid: dd82df99b2732904e97f2834db1a5056, type: 2}
 --- !u!61 &5107391822350383745
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.84337306}
   m_EdgeRadius: 0
+--- !u!114 &1563939291802659742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716850163749411442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: dd82df99b2732904e97f2834db1a5056, type: 2}
