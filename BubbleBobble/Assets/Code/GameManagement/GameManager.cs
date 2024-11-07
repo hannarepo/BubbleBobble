@@ -69,12 +69,11 @@ namespace BubbleBobble
 			CounterReset();
 			_canChangeLevel = true;
 
-		}
-
 			foreach (GameObject projectile in _projectileList)
 			{
 				projectile.GetComponent<ProjectileBubble>().PopBubble();
 			}
+
 		}
 
 		public void BubbleSpawnerInitialization()
