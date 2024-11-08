@@ -11,8 +11,6 @@ namespace BubbleBobble
 		private Rigidbody2D _rigidbody2D;
 		private SpriteRenderer _spriteRenderer;
 		private Transform _currentPoint;
-
-
 		[SerializeField] private float _speed;
 
 		void Awake()
