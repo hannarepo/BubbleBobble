@@ -8,7 +8,7 @@ namespace BubbleBobble
 	/// Keep track of time player has spent in the level for hurry up timer.
 	/// Hurry up mode makes enemies move faster.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
@@ -29,11 +29,11 @@ namespace BubbleBobble
 			set => _canSpawnItem = value;
 		}
 
-		// TODO: Add hurry up timer	
+		// TODO: Add hurry up timer
 
 		private void Update()
 		{
-			print(_canSpawnItem);
+			//print(_canSpawnItem);
 			_timer += Time.deltaTime;
 
 			// Pick a random item from items list and spawn it at a random spawn point.
@@ -46,7 +46,7 @@ namespace BubbleBobble
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
 
 				Item item = Instantiate(_itemPrefabs[randomItem], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-										_levelParent);	
+										_levelParent);
 				_spawnedItemCount++;
 				_spawnPoints.Remove(_spawnPoints[randomSpawnPoint]);
 				_timer = 0;
