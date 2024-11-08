@@ -1652,9 +1652,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 774514633}
-        m_TargetAssemblyTypeName: BubbleBobble.ShopView, Assembly-CSharp
-        m_MethodName: OpenShop
+      - m_Target: {fileID: 1825230048}
+        m_TargetAssemblyTypeName: SceneController, Assembly-CSharp
+        m_MethodName: LoadStoreScene
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11545,6 +11545,7 @@ GameObject:
   - component: {fileID: 1825230047}
   - component: {fileID: 1825230046}
   - component: {fileID: 1825230045}
+  - component: {fileID: 1825230048}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -11607,6 +11608,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1825230048
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1825230044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757e542fe29499348a6f3bb3ba21b7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1827741969
 GameObject:
   m_ObjectHideFlags: 0
@@ -12432,6 +12445,7 @@ GameObject:
   - component: {fileID: 2025777320}
   - component: {fileID: 2025777319}
   - component: {fileID: 2025777321}
+  - component: {fileID: 2025777322}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -12565,6 +12579,18 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: 7538bd1eab40f7a4db1ce3e34a4efbad, type: 2}
   _musicSlider: {fileID: 94673750}
   _SFXSlider: {fileID: 1317552572}
+--- !u!114 &2025777322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2025777314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 757e542fe29499348a6f3bb3ba21b7be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2038290592
 GameObject:
   m_ObjectHideFlags: 0
