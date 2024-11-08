@@ -28,6 +28,7 @@ namespace BubbleBobble
 		[SerializeField] private GameManager _gameManager;
 		private float _timeToSpawn = 0f;
 		private bool _spawnSwitch = false;
+		[SerializeField] private bool _alternateSpawns = false;
 
 		#region Unity Functions
 
@@ -91,6 +92,10 @@ namespace BubbleBobble
 			FloatDirection(fireBubble);
 			fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
 			_fireBubblesSpawned++;
+			if (_alternateSpawns)
+			{
+				_moveLeft = !_moveLeft;
+			}
 		}
 
 		#endregion
