@@ -1,3 +1,4 @@
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -15,16 +16,19 @@ namespace BubbleBobble
 		[SerializeField] private float _panicTime = 2f;
 		[SerializeField] private float _panicImmuneTime = 1f;
 		private InputReader _inputReader;
-		private Rigidbody2D _rb;
 		private float _timer = 0f;
 		private PlayerControl _playerControl;
+		private float _flipInterval = 0.5f;
+		private float _flipTimer = 0f;
+		private Rigidbody2D _rigidBody;
+		private bool _panicOver = false;
 
 		#region Unity Functions
 		private void Start()
 		{
 			_inputReader = GetComponent<InputReader>();
-			_rb = GetComponent<Rigidbody2D>();
 			_playerControl = GetComponent<PlayerControl>();
+			_rigidBody = GetComponent<Rigidbody2D>();
 		}
 
 		/// <summary>
@@ -36,17 +40,21 @@ namespace BubbleBobble
 			if (_canPanic)
 			{
 				_timer += Time.deltaTime;
+				_flipTimer += Time.deltaTime;
 				if (_timer <= _panicTime)
 				{
 					ActivatePanic();
+					return;
 				}
 
-				if (_timer > _panicTime)
+				_panicOver = true;
+				if (_timer > _panicTime && _panicOver)
 				{
 					DeactivatePanic();
+					_panicOver = false;
 				}
 
-				if (_timer >= _panicTime + _panicImmuneTime)
+				if (_timer > _panicTime + _panicImmuneTime)
 				{
 					_timer = 0f;
 				}
@@ -84,13 +92,16 @@ namespace BubbleBobble
 		/// <summary>
 		/// This method activated panic mode, disabling the player's movement and input.
 		/// </summary>
-		/// 
-		// Tutki debuggerilla miksi constraintit ei toimi
 		private void ActivatePanic()
 		{
 			_inputReader.enabled = false;
 			_playerControl.CanMove = false;
-			_rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+			_rigidBody.velocity = Vector2.zero;
+			if (_flipTimer >= _flipInterval)
+			{
+				_playerControl.LookingRight = !_playerControl.LookingRight;
+				_flipTimer = 0f;
+			}
 		}
 
 		/// <summary>
