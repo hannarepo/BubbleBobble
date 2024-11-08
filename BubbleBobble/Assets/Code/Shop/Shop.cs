@@ -1,4 +1,3 @@
-using Microsoft.Unity.VisualStudio.Editor;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -45,7 +44,7 @@ namespace BubbleBobble
 				else
 				{
 					powerUp.SetButtonColor(Color.white);
-					powerUp.SetPriceColor(Color.black);
+					powerUp.SetPriceColor(Color.white);
 				}
 			}
 		}

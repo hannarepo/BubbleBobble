@@ -6,10 +6,11 @@ namespace BubbleBobble
 {
 	public class BouncingEnemyMovement : MonoBehaviour
 	{
-
+		//TODO: tee angry mode, jossa vihollisen liike on nopeampi ja se on punainen
+		//TODO: angry mode aktivointi: true/false
 		[SerializeField] private float _speed = 5;
 		private Rigidbody2D _rigidbody;
-		private Transform _transform;
+		//private Transform _transform;
 		private Vector2 _velocity = Vector2.zero;
 		
 		void Start()
