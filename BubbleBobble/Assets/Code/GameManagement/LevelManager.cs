@@ -21,18 +21,26 @@ namespace BubbleBobble
 		[SerializeField] private Transform _levelParent;
 		private float _spawnedItemCount;
 		private float _timer = 0f;
+		private bool _canSpawnItem = true;
+
+		public bool CanSpawnItem
+		{
+			get => _canSpawnItem;
+			set => _canSpawnItem = value;
+		}
 
 		// TODO: Add hurry up timer	
 
 		private void Update()
 		{
+			print(_canSpawnItem);
 			_timer += Time.deltaTime;
 
 			// Pick a random item from items list and spawn it at a random spawn point.
 			// Remove spawn point from list after spawning item so that no two items spawn at the same point.
 			// Keep track of spawned item count so that only a set number of items can be spawned.
 			if (_timer > _spawnInterval && _spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
-				_spawnedItemCount < _maxItemCount)
+				_spawnedItemCount < _maxItemCount && _canSpawnItem)
 			{
 				int randomItem = Random.Range(0, _itemPrefabs.Count);
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
