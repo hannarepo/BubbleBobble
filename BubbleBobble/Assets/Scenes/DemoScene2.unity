@@ -2908,6 +2908,10 @@ PrefabInstance:
       propertyPath: _fireRate
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 1199892044300570983, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _playerBubbleRenderer
+      value: 
+      objectReference: {fileID: 1333773083}
     - target: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.05
@@ -3145,7 +3149,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 9.600037, y: 0}
+  m_AnchoredPosition: {x: 9.600098, y: 0}
   m_SizeDelta: {x: 122, y: -630}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1102372698
@@ -3589,6 +3593,11 @@ MonoBehaviour:
 --- !u!1 &1333773070 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4398036962778295810, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+  m_PrefabInstance: {fileID: 1085342414}
+  m_PrefabAsset: {fileID: 0}
+--- !u!212 &1333773083 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 6451602585216522067, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
   m_PrefabInstance: {fileID: 1085342414}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1349336997
@@ -5075,11 +5084,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _currentLevel: {fileID: 100960769}
-  _newLevelSpawnPoint: {fileID: 987786895}
+  _newLevelSpawnPoint: {fileID: 987786896}
   _speed: 3
   _player: {fileID: 1333773070}
   _playerReturnPoint: {fileID: 1923604258}
-  _playerBubble: {fileID: 4491436419435890885, guid: 9d8545c073f8df640b12886731b43e4a, type: 3}
+  _levelChangeDelay: 1
   _levelPrefabs:
   - {fileID: 2713228957434252496, guid: c03b4c620804b774b9dc1fcec037d66e, type: 3}
   - {fileID: 1866005747045140893, guid: e234decaab931494eb07c9971b86c0d7, type: 3}
@@ -5097,7 +5106,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fireBubblesPopped: 0
   _maxProjectiles: 10
+  _player: {fileID: 0}
   _levelChangeDelay: 2
+  _bombSpawnThreshold: 4
   _enemyList: []
   _projectileList: []
 --- !u!4 &1825230047
