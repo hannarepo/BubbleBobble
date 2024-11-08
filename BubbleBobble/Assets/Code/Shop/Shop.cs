@@ -44,7 +44,7 @@ namespace BubbleBobble
 				else
 				{
 					powerUp.SetButtonColor(Color.white);
-					powerUp.SetPriceColor(Color.white);
+					powerUp.SetPriceColor(Color.black);
 				}
 			}
 		}
