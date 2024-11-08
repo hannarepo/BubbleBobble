@@ -96,6 +96,7 @@ namespace BubbleBobble
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						print("Invoking level change");
+						FindObjectOfType<LevelManager>().CanSpawnItem = false;
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
 					}

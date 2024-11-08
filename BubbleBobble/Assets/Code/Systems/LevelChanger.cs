@@ -47,6 +47,7 @@ namespace BubbleBobble
 					Destroy(_currentLevel);
 					_currentLevel = _newLevel;
 					_playerControl.UnRestrainPlayer();
+					//FindObjectOfType<LevelManager>().CanSpawnItem = true;
 					_isLevelLoaded = true;
 					_levelIndex++;
 				}
