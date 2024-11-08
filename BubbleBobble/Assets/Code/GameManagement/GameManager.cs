@@ -16,11 +16,11 @@ namespace BubbleBobble
 	public class GameManager : MonoBehaviour
 	{
 		private LevelChanger _levelChanger;
+		private bool _canChangeLevel = true;
 		[SerializeField] private float _fireBubblesPopped = 0;
 		private BubbleSpawner _bubbleSpawner;
 		[SerializeField] private int _maxProjectiles = 10;
 		[SerializeField] private GameObject _player;
-
 		[SerializeField] private float _levelChangeDelay = 2f;
 		[SerializeField] private float _bombSpawnThreshold = 4f;
 		// List is serialized for debugging
@@ -66,24 +66,14 @@ namespace BubbleBobble
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
-			ResetAllPowerUps();
-		}
+			CounterReset();
+			_canChangeLevel = true;
 
-		public void ResetAllPowerUps()
-		{
-			if (_player.GetComponent<PlayerMover>() != null)
+			foreach (GameObject projectile in _projectileList)
 			{
-				_player.GetComponent<PlayerMover>().SpeedBoostIsActive = false;
+				projectile.GetComponent<ProjectileBubble>().PopBubble();
 			}
-			if (_player.GetComponent<ShootBubble>() != null)
-			{
-				_player.GetComponent<ShootBubble>().ForceBoostIsActive = false;
-				_player.GetComponent<ShootBubble>().SizeBoostIsActive = false;
-			}
-			if (_player.GetComponent<PlayerControl>() != null)
-			{
-				_player.GetComponent<PlayerControl>().FireRateBoostIsActive = false;
-			}
+
 		}
 
 		public void BubbleSpawnerInitialization()
@@ -103,10 +93,11 @@ namespace BubbleBobble
 					}
 					break; 
 				case "Enemy":
-					if (_enemyList.Count == 0)
+					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						print("Invoking level change");
 						Invoke("NextLevel", _levelChangeDelay);
+						_canChangeLevel = false;
 					}
 					break;
 			}
@@ -125,7 +116,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyTestScript>().Die();
+				_enemyList[0].GetComponent<EnemyManagement>().Die();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();

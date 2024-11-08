@@ -10,10 +10,22 @@ namespace BubbleBobble
 		[SerializeField] private ItemData[] _shells;
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private Health _health;
+		[SerializeField] private UnityEngine.UI.Image _heartIcon;
+		[SerializeField] private UnityEngine.UI.Image[] _shellIcons;
+		[SerializeField] private Color _grayPriceColor;
 
 		private void Update()
 		{
 			CheckPoints();
+			CheckInventory();
+			if (!CheckInventory())
+			{
+				_heartIcon.color = _grayPriceColor;
+			}
+			else
+			{
+				_heartIcon.color = Color.white;
+			}
 		}
 
 		/// <summary>
@@ -24,13 +36,15 @@ namespace BubbleBobble
 		{
 			foreach (PowerUp powerUp in _powerUps)
 			{
-					if (powerUp.PowerUpData.Price > _points)
+				if (powerUp.PowerUpData.Price > _points)
 				{
-					powerUp.SetPriceColor(Color.red);
+					powerUp.SetButtonColor(_grayPriceColor);
+					powerUp.SetPriceColor(_grayPriceColor);
 				}
 				else
 				{
-					powerUp.SetPriceColor(Color.black);
+					powerUp.SetButtonColor(Color.white);
+					powerUp.SetPriceColor(Color.white);
 				}
 			}
 		}
@@ -41,6 +55,18 @@ namespace BubbleBobble
 		/// <returns> True if all shells are found in inventory, false if not. </returns>
 		private bool CheckInventory()
 		{
+			for (int i = 0; i < _shells.Length; i++)
+			{
+				if (!_playerControl.CheckInventoryContent(_shells[i]))
+				{
+					_shellIcons[i].color = _grayPriceColor;
+				}
+				else
+				{
+					_shellIcons[i]. color = Color.white;
+				}
+			}
+
 			if (_playerControl.CheckInventoryContent(_shells[0]) &&
 				_playerControl.CheckInventoryContent(_shells[1]) &&
 				_playerControl.CheckInventoryContent(_shells[2]) &&
@@ -53,7 +79,6 @@ namespace BubbleBobble
 				return false;
 			}
 		}
-
 
 		/// <summary>
 		/// Tied to shop buttons for each power up and extra life.

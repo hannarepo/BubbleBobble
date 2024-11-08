@@ -15,7 +15,7 @@ namespace BubbleBobble
 		[SerializeField] private float _jumpForce = 5f;
 		private bool _isGrounded;
 		private static Vector2 _enemyPosition;
-		// Start is called before the first frame update
+
 		void Start()
 		{
 			_rb = GetComponent<Rigidbody2D>();
@@ -23,7 +23,6 @@ namespace BubbleBobble
 			_isGrounded = true;
 		}
 
-		// Update is called once per frame
 		void Update()
 		{
 			Vector2 point = _currentPoint.position - transform.position;
@@ -46,7 +45,6 @@ namespace BubbleBobble
 				_currentPoint = _pointB.transform;
 			}
 
-		
 			_enemyPosition = transform.position;
 
 			if (PlayerPosition.playerPosition.y > _enemyPosition.y && _isGrounded == true)
@@ -55,22 +53,19 @@ namespace BubbleBobble
 			}
 		}
 
-        void OnTriggerExit2D(Collider2D other)
-        {
-            if (other.gameObject.CompareTag(Tags._ground))
-            {
-                _isGrounded = false;
-            }
-        }
+		void OnTriggerExit2D(Collider2D other)
+		{
+			if (other.gameObject.CompareTag(Tags._ground))
+			{
+				_isGrounded = false;
+			}
+		}
 
 		private void Jump()
 		{
 			_rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
 		}
 
-	   
-
-		//Flips the enemy
 		private void flip()
 		{
 			Vector3 localScale = transform.localScale;
@@ -78,9 +73,6 @@ namespace BubbleBobble
 			transform.localScale = localScale;
 		}
 
-	
-	
-		//Draws spheres and lines in the scene view to visualize the path and the turning points
 		private void OnDrawGizmos()
 		{
 			Gizmos.DrawWireSphere(_pointA.transform.position, 0.5f);
@@ -89,5 +81,3 @@ namespace BubbleBobble
 		}
 	}
 }
-
-

@@ -41,7 +41,8 @@ namespace BubbleBobble
 			if (!_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
 			{
 				LevelChangeMovement();
-				if (_newLevel.transform.position == Vector3.zero)
+				if (_newLevel.transform.position == Vector3.zero
+					&& _player.transform.position == _playerReturnPoint.position)
 				{
 					Destroy(_currentLevel);
 					_currentLevel = _newLevel;

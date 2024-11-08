@@ -36,6 +36,7 @@ namespace BubbleBobble
 		private float _flashTimer = 0;
 		private Rigidbody2D _rb;
 		private InputReader _inputReader;
+		private bool _notInvincible = false;
 
 		public bool IsInvincible
 		{
@@ -64,10 +65,10 @@ namespace BubbleBobble
 			for (int i = 0; i < _maxLives; i++)
 			{
 				_hearts[i] = Instantiate(_heartPrefab, _heartPositions[i], Quaternion.identity);
-				 if (i >= _startLives)
-				 {
+				if (i >= _startLives)
+				{
 					_hearts[i].SetActive(false);
-				 }
+				}
 			}
 		}
 
@@ -90,13 +91,14 @@ namespace BubbleBobble
 				}
 			}
 
-			if (!IsInvincible)
+			if (_notInvincible && !IsInvincible)
 			{
 				_spriteRenderer.enabled = true;
 				_flashTimer = 0;
 				_inputReader.enabled = true;
 				_rb.constraints = RigidbodyConstraints2D.None;
 				_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+				_notInvincible = false;
 			}
 
 			if (_currentLives == 0)
@@ -145,6 +147,7 @@ namespace BubbleBobble
 		private void Respawn()
 		{
 			_transform.position = _playerReturnPoint.position;
+			_notInvincible = true;
 		}
 
 		private void Flash()

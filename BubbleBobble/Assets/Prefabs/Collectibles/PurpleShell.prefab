@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 6419763983538418901}
   - component: {fileID: 87614176174491707}
-  - component: {fileID: 2764295289126623760}
   - component: {fileID: 203916451801111335}
-  m_Layer: 0
+  - component: {fileID: 2764295289126623760}
+  m_Layer: 18
   m_Name: PurpleShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1328127411
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 1d7ed83feb038e94b89700be8eabb558, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &2764295289126623760
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9064219727518281394}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemData: {fileID: 11400000, guid: bee8fb61b23dffe459324588b22b1f96, type: 2}
 --- !u!61 &203916451801111335
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +131,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.84150875}
   m_EdgeRadius: 0
+--- !u!114 &2764295289126623760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9064219727518281394}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: bee8fb61b23dffe459324588b22b1f96, type: 2}

@@ -9,7 +9,7 @@ namespace BubbleBobble
 		{
 			if (other.CompareTag(Tags._enemy))
 			{
-				other.gameObject.GetComponent<EnemyTestScript>().Die(); // REFACTOR when enemy scripts are done
+				other.gameObject.GetComponent<EnemyManagement>().Die(); // REFACTOR when enemy scripts are done
 			}
 
 		}
