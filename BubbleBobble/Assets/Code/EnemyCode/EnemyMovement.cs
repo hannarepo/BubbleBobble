@@ -9,14 +9,16 @@ namespace BubbleBobble
 		public GameObject _pointA;
 		public GameObject _pointB;
 		private Rigidbody2D _rigidbody2D;
+		private SpriteRenderer _spriteRenderer;
 		private Transform _currentPoint;
 
 
 		[SerializeField] private float _speed;
 
-		void Start()
+		void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_currentPoint = _pointA.transform;
 		}
 
@@ -34,10 +36,12 @@ namespace BubbleBobble
 			if (Vector2.Distance(transform.position, _currentPoint.position) < 0.5f && _currentPoint == _pointA.transform)
 			{
 				_currentPoint = _pointB.transform;
+ 				_spriteRenderer.flipX = true;
 			}
 			if (Vector2.Distance(transform.position, _currentPoint.position) < 0.5f && _currentPoint == _pointB.transform)
 			{
 				_currentPoint = _pointA.transform;
+				_spriteRenderer.flipX = false;
 			}
 		}
 	}
