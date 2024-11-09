@@ -91,7 +91,7 @@ namespace BubbleBobble
 		}
 		#endregion
 
-		#region Private Implementations
+		#region Jump Mechanics
 		private void JumpCheck()
 		{
 			// Do a BoxCast and save the resulting collider into a variable for ground check
@@ -119,7 +119,7 @@ namespace BubbleBobble
 
 			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
-			// Do a bubble jump with less jump force due to bubble having bounciness.
+			// Reset y velocity before bubble jump to not gain more velocity each jump. Do a bubble jump with less jump force.
 			if (hit.collider.CompareTag(Tags._projectile) || hit.collider.CompareTag(Tags._bubble))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
@@ -128,6 +128,7 @@ namespace BubbleBobble
 					if (_inputReader.JumpOnBubble)
 					{
 						bubble.CanPop(false);
+						_rb.velocity = new Vector2(_rb.velocity.x, 0);
 						BubbleJump();
 					}
 					else
