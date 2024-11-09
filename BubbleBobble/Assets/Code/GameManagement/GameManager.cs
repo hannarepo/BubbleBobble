@@ -30,7 +30,7 @@ namespace BubbleBobble
 		#region Unity Functions
 		private void Start()
 		{
-			_levelChanger = GetComponent<LevelChanger>();;
+			_levelChanger = GetComponent<LevelChanger>();
 		}
 
 		private void Update()
