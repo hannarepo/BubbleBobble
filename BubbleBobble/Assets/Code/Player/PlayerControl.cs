@@ -1,4 +1,5 @@
 using UnityEditor.Rendering;
+using UnityEditor.ShaderGraph.Serialization;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -30,6 +31,8 @@ namespace BubbleBobble
 		private float _originalFireRate = 0f;
 		private float _timer = 0;
 		private bool _canMove = true;
+		private bool _canShoot = true;
+
 		public bool CanMove 
 		{ 
 			get { return _canMove; } 
@@ -50,6 +53,7 @@ namespace BubbleBobble
 		}
 
 		
+		#region Unity Messages
 		private void Awake()
 		{
 			_inputReader = GetComponent<InputReader>();
@@ -103,12 +107,13 @@ namespace BubbleBobble
 				_fireRate = _originalFireRate;
 			}
 
-			if (_timer >= _fireRate && shoot)
+			if (_timer >= _fireRate && shoot && _canShoot)
 			{
 				_shootBubble.Shoot(shoot, _lookRight);
 				_timer = 0;
 			}
 		}
+		#endregion
 
 		#region Private Implementation
 		private void LookRight(Vector2 movement)
@@ -186,6 +191,7 @@ namespace BubbleBobble
 			_rigidBody.bodyType = RigidbodyType2D.Static;
 			_playerCollider.enabled = false;
 			_canMove = false;
+			_canShoot = false;
 			_playerBubbleRenderer.enabled = true;
 		}
 
@@ -197,6 +203,7 @@ namespace BubbleBobble
 			_rigidBody.bodyType = RigidbodyType2D.Dynamic;
 			_playerCollider.enabled = true;
 			_canMove = true;
+			_canShoot = true;
 			_playerBubbleRenderer.enabled = false;
 		}
 
