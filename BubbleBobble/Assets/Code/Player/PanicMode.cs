@@ -61,6 +61,17 @@ namespace BubbleBobble
 			}
 		}
 
+		private void OnTriggerEnter2D(Collider2D trigger)
+		{
+			if (trigger.gameObject.GetComponent<GroundFireTrigger>())
+			{
+				if (!_canPanic && trigger.gameObject.GetComponent<GroundFireTrigger>())
+				{
+					_timer = 0f;
+				}
+			}
+		}
+
 		/// <summary>
 		/// This method checks if the player is standing in fire.
 		/// </summary>
@@ -83,7 +94,6 @@ namespace BubbleBobble
 			{
 				_canPanic = false;
 				DeactivatePanic();
-				_timer = 0f;
 			}
 		}
 

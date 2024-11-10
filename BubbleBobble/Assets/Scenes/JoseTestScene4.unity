@@ -612,6 +612,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!212 &485735679 stripped
+SpriteRenderer:
+  m_CorrespondingSourceObject: {fileID: 4658638089551900304, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+  m_PrefabInstance: {fileID: 1085342414}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &731152335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -900,12 +905,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 682509135643954411, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _panicImmuneTime
-      value: 3
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1199892044300570983, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _playerBubbleRenderer
       value: 
-      objectReference: {fileID: 1699670603}
+      objectReference: {fileID: 485735679}
     - target: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.05
@@ -1033,11 +1038,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 957e466da63918b4dba00e522e8ae5a7, type: 3}
---- !u!212 &1699670603 stripped
-SpriteRenderer:
-  m_CorrespondingSourceObject: {fileID: 854007187648571463, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
-  m_PrefabInstance: {fileID: 1085342414}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1800467137
 GameObject:
   m_ObjectHideFlags: 0
@@ -1211,7 +1211,7 @@ PrefabInstance:
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _playerBubble
       value: 
-      objectReference: {fileID: 1699670603}
+      objectReference: {fileID: 0}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _levelChangeDelay
       value: 2
