@@ -73,7 +73,6 @@ namespace BubbleBobble
 			{
 				_projectileList[i].GetComponent<ProjectileBubble>().PopBubble();
 			}
-
 		}
 
 		public void BubbleSpawnerInitialization()
