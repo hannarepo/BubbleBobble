@@ -28,6 +28,7 @@ namespace BubbleBobble
 		[SerializeField] private float _levelChangeDelay = 1f;
 		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
 		private float _currentLevelMovePosY = 0f;
+		private bool _startLevelChange = false;
 
 		private void Start()
 		{
@@ -38,7 +39,7 @@ namespace BubbleBobble
 		void Update()
 		{
 			// If the new level is loaded, move the current and the new level up until the new level is centered
-			if (!_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
+			if (_startLevelChange && !_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
 			{
 				LevelChangeMovement();
 				if (_newLevel.transform.position == Vector3.zero
@@ -48,8 +49,9 @@ namespace BubbleBobble
 					_currentLevel = _newLevel;
 					_playerControl.UnRestrainPlayer();
 					//FindObjectOfType<LevelManager>().CanSpawnItem = true;
-					_isLevelLoaded = true;
 					_levelIndex++;
+					_isLevelLoaded = true;
+					_startLevelChange = false;
 				}
 			}
 		}
@@ -63,6 +65,7 @@ namespace BubbleBobble
 			GameObject _levelPrefab = _levelPrefabs[_levelIndex];
 			_newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.position, Quaternion.identity);
 			_playerControl.RestrainPlayer();
+			_isLevelLoaded = false;
 			Invoke("DelayedBoolSwitch", _levelChangeDelay);
 		}
 
@@ -79,7 +82,7 @@ namespace BubbleBobble
 
 		private void DelayedBoolSwitch()
 		{
-			_isLevelLoaded = !_isLevelLoaded;
+			_startLevelChange = !_startLevelChange;
 		}
 	}
 }
