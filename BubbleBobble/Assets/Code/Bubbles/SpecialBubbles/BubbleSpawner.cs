@@ -43,6 +43,8 @@ namespace BubbleBobble
 		private void Start()
 		{
 			_gameManager.BubbleSpawnerInitialization();
+			_topCollider.enabled = !_spawnFromTop;
+			_bottomCollider.enabled = _spawnFromTop;
 		}
 		private void Update()
 		{
@@ -50,6 +52,21 @@ namespace BubbleBobble
 			if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelLoaded)
 			{
 				SpawnSpecialBubble();
+			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D collider)
+		{
+			if (collider.gameObject.CompareTag(Tags._bubble))
+			{
+				if (collider.gameObject.transform.position.x < 0 && _alternateSpawns)
+				{
+					collider.gameObject.transform.position = _secondarySpawnPoint.position;
+				}
+				else
+				{
+					collider.gameObject.transform.position = gameObject.transform.position;
+				}
 			}
 		}
 
