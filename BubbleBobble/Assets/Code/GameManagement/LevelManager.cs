@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using TMPro;
 
 namespace BubbleBobble
 {
@@ -20,8 +21,12 @@ namespace BubbleBobble
 		[SerializeField] private int _maxItemCount = 3;
 		[SerializeField] private Transform _levelParent;
 		private float _spawnedItemCount;
-		private float _timer = 0f;
+		private float _spawnTimer = 0f;
 		private bool _canSpawnItem = true;
+		[SerializeField] private float _hurryUpTime = 30f;
+		[SerializeField] private GameObject _hurryUpText;
+		private float _hurryUpTimer = 0f;
+		private LevelChanger _levelChanger;
 
 		public bool CanSpawnItem
 		{
@@ -29,17 +34,32 @@ namespace BubbleBobble
 			set => _canSpawnItem = value;
 		}
 
-		// TODO: Add hurry up timer
+		private void Start()
+		{
+			_levelChanger = FindObjectOfType<LevelChanger>();
+		}
 
 		private void Update()
 		{
-			//print(_canSpawnItem);
-			_timer += Time.deltaTime;
+			if (_levelChanger.IsLevelLoaded)
+			{
+				_spawnTimer += Time.deltaTime;
+				_hurryUpTimer += Time.deltaTime;
+			}
+			SpawnItem();
 
+			if (_hurryUpTimer >= _hurryUpTime)
+			{
+				HurryUp();
+			}
+		}
+
+		private void SpawnItem()
+		{
 			// Pick a random item from items list and spawn it at a random spawn point.
 			// Remove spawn point from list after spawning item so that no two items spawn at the same point.
 			// Keep track of spawned item count so that only a set number of items can be spawned.
-			if (_timer > _spawnInterval && _spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
+			if (_spawnTimer > _spawnInterval && _spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
 				_spawnedItemCount < _maxItemCount && _canSpawnItem)
 			{
 				int randomItem = Random.Range(0, _itemPrefabs.Count);
@@ -49,7 +69,7 @@ namespace BubbleBobble
 										_levelParent);
 				_spawnedItemCount++;
 				_spawnPoints.Remove(_spawnPoints[randomSpawnPoint]);
-				_timer = 0;
+				_spawnTimer = 0;
 
 				// If the spawned item is a shell, remove it from the item list so that no two shells spawn in one level.
 				if (item.ItemData.ItemType == ItemType.Shell)
@@ -57,6 +77,20 @@ namespace BubbleBobble
 					_itemPrefabs.Remove(_itemPrefabs[randomItem]);
 				}
 			}
+		}
+
+		private void HurryUp()
+		{
+			// TODO: Call enemy's angry mode
+			_hurryUpText.SetActive(true);
+
+		}
+
+		public void ResetHurryU()
+		{
+			// TODO: Reset enemy's angry mode
+			_hurryUpText.SetActive(false);
+			_hurryUpTimer = 0;
 		}
 	}
 }

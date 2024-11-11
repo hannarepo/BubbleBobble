@@ -20,7 +20,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _underWaterMusic;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
-        [SerializeField] private AudioClip powerUpSFX;
+        [SerializeField] private AudioClip _powerUpSFX;
         // add more audio clips here
         // Juho's note: check rehopeT
 
