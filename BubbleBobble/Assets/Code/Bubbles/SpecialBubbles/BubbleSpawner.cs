@@ -17,11 +17,6 @@ namespace BubbleBobble
 		[SerializeField] private bool _spawnFromTop = false;
 		[SerializeField] private bool _moveLeft = false;
 		private LevelChanger _levelChanger;
-
-		public bool SpawnFromTop
-		{
-			get { return _spawnFromTop; }
-		}
 		[SerializeField] private Transform _secondarySpawnPoint;
 		[SerializeField] private float _spawnRate = 5f;
 		[SerializeField] private float _spawnLimit = 5f;
@@ -29,6 +24,12 @@ namespace BubbleBobble
 		private float _timeToSpawn = 0f;
 		private bool _spawnSwitch = false;
 		[SerializeField] private bool _alternateSpawns = false;
+		[SerializeField] private Collider2D _topCollider;
+		[SerializeField] private Collider2D _bottomCollider;
+		public bool SpawnFromTop
+		{
+			get { return _spawnFromTop; }
+		}
 
 		#region Unity Functions
 
@@ -115,3 +116,5 @@ namespace BubbleBobble
 		}
 	}
 }
+// TODO: Add the bubble teleport to bubble spawner 
+// to teleport bubbles to the right spawnpoints
