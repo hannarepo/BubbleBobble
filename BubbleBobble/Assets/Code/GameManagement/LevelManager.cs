@@ -25,7 +25,9 @@ namespace BubbleBobble
 		private bool _canSpawnItem = true;
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private GameObject _hurryUpText;
+		[SerializeField] private float _textFlashTime = 2f;
 		private float _hurryUpTimer = 0f;
+		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 
 		public bool CanSpawnItem
@@ -46,11 +48,18 @@ namespace BubbleBobble
 				_spawnTimer += Time.deltaTime;
 				_hurryUpTimer += Time.deltaTime;
 			}
+
 			SpawnItem();
 
-			if (_hurryUpTimer >= _hurryUpTime)
+			if (_hurryUpTimer >= _hurryUpTime && !_hurryUp)
 			{
 				HurryUp();
+				_hurryUp = true;
+			}
+
+			if (_levelChanger.StartLevelChange)
+			{
+				ResetHurryUp();
 			}
 		}
 
@@ -82,15 +91,21 @@ namespace BubbleBobble
 		private void HurryUp()
 		{
 			// TODO: Call enemy's angry mode
-			_hurryUpText.SetActive(true);
-
+			SetHurryUpText();
 		}
 
-		public void ResetHurryU()
+		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
-			_hurryUpText.SetActive(false);
 			_hurryUpTimer = 0;
+		}
+
+		private void SetHurryUpText()
+		{
+			bool isActive = _hurryUpText.activeInHierarchy;
+			isActive = !isActive;
+			_hurryUpText.SetActive(isActive);
+			Invoke("SetHurryUpText", _textFlashTime);
 		}
 	}
 }

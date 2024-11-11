@@ -26,13 +26,12 @@ namespace BubbleBobble
 		[SerializeField] private Transform _playerReturnPoint;
 		[SerializeField] private float _levelChangeDelay = 1f;
 		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
-		[SerializeField] private int _windowsEnvironmentIndex;
-		[SerializeField] private int _liminalEnvironmentIndex;
 		private float _currentLevelMovePosY = 0f;
 		private bool _startLevelChange = false;
 
 		public int LevelIndex => _levelIndex;
 		public bool IsLevelLoaded => _isLevelLoaded;
+		public bool StartLevelChange => _startLevelChange;
 
 		private void Start()
 		{
