@@ -91,21 +91,22 @@ namespace BubbleBobble
 		private void HurryUp()
 		{
 			// TODO: Call enemy's angry mode
-			SetHurryUpText();
+			FlashHurryUpText();
 		}
 
 		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
 			_hurryUpTimer = 0;
+			_hurryUpText.SetActive(false);
 		}
 
-		private void SetHurryUpText()
+		private void FlashHurryUpText()
 		{
 			bool isActive = _hurryUpText.activeInHierarchy;
 			isActive = !isActive;
 			_hurryUpText.SetActive(isActive);
-			Invoke("SetHurryUpText", _textFlashTime);
+			Invoke("FlashHurryUpText", _textFlashTime);
 		}
 	}
 }

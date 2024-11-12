@@ -141,6 +141,10 @@ namespace BubbleBobble
 
 		private void DropDownCheck()
 		{
+			// Do a BoxCast and save the resulting collider into a variable for ground check
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
+												_boxCastDistance, _jumpCheckLayers);
+
 			// If player is pressing down and jump, ignore layer collision between player and platform
 			//so that player can drop through platform. Increase gravity scale so dropping is faster.
 			// After a short time, turn collision detection back on and reset gravity scale.
@@ -151,7 +155,7 @@ namespace BubbleBobble
 				_falling = true;
 				_timer = 0;
 			}
-			else if (_timer > _ignorePlatformTime)
+			else if (_timer > _ignorePlatformTime && hit.collider == null)
 			{
 				gameObject.layer = LayerMask.NameToLayer("Player");
 				_rb.gravityScale = _defaultGravityScale;
