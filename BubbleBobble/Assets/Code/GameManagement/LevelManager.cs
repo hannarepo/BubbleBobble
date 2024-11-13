@@ -49,7 +49,10 @@ namespace BubbleBobble
 				_hurryUpTimer += Time.deltaTime;
 			}
 
-			SpawnItem();
+			if (_spawnTimer > _spawnInterval)
+			{
+				SpawnItemAtInterval();
+			}
 
 			if (_hurryUpTimer >= _hurryUpTime && !_hurryUp)
 			{
@@ -63,12 +66,12 @@ namespace BubbleBobble
 			}
 		}
 
-		private void SpawnItem()
+		private void SpawnItemAtInterval()
 		{
 			// Pick a random item from items list and spawn it at a random spawn point.
 			// Remove spawn point from list after spawning item so that no two items spawn at the same point.
 			// Keep track of spawned item count so that only a set number of items can be spawned.
-			if (_spawnTimer > _spawnInterval && _spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
+			if (_spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
 				_spawnedItemCount < _maxItemCount && _canSpawnItem)
 			{
 				int randomItem = Random.Range(0, _itemPrefabs.Count);
