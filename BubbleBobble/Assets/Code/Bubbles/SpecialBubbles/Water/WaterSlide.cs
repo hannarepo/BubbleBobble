@@ -1,3 +1,4 @@
+using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -5,10 +6,9 @@ namespace BubbleBobble
 	public class WaterSlide : MonoBehaviour
 	{
 		[SerializeField] private float _speed;
-		private Vector2 _velocity;
+		[SerializeField] private Vector2 _velocity;
 		private Rigidbody2D _rigidBody;
 		private bool _directionRandomized = false;
-		private bool _directionChanged = false;
 		[SerializeField] FloorChecker _floorChecker;
 		[SerializeField] WallChecker _wallChecker;
 
@@ -25,28 +25,41 @@ namespace BubbleBobble
 			{
 				_velocity = new Vector2(0, -_speed);
 				_directionRandomized = false;
-				_directionChanged = false;
 			}
+
+			if (!_floorChecker.IsTouchingFloor && _wallChecker.IsTouchingWall)
+			{
+				_wallChecker.SwapCollider();
+			}
+
 			else if (_floorChecker.IsTouchingFloor && !_wallChecker.IsTouchingWall
 					&& !_directionRandomized)
 			{
-				_velocity = Random.Range(0, 2) == 0
-				? new Vector2(_speed, 0)
-				: new Vector2(-_speed, 0);
+				if (Random.Range(0, 2) == 0)
+				{
+					_velocity = new Vector2(_speed, 0);
+					_wallChecker.RightColliderOn();
+				}
+				else
+				{
+					_velocity = new Vector2(-_speed, 0);
+					_wallChecker.LeftColliderOn();
+				}
 				_directionRandomized = true;
 			}
-			else if (_floorChecker.IsTouchingFloor && _wallChecker.IsTouchingWall
-					&& !_directionChanged)
+
+			else if (_floorChecker.IsTouchingFloor && _wallChecker.IsTouchingWall)
 			{
 				if (_velocity.x > 0)
 				{
 					_velocity = new Vector2(-_speed, 0);
+					_wallChecker.LeftColliderOn();
 				}
 				else if (_velocity.x < 0)
 				{
 					_velocity = new Vector2(_speed, 0);
+					_wallChecker.RightColliderOn();
 				}
-				_directionChanged = true;
 			}
 		}
 
@@ -57,7 +70,7 @@ namespace BubbleBobble
 
 		private void OnCollisionStay2D(Collision2D collision)
 		{
-			if(collision.gameObject.CompareTag(Tags._platform)
+			if (collision.gameObject.CompareTag(Tags._platform)
 			|| collision.gameObject.CompareTag(Tags._ground))
 			{
 				_floorChecker.IsTouchingFloor = true;
@@ -66,7 +79,7 @@ namespace BubbleBobble
 
 		private void OnCollisionExit2D(Collision2D collision)
 		{
-			if(collision.gameObject.CompareTag(Tags._platform)
+			if (collision.gameObject.CompareTag(Tags._platform)
 			|| collision.gameObject.CompareTag(Tags._ground))
 			{
 				_floorChecker.IsTouchingFloor = false;

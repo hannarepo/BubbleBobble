@@ -5,14 +5,14 @@ namespace BubbleBobble
 {
 	public class FloorChecker : MonoBehaviour
 	{
-		private bool _isTouchingFloor = false;
+		[SerializeField] private bool _isTouchingFloor = false;
 		public bool IsTouchingFloor
 		{
 			get { return _isTouchingFloor; }
 			set { _isTouchingFloor = value; }
 		}
 
-		private void OnTriggerEnter2D(Collider2D collider)
+		/* private void OnTriggerEnter2D(Collider2D collider)
 		{
 			if(collider.gameObject.CompareTag(Tags._platform)
 			|| collider.gameObject.CompareTag(Tags._ground))
@@ -28,6 +28,6 @@ namespace BubbleBobble
 			{
 				_isTouchingFloor = false;
 			}
-		}
+		} */
 	}
 }
