@@ -10,8 +10,7 @@ namespace BubbleBobble
 		[SerializeField] private float _deathDelay = 4f;
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private Color _deathColor;
-		[SerializeField] private float _rotationSpeed = 1f;
-		[SerializeField] private float _launchUpTime;
+		[SerializeField] private float _rotationSpeed = 500f;
 		[SerializeField] private float _triggerYPos;
 		[SerializeField] private float _ySpawnPos;
 		private GameManager _gameManager;
@@ -20,7 +19,8 @@ namespace BubbleBobble
 		private Rigidbody2D _rb;
 		private SpriteRenderer _spriteRenderer;
 		private bool _launched = false;
-		private float _yDirection = 1;
+		private bool _canSpawn = false;
+		private float _timer = 0f;
 		private Animator _animator;
 		private EnemyMovement _movement;
 		private BouncingEnemyMovement _bounce;
@@ -50,12 +50,17 @@ namespace BubbleBobble
 			if (_launched)
 			{
 				transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
+				_timer += Time.deltaTime;
+				if (_timer > _deathDelay)
+				{
+					gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+					_canSpawn = true;
+				}
 			}
 		}
 
 		public void SpawnItem()
 		{
-			gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 			_launched = false;
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
@@ -76,8 +81,6 @@ namespace BubbleBobble
 			if (_bounce != null)
 			{
 				_bounce.enabled = false;
-				_rb.sharedMaterial = null;
-				_rb.velocity = Vector2.zero;
 			}
 			if (_animator != null)
 			{
@@ -85,25 +88,27 @@ namespace BubbleBobble
 			}
 
 			int randomInt = Random.Range(0, 2);
-			Vector3 launchDirection = new Vector2(0, 0);
+			Vector2 launchDirection = new Vector2(0, 0);
 			if (randomInt == 0)
 			{
-				launchDirection = new Vector2(-1, _yDirection);
+				launchDirection = new Vector2(-1, 1);
 			}
 			else if (randomInt == 1)
 			{
-				launchDirection = new Vector2(1, _yDirection);
+				launchDirection = new Vector2(1, 1);
 			}
-			_rb.AddForce(launchDirection * _launchForce, ForceMode2D.Impulse);
 
-			Invoke("SpawnIte,m", _deathDelay);
+			_rb.AddForce(launchDirection * _launchForce, ForceMode2D.Impulse);
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)
 		{
-			if (_launched && other.gameObject.CompareTag(Tags._ground))
+			if (_launched && _canSpawn)
 			{
-				SpawnItem();
+				if (other.gameObject.CompareTag(Tags._ground) || other.gameObject.CompareTag(Tags._platform))
+				{
+					SpawnItem();
+				}
 			}
 		}
 	}
