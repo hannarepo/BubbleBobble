@@ -30,7 +30,7 @@ namespace BubbleBobble
 		#region Unity Functions
 		private void Start()
 		{
-			_levelChanger = GetComponent<LevelChanger>();;
+			_levelChanger = GetComponent<LevelChanger>();
 		}
 
 		private void Update()
@@ -73,7 +73,6 @@ namespace BubbleBobble
 			{
 				_projectileList[i].GetComponent<ProjectileBubble>().PopBubble();
 			}
-
 		}
 
 		public void BubbleSpawnerInitialization()
@@ -117,7 +116,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().Die();
+				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
