@@ -12,6 +12,7 @@ namespace BubbleBobble
 
 	public abstract class Bubble : MonoBehaviour, IBubble
 	{
+		[SerializeField] private BubbleData _bubbleData;
 		private bool _canPop = false;
 		protected GameManager _gameManager;
 		[SerializeField] private ParticleSystem _popEffectPrefab;
@@ -45,6 +46,7 @@ namespace BubbleBobble
 			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
 				PopBubble();
+				// TODO: Add point_bubbleData.Points
 			}
 		}
 
