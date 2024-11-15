@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -49,33 +48,16 @@ namespace BubbleBobble
 				PopBubble();
 				// TODO: Add point_bubbleData.Points
 			}
-			
-			/* if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
-			{
-				_canMoveBubble = true;
-			} */
 		}
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
-			/* if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
-			{
-				_rigidBody.gravityScale = 0;
-				_rigidBody.velocity = Vector2.zero;
-			} */
+			
 		}
 
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			/* if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
-			{
-				_rigidBody.gravityScale = _originalGravityScale;
-				_canMoveBubble = false;
-				ChangeXDirection();
-			} */
+			
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
