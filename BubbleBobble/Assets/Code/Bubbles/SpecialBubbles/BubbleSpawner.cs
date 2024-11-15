@@ -43,6 +43,8 @@ namespace BubbleBobble
 		private void Start()
 		{
 			_gameManager.BubbleSpawnerInitialization();
+			_topCollider.enabled = !_spawnFromTop;
+			_bottomCollider.enabled = _spawnFromTop;
 		}
 		private void Update()
 		{
@@ -50,6 +52,21 @@ namespace BubbleBobble
 			if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelLoaded)
 			{
 				SpawnSpecialBubble();
+			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D collider)
+		{
+			if (collider.gameObject.CompareTag(Tags._bubble))
+			{
+				if (collider.gameObject.transform.position.x < 0 && _alternateSpawns)
+				{
+					collider.gameObject.transform.position = _secondarySpawnPoint.position;
+				}
+				else
+				{
+					collider.gameObject.transform.position = gameObject.transform.position;
+				}
 			}
 		}
 
@@ -81,12 +98,12 @@ namespace BubbleBobble
 			GameObject fireBubble;
 			if (_spawnSwitch)
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity, _secondarySpawnPoint);
 				_spawnSwitch = false;
 			}
 			else
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 				_spawnSwitch = true;
 			}
 			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
