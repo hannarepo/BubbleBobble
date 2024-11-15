@@ -1,21 +1,21 @@
+using UnityEngine;
+
+namespace BubbleBobble
+{
 /// <remarks>
 /// author: Jose Mäntylä
 /// </remarks>
 /// 
 /// <summary>
-/// Defines the features and functions of the fire bubbles.
+/// Defines the features and functions of the water bubbles.
 /// </summary>
-using UnityEngine;
-
-namespace BubbleBobble
-{
-	public class FireBubble : Bubble
+	public class WaterBubble : Bubble
 	{
 		protected override BubbleType Type
 		{
-			get { return BubbleType.Fire; }
+			get { return BubbleType.Water; }
 		}
-		[SerializeField] private GameObject _fireBallPrefab;
+
 		[SerializeField] private bool _moveLeft = false;
 		public bool MoveLeft { set { _moveLeft = value; } }
 
@@ -44,13 +44,10 @@ namespace BubbleBobble
 
 		#endregion Unity Functions
 
-		/// <summary>
-		/// Instantiates a fireball when the bubble is popped.
-		/// </summary>
 		public override void PopBubble()
 		{
 			base.PopBubble();
-			Instantiate(_fireBallPrefab, gameObject.transform.position, Quaternion.identity);
+			// Instantiate something to drag the player and enemies with it
 		}
 	}
 }

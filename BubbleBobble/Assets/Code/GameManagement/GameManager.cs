@@ -30,7 +30,7 @@ namespace BubbleBobble
 		#region Unity Functions
 		private void Start()
 		{
-			_levelChanger = GetComponent<LevelChanger>();;
+			_levelChanger = GetComponent<LevelChanger>();
 		}
 
 		private void Update()
@@ -69,11 +69,10 @@ namespace BubbleBobble
 			CounterReset();
 			_canChangeLevel = true;
 
-			foreach (GameObject projectile in _projectileList)
+			for (int i = 0; i < _projectileList.Count; i++)
 			{
-				projectile.GetComponent<ProjectileBubble>().PopBubble();
+				_projectileList[i].GetComponent<ProjectileBubble>().PopBubble();
 			}
-
 		}
 
 		public void BubbleSpawnerInitialization()
@@ -96,6 +95,7 @@ namespace BubbleBobble
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						print("Invoking level change");
+						FindObjectOfType<LevelManager>().CanSpawnItem = false;
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
 					}
@@ -116,7 +116,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().Die();
+				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();

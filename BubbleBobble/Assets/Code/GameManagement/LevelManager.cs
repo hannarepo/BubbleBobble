@@ -5,10 +5,10 @@ namespace BubbleBobble
 {
 	/// <summary>
 	/// Manages the spawning of items in the level.
-	/// Keep track of time player has spent in the level for hurry up timer.
+	/// Keeps track of time player has spent in the level for hurry up timer.
 	/// Hurry up mode makes enemies move faster.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
@@ -20,28 +20,67 @@ namespace BubbleBobble
 		[SerializeField] private int _maxItemCount = 3;
 		[SerializeField] private Transform _levelParent;
 		private float _spawnedItemCount;
-		private float _timer = 0f;
+		private float _spawnTimer = 0f;
+		private bool _canSpawnItem = true;
+		[SerializeField] private float _hurryUpTime = 30f;
+		[SerializeField] private GameObject _hurryUpText;
+		[SerializeField] private float _textFlashTime = 2f;
+		private float _hurryUpTimer = 0f;
+		private bool _hurryUp = false;
+		private LevelChanger _levelChanger;
 
-		// TODO: Add hurry up timer	
+		public bool CanSpawnItem
+		{
+			get => _canSpawnItem;
+			set => _canSpawnItem = value;
+		}
+
+		private void Start()
+		{
+			_levelChanger = FindObjectOfType<LevelChanger>();
+		}
 
 		private void Update()
 		{
-			_timer += Time.deltaTime;
+			if (_levelChanger.IsLevelLoaded)
+			{
+				_spawnTimer += Time.deltaTime;
+				_hurryUpTimer += Time.deltaTime;
+			}
 
+			if (_spawnTimer > _spawnInterval)
+			{
+				SpawnItemAtInterval();
+			}
+
+			if (_hurryUpTimer >= _hurryUpTime && !_hurryUp)
+			{
+				HurryUp();
+				_hurryUp = true;
+			}
+
+			if (_levelChanger.StartLevelChange)
+			{
+				ResetHurryUp();
+			}
+		}
+
+		private void SpawnItemAtInterval()
+		{
 			// Pick a random item from items list and spawn it at a random spawn point.
 			// Remove spawn point from list after spawning item so that no two items spawn at the same point.
 			// Keep track of spawned item count so that only a set number of items can be spawned.
-			if (_timer > _spawnInterval && _spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
-				_spawnedItemCount < _maxItemCount)
+			if (_spawnPoints.Count > 0 && _itemPrefabs.Count > 0 &&
+				_spawnedItemCount < _maxItemCount && _canSpawnItem)
 			{
 				int randomItem = Random.Range(0, _itemPrefabs.Count);
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
 
 				Item item = Instantiate(_itemPrefabs[randomItem], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-										_levelParent);	
+										_levelParent);
 				_spawnedItemCount++;
 				_spawnPoints.Remove(_spawnPoints[randomSpawnPoint]);
-				_timer = 0;
+				_spawnTimer = 0;
 
 				// If the spawned item is a shell, remove it from the item list so that no two shells spawn in one level.
 				if (item.ItemData.ItemType == ItemType.Shell)
@@ -49,6 +88,27 @@ namespace BubbleBobble
 					_itemPrefabs.Remove(_itemPrefabs[randomItem]);
 				}
 			}
+		}
+
+		private void HurryUp()
+		{
+			// TODO: Call enemy's angry mode
+			FlashHurryUpText();
+		}
+
+		public void ResetHurryUp()
+		{
+			// TODO: Reset enemy's angry mode
+			_hurryUpTimer = 0;
+			_hurryUpText.SetActive(false);
+		}
+
+		private void FlashHurryUpText()
+		{
+			bool isActive = _hurryUpText.activeInHierarchy;
+			isActive = !isActive;
+			_hurryUpText.SetActive(isActive);
+			Invoke("FlashHurryUpText", _textFlashTime);
 		}
 	}
 }
