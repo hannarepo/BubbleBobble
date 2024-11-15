@@ -98,12 +98,12 @@ namespace BubbleBobble
 			GameObject fireBubble;
 			if (_spawnSwitch)
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity, _secondarySpawnPoint);
 				_spawnSwitch = false;
 			}
 			else
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 				_spawnSwitch = true;
 			}
 			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
