@@ -1,11 +1,12 @@
 namespace BubbleBobble.State
 {
-	public enum StateType 
+	public enum EnemyStateType 
 	{
 		Moving,
 		Jumping,
 		Dead,
-		FallingFromPlatform,
+		FallFromPlatform,
+		InBubble,
 		Shooting
 	}
 }
