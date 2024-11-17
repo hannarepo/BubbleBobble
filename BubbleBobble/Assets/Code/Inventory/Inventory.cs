@@ -78,7 +78,7 @@ namespace BubbleBobble
 
 		public bool CheckInventoryContent(ItemData item, int amount)
 		{
-			if (_items.ContainsKey(item) && _items[item] == amount)
+			if (_items.ContainsKey(item) && _items[item] >= amount)
 			{
 				return true;
 			}
@@ -90,7 +90,7 @@ namespace BubbleBobble
 
 		public bool Count(int count)
 		{
-			if (_items.Count == count)
+			if (_items.Count >= count)
 			{
 				return true;
 			}
