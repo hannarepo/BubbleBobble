@@ -29,10 +29,9 @@ namespace BubbleBobble
 		private GameObject _levelPrefab;
 		private float _currentLevelMovePosY = 0f;
 		private bool _startLevelChange = false;
-		[SerializeField] private string _windowsLevel;
-		[SerializeField] private string _liminalLevel;
+		[SerializeField] private string _windowsLevelName;
+		[SerializeField] private string _liminalLevelName;
 		[SerializeField] private Audiomanager _audioManager;
-		[SerializeField] private AudioClip _underWaterMusic;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 
@@ -93,11 +92,11 @@ namespace BubbleBobble
 		{
 			_startLevelChange = !_startLevelChange;
 
-			if (_levelPrefab.name == _windowsLevel)
+			if (_levelPrefab.name == _windowsLevelName)
 			{
 				_audioManager.ChangeMusic(_windowsMusic);
 			}
-			else if (_levelPrefab.name == _liminalLevel)
+			else if (_levelPrefab.name == _liminalLevelName)
 			{
 				_audioManager.ChangeMusic(_liminalMusic);
 			}
