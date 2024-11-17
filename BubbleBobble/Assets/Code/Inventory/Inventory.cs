@@ -76,9 +76,21 @@ namespace BubbleBobble
 			_items.Clear();
 		}
 
-		public bool ContainsKey(ItemData item)
+		public bool CheckInventoryContent(ItemData item, int amount)
 		{
-			if (_items.ContainsKey(item))
+			if (_items.ContainsKey(item) && _items[item] == amount)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool Count(int count)
+		{
+			if (_items.Count == count)
 			{
 				return true;
 			}
