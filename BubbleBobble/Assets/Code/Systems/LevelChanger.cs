@@ -32,7 +32,6 @@ namespace BubbleBobble
 		[SerializeField] private string _windowsLevel;
 		[SerializeField] private string _liminalLevel;
 		[SerializeField] private Audiomanager _audioManager;
-		[SerializeField] private AudioClip _underWaterMusic;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 

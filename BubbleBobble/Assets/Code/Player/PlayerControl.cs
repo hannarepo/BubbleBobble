@@ -15,7 +15,7 @@ namespace BubbleBobble
 	public class PlayerControl : MonoBehaviour
 	{
 		private InputReader _inputReader;
-		public Inventory _inventory;
+		private Inventory _inventory;
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
@@ -43,6 +43,8 @@ namespace BubbleBobble
 			get { return _lookRight; } 
 			set { _lookRight = value; }
 		}
+
+		public Inventory Inventory => _inventory;
 
 		public bool FireRateBoostIsActive
 		{
@@ -130,45 +132,14 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-			if (item.ItemData.ItemType == ItemType.Shell)
-			{
-				if (_inventory.Add(item.ItemData, 1))
-				{
-					if (_inventory != null)
-					{
-						// TODO: Update inventory UI
-					}
-					item.Collect();
-				}
-			}
-			else
-			{
-				item.Collect();
-				// TODO: Add points
-			}
-		}
-
-		public bool CheckInventoryContent(ItemData item)
+		if (_inventory.Add(item.ItemData, 1))
 		{
-			if (_inventory.ContainsKey(item))
+			if (_inventory != null)
 			{
-				return true;
+				// TODO: Update inventory UI
 			}
-			else
-			{
-				return false;
-			}
+			item.Collect();
 		}
-
-		public void RemoveFromInventory(ItemData item)
-		{
-			if (_inventory.Remove(item, 1))
-			{
-				if (_inventory != null)
-				{
-					// TODO: Update inventory UI
-				}
-			}
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
