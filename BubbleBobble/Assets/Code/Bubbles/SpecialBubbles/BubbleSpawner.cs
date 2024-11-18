@@ -85,7 +85,7 @@ namespace BubbleBobble
 		}
 		public void SpawnBomb()
 		{
-			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity);
+			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 			FloatDirection(bombBubble);
 			bombBubble.GetComponent<BombBubble>().MoveLeft = _moveLeft;
 		}
@@ -98,12 +98,12 @@ namespace BubbleBobble
 			GameObject fireBubble;
 			if (_spawnSwitch)
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity, _secondarySpawnPoint);
 				_spawnSwitch = false;
 			}
 			else
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity);
+				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 				_spawnSwitch = true;
 			}
 			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);

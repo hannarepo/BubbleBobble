@@ -6,6 +6,7 @@ namespace BubbleBobble
 		Fire,
 		Bomb,
 		Projectile,
-		TrappedEnemy
+		TrappedEnemy,
+		Water
 	}
 }
