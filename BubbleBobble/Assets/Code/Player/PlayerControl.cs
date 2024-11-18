@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -6,7 +7,7 @@ namespace BubbleBobble
 	/// Script for controlling various player actions.
 	/// Keeps track of inputs and relays informations to other classes.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
@@ -24,6 +25,7 @@ namespace BubbleBobble
 		[SerializeField] private float _fireRate = 1f;
 		[SerializeField] private float _fireRateWithBoost = 0.5f;
 		[SerializeField] private SpriteRenderer _playerBubbleRenderer;
+		[SerializeField] private GameManager _gameManager;
 		private Rigidbody2D _rigidBody;
 		private Collider2D _playerCollider;
 		private float _originalFireRate = 0f;
@@ -31,16 +33,16 @@ namespace BubbleBobble
 		private bool _canMove = true;
 		private bool _canShoot = true;
 
-		public bool CanMove 
-		{ 
-			get { return _canMove; } 
-			set { _canMove = value; } 
+		public bool CanMove
+		{
+			get { return _canMove; }
+			set { _canMove = value; }
 		}
 		private bool _fireRateBoostIsActive = false;
 
-		public bool LookingRight 
-		{ 
-			get { return _lookRight; } 
+		public bool LookingRight
+		{
+			get { return _lookRight; }
 			set { _lookRight = value; }
 		}
 
@@ -50,7 +52,7 @@ namespace BubbleBobble
 			set { _fireRateBoostIsActive = value; }
 		}
 
-		
+
 		#region Unity Messages
 		private void Awake()
 		{
@@ -92,7 +94,7 @@ namespace BubbleBobble
 			}
 
 			LookRight(movement);
-	
+
 			_timer += Time.deltaTime;
 			bool shoot = _inputReader.ShootBubble;
 
@@ -145,6 +147,7 @@ namespace BubbleBobble
 			{
 				item.Collect();
 				// TODO: Add points
+				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
 		}
 
