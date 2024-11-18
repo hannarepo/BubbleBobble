@@ -115,12 +115,10 @@ namespace BubbleBobble
 			if (_currentState == EnemyState.Moving && !_isGrounded)
 			{
 				_currentState = EnemyState.Falling;
-				Debug.Log("Falling");
 			}
 			else if (_currentState == EnemyState.Falling && _isGrounded)
 			{
 				_currentState = EnemyState.Moving;
-				Debug.Log("Moving");
 			}
 		}
 
