@@ -18,10 +18,12 @@ namespace BubbleBobble
 
 		[SerializeField] private EnemyState _currentState;
 		[SerializeField] private float _speed;
+		[SerializeField] private Transform _edgeCheck;
 		[SerializeField] private Transform _groundCheck;
 		[SerializeField] private LayerMask _groundLayer;
 		[SerializeField] private Transform _wallCheck;
 		[SerializeField] private LayerMask _wallLayer;
+		[SerializeField] private Vector2 _edgeBoxCastSize;
 		[SerializeField] private Vector2 _groundBoxCastSize;
 		[SerializeField] private Vector2 _wallBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
@@ -76,6 +78,13 @@ namespace BubbleBobble
 			}
 
 			Gizmos.DrawWireCube(_wallCheck.position - new Vector3(_boxCastDistance, 0, 0), _wallBoxCastSize);
+
+			if (_edgeCheck == null)
+			{
+				return;
+			}
+
+			Gizmos.DrawWireCube(_edgeCheck.position - new Vector3(0, _boxCastDistance, 0), _edgeBoxCastSize);
 		}
 
 		private void Move()
@@ -84,15 +93,14 @@ namespace BubbleBobble
 			_rigidbody2D.velocity = _direction * _speed;
 
 			// Check for platform edge or wall
-			bool isGroundAhead = Physics2D.Raycast(_groundCheck.position, Vector2.down, 1f, _groundLayer);
-			bool isWallAhead = Physics2D.Raycast(_wallCheck.position, _direction, 0.5f, _groundLayer);
+			bool isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
+			bool isWallAhead = Physics2D.BoxCast(_wallCheck.position, _wallBoxCastSize, 0f, _direction, _boxCastDistance, _wallLayer);
 
 			// If no ground ahead or a wall is detected, turn around
 			if (isWallAhead || !isGroundAhead)
 			{
 				Flip();
 			}
-			
 		}
 
 		private void Jump()
