@@ -22,7 +22,7 @@ namespace BubbleBobble
 		[SerializeField] private TextMeshProUGUI _priceText;
 		[SerializeField] private Image _buttonImage;
 		[SerializeField] protected GameObject _activeStatus;
-		[SerializeField] protected Image _statusImage;
+		[SerializeField] protected Image _timerImage;
 		[SerializeField] protected float _powerUpTime = 20f;
 		[SerializeField] protected TMP_Text _timerText;
 		protected bool _isActive;
@@ -54,7 +54,7 @@ namespace BubbleBobble
 			_isActive = false;
 			SetActiveStatus(false);
 			_timer = 0f;
-			_statusImage.fillAmount = 1f;
+			_timerImage.fillAmount = 1f;
 		}
 
 		/// <summary>

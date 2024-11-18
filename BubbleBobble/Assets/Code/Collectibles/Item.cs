@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -19,6 +20,7 @@ namespace BubbleBobble
 
 		public ItemData ItemData => _itemData;
 
+		public static event Action OnItemCollected;
 		private void Awake()
 		{
 			_renderer = GetComponent<Renderer>();
@@ -37,6 +39,7 @@ namespace BubbleBobble
 
 			float delay = 1;
 			Destroy(gameObject, delay);
+			OnItemCollected?.Invoke();
 		}
 	}
 }

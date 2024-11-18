@@ -1,4 +1,3 @@
-using UnityEditor.Rendering;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -16,7 +15,7 @@ namespace BubbleBobble
 	public class PlayerControl : MonoBehaviour
 	{
 		private InputReader _inputReader;
-		public Inventory _inventory;
+		private Inventory _inventory;
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
@@ -30,6 +29,8 @@ namespace BubbleBobble
 		private float _originalFireRate = 0f;
 		private float _timer = 0;
 		private bool _canMove = true;
+		private bool _canShoot = true;
+
 		public bool CanMove 
 		{ 
 			get { return _canMove; } 
@@ -43,6 +44,8 @@ namespace BubbleBobble
 			set { _lookRight = value; }
 		}
 
+		public Inventory Inventory => _inventory;
+
 		public bool FireRateBoostIsActive
 		{
 			get { return _fireRateBoostIsActive; }
@@ -50,6 +53,7 @@ namespace BubbleBobble
 		}
 
 		
+		#region Unity Messages
 		private void Awake()
 		{
 			_inputReader = GetComponent<InputReader>();
@@ -103,12 +107,13 @@ namespace BubbleBobble
 				_fireRate = _originalFireRate;
 			}
 
-			if (_timer >= _fireRate && shoot)
+			if (_timer >= _fireRate && shoot && _canShoot)
 			{
 				_shootBubble.Shoot(shoot, _lookRight);
 				_timer = 0;
 			}
 		}
+		#endregion
 
 		#region Private Implementation
 		private void LookRight(Vector2 movement)
@@ -127,45 +132,14 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-			if (item.ItemData.ItemType == ItemType.Shell)
-			{
-				if (_inventory.Add(item.ItemData, 1))
-				{
-					if (_inventory != null)
-					{
-						// TODO: Update inventory UI
-					}
-					item.Collect();
-				}
-			}
-			else
-			{
-				item.Collect();
-				// TODO: Add points
-			}
-		}
-
-		public bool CheckInventoryContent(ItemData item)
+		if (_inventory.Add(item.ItemData, 1))
 		{
-			if (_inventory.ContainsKey(item))
+			if (_inventory != null)
 			{
-				return true;
+				// TODO: Update inventory UI
 			}
-			else
-			{
-				return false;
-			}
+			item.Collect();
 		}
-
-		public void RemoveFromInventory(ItemData item)
-		{
-			if (_inventory.Remove(item, 1))
-			{
-				if (_inventory != null)
-				{
-					// TODO: Update inventory UI
-				}
-			}
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -186,6 +160,7 @@ namespace BubbleBobble
 			_rigidBody.bodyType = RigidbodyType2D.Static;
 			_playerCollider.enabled = false;
 			_canMove = false;
+			_canShoot = false;
 			_playerBubbleRenderer.enabled = true;
 		}
 
@@ -197,6 +172,7 @@ namespace BubbleBobble
 			_rigidBody.bodyType = RigidbodyType2D.Dynamic;
 			_playerCollider.enabled = true;
 			_canMove = true;
+			_canShoot = true;
 			_playerBubbleRenderer.enabled = false;
 		}
 

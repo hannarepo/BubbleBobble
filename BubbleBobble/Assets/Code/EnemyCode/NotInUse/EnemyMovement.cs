@@ -42,5 +42,7 @@ namespace BubbleBobble
 				_spriteRenderer.flipX = false;
 			}
 		}
+
+		
 	}
 }
