@@ -22,7 +22,7 @@ namespace BubbleBobble
 		private bool _canSpawn = false;
 		private float _timer = 0f;
 		private Animator _animator;
-		private EnemyMovement _movement;
+		private BasicEnemyBehavior _movement;
 		private BouncingEnemyMovement _bounce;
 
 
@@ -36,7 +36,7 @@ namespace BubbleBobble
 			_levelParent = FindObjectOfType<LevelManager>().transform;
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_animator = GetComponent<Animator>();
-			_movement = GetComponent<EnemyMovement>();
+			_movement = GetComponent<BasicEnemyBehavior>();
 			_bounce = GetComponent<BouncingEnemyMovement>();
 		}
 
