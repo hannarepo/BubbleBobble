@@ -85,7 +85,7 @@ namespace BubbleBobble
 		}
 		public void SpawnBomb()
 		{
-			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity);
+			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 			FloatDirection(bombBubble);
 			bombBubble.GetComponent<BombBubble>().MoveLeft = _moveLeft;
 		}
