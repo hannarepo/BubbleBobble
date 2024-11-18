@@ -103,6 +103,7 @@ namespace BubbleBobble
 				return;
 			}
 
+			print(hit.collider.name);
 
 			// If the collider hit with BoxCast is Ground or Platform
 			//  and player is not pressing down, player can jump.
