@@ -17,15 +17,19 @@ namespace BubbleBobble
 		[SerializeField] private bool _spawnFromTop = false;
 		[SerializeField] private bool _moveLeft = false;
 		private LevelChanger _levelChanger;
-
-		public bool SpawnFromTop
-		{
-			get { return _spawnFromTop; }
-		}
+		[SerializeField] private Transform _secondarySpawnPoint;
 		[SerializeField] private float _spawnRate = 5f;
 		[SerializeField] private float _spawnLimit = 5f;
 		[SerializeField] private GameManager _gameManager;
 		private float _timeToSpawn = 0f;
+		private bool _spawnSwitch = false;
+		[SerializeField] private bool _alternateSpawns = false;
+		[SerializeField] private Collider2D _topCollider;
+		[SerializeField] private Collider2D _bottomCollider;
+		public bool SpawnFromTop
+		{
+			get { return _spawnFromTop; }
+		}
 
 		#region Unity Functions
 
@@ -33,11 +37,14 @@ namespace BubbleBobble
 		{
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_gameManager = FindObjectOfType<GameManager>();
+			_secondarySpawnPoint = transform.Find("SecondarySpawnPoint");
 		}
 
 		private void Start()
 		{
 			_gameManager.BubbleSpawnerInitialization();
+			_topCollider.enabled = !_spawnFromTop;
+			_bottomCollider.enabled = _spawnFromTop;
 		}
 		private void Update()
 		{
@@ -45,6 +52,21 @@ namespace BubbleBobble
 			if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelLoaded)
 			{
 				SpawnSpecialBubble();
+			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D collider)
+		{
+			if (collider.gameObject.CompareTag(Tags._bubble))
+			{
+				if (collider.gameObject.transform.position.x < 0 && _alternateSpawns)
+				{
+					collider.gameObject.transform.position = _secondarySpawnPoint.position;
+				}
+				else
+				{
+					collider.gameObject.transform.position = gameObject.transform.position;
+				}
 			}
 		}
 
@@ -59,12 +81,11 @@ namespace BubbleBobble
 			}
 			// To be reworked
 			SpawnFireBubble();
-			_fireBubblesSpawned++;
 			_timeToSpawn = 0f;
 		}
 		public void SpawnBomb()
 		{
-			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity);
+			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 			FloatDirection(bombBubble);
 			bombBubble.GetComponent<BombBubble>().MoveLeft = _moveLeft;
 		}
@@ -74,9 +95,25 @@ namespace BubbleBobble
 		/// </summary>
 		private void SpawnFireBubble()
 		{
-			GameObject fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
+			GameObject fireBubble;
+			if (_spawnSwitch)
+			{
+				fireBubble = Instantiate(_fireBubblePrefab, _secondarySpawnPoint.position, Quaternion.identity, _secondarySpawnPoint);
+				_spawnSwitch = false;
+			}
+			else
+			{
+				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+				_spawnSwitch = true;
+			}
+			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
 			FloatDirection(fireBubble);
 			fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
+			_fireBubblesSpawned++;
+			if (_alternateSpawns)
+			{
+				_moveLeft = !_moveLeft;
+			}
 		}
 
 		#endregion
@@ -96,3 +133,5 @@ namespace BubbleBobble
 		}
 	}
 }
+// TODO: Add the bubble teleport to bubble spawner 
+// to teleport bubbles to the right spawnpoints

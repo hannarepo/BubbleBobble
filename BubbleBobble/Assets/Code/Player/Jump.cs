@@ -91,7 +91,7 @@ namespace BubbleBobble
 		}
 		#endregion
 
-		#region Private Implementations
+		#region Jump Mechanics
 		private void JumpCheck()
 		{
 			// Do a BoxCast and save the resulting collider into a variable for ground check
@@ -119,7 +119,7 @@ namespace BubbleBobble
 
 			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
-			// Do a bubble jump with less jump force due to bubble having bounciness.
+			// Reset y velocity before bubble jump to not gain more velocity each jump. Do a bubble jump with less jump force.
 			if (hit.collider.CompareTag(Tags._projectile) || hit.collider.CompareTag(Tags._bubble))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
@@ -128,6 +128,7 @@ namespace BubbleBobble
 					if (_inputReader.JumpOnBubble)
 					{
 						bubble.CanPop(false);
+						_rb.velocity = new Vector2(_rb.velocity.x, 0);
 						BubbleJump();
 					}
 					else
@@ -140,6 +141,10 @@ namespace BubbleBobble
 
 		private void DropDownCheck()
 		{
+			// Do a BoxCast and save the resulting collider into a variable for ground check
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
+												_boxCastDistance, _jumpCheckLayers);
+
 			// If player is pressing down and jump, ignore layer collision between player and platform
 			//so that player can drop through platform. Increase gravity scale so dropping is faster.
 			// After a short time, turn collision detection back on and reset gravity scale.
@@ -150,7 +155,7 @@ namespace BubbleBobble
 				_falling = true;
 				_timer = 0;
 			}
-			else if (_timer > _ignorePlatformTime)
+			else if (_timer > _ignorePlatformTime && hit.collider == null)
 			{
 				gameObject.layer = LayerMask.NameToLayer("Player");
 				_rb.gravityScale = _defaultGravityScale;
