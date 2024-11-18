@@ -4,44 +4,47 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class BouncingEnemyMovement : MonoBehaviour
-    {
+	public class BouncingEnemyMovement : MonoBehaviour
+	{
+		//TODO: tee angry mode, jossa vihollisen liike on nopeampi ja se on punainen
+		//TODO: angry mode aktivointi: true/false
+		[SerializeField] private float _speed = 5;
+		private Rigidbody2D _rigidbody;
+		//private Transform _transform;
+		private Vector2 _velocity = Vector2.zero;
+		
+		void Start()
+		{
+			_rigidbody = GetComponent<Rigidbody2D>();
+			_rigidbody.AddForce((Vector2.up + Vector2.right).normalized * _speed, ForceMode2D.Impulse);
+			//_transform = transform;
+			//_velocity = (Vector2.left + Vector2.up * 1.5f).normalized;
+		}
 
-        [SerializeField] private float _speed = 5;
-        private Transform _transform;
-        private Vector2 _velocity = Vector2.zero;
+		/*
+		void Update()
+		{
+			_transform.position += new Vector3(_velocity.x, _velocity.y, 0) * _speed * Time.deltaTime;
+		}
 
-        // Start is called before the first frame update
-        void Start()
-        {
-            _transform = transform;
-            _velocity = (Vector2.left + Vector2.up * 1.5f).normalized;
-        }
+		private void OnTriggerEnter2D(Collider2D other)
+		{
+			BounceObject wall = other.GetComponent<BounceObject>();
+			if (wall == null)
+			{
+				return;
+			}
 
-        // Update is called once per frame
-        void Update()
-        {
-            _transform.position += new Vector3(_velocity.x, _velocity.y, 0) * _speed * Time.deltaTime;
-        }
+			Vector2 normal = wall.Normal;
+			Bounce(normal);
+		}
 
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            BounceObject _object = other.GetComponent<BounceObject>();
-            if (_object == null)
-            {
-                return;
-            }
-
-            Vector2 normal = _object.Normal;
-            Bounce(normal);
-        }
-
-        public void Bounce(Vector2 normal)
-        {
-            Vector2 u = Vector2.Dot(_velocity, normal) * normal;
-            Vector2 w = _velocity - u;
-            _velocity = w - u;
-        }
-    }
-
+		public void Bounce(Vector2 normal)
+		{
+			Vector2 u = Vector2.Dot(_velocity, normal) * normal;
+			Vector2 w = _velocity - u;
+			_velocity = w - u;
+		}
+		*/
+	}
 }

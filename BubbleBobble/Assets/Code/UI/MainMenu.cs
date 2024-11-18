@@ -7,9 +7,10 @@ namespace BubbleBobble
 {
     public class MainMenu : MonoBehaviour
     {
+		[SerializeField] private string _sceneName;
         public void PlayGame()
         {
-            SceneManager.LoadSceneAsync("DemoScene2");
+            SceneManager.LoadSceneAsync(_sceneName);
         }
 
         public void QuitGame()

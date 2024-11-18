@@ -1,6 +1,4 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
+using System;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -9,6 +7,11 @@ namespace BubbleBobble
 	/// Class for the collectible items in the game.
 	/// Plays collect sfx and particle effect when collected.
 	/// </summary>
+	///
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	public class Item : MonoBehaviour
 	{
 		[SerializeField] private ItemData _itemData = null;
@@ -17,6 +20,7 @@ namespace BubbleBobble
 
 		public ItemData ItemData => _itemData;
 
+		public static event Action OnItemCollected;
 		private void Awake()
 		{
 			_renderer = GetComponent<Renderer>();
@@ -35,6 +39,7 @@ namespace BubbleBobble
 
 			float delay = 1;
 			Destroy(gameObject, delay);
+			OnItemCollected?.Invoke();
 		}
 	}
 }

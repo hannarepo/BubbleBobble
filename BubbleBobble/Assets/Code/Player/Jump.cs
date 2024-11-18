@@ -26,8 +26,8 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _boxCastSize;
 		[SerializeField] private float _boxCastDistance = 0.3f;
 		[SerializeField] private Transform _groundCheckTarget;
-		[SerializeField] private Transform _upCheckTarget;
-		[SerializeField] private float _upCheckDistance = 1f;
+		[SerializeField] private float _fallingThreshold = -0.1f;
+		[SerializeField] private float _ignorePlatformTime = 0.3f;
 		private float _timer = 0f;
 		private bool _jumping = false;
 		private bool _grounded = false;
@@ -49,7 +49,7 @@ namespace BubbleBobble
 		private void Update()
 		{
 			// If player is moving down (falling), change gravity scale higher so player drops faster.
-			if (_rb.velocity.y < -0.1f)
+			if (_rb.velocity.y < _fallingThreshold)
 			{
 				_rb.gravityScale = _dropDownGravityScale;
 				_jumping = false;
@@ -88,31 +88,10 @@ namespace BubbleBobble
 			// Draw a wire cube to visualize the BoxCast.
 			// WireCube center is the player position - the box cast distance.
 			Gizmos.DrawWireCube(_groundCheckTarget.position - new Vector3(0, _boxCastDistance, 0), _boxCastSize);
-			Gizmos.DrawWireCube(_upCheckTarget.position, new Vector2(0.7f, 0.7f));
 		}
 		#endregion
 
-		#region Private Implementations
-
-		private void JumpThroughPlatform()
-		{
-			RaycastHit2D hit = Physics2D.BoxCast(_upCheckTarget.position, new Vector2(0.7f, 0.7f), 0, Vector2.up, _upCheckDistance);
-
-			if (hit.collider == null)
-			{
-				return;
-			}
-
-			if(hit.collider.CompareTag("Platform"))
-			{
-				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
-			}
-			else if (_timer > 0.7f)
-			{
-				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
-			}
-		}
-
+		#region Jump Mechanics
 		private void JumpCheck()
 		{
 			// Do a BoxCast and save the resulting collider into a variable for ground check
@@ -127,8 +106,8 @@ namespace BubbleBobble
 
 			// If the collider hit with BoxCast is Ground or Platform
 			//  and player is not pressing down, player can jump.
-			if (hit.collider.CompareTag("Ground") ||
-				hit.collider.CompareTag("Platform"))
+			if (hit.collider.CompareTag(Tags._ground) ||
+				hit.collider.CompareTag(Tags._platform))
 			{
 				_grounded = true;
 
@@ -140,8 +119,8 @@ namespace BubbleBobble
 
 			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
-			// Do a bubble jump with less jump force due to bubble having bounciness.
-			if (hit.collider.CompareTag("Projectile") || hit.collider.CompareTag("Bubble"))
+			// Reset y velocity before bubble jump to not gain more velocity each jump. Do a bubble jump with less jump force.
+			if (hit.collider.CompareTag(Tags._projectile) || hit.collider.CompareTag(Tags._bubble))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
 				if (bubble != null)
@@ -149,6 +128,7 @@ namespace BubbleBobble
 					if (_inputReader.JumpOnBubble)
 					{
 						bubble.CanPop(false);
+						_rb.velocity = new Vector2(_rb.velocity.x, 0);
 						BubbleJump();
 					}
 					else
@@ -161,34 +141,34 @@ namespace BubbleBobble
 
 		private void DropDownCheck()
 		{
+			// Do a BoxCast and save the resulting collider into a variable for ground check
+			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
+												_boxCastDistance, _jumpCheckLayers);
+
 			// If player is pressing down and jump, ignore layer collision between player and platform
 			//so that player can drop through platform. Increase gravity scale so dropping is faster.
 			// After a short time, turn collision detection back on and reset gravity scale.
 			if (_inputReader.Movement.y < 0 && _inputReader.Jump)
 			{
-				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), true);
+				gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
 				_rb.gravityScale = _dropDownGravityScale;
 				_falling = true;
 				_timer = 0;
 			}
-			else if (_timer > 0.3f)
+			else if (_timer > _ignorePlatformTime && hit.collider == null)
 			{
-				Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("Platform"), false);
+				gameObject.layer = LayerMask.NameToLayer("Player");
 				_rb.gravityScale = _defaultGravityScale;
 			}
 		}
 
 		private void GroundJump()
 		{
-			_timer = 0;
-			JumpThroughPlatform();
 			_rb.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
 		}
 
 		private void BubbleJump()
 		{
-			_timer = 0;
-			JumpThroughPlatform();
 			_rb.AddForce(transform.up * _bubbleJumpForce, ForceMode2D.Impulse);
 		}
 		#endregion

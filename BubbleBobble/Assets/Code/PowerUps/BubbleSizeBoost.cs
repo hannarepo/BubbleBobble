@@ -12,15 +12,10 @@ namespace BubbleBobble
 			_shoot = _player.GetComponent<ShootBubble>();
 		}
 
-		private void Update()
+		public override void PowerUpTimer()
 		{
-			_timer += Time.deltaTime;
-
-			if (_timer >= _powerUpTime)
-			{
-				_shoot.SizeBoostIsActive = false;
-				SetActiveStatus(false);
-			}
+			_timerImage.fillAmount -= 1.0f / _powerUpTime * Time.deltaTime;
+			_timerText.text = $"{(int)_powerUpTime - (int)_timer}";
 		}
 
 		public override void ActivatePowerUp()
@@ -28,8 +23,23 @@ namespace BubbleBobble
 			if (_shoot != null)
 			{
 				_shoot.SizeBoostIsActive = true;
+				_isActive = true;
 			}
 			base.ActivatePowerUp();
+		}
+
+		public override void DeactivatePowerUp()
+		{
+			if (_shoot != null)
+			{
+				_shoot.SizeBoostIsActive = false;
+			}
+			base.DeactivatePowerUp();
+		}
+
+		public override void SetActiveStatus(bool isActive)
+		{
+			_activeStatus.SetActive(isActive);
 		}
 	}
 }

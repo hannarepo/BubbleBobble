@@ -1,16 +1,18 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Inventory class for storing items and their amounts.
-/// </summary>
-
 using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Inventory class for storing items and their amounts.
+	/// Only stores shells, because they are the only items
+	/// used in the shop.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
 	public class Inventory
 	{
 		// Creat a dectionary to store the items and their amount
@@ -74,9 +76,21 @@ namespace BubbleBobble
 			_items.Clear();
 		}
 
-		public bool ContainsKey(ItemData item)
+		public bool CheckInventoryContent(ItemData item, int amount)
 		{
-			if (_items.ContainsKey(item))
+			if (_items.ContainsKey(item) && _items[item] >= amount)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+
+		public bool Count(int count)
+		{
+			if (_items.Count >= count)
 			{
 				return true;
 			}
