@@ -46,7 +46,7 @@ namespace BubbleBobble
 			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
 				PopBubble();
-				// TODO: Add point_bubbleData.Points
+				// TODO: Add point _bubbleData.Points
 			}
 		}
 
