@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 namespace BubbleBobble
 {
@@ -8,9 +10,9 @@ namespace BubbleBobble
 	/// e.g. number of projectile bubbles in the level and
 	/// number of enemies in the level.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
-	/// author: Jose Mäntylä, Hanna Repo
+	/// author: Jose Mäntylä, Hanna Repo, Juho Kokkonen
 	/// </remarks>
 
 	public class GameManager : MonoBehaviour
@@ -26,11 +28,16 @@ namespace BubbleBobble
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
+		[SerializeField] ScoreText scoreText;
+		[SerializeField] TextMeshProUGUI HighscoreText;
+		int scoreCount;
 
 		#region Unity Functions
 		private void Start()
 		{
+			scoreCount = 0;
 			_levelChanger = GetComponent<LevelChanger>();
+			UpdateHighScoreText();
 		}
 
 		private void Update()
@@ -39,6 +46,44 @@ namespace BubbleBobble
 			{
 				_projectileList[0].GetComponent<ProjectileBubble>().PopBubble();
 			}
+		}
+
+		// private void OnEnable()
+		// {
+		// 	Item.OnItemCollected += HandleItemPickup;
+		// }
+
+		// private void OnDisable()
+		// {
+		// 	Item.OnItemCollected -= HandleItemPickup;
+		// }
+
+		public void HandleItemPickup(int points)
+		{
+			scoreCount += points;
+			scoreText.IncrementScoreCount(scoreCount);
+			CheckHighScore();
+
+		}
+
+		public void HandleBubblePop(int points)
+		{
+			scoreCount += points;
+			scoreText.IncrementScoreCount(scoreCount);
+			CheckHighScore();
+		}
+
+		void CheckHighScore()
+		{
+			if (scoreCount > PlayerPrefs.GetInt("HighScore", 0))
+			{
+				PlayerPrefs.SetInt("HighScore", scoreCount);
+			}
+		}
+
+		void UpdateHighScoreText()
+		{
+			HighscoreText.text = $"Highscore: {PlayerPrefs.GetInt("HighScore", 0)}";
 		}
 
 		#endregion Unity Functions
@@ -90,7 +135,7 @@ namespace BubbleBobble
 					{
 						_bubbleSpawner.SpawnBomb();
 					}
-					break; 
+					break;
 				case "Enemy":
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
@@ -116,12 +161,12 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().Die();
+				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
 
-			for (int i=0; i < trappedEnemies.Length; i++)
+			for (int i = 0; i < trappedEnemies.Length; i++)
 			{
 				Destroy(trappedEnemies[i].gameObject);
 			}

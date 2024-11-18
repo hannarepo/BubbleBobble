@@ -1,49 +1,79 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
     public class Audiomanager : MonoBehaviour
     {
-		private LevelChanger _levelChanger;
-		[SerializeField] private int _underWaterIndex;
-		[SerializeField] private int _windowsIndex;
-		[SerializeField] private int _liminalIndex;
+		[SerializeField] private float _musicFadeTime = 1f;
+		private bool _isPlayingMusicSource1 = true;
 
         [Header("------------------- Audio Sources -----------------")]
-        [SerializeField] private AudioSource _musicSource;
+        [SerializeField] private AudioSource _musicSource1;
+		[SerializeField] private AudioSource _musicSource2;
         [SerializeField] private AudioSource _sfxSource;
 
         [Header("------------------- Audio Clips -----------------")]
         [SerializeField] private AudioClip _backgroundMusic;
-		[SerializeField] private AudioClip _underWaterMusic;
-		[SerializeField] private AudioClip _windowsMusic;
-		[SerializeField] private AudioClip _liminalMusic;
-        [SerializeField] private AudioClip powerUpSFX;
+        [SerializeField] private AudioClip _powerUpSFX;
         // add more audio clips here
         // Juho's note: check rehopeT
 
         private void Start()
         {
-			_levelChanger = GetComponent<LevelChanger>();
-            _musicSource.clip = _backgroundMusic;
-            _musicSource.Play();
+            _musicSource1.clip = _backgroundMusic;
+
+			if (SceneManager.GetActiveScene().name != "Main Menu")
+			{
+				ChangeMusic(_backgroundMusic);
+			}
+			else
+			{
+				_musicSource1.Play();
+			}
         }
 
-		private void Update()
+		public void ChangeMusic(AudioClip audioClip)
 		{
-			if (_levelChanger.LevelIndex >= _underWaterIndex && _levelChanger.LevelIndex < _windowsIndex)
+			StopAllCoroutines();
+			StartCoroutine(FadeMusic(audioClip));
+			_isPlayingMusicSource1 = !_isPlayingMusicSource1;
+		}
+
+		private IEnumerator FadeMusic(AudioClip musicClip)
+		{
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
 			{
-				_backgroundMusic = _underWaterMusic;
+				_musicSource2.clip = musicClip;
+				_musicSource2.Play();
+
+				while (timeElapsed < _musicFadeTime)
+				{
+					_musicSource2.volume = Mathf.Lerp(0, 1, timeElapsed / _musicFadeTime);
+					_musicSource1.volume = Mathf.Lerp(1, 0, timeElapsed / _musicFadeTime);
+					timeElapsed += Time.deltaTime;
+					yield return null;
+				}
+
+				_musicSource1.Stop();
 			}
-			else if (_levelChanger.LevelIndex >= _windowsIndex && _levelChanger.LevelIndex < _liminalIndex)
+			else
 			{
-				_backgroundMusic = _windowsMusic;
-			}
-			else if (_levelChanger.LevelIndex >= _liminalIndex)
-			{
-				_backgroundMusic = _liminalMusic;
+				_musicSource1.clip = musicClip;
+				_musicSource1.Play();
+
+				while (timeElapsed < _musicFadeTime)
+				{
+					_musicSource1.volume = Mathf.Lerp(0, 1, timeElapsed / _musicFadeTime);
+					_musicSource2.volume = Mathf.Lerp(1, 0, timeElapsed / _musicFadeTime);
+					timeElapsed += Time.deltaTime;
+					yield return null;
+				}
+
+				_musicSource2.Stop();
 			}
 		}
     }
