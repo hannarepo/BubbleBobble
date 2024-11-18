@@ -85,7 +85,7 @@ namespace BubbleBobble
 
 			// Check for platform edge or wall
 			bool isGroundAhead = Physics2D.Raycast(_groundCheck.position, Vector2.down, 1f, _groundLayer);
-			bool isWallAhead = Physics2D.Raycast(_wallCheck.position, _direction, 0.5f, _groundLayer);
+			bool isWallAhead = Physics2D.Raycast(_wallCheck.position, _direction, 0.5f, _wallLayer);
 
 			// If no ground ahead or a wall is detected, turn around
 			if (isWallAhead || !isGroundAhead)

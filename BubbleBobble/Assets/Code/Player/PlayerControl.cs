@@ -153,15 +153,14 @@ namespace BubbleBobble
 			}
 		}
 
-		public bool CheckInventoryContent(ItemData item)
-		{
-			if (_inventory != null)
-			{
-				// TODO: Update inventory UI
-			}
-			item.Collect();
-		}
-		}
+		// public bool CheckInventoryContent(ItemData item)
+		// {
+		// 	if (_inventory != null)
+		// 	{
+		// 		// TODO: Update inventory UI
+		// 	}
+		// 	item.Collect();
+		// }
 
 		private void OnTriggerEnter2D(Collider2D other)
 		{
