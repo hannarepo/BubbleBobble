@@ -31,6 +31,8 @@ namespace BubbleBobble
 		[SerializeField, Tooltip("This list should contain soap, camera, blue floppy disc and purple floppy disc")]
 		public List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
+		[SerializeField] private int _mp3SpawnThreshold = 20;
+		[SerializeField] private int _cdSpawnThreshold = 40;
 		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
@@ -161,13 +163,13 @@ namespace BubbleBobble
 			}
 
 			// If inventory contains 20 number of items, add an mp3 player to the item list.
-			if (_playerControl.Inventory.Count(20))
+			if (_playerControl.Inventory.Count(_mp3SpawnThreshold))
 			{
 				_spawnableItemPrefabs.Add(_mp3);
 			}
 
 			// If inventory contains x number of items, add a cd to the item list.
-			if (_playerControl.Inventory.Count(40))
+			if (_playerControl.Inventory.Count(_cdSpawnThreshold))
 			{
 				_spawnableItemPrefabs.Add(_cd);
 			}
