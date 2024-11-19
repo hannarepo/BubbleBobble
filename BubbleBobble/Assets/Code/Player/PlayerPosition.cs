@@ -1,18 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class PlayerPosition : MonoBehaviour
-    {
-        public static Vector2 playerPosition;
+	public class PlayerPosition : MonoBehaviour
+	{
+		public static Vector2 _playerPosition;
 
-        void Update()
-        {
-            playerPosition = transform.position;
-
-        }
-        
-    }
+		private void Update()
+		{
+			_playerPosition = transform.position;
+		}	
+		
+	}
 }

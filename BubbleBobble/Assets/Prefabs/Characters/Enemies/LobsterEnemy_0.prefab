@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3510119326784701859
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 777836122955899830}
+  m_Layer: 0
+  m_Name: EdgeCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &777836122955899830
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3510119326784701859}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.342, y: -0.552, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5140593072920795032}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4192683632561279453
 GameObject:
   m_ObjectHideFlags: 0
@@ -37,6 +68,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2286991158909360805}
+  - {fileID: 777836122955899830}
   - {fileID: 5235782322899501706}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -172,7 +204,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.015713692, y: -0.045844316}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -183,7 +215,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.91142464, y: 0.9086652}
   m_EdgeRadius: 0
 --- !u!114 &-8290811675892427530
 MonoBehaviour:
@@ -234,6 +266,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _speed: 1.5
+  _hurryUpSpeed: 0
+  _edgeCheck: {fileID: 777836122955899830}
   _groundCheck: {fileID: 2286991158909360805}
   _groundLayer:
     serializedVersion: 2
@@ -241,11 +275,13 @@ MonoBehaviour:
   _wallCheck: {fileID: 5235782322899501706}
   _wallLayer:
     serializedVersion: 2
-    m_Bits: 1048704
-  _groundBoxCastSize: {x: 0.2, y: 0.1}
+    m_Bits: 1048576
+  _edgeBoxCastSize: {x: 0.2, y: 0.1}
+  _groundBoxCastSize: {x: 0.5, y: 0.1}
   _wallBoxCastSize: {x: 0.1, y: 0.2}
   _boxCastDistance: 0
   _isFacingRight: 0
+  _player: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
 --- !u!1 &5477114149300410955
 GameObject:
   m_ObjectHideFlags: 0
@@ -271,7 +307,7 @@ Transform:
   m_GameObject: {fileID: 5477114149300410955}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.526, y: 0, z: 0}
+  m_LocalPosition: {x: -0.479, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -302,7 +338,7 @@ Transform:
   m_GameObject: {fileID: 6657442118741360042}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.418, y: -0.585, z: 0}
+  m_LocalPosition: {x: 0.073, y: -0.552, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
