@@ -37,6 +37,7 @@ namespace BubbleBobble
 		private Rigidbody2D _rb;
 		private InputReader _inputReader;
 		private bool _notInvincible = false;
+		private PlayerControl _playerControl;
 
 		public bool IsInvincible
 		{
@@ -54,6 +55,7 @@ namespace BubbleBobble
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_inputReader = GetComponent<InputReader>();
 			_rb = GetComponent<Rigidbody2D>();
+			_playerControl = GetComponent<PlayerControl>();
 		}
 
 		private void Start()
@@ -82,8 +84,6 @@ namespace BubbleBobble
 			{
 				_invincibilityTimer -= Time.deltaTime;
 				_flashTimer += Time.deltaTime;
-				_inputReader.enabled = false;
-				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 				if (_flashTimer > _flashRate)
 				{
@@ -95,9 +95,6 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.enabled = true;
 				_flashTimer = 0;
-				_inputReader.enabled = true;
-				_rb.constraints = RigidbodyConstraints2D.None;
-				_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 				_notInvincible = false;
 			}
 
@@ -116,6 +113,9 @@ namespace BubbleBobble
 			// indicate loss of life to player.
 			if (collision.gameObject.CompareTag(Tags._enemy) && !IsInvincible && _currentLives > 0)
 			{
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+				_playerControl.CanMove = false;
 				Invoke("Respawn", 1f);
 				_currentLives--;
 				_hearts[_currentLives].SetActive(false);
@@ -125,6 +125,7 @@ namespace BubbleBobble
 				{
 					_invincibilityTimer = _invincibilityTime;
 				}
+				
 			}
 		}
 
@@ -147,6 +148,10 @@ namespace BubbleBobble
 		private void Respawn()
 		{
 			_transform.position = _playerReturnPoint.position;
+			_inputReader.enabled = true;
+			_rb.constraints = RigidbodyConstraints2D.None;
+			_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+			_playerControl.CanMove = true;
 			_notInvincible = true;
 		}
 

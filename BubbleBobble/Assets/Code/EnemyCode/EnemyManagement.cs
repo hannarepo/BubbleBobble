@@ -70,6 +70,7 @@ namespace BubbleBobble
 		public void LaunchAtDeath()
 		{
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
+			gameObject.tag = Tags._deadEnemy;
 			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
