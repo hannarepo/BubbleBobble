@@ -266,6 +266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _speed: 1.5
+  _hurryUpSpeed: 0
   _edgeCheck: {fileID: 777836122955899830}
   _groundCheck: {fileID: 2286991158909360805}
   _groundLayer:
@@ -274,12 +275,13 @@ MonoBehaviour:
   _wallCheck: {fileID: 5235782322899501706}
   _wallLayer:
     serializedVersion: 2
-    m_Bits: 1048704
+    m_Bits: 1048576
   _edgeBoxCastSize: {x: 0.2, y: 0.1}
   _groundBoxCastSize: {x: 0.9, y: 0.1}
   _wallBoxCastSize: {x: 0.1, y: 0.2}
   _boxCastDistance: 0
   _isFacingRight: 0
+  _player: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
 --- !u!1 &5477114149300410955
 GameObject:
   m_ObjectHideFlags: 0
