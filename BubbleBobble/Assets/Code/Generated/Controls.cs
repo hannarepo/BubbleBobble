@@ -289,6 +289,17 @@ namespace BubbleBobble
                 },
                 {
                     ""name"": """",
+                    ""id"": ""c082e7d1-be9c-46b8-81fc-35c7c0e2feae"",
+                    ""path"": ""<Gamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
                     ""id"": ""5e48596f-6528-4ea6-8637-57bcb4fa7840"",
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",

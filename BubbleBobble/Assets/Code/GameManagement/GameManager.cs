@@ -10,7 +10,7 @@ namespace BubbleBobble
 	/// e.g. number of projectile bubbles in the level and
 	/// number of enemies in the level.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Jose Mäntylä, Hanna Repo, Juho Kokkonen
 	/// </remarks>
@@ -67,22 +67,29 @@ namespace BubbleBobble
 			}
 		}
 
-		private void OnEnable()
-		{
-			Item.OnItemCollected += HandleItemPickup;
-		}
+		// private void OnEnable()
+		// {
+		// 	Item.OnItemCollected += HandleItemPickup;
+		// }
 
-		private void OnDisable()
-		{
-			Item.OnItemCollected -= HandleItemPickup;
-		}
+		// private void OnDisable()
+		// {
+		// 	Item.OnItemCollected -= HandleItemPickup;
+		// }
 
-		private void HandleItemPickup()
+		public void HandleItemPickup(int points)
 		{
-			scoreCount++;
+			scoreCount += points;
 			scoreText.IncrementScoreCount(scoreCount);
 			CheckHighScore();
 
+		}
+
+		public void HandleBubblePop(int points)
+		{
+			scoreCount += points;
+			scoreText.IncrementScoreCount(scoreCount);
+			CheckHighScore();
 		}
 
 		void CheckHighScore()
