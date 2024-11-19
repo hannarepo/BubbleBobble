@@ -79,7 +79,7 @@ namespace BubbleBobble
 			{
 				return;
 			}
-			// To be reworked
+			// TODO: Edit this if you complete the second special bubble
 			SpawnFireBubble();
 			_timeToSpawn = 0f;
 		}
@@ -106,7 +106,6 @@ namespace BubbleBobble
 				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
 				_spawnSwitch = true;
 			}
-			//Instantiate(_fireBubblePrefab, gameObject.transform, worldPositionStays: false);
 			FloatDirection(fireBubble);
 			fireBubble.GetComponent<FireBubble>().MoveLeft = _moveLeft;
 			_fireBubblesSpawned++;
@@ -133,5 +132,3 @@ namespace BubbleBobble
 		}
 	}
 }
-// TODO: Add the bubble teleport to bubble spawner 
-// to teleport bubbles to the right spawnpoints
