@@ -100,7 +100,6 @@ namespace BubbleBobble
 
 			if (_currentLives == 0)
 			{
-				_gameOverText.gameObject.SetActive(true);
 				Flash();
 				Die();
 			}
@@ -125,7 +124,6 @@ namespace BubbleBobble
 				{
 					_invincibilityTimer = _invincibilityTime;
 				}
-				
 			}
 		}
 
