@@ -43,6 +43,7 @@ namespace BubbleBobble
 		[SerializeField] private Item _pupleShell;
 		[SerializeField] private Item _purpleBlueShell;
 		[SerializeField] private Item _redShell;
+		[SerializeField] private GameObject _hurryUpText;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -50,6 +51,8 @@ namespace BubbleBobble
 		[SerializeField] ScoreText scoreText;
 		[SerializeField] TextMeshProUGUI HighscoreText;
 		int scoreCount;
+
+		public GameObject HurryUpText => _hurryUpText;
 
 		#region Unity Functions
 		private void Start()
