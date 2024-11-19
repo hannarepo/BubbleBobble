@@ -77,8 +77,9 @@ namespace BubbleBobble
 				_player.transform.position = gameObject.transform.position;
 				if (_inputReader.Jump)
 				{
-					EnablePlayerCollider();
+					gameObject.layer = LayerMask.NameToLayer("Water");
 					_canGrabPlayer = false;
+					EnablePlayerCollider();
 				}
 			}
 		}
