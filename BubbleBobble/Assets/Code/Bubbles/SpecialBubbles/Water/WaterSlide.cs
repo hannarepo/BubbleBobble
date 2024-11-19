@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -10,8 +11,12 @@ namespace BubbleBobble
 		private bool _directionRandomized = false;
 		[SerializeField] FloorChecker _floorChecker;
 		[SerializeField] WallChecker _wallChecker;
+		[SerializeField] float _destructionPosition = -8f;
+		private bool _canGrabPlayer = true;
+		private GameObject _player;
+		private InputReader _inputReader;
 
-		#region Unity Functions
+	#region Unity Functions
 
 		private void Awake()
 		{
@@ -20,6 +25,12 @@ namespace BubbleBobble
 
 		private void Update()
 		{
+			if (gameObject.transform.position.y < _destructionPosition)
+			{
+				// TODO: Release the player from the object first.
+				Destroy(gameObject);
+			}
+
 			if (!_floorChecker.IsTouchingFloor)
 			{
 				_velocity = new Vector2(0, -_speed);
@@ -60,11 +71,35 @@ namespace BubbleBobble
 					_wallChecker.RightColliderOn();
 				}
 			}
+
+			if (_player != null && _canGrabPlayer)
+			{
+				_player.transform.position = gameObject.transform.position;
+				if (_inputReader.Jump)
+				{
+					EnablePlayerCollider();
+					_canGrabPlayer = false;
+				}
+			}
 		}
 
 		private void FixedUpdate()
 		{
 			_rigidBody.MovePosition(_rigidBody.position + _velocity * Time.fixedDeltaTime);
+		}
+
+		private void OnCollisionEnter2D(Collision2D collision)
+		{
+			if (collision.gameObject.TryGetComponent<EnemyManagement>(out EnemyManagement enemyManagement))
+			{
+				enemyManagement.LaunchAtDeath();
+			}
+			if (collision.gameObject.CompareTag(Tags._player) && _canGrabPlayer)
+			{
+				_player = collision.gameObject;
+				_inputReader = _player.GetComponent<InputReader>();
+				_player.GetComponent<Collider2D>().enabled = false;
+			}
 		}
 
 		private void OnCollisionStay2D(Collision2D collision)
@@ -85,6 +120,19 @@ namespace BubbleBobble
 			}
 		}
 
-		#endregion Unity Functions
+		private void OnDestroy()
+		{
+			if (_player != null)
+			{
+				EnablePlayerCollider();
+			}
+		}
+
+	#endregion Unity Functions
+
+		private void EnablePlayerCollider()
+		{
+			_player.GetComponent<Collider2D>().enabled = true;
+		}
 	}
 }
