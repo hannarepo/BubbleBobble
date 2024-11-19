@@ -11,7 +11,7 @@ namespace BubbleBobble
 
         public void IncrementScoreCount(int scoreTotal)
         {
-            ScoreCounter.text = $"Score: {scoreTotal}";
+            ScoreCounter.text = $"{scoreTotal}";
         }
     }
 }
