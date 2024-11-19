@@ -4,6 +4,7 @@ namespace BubbleBobble
 {
 	public class BombBubble : Bubble
 	{
+		[SerializeField] private GameObject _explosionPrefab;
 		protected override BubbleType Type
 		{
 			get { return BubbleType.Bomb; }
@@ -35,9 +36,9 @@ namespace BubbleBobble
 
 		public override void PopBubble()
 		{
-			// Explosion animation/sprite flash
-			_gameManager.BubblePopped(Type);
-			Destroy(gameObject);
+			GameObject explosion = Instantiate(_explosionPrefab, Vector3.zero, Quaternion.identity);
+			Destroy(explosion, 1);
+			base.PopBubble();
 		}
 	}
 }
