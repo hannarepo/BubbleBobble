@@ -66,9 +66,10 @@ namespace BubbleBobble
 		{
 			if (collision.gameObject.CompareTag(Tags._player))
 			{
-				PopBubble();
 				_enemy.SetActive(true);
+				_enemy.transform.position = transform.position;
 				_enemy.GetComponent<EnemyManagement>().LaunchAtDeath();
+				PopBubble();
 			}
 		}
 	}
