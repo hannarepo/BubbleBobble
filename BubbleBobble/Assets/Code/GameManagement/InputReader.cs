@@ -35,6 +35,7 @@ namespace BubbleBobble
         private void OnDisable()
         {
             _controls.Disable();
+			_movementControls = Vector2.zero;
         }
 
         private void Update()
