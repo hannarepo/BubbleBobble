@@ -15,8 +15,10 @@ namespace BubbleBobble
 	public class Item : MonoBehaviour
 	{
 		[SerializeField] private ItemData _itemData = null;
+		[SerializeField] private AudioClip _collectSFX;
 		private Renderer _renderer = null;
 		private Collider2D _collider = null;
+		private Audiomanager _audioManager = null;
 
 		public ItemData ItemData => _itemData;
 
@@ -25,6 +27,11 @@ namespace BubbleBobble
 		{
 			_renderer = GetComponent<Renderer>();
 			_collider = GetComponent<Collider2D>();
+		}
+
+		private void Start()
+		{
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		/// <summary>
@@ -38,6 +45,12 @@ namespace BubbleBobble
 			_collider.enabled = false;
 
 			float delay = 1;
+
+			if (_audioManager != null)
+			{
+				_audioManager.PlaySFX(_collectSFX);
+			}
+
 			Destroy(gameObject, delay);
 			OnItemCollected?.Invoke();
 		}
