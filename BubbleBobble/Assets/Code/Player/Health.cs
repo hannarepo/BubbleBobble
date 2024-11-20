@@ -27,6 +27,9 @@ namespace BubbleBobble
 		[SerializeField] private Vector3[] _heartPositions;
 		[SerializeField] private GameObject _heartPrefab;
 		[SerializeField] private GameObject _brokenHeartPrefab;
+		[SerializeField] private Audiomanager _audioManager;
+		[SerializeField] private AudioClip _loseHeartSFX;
+		[SerializeField] private AudioClip _deathSFX;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -119,6 +122,7 @@ namespace BubbleBobble
 				_currentLives--;
 				_hearts[_currentLives].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
 
 				if (_currentLives > 0)
 				{
@@ -163,6 +167,7 @@ namespace BubbleBobble
 		{
 			_gameOverText.SetActive(true);
 			gameObject.SetActive(false);
+			_audioManager.PlaySFX(_deathSFX);
 			Invoke("BackToMenu", 3f);
 		}
 

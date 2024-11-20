@@ -16,7 +16,7 @@ namespace BubbleBobble
 
         [Header("------------------- Audio Clips -----------------")]
         [SerializeField] private AudioClip _backgroundMusic;
-        [SerializeField] private AudioClip _powerUpSFX;
+        [SerializeField] private AudioClip _popSFX;
         // add more audio clips here
         // Juho's note: check rehopeT
 
@@ -75,6 +75,11 @@ namespace BubbleBobble
 
 				_musicSource2.Stop();
 			}
+		}
+
+		public void PlaySFX(AudioClip audioClip)
+		{
+			_sfxSource.PlayOneShot(audioClip);
 		}
     }
 }
