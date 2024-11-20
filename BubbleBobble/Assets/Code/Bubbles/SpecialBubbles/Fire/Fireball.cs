@@ -15,7 +15,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			if (gameObject.transform.position.y < _fallDistanceLimit)
+			if (transform.position.y < _fallDistanceLimit)
 			{
 				Destroy(gameObject);
 			}
@@ -23,7 +23,7 @@ namespace BubbleBobble
 
 		private void SpreadFire()
 		{
-			Instantiate(_groundFirePrefab, gameObject.transform.position, Quaternion.identity, transform.parent);
+			Instantiate(_groundFirePrefab, transform.position, Quaternion.identity, transform.parent);
 		}
 	}
 }
