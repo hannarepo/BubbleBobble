@@ -38,7 +38,7 @@ namespace BubbleBobble
 		private Vector2 _playerPosition;
 		private bool _isGrounded = false;
 		private bool _isWallAhead = false;
-		private bool _isEdgeAhead = false;
+		private bool _isGroundAhead = false;
 
 		private void Awake()
 		{
@@ -48,10 +48,11 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			_isEdgeAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
+			_isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
 			_isGrounded = Physics2D.BoxCast(_groundCheck.position, _groundBoxCastSize, 0f, Vector2.down, _boxCastDistance, _groundLayer);
 			_playerPosition = _player.position;
-			Debug.Log(_enemyPosition);
+			_enemyPosition = transform.position;
+
 			switch (_currentState)
 			{
 				case EnemyState.Moving:
@@ -102,15 +103,14 @@ namespace BubbleBobble
 		private void Move()
 		{
 			_rigidbody2D.constraints = RigidbodyConstraints2D.None;
+			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 			
 			_direction = _isFacingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.velocity = _direction * _speed;
 
-			// Check for walls
 			_isWallAhead = Physics2D.BoxCast(_wallCheck.position, _wallBoxCastSize, 0f, _direction, _boxCastDistance, _wallLayer);
 
-			// If a wall is detected or no ground ahead, turn around
-			if (_isWallAhead || !_isEdgeAhead)
+			if (_isWallAhead || !_isGroundAhead)
 			{
 				Flip();
 			}
@@ -124,6 +124,7 @@ namespace BubbleBobble
 		private void Fall()
 		{
 			_rigidbody2D.constraints = RigidbodyConstraints2D.None;
+			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
 			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
 		}
 
@@ -149,7 +150,7 @@ namespace BubbleBobble
 			{
 				_currentState = EnemyState.Moving;
 			}
-			else if (_currentState == EnemyState.Moving && !_isEdgeAhead && _playerPosition.y < _enemyPosition.y)
+			else if (_currentState == EnemyState.Moving && _playerPosition.y < _enemyPosition.y)
 			{
 				_currentState = EnemyState.DroppingFromEdge;
 			}
