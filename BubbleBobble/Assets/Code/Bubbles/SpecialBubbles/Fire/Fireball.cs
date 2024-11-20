@@ -23,7 +23,7 @@ namespace BubbleBobble
 
 		private void SpreadFire()
 		{
-			Instantiate(_groundFirePrefab, gameObject.transform.position, Quaternion.identity);
+			Instantiate(_groundFirePrefab, gameObject.transform.position, Quaternion.identity, transform.parent);
 		}
 	}
 }

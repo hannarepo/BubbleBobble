@@ -7,6 +7,6 @@ namespace BubbleBobble
 		Bomb,
 		Projectile,
 		TrappedEnemy,
-		Water
+		Glitch
 	}
 }
