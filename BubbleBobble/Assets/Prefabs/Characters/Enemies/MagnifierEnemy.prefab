@@ -149,6 +149,7 @@ MonoBehaviour:
   _rotationSpeed: 900
   _triggerYPos: -6
   _ySpawnPos: 7
+  _launchSFX: {fileID: 8300000, guid: d8430ac0c517e164ba5e992e9df8ae04, type: 3}
 --- !u!50 &5850392655259372593
 Rigidbody2D:
   serializedVersion: 4
@@ -190,6 +191,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _speed: 1.5
+  _hurryUpSpeed: 0
   _edgeCheck: {fileID: 1466224096308299934}
   _groundCheck: {fileID: 1604840294052666642}
   _groundLayer:
@@ -204,6 +206,7 @@ MonoBehaviour:
   _wallBoxCastSize: {x: 0.1, y: 0.2}
   _boxCastDistance: 0
   _isFacingRight: 1
+  _player: {fileID: 0}
 --- !u!68 &5863285982310654189
 EdgeCollider2D:
   m_ObjectHideFlags: 0
