@@ -9,15 +9,20 @@ namespace BubbleBobble
 /// <summary>
 /// Defines the features and functions of the water bubbles.
 /// </summary>
-	public class WaterBubble : Bubble
+	public class GlitchBubble : Bubble
 	{
 		protected override BubbleType Type
 		{
-			get { return BubbleType.Water; }
+			get { return BubbleType.Glitch; }
 		}
 
+		[SerializeField] private GameObject _glitchPrefab;
 		[SerializeField] private bool _moveLeft = false;
-		public bool MoveLeft { set { _moveLeft = value; } }
+		public bool MoveLeft 
+		{ 
+			set { _moveLeft = value; }
+		}
+
 
 		#region Unity Functions
 		protected override void Awake()
@@ -47,7 +52,7 @@ namespace BubbleBobble
 		public override void PopBubble()
 		{
 			base.PopBubble();
-			// Instantiate something to drag the player and enemies with it
+			Instantiate(_glitchPrefab, transform.position, Quaternion.identity, transform.parent);
 		}
 	}
 }

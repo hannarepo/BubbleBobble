@@ -42,7 +42,7 @@ namespace BubbleBobble
 
 		private void Start()
 		{
-			_gameManager.BubbleSpawnerInitialization();
+			_gameManager.BubbleSpawnerInitialization(this);
 			_topCollider.enabled = !_spawnFromTop;
 			_bottomCollider.enabled = _spawnFromTop;
 		}
@@ -65,7 +65,7 @@ namespace BubbleBobble
 				}
 				else
 				{
-					collider.gameObject.transform.position = gameObject.transform.position;
+					collider.gameObject.transform.position = transform.position;
 				}
 			}
 		}
@@ -85,7 +85,7 @@ namespace BubbleBobble
 		}
 		public void SpawnBomb()
 		{
-			GameObject bombBubble = Instantiate(_bombBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+			GameObject bombBubble = Instantiate(_bombBubblePrefab, transform.position, Quaternion.identity, transform);
 			FloatDirection(bombBubble);
 			bombBubble.GetComponent<BombBubble>().MoveLeft = _moveLeft;
 		}
@@ -103,7 +103,7 @@ namespace BubbleBobble
 			}
 			else
 			{
-				fireBubble = Instantiate(_fireBubblePrefab, gameObject.transform.position, Quaternion.identity, gameObject.transform);
+				fireBubble = Instantiate(_fireBubblePrefab, transform.position, Quaternion.identity, transform);
 				_spawnSwitch = true;
 			}
 			FloatDirection(fireBubble);
