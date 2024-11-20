@@ -3,15 +3,15 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-	public class WaterSlide : MonoBehaviour
+	public class Glitch : MonoBehaviour
 	{
 		[SerializeField] private float _speed;
 		[SerializeField] private Vector2 _velocity;
-		private Rigidbody2D _rigidBody;
-		private bool _directionRandomized = false;
 		[SerializeField] FloorChecker _floorChecker;
 		[SerializeField] WallChecker _wallChecker;
 		[SerializeField] float _destructionPosition = -8f;
+		private Rigidbody2D _rigidBody;
+		private bool _directionRandomized = false;
 		private bool _canGrabPlayer = true;
 		private GameObject _player;
 		private InputReader _inputReader;
@@ -25,7 +25,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			if (gameObject.transform.position.y < _destructionPosition)
+			if (transform.position.y < _destructionPosition)
 			{
 				// TODO: Release the player from the object first.
 				Destroy(gameObject);
@@ -74,7 +74,7 @@ namespace BubbleBobble
 
 			if (_player != null && _canGrabPlayer)
 			{
-				_player.transform.position = gameObject.transform.position;
+				_player.transform.position = transform.position;
 				if (_inputReader.Jump)
 				{
 					gameObject.layer = LayerMask.NameToLayer("Water");

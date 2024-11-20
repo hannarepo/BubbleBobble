@@ -49,12 +49,6 @@ namespace BubbleBobble
 				// TODO: Add points
 				_gameManager.HandleBubblePop(_bubbleData.Points);
 			}
-
-			/* if (Type == BubbleType.Fire && collision.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collision.gameObject.CompareTag(Tags._platform))
-			{
-				_canMoveBubble = true;
-			} */
 		}
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)

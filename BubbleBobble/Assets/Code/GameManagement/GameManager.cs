@@ -185,9 +185,9 @@ namespace BubbleBobble
 			}
 		}
 
-		public void BubbleSpawnerInitialization()
+		public void BubbleSpawnerInitialization(BubbleSpawner spawner)
 		{
-			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+			_bubbleSpawner = spawner;
 		}
 
 		#region Counters
@@ -227,7 +227,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
+				_enemyList[0].GetComponent<EnemyManagement>().LaunchAtDeath();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
