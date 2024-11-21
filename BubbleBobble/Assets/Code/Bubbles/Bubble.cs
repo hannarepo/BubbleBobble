@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -16,6 +17,7 @@ namespace BubbleBobble
 		[SerializeField] private float _moveSpeed = 1f;
 		[SerializeField] private ParticleSystem _popEffectPrefab;
 		[SerializeField] private AudioClip _popSFX;
+		[SerializeField] private GameObject _pointEffectPrefab;
 		private Audiomanager _audioManager;
 		private bool _canPop = false;
 		protected GameManager _gameManager;
@@ -109,9 +111,12 @@ namespace BubbleBobble
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
+				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
+				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
 				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
 				effect.Play(withChildren: true);
 				Destroy(effect.gameObject, delay);
+				Destroy(pointEffect, delay);
 			}
 
 			_gameManager.BubblePopped(Type);
