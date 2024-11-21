@@ -96,8 +96,11 @@ namespace BubbleBobble
 
 			if (_levelPrefab.name == _windowsLevelName)
 			{
-				_transitionCover.SetActive(true);
 				_audioManager.ChangeMusic(_windowsMusic);
+				if (_transitionCover != null)
+				{
+					_transitionCover.SetActive(true);
+				}
 			}
 			else if (_levelPrefab.name == _liminalLevelName)
 			{
