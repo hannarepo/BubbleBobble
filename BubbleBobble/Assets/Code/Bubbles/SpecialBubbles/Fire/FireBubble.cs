@@ -50,7 +50,7 @@ namespace BubbleBobble
 		public override void PopBubble()
 		{
 			base.PopBubble();
-			Instantiate(_fireBallPrefab, gameObject.transform.position, Quaternion.identity);
+			Instantiate(_fireBallPrefab, gameObject.transform.position, Quaternion.identity, transform.parent);
 		}
 	}
 }

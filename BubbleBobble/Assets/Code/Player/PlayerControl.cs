@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -6,7 +7,7 @@ namespace BubbleBobble
 	/// Script for controlling various player actions.
 	/// Keeps track of inputs and relays informations to other classes.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
@@ -15,7 +16,7 @@ namespace BubbleBobble
 	public class PlayerControl : MonoBehaviour
 	{
 		private InputReader _inputReader;
-		public Inventory _inventory;
+		private Inventory _inventory;
 		private PlayerMover _playerMover;
 		private ShootBubble _shootBubble;
 		private SpriteRenderer _spriteRenderer;
@@ -24,6 +25,7 @@ namespace BubbleBobble
 		[SerializeField] private float _fireRate = 1f;
 		[SerializeField] private float _fireRateWithBoost = 0.5f;
 		[SerializeField] private SpriteRenderer _playerBubbleRenderer;
+		[SerializeField] private GameManager _gameManager;
 		private Rigidbody2D _rigidBody;
 		private Collider2D _playerCollider;
 		private float _originalFireRate = 0f;
@@ -31,18 +33,20 @@ namespace BubbleBobble
 		private bool _canMove = true;
 		private bool _canShoot = true;
 
-		public bool CanMove 
-		{ 
-			get { return _canMove; } 
-			set { _canMove = value; } 
+		public bool CanMove
+		{
+			get { return _canMove; }
+			set { _canMove = value; }
 		}
 		private bool _fireRateBoostIsActive = false;
 
-		public bool LookingRight 
-		{ 
-			get { return _lookRight; } 
+		public bool LookingRight
+		{
+			get { return _lookRight; }
 			set { _lookRight = value; }
 		}
+
+		public Inventory Inventory => _inventory;
 
 		public bool FireRateBoostIsActive
 		{
@@ -50,7 +54,7 @@ namespace BubbleBobble
 			set { _fireRateBoostIsActive = value; }
 		}
 
-		
+
 		#region Unity Messages
 		private void Awake()
 		{
@@ -92,7 +96,7 @@ namespace BubbleBobble
 			}
 
 			LookRight(movement);
-	
+
 			_timer += Time.deltaTime;
 			bool shoot = _inputReader.ShootBubble;
 
@@ -145,29 +149,7 @@ namespace BubbleBobble
 			{
 				item.Collect();
 				// TODO: Add points
-			}
-		}
-
-		public bool CheckInventoryContent(ItemData item)
-		{
-			if (_inventory.ContainsKey(item))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-		}
-
-		public void RemoveFromInventory(ItemData item)
-		{
-			if (_inventory.Remove(item, 1))
-			{
-				if (_inventory != null)
-				{
-					// TODO: Update inventory UI
-				}
+				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
 		}
 
