@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -13,13 +14,16 @@ namespace BubbleBobble
 	public abstract class Bubble : MonoBehaviour, IBubble
 	{
 		[SerializeField] private BubbleData _bubbleData;
+		[SerializeField] private float _moveSpeed = 1f;
+		[SerializeField] private ParticleSystem _popEffectPrefab;
+		[SerializeField] private AudioClip _popSFX;
+		[SerializeField] private GameObject _pointEffectPrefab;
+		private Audiomanager _audioManager;
 		private bool _canPop = false;
 		protected GameManager _gameManager;
-		[SerializeField] private ParticleSystem _popEffectPrefab;
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
-		[SerializeField] private float _moveSpeed = 1f;
 		private Rigidbody2D _rigidBody;
 		private float _originalGravityScale;
 
@@ -39,6 +43,7 @@ namespace BubbleBobble
 			_collider = GetComponent<Collider2D>();
 			_rigidBody = GetComponent<Rigidbody2D>();
 			_originalGravityScale = _rigidBody.gravityScale;
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
@@ -46,7 +51,11 @@ namespace BubbleBobble
 			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
 				PopBubble();
-				// TODO: Add point_bubbleData.Points
+				// TODO: Add points
+				_gameManager.HandleBubblePop(_bubbleData.Points);
+				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
+				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
+				Destroy(pointEffect, 1.2f);
 			}
 		}
 
@@ -97,10 +106,15 @@ namespace BubbleBobble
 
 			float delay = 0;
 
+			if (_audioManager != null)
+			{
+				_audioManager.PlaySFX(_popSFX);
+			}
+
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = effect.main.duration + 0.5f;
+				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
 				effect.Play(withChildren: true);
 				Destroy(effect.gameObject, delay);
 			}

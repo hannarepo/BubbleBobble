@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -15,8 +16,11 @@ namespace BubbleBobble
 	public class Item : MonoBehaviour
 	{
 		[SerializeField] private ItemData _itemData = null;
+		[SerializeField] private AudioClip _collectSFX = null;
+		[SerializeField] private GameObject _collectEffectPrefab = null;
 		private Renderer _renderer = null;
 		private Collider2D _collider = null;
+		private Audiomanager _audioManager = null;
 
 		public ItemData ItemData => _itemData;
 
@@ -25,6 +29,11 @@ namespace BubbleBobble
 		{
 			_renderer = GetComponent<Renderer>();
 			_collider = GetComponent<Collider2D>();
+		}
+
+		private void Start()
+		{
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		/// <summary>
@@ -36,8 +45,22 @@ namespace BubbleBobble
 		{
 			_renderer.enabled = false;
 			_collider.enabled = false;
+			GameObject effect = null;
 
 			float delay = 1;
+
+			if (_audioManager != null)
+			{
+				_audioManager.PlaySFX(_collectSFX);
+			}
+
+			if (_collectEffectPrefab != null)
+			{
+				effect = Instantiate(_collectEffectPrefab, transform.position, Quaternion.identity);
+				effect.GetComponentInChildren<TextMeshPro>().text = ItemData.Points.ToString();
+			}
+
+			Destroy(effect, delay);
 			Destroy(gameObject, delay);
 			OnItemCollected?.Invoke();
 		}

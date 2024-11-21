@@ -10,7 +10,7 @@ namespace BubbleBobble
 	/// e.g. number of projectile bubbles in the level and
 	/// number of enemies in the level.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Jose Mäntylä, Hanna Repo, Juho Kokkonen
 	/// </remarks>
@@ -31,6 +31,8 @@ namespace BubbleBobble
 		[SerializeField, Tooltip("This list should contain soap, camera, blue floppy disc and purple floppy disc")]
 		public List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
+		[SerializeField] private int _mp3SpawnThreshold = 20;
+		[SerializeField] private int _cdSpawnThreshold = 40;
 		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
@@ -41,6 +43,7 @@ namespace BubbleBobble
 		[SerializeField] private Item _pupleShell;
 		[SerializeField] private Item _purpleBlueShell;
 		[SerializeField] private Item _redShell;
+		[SerializeField] private GameObject _hurryUpText;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -48,6 +51,8 @@ namespace BubbleBobble
 		[SerializeField] ScoreText scoreText;
 		[SerializeField] TextMeshProUGUI HighscoreText;
 		int scoreCount;
+
+		public GameObject HurryUpText => _hurryUpText;
 
 		#region Unity Functions
 		private void Start()
@@ -65,22 +70,29 @@ namespace BubbleBobble
 			}
 		}
 
-		private void OnEnable()
-		{
-			Item.OnItemCollected += HandleItemPickup;
-		}
+		// private void OnEnable()
+		// {
+		// 	Item.OnItemCollected += HandleItemPickup;
+		// }
 
-		private void OnDisable()
-		{
-			Item.OnItemCollected -= HandleItemPickup;
-		}
+		// private void OnDisable()
+		// {
+		// 	Item.OnItemCollected -= HandleItemPickup;
+		// }
 
-		private void HandleItemPickup()
+		public void HandleItemPickup(int points)
 		{
-			scoreCount++;
+			scoreCount += points;
 			scoreText.IncrementScoreCount(scoreCount);
 			CheckHighScore();
 
+		}
+
+		public void HandleBubblePop(int points)
+		{
+			scoreCount += points;
+			scoreText.IncrementScoreCount(scoreCount);
+			CheckHighScore();
 		}
 
 		void CheckHighScore()
@@ -161,21 +173,21 @@ namespace BubbleBobble
 			}
 
 			// If inventory contains 20 number of items, add an mp3 player to the item list.
-			if (_playerControl.Inventory.Count(20))
+			if (_playerControl.Inventory.Count(_mp3SpawnThreshold))
 			{
 				_spawnableItemPrefabs.Add(_mp3);
 			}
 
 			// If inventory contains x number of items, add a cd to the item list.
-			if (_playerControl.Inventory.Count(40))
+			if (_playerControl.Inventory.Count(_cdSpawnThreshold))
 			{
 				_spawnableItemPrefabs.Add(_cd);
 			}
 		}
 
-		public void BubbleSpawnerInitialization()
+		public void BubbleSpawnerInitialization(BubbleSpawner spawner)
 		{
-			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+			_bubbleSpawner = spawner;
 		}
 
 		#region Counters
@@ -215,7 +227,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
+				_enemyList[0].GetComponent<EnemyManagement>().LaunchAtDeath();
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();

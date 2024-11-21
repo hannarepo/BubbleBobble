@@ -19,7 +19,6 @@ namespace BubbleBobble
 		[SerializeField] private int _maxItemCount = 3;
 		[SerializeField] private Transform _levelParent;
 		[SerializeField] private float _hurryUpTime = 30f;
-		[SerializeField] private GameObject _hurryUpText;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
 		private GameManager _gameManager;
@@ -114,14 +113,14 @@ namespace BubbleBobble
 		{
 			// TODO: Reset enemy's angry mode
 			_hurryUpTimer = 0;
-			_hurryUpText.SetActive(false);
+			_gameManager.HurryUpText.SetActive(false);
 		}
 
 		private void FlashHurryUpText()
 		{
-			bool isActive = _hurryUpText.activeInHierarchy;
+			bool isActive = _gameManager.HurryUpText.activeInHierarchy;
 			isActive = !isActive;
-			_hurryUpText.SetActive(isActive);
+			_gameManager.HurryUpText.SetActive(isActive);
 			Invoke("FlashHurryUpText", _textFlashTime);
 		}
 	}

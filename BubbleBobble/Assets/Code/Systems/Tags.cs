@@ -18,5 +18,6 @@ namespace BubbleBobble
 		public const String _topSpawnLeft = "TopSpawnLeft";
 		public const String _topSpawnRight = "TopSpawnRight";
 		public const String _dropDownPlatform = "DropDownPlatform";
+		public const String _deadEnemy = "DeadEnemy";
     }
 }

@@ -1,5 +1,4 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
@@ -22,12 +21,15 @@ namespace BubbleBobble
 		[SerializeField] private int _maxLives = 6;
 		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
-		[SerializeField] private TMP_Text _gameOverText;
+		[SerializeField] private GameObject _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
 		[SerializeField] private Vector3[] _heartPositions;
 		[SerializeField] private GameObject _heartPrefab;
 		[SerializeField] private GameObject _brokenHeartPrefab;
+		[SerializeField] private Audiomanager _audioManager;
+		[SerializeField] private AudioClip _loseHeartSFX;
+		[SerializeField] private AudioClip _deathSFX;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -38,6 +40,7 @@ namespace BubbleBobble
 		private Rigidbody2D _rb;
 		private InputReader _inputReader;
 		private bool _notInvincible = false;
+		private PlayerControl _playerControl;
 
 		public bool IsInvincible
 		{
@@ -55,6 +58,7 @@ namespace BubbleBobble
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_inputReader = GetComponent<InputReader>();
 			_rb = GetComponent<Rigidbody2D>();
+			_playerControl = GetComponent<PlayerControl>();
 		}
 
 		private void Start()
@@ -83,8 +87,6 @@ namespace BubbleBobble
 			{
 				_invincibilityTimer -= Time.deltaTime;
 				_flashTimer += Time.deltaTime;
-				_inputReader.enabled = false;
-				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 
 				if (_flashTimer > _flashRate)
 				{
@@ -96,15 +98,11 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.enabled = true;
 				_flashTimer = 0;
-				_inputReader.enabled = true;
-				_rb.constraints = RigidbodyConstraints2D.None;
-				_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 				_notInvincible = false;
 			}
 
 			if (_currentLives == 0)
 			{
-				_gameOverText.gameObject.SetActive(true);
 				Flash();
 				Die();
 			}
@@ -117,10 +115,14 @@ namespace BubbleBobble
 			// indicate loss of life to player.
 			if (collision.gameObject.CompareTag(Tags._enemy) && !IsInvincible && _currentLives > 0)
 			{
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+				_playerControl.CanMove = false;
 				Invoke("Respawn", 1f);
 				_currentLives--;
 				_hearts[_currentLives].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
 
 				if (_currentLives > 0)
 				{
@@ -148,6 +150,10 @@ namespace BubbleBobble
 		private void Respawn()
 		{
 			_transform.position = _playerReturnPoint.position;
+			_inputReader.enabled = true;
+			_rb.constraints = RigidbodyConstraints2D.None;
+			_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
+			_playerControl.CanMove = true;
 			_notInvincible = true;
 		}
 
@@ -159,7 +165,15 @@ namespace BubbleBobble
 
 		private void Die()
 		{
-			Destroy(gameObject, 2f);
+			_gameOverText.SetActive(true);
+			gameObject.SetActive(false);
+			_audioManager.PlaySFX(_deathSFX);
+			Invoke("BackToMenu", 3f);
+		}
+
+		private void BackToMenu()
+		{
+			SceneManager.LoadScene("Main Menu");
 		}
 	}
 }
