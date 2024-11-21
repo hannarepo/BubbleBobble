@@ -53,6 +53,9 @@ namespace BubbleBobble
 				PopBubble();
 				// TODO: Add points
 				_gameManager.HandleBubblePop(_bubbleData.Points);
+				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
+				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
+				Destroy(pointEffect, 1.2f);
 			}
 		}
 
@@ -111,12 +114,9 @@ namespace BubbleBobble
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
-				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
 				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
 				effect.Play(withChildren: true);
 				Destroy(effect.gameObject, delay);
-				Destroy(pointEffect, delay);
 			}
 
 			_gameManager.BubblePopped(Type);
