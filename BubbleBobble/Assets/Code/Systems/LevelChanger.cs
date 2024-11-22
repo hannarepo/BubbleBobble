@@ -34,7 +34,6 @@ namespace BubbleBobble
 		[SerializeField] private Audiomanager _audioManager;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
-		[SerializeField] private GameObject _transitionCover;
 
 		public int LevelIndex => _levelIndex;
 		public bool IsLevelLoaded => _isLevelLoaded;
@@ -61,7 +60,6 @@ namespace BubbleBobble
 					_levelIndex++;
 					_isLevelLoaded = true;
 					_startLevelChange = false;
-					_transitionCover.SetActive(false);
 				}
 			}
 		}
@@ -97,10 +95,6 @@ namespace BubbleBobble
 			if (_levelPrefab.name == _windowsLevelName)
 			{
 				_audioManager.ChangeMusic(_windowsMusic);
-				if (_transitionCover != null)
-				{
-					_transitionCover.SetActive(true);
-				}
 			}
 			else if (_levelPrefab.name == _liminalLevelName)
 			{
