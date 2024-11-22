@@ -71,9 +71,13 @@ namespace BubbleBobble
 			
 		}
 
-		public void LaunchAtDeath()
+		public void LaunchAtDeath(bool playSFX)
 		{
-			_audioManager.PlaySFX(_launchSFX);
+			if (playSFX)
+			{
+				_audioManager.PlaySFX(_launchSFX);
+			}
+
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
 			gameObject.tag = Tags._deadEnemy;
 			_spriteRenderer.color = _deathColor;

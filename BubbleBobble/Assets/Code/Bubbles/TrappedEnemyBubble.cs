@@ -68,7 +68,7 @@ namespace BubbleBobble
 			{
 				_enemy.SetActive(true);
 				_enemy.transform.position = transform.position;
-				_enemy.GetComponent<EnemyManagement>().LaunchAtDeath();
+				_enemy.GetComponent<EnemyManagement>().LaunchAtDeath(true);
 			}
 			base.OnCollisionEnter2D(collision);
 		}
