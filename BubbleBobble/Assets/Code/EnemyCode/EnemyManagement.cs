@@ -67,7 +67,8 @@ namespace BubbleBobble
 			_launched = false;
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
-			_gameManager.RemoveEnemyFromList(gameObject);
+			Destroy(gameObject);
+			
 		}
 
 		public void LaunchAtDeath()
@@ -104,6 +105,7 @@ namespace BubbleBobble
 			}
 
 			_rb.AddForce(launchDirection * _launchForce, ForceMode2D.Impulse);
+			_gameManager.RemoveEnemyFromList(gameObject);
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)
