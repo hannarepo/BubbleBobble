@@ -29,6 +29,7 @@ namespace BubbleBobble
 		private float _hurryUpTimer = 0f;
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
+		private Audiomanager _audioManager;
 
 		public bool CanSpawnItem
 		{
@@ -41,6 +42,7 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_spawnableItemPrefabs = _gameManager._spawnableItemPrefabs;
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		private void Update()
@@ -60,11 +62,14 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
+				_audioManager.IsHurryUpActive = true;
 			}
 
 			if (_levelChanger.StartLevelChange)
 			{
 				ResetHurryUp();
+				_hurryUp = false;
+				_audioManager.IsHurryUpActive = false;
 			}
 		}
 
