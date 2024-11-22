@@ -116,7 +116,7 @@ namespace BubbleBobble
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
 				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
 				effect.Play(withChildren: true);
-				Destroy(effect.gameObject, delay);
+				//Destroy(effect.gameObject, delay);
 			}
 
 			_gameManager.BubblePopped(Type);
