@@ -398,6 +398,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7047226782863891111, guid: 9adb388c0335c1a458e42a4215c20056, type: 3}
+      propertyPath: _player
+      value: 
+      objectReference: {fileID: 1333773086}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -694,6 +698,10 @@ PrefabInstance:
       propertyPath: _brokenHearts.Array.data[5]
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 7613198819266639514, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
+      propertyPath: _levelChanger
+      value: 
+      objectReference: {fileID: 1825230045}
     - target: {fileID: 8081188166413149701, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _speedWithBoost
       value: 8
@@ -979,6 +987,8 @@ MonoBehaviour:
   _projectileList: []
   _spawnableItemPrefabs: []
   _playerControl: {fileID: 0}
+  _mp3SpawnThreshold: 20
+  _cdSpawnThreshold: 40
   _soap: {fileID: 0}
   _purpleFloppy: {fileID: 0}
   _blueFloppy: {fileID: 0}
@@ -989,6 +999,7 @@ MonoBehaviour:
   _pupleShell: {fileID: 0}
   _purpleBlueShell: {fileID: 0}
   _redShell: {fileID: 0}
+  _hurryUpText: {fileID: 0}
   scoreText: {fileID: 0}
   HighscoreText: {fileID: 0}
 --- !u!4 &1825230047
@@ -1047,7 +1058,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 596733551871760897, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104930813904986466, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104930813904986466, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.521
       objectReference: {fileID: 0}
     - target: {fileID: 3406228350305574058, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_Material

@@ -9,12 +9,7 @@ namespace BubbleBobble
 		// TODO: Destroy fire if level is changing.
 		private void Start()
 		{
-			Invoke("DestroyFire", _timeBeforeDestroy);
-		}
-
-		private void DestroyFire()
-		{
-			Destroy(gameObject);
+			Destroy(gameObject, _timeBeforeDestroy);
 		}
 	}
 }
