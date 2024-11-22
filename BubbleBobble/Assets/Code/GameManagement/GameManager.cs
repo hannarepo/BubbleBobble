@@ -250,7 +250,7 @@ namespace BubbleBobble
 			_enemyList.Remove(enemyObject);
 			print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
-			Destroy(enemyObject);
+			//Destroy(enemyObject);
 		}
 		#endregion Enemy Related
 
