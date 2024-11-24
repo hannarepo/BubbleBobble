@@ -35,27 +35,14 @@ namespace BubbleBobble
 
 		#region Unity Functions
 
-		private void Awake()
-		{
-			_secondarySpawnPoint = transform.Find("SecondarySpawnPoint");
-		}
-
 		private void Start()
 		{
 			_gameManager = FindObjectOfType<GameManager>();
 			_gameManager.BubbleSpawnerInitialization(this);
 			_levelChanger = _gameManager.GetComponent<LevelChanger>();
 
-			if (_spawnFromTop)
-			{
-				_topCollider.enabled = false;
-			}
-			else
-			{
-				_bottomCollider.enabled = false;
-			}
-			//_topCollider.enabled = !_spawnFromTop;
-			//_bottomCollider.enabled = _spawnFromTop;
+			_topCollider.enabled = !_spawnFromTop;
+			_bottomCollider.enabled = _spawnFromTop;
 		}
 		private void Update()
 		{

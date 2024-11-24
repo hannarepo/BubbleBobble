@@ -46,6 +46,11 @@ namespace BubbleBobble
 			_currentState = EnemyState.Moving;
 		}
 
+		private void Start()
+		{
+			_player = FindObjectOfType<PlayerControl>().transform;
+		}
+
 		private void Update()
 		{
 			_isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
