@@ -67,12 +67,17 @@ namespace BubbleBobble
 			_launched = false;
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
-			_gameManager.RemoveEnemyFromList(gameObject);
+			Destroy(gameObject);
+			
 		}
 
-		public void LaunchAtDeath()
+		public void LaunchAtDeath(bool playSFX)
 		{
-			_audioManager.PlaySFX(_launchSFX);
+			if (playSFX)
+			{
+				_audioManager.PlaySFX(_launchSFX);
+			}
+
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
 			gameObject.tag = Tags._deadEnemy;
 			_spriteRenderer.color = _deathColor;
@@ -104,6 +109,7 @@ namespace BubbleBobble
 			}
 
 			_rb.AddForce(launchDirection * _launchForce, ForceMode2D.Impulse);
+			_gameManager.RemoveEnemyFromList(gameObject);
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)
