@@ -9,7 +9,7 @@ namespace BubbleBobble
 		{
 			if (other.CompareTag(Tags._enemy))
 			{
-				other.gameObject.GetComponent<EnemyManagement>().LaunchAtDeath();
+				other.gameObject.GetComponent<EnemyManagement>().LaunchAtDeath(true);
 			}
 
 		}

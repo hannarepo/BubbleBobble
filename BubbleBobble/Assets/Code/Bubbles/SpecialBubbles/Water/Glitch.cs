@@ -93,7 +93,7 @@ namespace BubbleBobble
 		{
 			if (collision.gameObject.TryGetComponent<EnemyManagement>(out EnemyManagement enemyManagement))
 			{
-				enemyManagement.LaunchAtDeath();
+				enemyManagement.LaunchAtDeath(true);
 			}
 			if (collision.gameObject.CompareTag(Tags._player) && _canGrabPlayer)
 			{
