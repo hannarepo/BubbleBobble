@@ -13,7 +13,9 @@ namespace BubbleBobble
 		[SerializeField] private float _rotationSpeed = 500f;
 		[SerializeField] private float _triggerYPos;
 		[SerializeField] private float _ySpawnPos;
+		[SerializeField] private AudioClip _launchSFX;
 		private GameManager _gameManager;
+		private Audiomanager _audioManager;
 		private LevelChanger _levelChanger;
 		private Transform _levelParent;
 		private Rigidbody2D _rb;
@@ -32,6 +34,7 @@ namespace BubbleBobble
 			_rb = GetComponent<Rigidbody2D>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_gameManager = FindObjectOfType<GameManager>();
+			_audioManager = FindObjectOfType<Audiomanager>();
 			_gameManager.AddEnemyToList(gameObject);
 			_levelParent = FindObjectOfType<LevelManager>().transform;
 			_levelChanger = FindObjectOfType<LevelChanger>();
@@ -64,12 +67,19 @@ namespace BubbleBobble
 			_launched = false;
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
-			_gameManager.RemoveEnemyFromList(gameObject);
+			Destroy(gameObject);
+			
 		}
 
-		public void LaunchAtDeath()
+		public void LaunchAtDeath(bool playSFX)
 		{
+			if (playSFX)
+			{
+				_audioManager.PlaySFX(_launchSFX);
+			}
+
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
+			gameObject.tag = Tags._deadEnemy;
 			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
@@ -99,6 +109,7 @@ namespace BubbleBobble
 			}
 
 			_rb.AddForce(launchDirection * _launchForce, ForceMode2D.Impulse);
+			_gameManager.RemoveEnemyFromList(gameObject);
 		}
 
 		private void OnCollisionEnter2D(Collision2D other)

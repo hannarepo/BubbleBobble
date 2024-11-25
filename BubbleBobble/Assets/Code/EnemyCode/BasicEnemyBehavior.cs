@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace BubbleBobble
 {
@@ -12,12 +13,14 @@ namespace BubbleBobble
 		{
 			Moving,
 			Jumping,
+			DroppingFromEdge,
 			Falling,
 			Shooting
 		}
 
 		[SerializeField] private EnemyState _currentState;
 		[SerializeField] private float _speed;
+		[SerializeField] private float _hurryUpSpeed;
 		[SerializeField] private Transform _edgeCheck;
 		[SerializeField] private Transform _groundCheck;
 		[SerializeField] private LayerMask _groundLayer;
@@ -28,20 +31,41 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _wallBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
+		
+		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
-		private SpriteRenderer _spriteRenderer;
 		private Vector2 _direction;
+		private Vector2 _enemyPosition;
+		private Vector2 _playerPosition;
 		private bool _isGrounded = false;
+		private bool _isWallAhead = false;
+		private bool _isGroundAhead = false;
+		private bool _isPlayerAbove = false;
+		private bool _isPlayerBelow = false;
+		private bool _isPlayerOnSameLevel = false;
 
 		private void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
-			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_currentState = EnemyState.Moving;
+		}
+
+		private void Start()
+		{
+			_player = GameObject.Find("Player");
 		}
 
 		private void Update()
 		{
+			_isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
+			_isGrounded = Physics2D.BoxCast(_groundCheck.position, _groundBoxCastSize, 0f, Vector2.down, _boxCastDistance, _groundLayer);
+			_playerPosition = _player.transform.position;
+			_enemyPosition = transform.position;
+
+			_isPlayerAbove = _playerPosition.y > _enemyPosition.y;
+			_isPlayerBelow = _playerPosition.y < _enemyPosition.y;
+			_isPlayerOnSameLevel = _playerPosition.y == _enemyPosition.y;
+
 			switch (_currentState)
 			{
 				case EnemyState.Moving:
@@ -49,6 +73,9 @@ namespace BubbleBobble
 					break;
 				case EnemyState.Jumping:
 					Jump();
+					break;
+				case EnemyState.DroppingFromEdge:
+					Drop();
 					break;
 				case EnemyState.Falling:
 					Fall();
@@ -59,7 +86,6 @@ namespace BubbleBobble
 			}
 
 			CheckTransitions();
-			_isGrounded = Physics2D.BoxCast(_groundCheck.position, _groundBoxCastSize, 0f, Vector2.down, _boxCastDistance, _groundLayer);
 		}
 
 		private void OnDrawGizmos()
@@ -92,12 +118,9 @@ namespace BubbleBobble
 			_direction = _isFacingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.velocity = _direction * _speed;
 
-			// Check for platform edge or wall
-			bool isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
-			bool isWallAhead = Physics2D.BoxCast(_wallCheck.position, _wallBoxCastSize, 0f, _direction, _boxCastDistance, _wallLayer);
+			_isWallAhead = Physics2D.BoxCast(_wallCheck.position, _wallBoxCastSize, 0f, _direction, _boxCastDistance, _wallLayer);
 
-			// If no ground ahead or a wall is detected, turn around
-			if (isWallAhead || !isGroundAhead)
+			if (_isWallAhead || !_isGroundAhead && !_isPlayerBelow)
 			{
 				Flip();
 			}
@@ -110,7 +133,16 @@ namespace BubbleBobble
 
 		private void Fall()
 		{
-			// Falling logic
+			_rigidbody2D.velocity = Vector2.left * 0;
+			_rigidbody2D.velocity = Vector2.right * 0;
+			_rigidbody2D.velocity = Vector2.down * _speed;
+		}
+
+		private void Drop()
+		{
+			_rigidbody2D.velocity = Vector2.down * 0;
+			_rigidbody2D.velocity = _direction * _speed;
+			Debug.Log("bomba");
 		}
 
 		private void Shoot()
@@ -127,6 +159,14 @@ namespace BubbleBobble
 			else if (_currentState == EnemyState.Falling && _isGrounded)
 			{
 				_currentState = EnemyState.Moving;
+			}
+			else if (_currentState == EnemyState.Moving && _isPlayerBelow && !_isGroundAhead)
+			{
+				_currentState = EnemyState.DroppingFromEdge;
+			}
+			else if (_currentState == EnemyState.DroppingFromEdge && !_isGrounded)
+			{
+				_currentState = EnemyState.Falling;
 			}
 		}
 

@@ -43,6 +43,7 @@ namespace BubbleBobble
 		[SerializeField] private Item _pupleShell;
 		[SerializeField] private Item _purpleBlueShell;
 		[SerializeField] private Item _redShell;
+		[SerializeField] private GameObject _hurryUpText;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -50,6 +51,8 @@ namespace BubbleBobble
 		[SerializeField] ScoreText scoreText;
 		[SerializeField] TextMeshProUGUI HighscoreText;
 		int scoreCount;
+
+		public GameObject HurryUpText => _hurryUpText;
 
 		#region Unity Functions
 		private void Start()
@@ -182,9 +185,9 @@ namespace BubbleBobble
 			}
 		}
 
-		public void BubbleSpawnerInitialization()
+		public void BubbleSpawnerInitialization(BubbleSpawner spawner)
 		{
-			_bubbleSpawner = FindObjectOfType<BubbleSpawner>();
+			_bubbleSpawner = spawner;
 		}
 
 		#region Counters
@@ -224,7 +227,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().SpawnItem();
+				_enemyList[0].GetComponent<EnemyManagement>().LaunchAtDeath(false);
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
@@ -247,7 +250,7 @@ namespace BubbleBobble
 			_enemyList.Remove(enemyObject);
 			print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
-			Destroy(enemyObject);
+			//Destroy(enemyObject);
 		}
 		#endregion Enemy Related
 

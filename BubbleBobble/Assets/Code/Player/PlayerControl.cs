@@ -134,8 +134,7 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-			if (item.ItemData.ItemType == ItemType.Shell)
-			{
+
 				if (_inventory.Add(item.ItemData, 1))
 				{
 					if (_inventory != null)
@@ -143,24 +142,9 @@ namespace BubbleBobble
 						// TODO: Update inventory UI
 					}
 					item.Collect();
-				}
-			}
-			else
-			{
-				item.Collect();
-				// TODO: Add points
+
 				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
-		}
-
-		public bool CheckInventoryContent(ItemData item)
-		{
-			if (_inventory != null)
-			{
-				// TODO: Update inventory UI
-			}
-			item.Collect();
-		}
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)

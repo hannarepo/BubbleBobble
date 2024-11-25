@@ -5,14 +5,11 @@ namespace BubbleBobble
 	public class GroundFireDestroy : MonoBehaviour
 	{
 		[SerializeField] private int _timeBeforeDestroy = 1;
-		void Start()
-		{
-			Invoke("DestroyFire", _timeBeforeDestroy);
-		}
 
-		private void DestroyFire()
+		// TODO: Destroy fire if level is changing.
+		private void Start()
 		{
-			Destroy(gameObject);
+			Destroy(gameObject, _timeBeforeDestroy);
 		}
 	}
 }

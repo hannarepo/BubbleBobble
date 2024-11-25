@@ -19,7 +19,6 @@ namespace BubbleBobble
 		[SerializeField] private int _maxItemCount = 3;
 		[SerializeField] private Transform _levelParent;
 		[SerializeField] private float _hurryUpTime = 30f;
-		[SerializeField] private GameObject _hurryUpText;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
 		private GameManager _gameManager;
@@ -30,6 +29,7 @@ namespace BubbleBobble
 		private float _hurryUpTimer = 0f;
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
+		private Audiomanager _audioManager;
 
 		public bool CanSpawnItem
 		{
@@ -42,6 +42,7 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_spawnableItemPrefabs = _gameManager._spawnableItemPrefabs;
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		private void Update()
@@ -61,11 +62,14 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
+				_audioManager.IsHurryUpActive = true;
 			}
 
 			if (_levelChanger.StartLevelChange)
 			{
 				ResetHurryUp();
+				_hurryUp = false;
+				_audioManager.IsHurryUpActive = false;
 			}
 		}
 
@@ -114,14 +118,14 @@ namespace BubbleBobble
 		{
 			// TODO: Reset enemy's angry mode
 			_hurryUpTimer = 0;
-			_hurryUpText.SetActive(false);
+			_gameManager.HurryUpText.SetActive(false);
 		}
 
 		private void FlashHurryUpText()
 		{
-			bool isActive = _hurryUpText.activeInHierarchy;
+			bool isActive = _gameManager.HurryUpText.activeInHierarchy;
 			isActive = !isActive;
-			_hurryUpText.SetActive(isActive);
+			_gameManager.HurryUpText.SetActive(isActive);
 			Invoke("FlashHurryUpText", _textFlashTime);
 		}
 	}
