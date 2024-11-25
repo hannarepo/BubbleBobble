@@ -7,7 +7,10 @@ namespace BubbleBobble
     public class Audiomanager : MonoBehaviour
     {
 		[SerializeField] private float _musicFadeTime = 1f;
+		[SerializeField] private float _hurryUpPitch = 140;
 		private bool _isPlayingMusicSource1 = true;
+		private bool _isHurryUpActive = false;
+		private float _initialPitch = 0;
 
         [Header("------------------- Audio Sources -----------------")]
         [SerializeField] private AudioSource _musicSource1;
@@ -16,13 +19,19 @@ namespace BubbleBobble
 
         [Header("------------------- Audio Clips -----------------")]
         [SerializeField] private AudioClip _backgroundMusic;
-        [SerializeField] private AudioClip _powerUpSFX;
+        [SerializeField] private AudioClip _popSFX;
         // add more audio clips here
         // Juho's note: check rehopeT
+
+		public bool IsHurryUpActive
+		{
+			set { _isHurryUpActive = value; }
+		}
 
         private void Start()
         {
             _musicSource1.clip = _backgroundMusic;
+			_initialPitch = _musicSource1.pitch;
 
 			if (SceneManager.GetActiveScene().name != "Main Menu")
 			{
@@ -33,6 +42,23 @@ namespace BubbleBobble
 				_musicSource1.Play();
 			}
         }
+
+		private void Update()
+		{
+			if (_isPlayingMusicSource1 && _isHurryUpActive)
+			{
+				_musicSource1.pitch = _hurryUpPitch;
+			}
+			else if (!_isPlayingMusicSource1 && _isHurryUpActive)
+			{
+				_musicSource2.pitch = _hurryUpPitch;
+			}
+			else
+			{
+				_musicSource1.pitch = _initialPitch;
+				_musicSource2.pitch = _initialPitch;
+			}
+		}
 
 		public void ChangeMusic(AudioClip audioClip)
 		{
@@ -75,6 +101,11 @@ namespace BubbleBobble
 
 				_musicSource2.Stop();
 			}
+		}
+
+		public void PlaySFX(AudioClip audioClip)
+		{
+			_sfxSource.PlayOneShot(audioClip);
 		}
     }
 }
