@@ -82,8 +82,9 @@ namespace BubbleBobble
 		{
 			_levelPrefab = _levelPrefabs[_levelIndex];
 			_newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.position, Quaternion.identity);
-			_playerControl.RestrainPlayer();
+			_playerControl.RestrainPlayer(true);
 			_isLevelLoaded = false;
+			_isLevelStarted = false;
 			Invoke("DelayedLevelChange", _levelChangeDelay);
 		}
 
