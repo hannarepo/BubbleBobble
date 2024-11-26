@@ -163,14 +163,17 @@ namespace BubbleBobble
 		/// <summary>
 		/// Restricts player movement, disables the collider and enables the bubble sprite.
 		/// </summary>
-		public void RestrainPlayer()
+		public void RestrainPlayer(bool toggleBubble)
 		{
 			_lookRight = true;
 			_rigidBody.bodyType = RigidbodyType2D.Static;
 			_playerCollider.enabled = false;
 			_canMove = false;
 			_canShoot = false;
+			if (toggleBubble)
+			{
 			_playerBubbleRenderer.enabled = true;
+			}
 		}
 
 		/// <summary>
