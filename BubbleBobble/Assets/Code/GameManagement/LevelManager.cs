@@ -48,7 +48,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			if (_levelChanger.IsLevelLoaded)
+			if (_levelChanger.IsLevelStarted)
 			{
 				_spawnTimer += Time.deltaTime;
 				_hurryUpTimer += Time.deltaTime;
