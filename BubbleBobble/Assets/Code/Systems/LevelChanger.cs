@@ -33,6 +33,7 @@ namespace BubbleBobble
 		[SerializeField] private string _windowsLevelName;
 		[SerializeField] private string _liminalLevelName;
 		[SerializeField] private Audiomanager _audioManager;
+		[SerializeField] private AudioClip _underwaterMusic;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 		[SerializeField] private float _levelOneStartDelay = 10f;
@@ -82,8 +83,9 @@ namespace BubbleBobble
 		{
 			_levelPrefab = _levelPrefabs[_levelIndex];
 			_newLevel = Instantiate(_levelPrefab, _newLevelSpawnPoint.position, Quaternion.identity);
-			_playerControl.RestrainPlayer();
+			_playerControl.RestrainPlayer(true);
 			_isLevelLoaded = false;
+			_isLevelStarted = false;
 			Invoke("DelayedLevelChange", _levelChangeDelay);
 		}
 
@@ -116,6 +118,7 @@ namespace BubbleBobble
 		{
 			// Unrestrain player
 			_isLevelStarted = true;
+			_audioManager.ChangeMusic(_underwaterMusic);
 		}
 	}
 }
