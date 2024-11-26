@@ -55,10 +55,12 @@ namespace BubbleBobble
 			if (_jump.Jumping)
 			{
 				_animator.SetTrigger("Jumped");
+				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Falling || !_levelChanger.IsLevelLoaded)
 			{
 				_animator.SetTrigger("Falling");
+				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Grounded)
 			{
@@ -71,7 +73,10 @@ namespace BubbleBobble
 				_timer = 0f;
 			}
 
-
+			if (_playerControl.Shoot)
+			{
+				_animator.SetTrigger("Shoot");
+			}
 		}
 	}
 }
