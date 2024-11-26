@@ -306,7 +306,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1207549620848090088
 Transform:
   m_ObjectHideFlags: 0
@@ -655,9 +655,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 3740203947495229938}
   - {fileID: 7734621610609174270}
   - {fileID: 5833937621980913453}
-  - {fileID: 3740203947495229938}
   - {fileID: 2272554575749825738}
   - {fileID: 2271416068423354968}
   - {fileID: 3006460178870818084}
@@ -3615,6 +3615,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5516923206882426172}
     m_Modifications:
+    - target: {fileID: 1109747248737078690, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
+      propertyPath: _enemies
+      value: 
+      objectReference: {fileID: 1026955251283858839}
     - target: {fileID: 1109747248737078690, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: _levelParent
       value: 
