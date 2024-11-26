@@ -70,6 +70,7 @@ namespace BubbleBobble
 				_rb.gravityScale = _defaultGravityScale;
 				_jumping = false;
 				_falling = false;
+				_grounded = true;
 			}
 
 			_timer += Time.deltaTime;
@@ -108,8 +109,6 @@ namespace BubbleBobble
 			if (hit.collider.CompareTag(Tags._ground) ||
 				hit.collider.CompareTag(Tags._platform))
 			{
-				_grounded = true;
-
 				if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
 				{
 					GroundJump();

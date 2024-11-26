@@ -21,6 +21,7 @@ namespace BubbleBobble
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
+		[SerializeField] GameObject _enemies;
 		private GameManager _gameManager;
 		private List<Item> _spawnableItemPrefabs;
 		private float _spawnedItemCount;
@@ -51,6 +52,7 @@ namespace BubbleBobble
 			{
 				_spawnTimer += Time.deltaTime;
 				_hurryUpTimer += Time.deltaTime;
+				_enemies.SetActive(true);
 			}
 
 			if (_spawnTimer > _spawnInterval)
@@ -88,12 +90,12 @@ namespace BubbleBobble
 				{
 					index = Random.Range(0, _spawnableItemPrefabs.Count);
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-										_levelParent);
+										transform);
 				}
 				else
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-											_levelParent);
+											transform);
 				}
 
 				_spawnedItemCount++;
