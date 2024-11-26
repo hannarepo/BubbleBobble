@@ -17,7 +17,6 @@ namespace BubbleBobble
 		[SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 		[SerializeField] private float _spawnInterval = 5f;
 		[SerializeField] private int _maxItemCount = 3;
-		[SerializeField] private Transform _levelParent;
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
@@ -95,7 +94,7 @@ namespace BubbleBobble
 				else
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-											transform);
+										transform);
 				}
 
 				_spawnedItemCount++;
