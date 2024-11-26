@@ -17,8 +17,12 @@ namespace BubbleBobble
 	{
 		private int _levelIndex = 0;
 		private bool _isLevelLoaded = true;
+		private bool _isLevelStarted = false;
 		private GameObject _newLevel;
 		private PlayerControl _playerControl;
+		private GameObject _levelPrefab;
+		private float _currentLevelMovePosY = 0f;
+		private bool _startLevelChange = false;
 		[SerializeField] private GameObject _currentLevel;
 		[SerializeField] private Transform _newLevelSpawnPoint;
 		[SerializeField] private float _speed = 1.0f;
@@ -26,23 +30,27 @@ namespace BubbleBobble
 		[SerializeField] private Transform _playerReturnPoint;
 		[SerializeField] private float _levelChangeDelay = 1f;
 		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
-		private GameObject _levelPrefab;
-		private float _currentLevelMovePosY = 0f;
-		private bool _startLevelChange = false;
 		[SerializeField] private string _windowsLevelName;
 		[SerializeField] private string _liminalLevelName;
 		[SerializeField] private Audiomanager _audioManager;
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
+		[SerializeField] private float _levelOneStartDelay = 10f;
 
 		public int LevelIndex => _levelIndex;
 		public bool IsLevelLoaded => _isLevelLoaded;
+		public bool IsLevelStarted => _isLevelStarted;
 		public bool StartLevelChange => _startLevelChange;
 
 		private void Start()
 		{
 			_currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.position.y);
 			_playerControl = _player.GetComponent<PlayerControl>();
+			if (_currentLevel.name == "Level1")
+			{
+				// Call / invoke the intro thingies here
+				Invoke("IntroDone", _levelOneStartDelay);
+			}
 		}
 
 		void Update()
@@ -59,9 +67,11 @@ namespace BubbleBobble
 					_playerControl.UnRestrainPlayer();
 					_levelIndex++;
 					_isLevelLoaded = true;
+					_isLevelStarted = true;
 					_startLevelChange = false;
 				}
 			}
+
 		}
 
 		/// <summary>
@@ -100,6 +110,12 @@ namespace BubbleBobble
 			{
 				_audioManager.ChangeMusic(_liminalMusic);
 			}
+		}
+
+		private void IntroDone()
+		{
+			// Unrestrain player
+			_isLevelStarted = true;
 		}
 	}
 }
