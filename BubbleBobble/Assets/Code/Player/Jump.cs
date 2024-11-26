@@ -1,18 +1,17 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-///
+using UnityEngine;
+
+namespace BubbleBobble
+{
 /// <summary>
 /// Player jump script
 /// Checks if the player is on the ground or a platform and if the player presses the jump button.
 /// If player is on a platform, player can drop down through the platform.
 /// Player can jump on bubbles to bounce higher, but only once per bubble.
 /// </summary>
-
-using UnityEngine;
-
-namespace BubbleBobble
-{
+/// 
+/// <remarks>
+/// author: Hanna Repo
+/// </remarks>
 	public class Jump : MonoBehaviour
 	{
 		private InputReader _inputReader;
@@ -143,9 +142,9 @@ namespace BubbleBobble
 			RaycastHit2D hit = Physics2D.BoxCast(_groundCheckTarget.position, _boxCastSize, 0, Vector2.down,
 												_boxCastDistance, _jumpCheckLayers);
 
-			// If player is pressing down and jump, ignore layer collision between player and platform
-			//so that player can drop through platform. Increase gravity scale so dropping is faster.
-			// After a short time, turn collision detection back on and reset gravity scale.
+			// If player is pressing down and jump, change layer to IgnorePlatform 
+			// so that player can drop through platform. Increase gravity scale so dropping is faster.
+			// After a short time, change layer back and reset gravity scale.
 			if (_inputReader.Movement.y < 0 && _inputReader.Jump)
 			{
 				gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
