@@ -13,18 +13,21 @@ namespace BubbleBobble
 		}
 
 		[SerializeField] private float _fadeSpeed = 1f;
+		[SerializeField] private MainMenu _mainMenu;
+		[SerializeField] private bool _fadeOutAtStart = false;
 		private State _state = State.None;
 		private Image _image;
 
 		private void Awake()
 		{
 			_image = GetComponent<Image>();
-			SetAlpha(0);
 
 		}
 		private void Start()
 		{
-			_state = State.FadeIn;
+			_state = _fadeOutAtStart 
+			? _state = State.FadeOut
+			: _state = State.None;
 		}
 
 		private void Update()
@@ -35,7 +38,11 @@ namespace BubbleBobble
 				FadeIn();
 				if (Mathf.Approximately(_image.color.a, 1))
 				{
-					// Load the level mayhaps, perhaps
+					_state = State.None;
+					if (_mainMenu != null)
+					{
+						_mainMenu.PlayGame();
+					}
 					
 				}
 				break;
@@ -44,7 +51,7 @@ namespace BubbleBobble
 				FadeOut();
 				if (Mathf.Approximately(_image.color.a, 0))
 				{
-					//
+					_state = State.None;
 				}
 				break;
 			}
