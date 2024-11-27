@@ -23,7 +23,6 @@ namespace BubbleBobble
 			set { _moveLeft = value; }
 		}
 
-
 		#region Unity Functions
 		protected override void Awake()
 		{
