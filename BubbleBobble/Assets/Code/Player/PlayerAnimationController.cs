@@ -55,12 +55,10 @@ namespace BubbleBobble
 			if (_jump.Jumping)
 			{
 				_animator.SetTrigger("Jumped");
-				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Falling || !_levelChanger.IsLevelLoaded)
 			{
 				_animator.SetTrigger("Falling");
-				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Grounded)
 			{
