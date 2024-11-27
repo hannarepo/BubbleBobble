@@ -31,7 +31,6 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _wallBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
-		
 		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
 		private Vector2 _direction;
@@ -48,11 +47,12 @@ namespace BubbleBobble
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_currentState = EnemyState.Moving;
+			_player = GameObject.Find("Player");
 		}
 
 		private void Start()
 		{
-			_player = GameObject.Find("Player");
+			
 		}
 
 		private void Update()
