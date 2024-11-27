@@ -15,9 +15,13 @@ namespace BubbleBobble
 		{
 			get { return BubbleType.Fire; }
 		}
+
 		[SerializeField] private GameObject _fireBallPrefab;
 		[SerializeField] private bool _moveLeft = false;
-		public bool MoveLeft { set { _moveLeft = value; } }
+		public bool MoveLeft 
+		{
+			set { _moveLeft = value; }
+		}
 
 		#region Unity Functions
 		protected override void Awake()
