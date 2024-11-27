@@ -18,6 +18,7 @@ namespace BubbleBobble
 		private Jump _jump;
 		private bool _isWalking;
 		private float _timer = 0f;
+		private PanicMode _panicMode;
 		[SerializeField] private float _blinkInterval = 2f;
 		[SerializeField] private LevelChanger _levelChanger;
 
@@ -32,12 +33,15 @@ namespace BubbleBobble
 			_animator = GetComponent<Animator>();
 			_playerControl = GetComponent<PlayerControl>();
 			_jump = GetComponent<Jump>();
+			_panicMode = GetComponent<PanicMode>();
 		}
 
 		void Update()
 		{
 			bool isWalking = _animator.GetBool("IsWalking");
 			_timer += Time.deltaTime;
+
+			_animator.SetBool("IsStunned", _panicMode.IsPanicking);
 
 			if (_isWalking && !isWalking)
 			{
@@ -51,10 +55,12 @@ namespace BubbleBobble
 			if (_jump.Jumping)
 			{
 				_animator.SetTrigger("Jumped");
+				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Falling || !_levelChanger.IsLevelLoaded)
 			{
 				_animator.SetTrigger("Falling");
+				_animator.ResetTrigger("Grounded");
 			}
 			else if (_jump.Grounded)
 			{
@@ -67,6 +73,10 @@ namespace BubbleBobble
 				_timer = 0f;
 			}
 
+			if (_playerControl.Shoot)
+			{
+				_animator.SetTrigger("Shoot");
+			}
 		}
 	}
 }
