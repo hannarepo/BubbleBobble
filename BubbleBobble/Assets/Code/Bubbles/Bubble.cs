@@ -71,7 +71,8 @@ namespace BubbleBobble
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
 			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform))
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = 0;
 				_rigidBody.velocity = Vector2.zero;
@@ -82,7 +83,8 @@ namespace BubbleBobble
 		protected virtual void OnTriggerExit2D(Collider2D collider)
 		{
 			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform))
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;
