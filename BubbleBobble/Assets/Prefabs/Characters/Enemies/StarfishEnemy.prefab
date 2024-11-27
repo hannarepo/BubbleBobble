@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 4266325168072404210}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.531, y: 0, z: 0}
+  m_LocalPosition: {x: 0.508, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 5109868184487390979}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.155, y: -0.56, z: 0}
+  m_LocalPosition: {x: -0.13, y: -0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 5377697641185381667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.364, y: -0.56, z: 0}
+  m_LocalPosition: {x: 0.336, y: -0.56, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -173,7 +173,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1070914969
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 1806185904, guid: b778f58c5abd1e04ba032d681aebf033, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -266,7 +266,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0012408197, y: -0.016250819}
+  m_Offset: {x: -0.0010146201, y: -0.016250819}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -277,7 +277,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.94791394, y: 0.9761531}
+  m_Size: {x: 0.8777433, y: 0.9761531}
   m_EdgeRadius: 0
 --- !u!114 &6240031335324737780
 MonoBehaviour:
@@ -300,7 +300,8 @@ MonoBehaviour:
   _launchForce: 5
   _deathColor: {r: 0.50980395, g: 0.5882353, b: 0.74509805, a: 1}
   _rotationSpeed: 900
-  _triggerYPos: -6
+  _topTriggerYPos: 7.2
+  _bottomTriggerYPos: -5
   _ySpawnPos: 7
   _launchSFX: {fileID: 8300000, guid: d8430ac0c517e164ba5e992e9df8ae04, type: 3}
 --- !u!114 &3722884174367586707
@@ -344,4 +345,3 @@ MonoBehaviour:
   _wallBoxCastSize: {x: 0.1, y: 0.2}
   _boxCastDistance: 0
   _isFacingRight: 1
-  _player: {fileID: 3477392470482907905, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}

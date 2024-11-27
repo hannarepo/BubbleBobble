@@ -16,9 +16,9 @@ GameObject:
   - component: {fileID: 3784005530097751045}
   - component: {fileID: 444023465537441249}
   - component: {fileID: 7657110647106526857}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: JellyfishEnemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -95,7 +95,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1070914969
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 2065619490, guid: fc5ac00c34da6ea4287613cdbe864fe7, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -219,7 +219,8 @@ MonoBehaviour:
   _launchForce: 5
   _deathColor: {r: 0.50980395, g: 0.5882353, b: 0.74509805, a: 1}
   _rotationSpeed: 900
-  _triggerYPos: -6
+  _topTriggerYPos: 7.2
+  _bottomTriggerYPos: -5
   _ySpawnPos: 7
   _launchSFX: {fileID: 8300000, guid: d8430ac0c517e164ba5e992e9df8ae04, type: 3}
 --- !u!114 &7657110647106526857
@@ -251,7 +252,6 @@ MonoBehaviour:
   _wallBoxCastSize: {x: 0.1, y: 0.2}
   _boxCastDistance: 0
   _isFacingRight: 1
-  _player: {fileID: 0}
 --- !u!1 &2321183092713380912
 GameObject:
   m_ObjectHideFlags: 0
@@ -261,7 +261,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5200228484890163320}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -292,7 +292,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3544143345835913509}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -323,7 +323,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3044976184761404248}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: EdgeCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}

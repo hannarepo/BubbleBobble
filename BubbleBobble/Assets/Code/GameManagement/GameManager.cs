@@ -227,7 +227,7 @@ namespace BubbleBobble
 			// Destroy all enemies on screen at index 0
 			for (int i = _enemyList.Count - 1; i >= 0; i--)
 			{
-				_enemyList[0].GetComponent<EnemyManagement>().LaunchAtDeath();
+				_enemyList[0].GetComponent<EnemyManagement>().LaunchAtDeath(false);
 			}
 
 			TrappedEnemyBubble[] trappedEnemies = FindObjectsOfType<TrappedEnemyBubble>();
@@ -250,7 +250,7 @@ namespace BubbleBobble
 			_enemyList.Remove(enemyObject);
 			print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
-			Destroy(enemyObject);
+			//Destroy(enemyObject);
 		}
 		#endregion Enemy Related
 
