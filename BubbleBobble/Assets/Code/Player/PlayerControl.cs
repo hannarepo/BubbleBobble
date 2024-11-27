@@ -1,4 +1,5 @@
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -31,14 +32,15 @@ namespace BubbleBobble
 		private float _originalFireRate = 0f;
 		private float _timer = 0;
 		private bool _canMove = true;
+		private bool _shoot = false;
 		private bool _canShoot = true;
+		private bool _fireRateBoostIsActive = false;
 
 		public bool CanMove
 		{
 			get { return _canMove; }
 			set { _canMove = value; }
 		}
-		private bool _fireRateBoostIsActive = false;
 
 		public bool LookingRight
 		{
@@ -47,6 +49,8 @@ namespace BubbleBobble
 		}
 
 		public Inventory Inventory => _inventory;
+
+		public bool Shoot => _shoot;
 
 		public bool FireRateBoostIsActive
 		{
@@ -98,7 +102,7 @@ namespace BubbleBobble
 			LookRight(movement);
 
 			_timer += Time.deltaTime;
-			bool shoot = _inputReader.ShootBubble;
+			_shoot = _inputReader.ShootBubble;
 
 			if (_fireRateBoostIsActive)
 			{
@@ -109,9 +113,9 @@ namespace BubbleBobble
 				_fireRate = _originalFireRate;
 			}
 
-			if (_timer >= _fireRate && shoot && _canShoot)
+			if (_timer >= _fireRate && _shoot && _canShoot)
 			{
-				_shootBubble.Shoot(shoot, _lookRight);
+				_shootBubble.Shoot(_shoot, _lookRight);
 				_timer = 0;
 			}
 		}
@@ -159,14 +163,17 @@ namespace BubbleBobble
 		/// <summary>
 		/// Restricts player movement, disables the collider and enables the bubble sprite.
 		/// </summary>
-		public void RestrainPlayer()
+		public void RestrainPlayer(bool toggleBubble)
 		{
 			_lookRight = true;
 			_rigidBody.bodyType = RigidbodyType2D.Static;
 			_playerCollider.enabled = false;
 			_canMove = false;
 			_canShoot = false;
+			if (toggleBubble)
+			{
 			_playerBubbleRenderer.enabled = true;
+			}
 		}
 
 		/// <summary>
