@@ -5,6 +5,14 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+
+    /// <summary>
+    /// Handles the score text in the game.
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     public class ScoreText : MonoBehaviour
     {
         public TextMeshProUGUI ScoreCounter;
