@@ -5,6 +5,14 @@ using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
+
+    /// <summary>
+    /// Handles opening the shop view and pausing the game in the background (No longer in use).
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     public class ShopView : MonoBehaviour
     {
         [SerializeField] private GameObject _shopMenu;

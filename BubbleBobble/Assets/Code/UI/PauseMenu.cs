@@ -3,21 +3,37 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System.Runtime.CompilerServices;
 
 
 namespace BubbleBobble
 {
+
+    /// <summary>
+    /// Handles the ingame UI and it's navigation with controller and keyboard.
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     public class PauseMenu : MonoBehaviour
     {
-        [SerializeField] private GameObject _pauseMenuGO;
-        [SerializeField] private GameObject _settingsMenuGO;
+        [SerializeField] private GameObject _pauseMenuOpen;
+        [SerializeField] private GameObject _settingsMenuOpen;
+        [SerializeField] private GameObject _HelpViewOpen;
+        [SerializeField] private GameObject _exitOpen;
+
+
 
         [Header("Player scripts to disable on pause")]
         [SerializeField] private PlayerControl _playerControl;
 
-        [Header("Selcted button on menus")]
+        [Header("Selected button on menus")]
         [SerializeField] private GameObject _pauseMenuFirstButton;
         [SerializeField] private GameObject _settingsMenuFirstButton;
+        [SerializeField] private GameObject _helpViewFirstButton;
+        [SerializeField] private GameObject _exitFirstButton;
+        //[SerializeField] private GameObject _gameOverFirstButton;
 
 
         private bool isPaused;
@@ -26,8 +42,10 @@ namespace BubbleBobble
 
         private void Start()
         {
-            _pauseMenuGO.SetActive(false);
-            _settingsMenuGO.SetActive(false);
+            _pauseMenuOpen.SetActive(false);
+            _settingsMenuOpen.SetActive(false);
+            _HelpViewOpen.SetActive(false);
+            _exitOpen.SetActive(false);
         }
 
         private void Update()
@@ -64,26 +82,52 @@ namespace BubbleBobble
             CloseAllMenus();
         }
 
-        private void OpenPauseMenu()
+        public void OpenPauseMenu()
         {
-            _pauseMenuGO.SetActive(true);
-            _settingsMenuGO.SetActive(false);
+            _pauseMenuOpen.SetActive(true);
+            _settingsMenuOpen.SetActive(false);
+            _HelpViewOpen.SetActive(false);
+            _exitOpen.SetActive(false);
 
             EventSystem.current.SetSelectedGameObject(_pauseMenuFirstButton);
         }
 
         public void OpenSettingsMenu()
         {
-            _pauseMenuGO.SetActive(false);
-            _settingsMenuGO.SetActive(true);
+            _pauseMenuOpen.SetActive(true);
+            _settingsMenuOpen.SetActive(true);
+            _helpViewFirstButton.SetActive(true);
 
             EventSystem.current.SetSelectedGameObject(_settingsMenuFirstButton);
         }
 
+        public void OpenHelpView()
+        {
+            _pauseMenuOpen.SetActive(true);
+            _settingsMenuOpen.SetActive(false);
+            _HelpViewOpen.SetActive(true);
+
+
+
+            EventSystem.current.SetSelectedGameObject(_helpViewFirstButton);
+        }
+
+        public void OpenExitConfirmation()
+        {
+            _pauseMenuOpen.SetActive(true);
+            _settingsMenuOpen.SetActive(false);
+            _HelpViewOpen.SetActive(false);
+            _exitOpen.SetActive(true);
+
+            EventSystem.current.SetSelectedGameObject(_exitFirstButton);
+        }
+
         private void CloseAllMenus()
         {
-            _pauseMenuGO.SetActive(false);
-            _settingsMenuGO.SetActive(false);
+            _pauseMenuOpen.SetActive(false);
+            _settingsMenuOpen.SetActive(false);
+            _HelpViewOpen.SetActive(false);
+            _exitOpen.SetActive(false);
 
             EventSystem.current.SetSelectedGameObject(null);
         }
