@@ -152,7 +152,7 @@ namespace BubbleBobble
 				_falling = true;
 				_timer = 0;
 			}
-			else if (_timer > _ignorePlatformTime && hit.collider == null)
+			else if (_timer > _ignorePlatformTime)
 			{
 				gameObject.layer = LayerMask.NameToLayer("Player");
 				_rb.gravityScale = _defaultGravityScale;
