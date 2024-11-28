@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 5781720500300889597}
   - component: {fileID: 3460106903399227356}
   - component: {fileID: 6716724934583044694}
-  m_Layer: 0
+  - component: {fileID: -5091862055356077002}
+  m_Layer: 18
   m_Name: CD
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3394583970835823183}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.484087, y: -2.987345, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -72,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1328127411
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2d00a9b7526c3ab4586e13f740f1b79b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -99,6 +100,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _itemData: {fileID: 11400000, guid: 8b95c6e792ad30847b6bf64abe1a0452, type: 2}
+  _collectSFX: {fileID: 8300000, guid: f05cf68a8434cfc4783663cfa36372cb, type: 3}
+  _collectEffectPrefab: {fileID: 6572181404418342949, guid: bc5cdbbc7c2cf6840810e5d763cdcc63, type: 3}
 --- !u!58 &6716724934583044694
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134,3 +137,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.0027969906}
   serializedVersion: 2
   m_Radius: 0.4655048
+--- !u!114 &-5091862055356077002
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394583970835823183}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: 8b95c6e792ad30847b6bf64abe1a0452, type: 2}
+  _collectSFX: {fileID: 0}
+  _collectEffectPrefab: {fileID: 0}

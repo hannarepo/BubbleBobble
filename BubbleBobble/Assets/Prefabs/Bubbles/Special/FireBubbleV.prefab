@@ -9,12 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1274886329631063913, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: c14eac3403f6c704a89bce29deaaf533, type: 3}
+    - target: {fileID: 1274886329631063913, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       propertyPath: m_Color.b
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1274886329631063913, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       propertyPath: m_Color.g
-      value: 0.62448317
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1274886329631063913, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       propertyPath: m_Color.r
@@ -64,6 +68,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6722629319598246696, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      propertyPath: m_Material
+      value: 
+      objectReference: {fileID: 6200000, guid: e68cc48957819194ca592b18fcc8098a, type: 2}
     - target: {fileID: 8601464873183716447, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       propertyPath: m_Name
       value: FireBubbleV
@@ -75,6 +83,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8601464873183716447, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3758891018626466758}
+    - targetCorrespondingSourceObject: {fileID: 8601464873183716447, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6721985258980907636}
   m_SourcePrefab: {fileID: 100100000, guid: 5bbf63cc4cab5fa418d77a88ea09ed09, type: 3}
 --- !u!1 &4402626030762059499 stripped
 GameObject:
@@ -93,8 +104,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf09ce127fe356644837355c5c896dac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _popEffectPrefab: {fileID: 8680118478748295677, guid: cc07e4f37b9c6bb4983b8b26b0702100, type: 3}
   _bubbleData: {fileID: 11400000, guid: 9936d226fecfcd34a8830743b44ce18e, type: 2}
-  _moveSpeed: 2
+  _moveSpeed: 5
+  _popEffectPrefab: {fileID: 8680118478748295677, guid: cc07e4f37b9c6bb4983b8b26b0702100, type: 3}
+  _popSFX: {fileID: 8300000, guid: 09a7605b1773f224987646a84744c8de, type: 3}
+  _pointEffectPrefab: {fileID: 6572181404418342949, guid: bc5cdbbc7c2cf6840810e5d763cdcc63, type: 3}
   _fireBallPrefab: {fileID: 9049962155018986657, guid: 889de8cd80725d844a20b912f5986edc, type: 3}
   _moveLeft: 0
+--- !u!61 &6721985258980907636
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4402626030762059499}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 1}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.5, y: 1.5}
+  m_EdgeRadius: 0

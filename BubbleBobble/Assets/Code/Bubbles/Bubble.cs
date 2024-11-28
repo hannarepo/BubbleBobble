@@ -1,25 +1,31 @@
-/// <remarks>
-/// author: Jose Mäntylä, Hanna Repo
-/// </remarks>
-/// 
-/// <summary>
-/// Abstract base class for the bubbles in the game.
-/// </summary>
-using System;
+using TMPro;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-	public abstract partial class Bubble : MonoBehaviour, IBubble
+/// <summary>
+/// Abstract base class for the bubbles in the game.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä, Hanna Repo
+/// </remarks>
+
+	public abstract class Bubble : MonoBehaviour, IBubble
 	{
+		[SerializeField] private BubbleData _bubbleData;
+		[SerializeField] private float _moveSpeed = 1f;
+		[SerializeField] private ParticleSystem _popEffectPrefab;
+		[SerializeField] private AudioClip _popSFX;
+		[SerializeField] private GameObject _pointEffectPrefab;
+		private Audiomanager _audioManager;
 		private bool _canPop = false;
 		protected GameManager _gameManager;
-		[SerializeField] private ParticleSystem _popEffectPrefab;
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;
 		protected bool _canMoveBubble = false;
-		[SerializeField] private BubbleData _bubbleData;
-		[SerializeField] private float _moveSpeed = 1f;
+		private Rigidbody2D _rigidBody;
+		private float _originalGravityScale;
 
 		protected abstract BubbleType Type
 		{
@@ -35,44 +41,60 @@ namespace BubbleBobble
 			_gameManager = FindObjectOfType<GameManager>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_collider = GetComponent<Collider2D>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+			_originalGravityScale = _rigidBody.gravityScale;
+			_audioManager = FindObjectOfType<Audiomanager>();
 		}
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag("Player") && _canPop)
-			{
-				PopBubble();
-			}
+			
 		}
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
+			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
 			{
-				_canMoveBubble = true;
+				PopBubble();
+				_gameManager.HandleBubblePop(_bubbleData.Points);
+				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
+				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
+				Destroy(pointEffect, 1.2f);
 			}
 		}
+
 		protected virtual void OnCollisionExit2D(Collision2D collision)
 		{
-			if (Type == BubbleType.Fire && collision.gameObject.CompareTag("Platform")
-			|| Type == BubbleType.Bomb && collision.gameObject.CompareTag("Platform"))
-			{
-				_canMoveBubble = false;
-			}
+			
 		}
 
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
-			if (collider.CompareTag("PlayerFeet"))
+			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
 			{
-				CanPop(false);
+				_rigidBody.gravityScale = 0;
+				_rigidBody.velocity = Vector2.zero;
+				_canMoveBubble = true;
+			}
+		}
+
+		protected virtual void OnTriggerExit2D(Collider2D collider)
+		{
+			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
+			{
+				_rigidBody.gravityScale = _originalGravityScale;
+				_canMoveBubble = false;
+				ChangeXDirection();
 			}
 		}
 
 		/// <summary>
 		/// Pop the bubble. Hide the bubble by disabling renderer and collider for immidiate feedback to player.
-		/// Play pop effect and destroy the bubble after the effect has finished.
+		/// Play pop effect and destroy the bubble and pop effect after the effect has finished.
 		/// </summary>
 		public virtual void PopBubble()
 		{
@@ -81,12 +103,17 @@ namespace BubbleBobble
 
 			float delay = 0;
 
+			if (_audioManager != null)
+			{
+				_audioManager.PlaySFX(_popSFX);
+			}
+
 			if (_popEffectPrefab != null)
 			{
 				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = effect.main.duration + 0.5f;
+				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
 				effect.Play(withChildren: true);
-				Destroy(effect.gameObject, delay);
+				//Destroy(effect.gameObject, delay);
 			}
 
 			_gameManager.BubblePopped(Type);
@@ -104,8 +131,7 @@ namespace BubbleBobble
 		/// </summary>
 		public virtual void BubbleMovement()
 		{
-			Rigidbody2D rb = gameObject.GetComponent<Rigidbody2D>();
-			rb.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
+			_rigidBody.AddForce(transform.right * _moveSpeed, ForceMode2D.Force);
 		}
 
 		/// <summary>

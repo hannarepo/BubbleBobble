@@ -1,9 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Controls player animations.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// auhtor: Hanna Repo
+	/// </remarks>
+
 	public class PlayerAnimationController : MonoBehaviour
 	{
 		private Animator _animator;
@@ -11,7 +18,9 @@ namespace BubbleBobble
 		private Jump _jump;
 		private bool _isWalking;
 		private float _timer = 0f;
+		private PanicMode _panicMode;
 		[SerializeField] private float _blinkInterval = 2f;
+		[SerializeField] private LevelChanger _levelChanger;
 
 		public bool IsMoving
 		{
@@ -24,12 +33,15 @@ namespace BubbleBobble
 			_animator = GetComponent<Animator>();
 			_playerControl = GetComponent<PlayerControl>();
 			_jump = GetComponent<Jump>();
+			_panicMode = GetComponent<PanicMode>();
 		}
 
 		void Update()
 		{
 			bool isWalking = _animator.GetBool("IsWalking");
 			_timer += Time.deltaTime;
+
+			_animator.SetBool("IsStunned", _panicMode.IsPanicking);
 
 			if (_isWalking && !isWalking)
 			{
@@ -44,7 +56,7 @@ namespace BubbleBobble
 			{
 				_animator.SetTrigger("Jumped");
 			}
-			else if (_jump.Falling)
+			else if (_jump.Falling || !_levelChanger.IsLevelLoaded)
 			{
 				_animator.SetTrigger("Falling");
 			}
@@ -59,6 +71,10 @@ namespace BubbleBobble
 				_timer = 0f;
 			}
 
+			if (_playerControl.Shoot)
+			{
+				_animator.SetTrigger("Shoot");
+			}
 		}
 	}
 }

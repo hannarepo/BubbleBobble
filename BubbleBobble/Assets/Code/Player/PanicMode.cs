@@ -1,103 +1,131 @@
-/// <remarks>
-/// author: Jose Mäntylä
-/// </remarks>
-/// 
-/// <summary>
-/// This script activates panic mode when the player is standing in fire.
-/// </summary>
+using Unity.Mathematics;
 using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class PanicMode : MonoBehaviour
-    {
-        private bool _canPanic = false;
-        [SerializeField] private float _panicTime = 2f;
-        [SerializeField] private float _panicImmuneTime = 1f;
-        private InputReader _inputReader;
-        private Rigidbody2D _rb;
-        private float _timer = 0f;
-        private PlayerControl _playerControl;
+	/// <remarks>
+	/// author: Jose Mäntylä
+	/// </remarks>
+	/// 
+	/// <summary>
+	/// This script activates panic mode when the player is standing in fire.
+	/// </summary>
+	public class PanicMode : MonoBehaviour
+	{
+		private bool _canPanic = false;
+		[SerializeField] private float _panicTime = 2f;
+		[SerializeField] private float _panicImmuneTime = 1f;
+		private InputReader _inputReader;
+		private float _timer = 0f;
+		private PlayerControl _playerControl;
+		private float _flipInterval = 0.5f;
+		private float _flipTimer = 0f;
+		private Rigidbody2D _rigidBody;
+		private bool _panicOver = false;
+		private bool _isPanicking = false;
+		public bool IsPanicking => _isPanicking;
 
-        #region Unity Functions
-        private void Start()
-        {
-            _inputReader = GetComponent<InputReader>();
-            _rb = GetComponent<Rigidbody2D>();
-            _playerControl = GetComponent<PlayerControl>();
-        }
+		#region Unity Functions
+		private void Start()
+		{
+			_inputReader = GetComponent<InputReader>();
+			_playerControl = GetComponent<PlayerControl>();
+			_rigidBody = GetComponent<Rigidbody2D>();
+		}
 
-        /// <summary>
-        /// Starts running the timer when _canPanic is true and runs different methods
-        /// based on the timers value.
-        /// </summary>
-        private void Update()
-        {
-            if (_canPanic)
-            {
-                _timer += Time.deltaTime;
-                if (_timer <= _panicTime)
-                {
-                    ActivatePanic();
-                }
+		/// <summary>
+		/// Starts running the timer when _canPanic is true and runs different methods
+		/// based on the timers value.
+		/// </summary>
+		private void Update()
+		{
+			if (_canPanic)
+			{
+				_timer += Time.deltaTime;
+				_flipTimer += Time.deltaTime;
+				if (_timer <= _panicTime)
+				{
+					_isPanicking = true;
+					ActivatePanic();
+					return;
+				}
 
-                if (_timer > _panicTime)
-                {
-                    DeactivatePanic();
-                }
+				_panicOver = true;
+				if (_timer > _panicTime && _panicOver)
+				{
+					DeactivatePanic();
+					_panicOver = false;
+				}
 
-                if (_timer >= _panicTime + _panicImmuneTime)
-                {
-                    _timer = 0f;
-                }
-            }
-        }
+				if (_timer > _panicTime + _panicImmuneTime)
+				{
+					_timer = 0f;
+				}
+			}
+		}
 
-        /// <summary>
-        /// This method checks if the player is standing in fire.
-        /// </summary>
-        /// <param name="trigger">Collider2D which is checked for validity</param>
-        private void OnTriggerStay2D(Collider2D trigger)
-        {
-            if(trigger.gameObject.GetComponent<GroundFireTrigger>())
-            {
-                _canPanic = true;
-            }
-        }
+		private void OnTriggerEnter2D(Collider2D trigger)
+		{
+			if (trigger.gameObject.GetComponent<GroundFireTrigger>())
+			{
+				if (!_canPanic && trigger.gameObject.GetComponent<GroundFireTrigger>())
+				{
+					_timer = 0f;
+				}
+			}
+		}
 
-        /// <summary>
-        /// This method is called when the player exits the fire.
-        /// </summary>
-        /// <param name="trigger">Collider2D which is checked for validity</param>
-        private void OnTriggerExit2D(Collider2D trigger)
-        {
-            if(trigger.gameObject.GetComponent<GroundFireTrigger>())
-            {
-                _canPanic = false;
-                DeactivatePanic();
-                _timer = 0f;
-            }
-        }
+		/// <summary>
+		/// This method checks if the player is standing in fire.
+		/// </summary>
+		/// <param name="trigger">Collider2D which is checked for validity</param>
+		private void OnTriggerStay2D(Collider2D trigger)
+		{
+			if (trigger.gameObject.GetComponent<GroundFireTrigger>())
+			{
+				_canPanic = true;
+			}
+		}
 
-        #endregion Unity Functions
+		/// <summary>
+		/// This method is called when the player exits the fire.
+		/// </summary>
+		/// <param name="trigger">Collider2D which is checked for validity</param>
+		private void OnTriggerExit2D(Collider2D trigger)
+		{
+			if (trigger.gameObject.GetComponent<GroundFireTrigger>())
+			{
+				_canPanic = false;
+				DeactivatePanic();
+			}
+		}
 
-        /// <summary>
-        /// This method activated panic mode, disabling the player's movement and input.
-        /// </summary>
-        private void ActivatePanic()
-        {
-            _inputReader.enabled = false;
-            _playerControl.CanMove = false;
-            _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-        }
+		#endregion Unity Functions
 
-        /// <summary>
-        /// This method deactivates panic mode, enabling the player's movement and input.
-        /// </summary>
-        private void DeactivatePanic()
-        {
-            _inputReader.enabled = true;
-            _playerControl.CanMove = true;
-        }
-    }
+		/// <summary>
+		/// This method activated panic mode, disabling the player's movement and input.
+		/// </summary>
+		private void ActivatePanic()
+		{
+			
+			_inputReader.enabled = false;
+			_playerControl.CanMove = false;
+			_rigidBody.velocity = Vector2.zero;
+			if (_flipTimer >= _flipInterval)
+			{
+				_playerControl.LookingRight = !_playerControl.LookingRight;
+				_flipTimer = 0f;
+			}
+		}
+
+		/// <summary>
+		/// This method deactivates panic mode, enabling the player's movement and input.
+		/// </summary>
+		private void DeactivatePanic()
+		{
+			_isPanicking = false;
+			_inputReader.enabled = true;
+			_playerControl.CanMove = true;
+		}
+	}
 }

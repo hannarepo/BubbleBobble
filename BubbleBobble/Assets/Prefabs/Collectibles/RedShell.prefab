@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4209868681592608632}
   - component: {fileID: 4722052549785105203}
-  - component: {fileID: 3170962658924539482}
   - component: {fileID: 7284036290969611602}
-  m_Layer: 0
+  - component: {fileID: 3170962658924539482}
+  m_Layer: 18
   m_Name: RedShell
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 9125691099295485506}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.3257813, y: -0.49698412, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -72,8 +72,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -1328127411
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c20ee61e13e6aa344963e86554a25a2c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -86,19 +86,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &3170962658924539482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9125691099295485506}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _itemData: {fileID: 11400000, guid: 7d52d1bd69ac1d743a4ef219125456ae, type: 2}
 --- !u!61 &7284036290969611602
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -144,3 +131,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 0.8526964}
   m_EdgeRadius: 0
+--- !u!114 &3170962658924539482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9125691099295485506}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f844bf0f606d0dc40846b8e99fefba63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _itemData: {fileID: 11400000, guid: 7d52d1bd69ac1d743a4ef219125456ae, type: 2}
+  _collectSFX: {fileID: 8300000, guid: f05cf68a8434cfc4783663cfa36372cb, type: 3}
+  _collectEffectPrefab: {fileID: 6572181404418342949, guid: bc5cdbbc7c2cf6840810e5d763cdcc63, type: 3}

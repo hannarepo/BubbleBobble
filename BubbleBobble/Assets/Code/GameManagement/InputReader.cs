@@ -1,15 +1,16 @@
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
-///
-/// <summary>
-/// Input reader for reading and storing the player input.
-/// Includes getters for use in other scripts.
-/// </summary>
 using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Input reader for reading and storing the player input.
+	/// Includes getters for use in other scripts.
+	/// </summary>
+
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
+
     public class InputReader : MonoBehaviour
     {
         private Controls _controls;
@@ -34,6 +35,7 @@ namespace BubbleBobble
         private void OnDisable()
         {
             _controls.Disable();
+			_movementControls = Vector2.zero;
         }
 
         private void Update()
