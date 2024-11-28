@@ -27,7 +27,6 @@ namespace BubbleBobble
 		{
 			if (transform.position.y < _destructionPosition)
 			{
-				// TODO: Release the player from the object first.
 				Destroy(gameObject);
 			}
 
@@ -75,11 +74,9 @@ namespace BubbleBobble
 			if (_player != null && _canGrabPlayer)
 			{
 				_player.transform.position = transform.position;
-				if (_inputReader.Jump)
+				if (_inputReader.Jump || !_player.GetComponent<PlayerControl>().CanMove)
 				{
-					gameObject.layer = LayerMask.NameToLayer("Water");
 					_canGrabPlayer = false;
-					EnablePlayerCollider();
 				}
 			}
 		}
@@ -99,7 +96,7 @@ namespace BubbleBobble
 			{
 				_player = collision.gameObject;
 				_inputReader = _player.GetComponent<InputReader>();
-				_player.GetComponent<Collider2D>().enabled = false;
+				gameObject.layer = LayerMask.NameToLayer("Water");
 			}
 		}
 
@@ -121,19 +118,6 @@ namespace BubbleBobble
 			}
 		}
 
-		private void OnDestroy()
-		{
-			if (_player != null)
-			{
-				EnablePlayerCollider();
-			}
-		}
-
 	#endregion Unity Functions
-
-		private void EnablePlayerCollider()
-		{
-			_player.GetComponent<Collider2D>().enabled = true;
-		}
 	}
 }

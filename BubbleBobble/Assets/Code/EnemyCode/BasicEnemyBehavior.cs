@@ -31,7 +31,7 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _wallBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
-		[SerializeField] private Transform _player;
+		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
 		private Vector2 _direction;
 		private Vector2 _enemyPosition;
@@ -39,24 +39,32 @@ namespace BubbleBobble
 		private bool _isGrounded = false;
 		private bool _isWallAhead = false;
 		private bool _isGroundAhead = false;
+		private bool _isPlayerAbove = false;
+		private bool _isPlayerBelow = false;
+		private bool _isPlayerOnSameLevel = false;
 
 		private void Awake()
 		{
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_currentState = EnemyState.Moving;
+			_player = GameObject.Find("Player");
 		}
 
 		private void Start()
 		{
-			_player = FindObjectOfType<PlayerControl>().transform;
+			
 		}
 
 		private void Update()
 		{
 			_isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
 			_isGrounded = Physics2D.BoxCast(_groundCheck.position, _groundBoxCastSize, 0f, Vector2.down, _boxCastDistance, _groundLayer);
-			_playerPosition = _player.position;
+			_playerPosition = _player.transform.position;
 			_enemyPosition = transform.position;
+
+			_isPlayerAbove = _playerPosition.y > _enemyPosition.y;
+			_isPlayerBelow = _playerPosition.y < _enemyPosition.y;
+			_isPlayerOnSameLevel = _playerPosition.y == _enemyPosition.y;
 
 			switch (_currentState)
 			{
@@ -107,15 +115,12 @@ namespace BubbleBobble
 
 		private void Move()
 		{
-			_rigidbody2D.constraints = RigidbodyConstraints2D.None;
-			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-			
 			_direction = _isFacingRight ? Vector2.right : Vector2.left;
 			_rigidbody2D.velocity = _direction * _speed;
 
 			_isWallAhead = Physics2D.BoxCast(_wallCheck.position, _wallBoxCastSize, 0f, _direction, _boxCastDistance, _wallLayer);
 
-			if (_isWallAhead || !_isGroundAhead)
+			if (_isWallAhead || !_isGroundAhead && !_isPlayerBelow)
 			{
 				Flip();
 			}
@@ -128,15 +133,16 @@ namespace BubbleBobble
 
 		private void Fall()
 		{
-			_rigidbody2D.constraints = RigidbodyConstraints2D.None;
-			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezeRotation;
-			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionX;
+			_rigidbody2D.velocity = Vector2.left * 0;
+			_rigidbody2D.velocity = Vector2.right * 0;
+			_rigidbody2D.velocity = Vector2.down * _speed;
 		}
 
 		private void Drop()
 		{
-			_rigidbody2D.constraints = RigidbodyConstraints2D.FreezePositionY;
+			_rigidbody2D.velocity = Vector2.down * 0;
 			_rigidbody2D.velocity = _direction * _speed;
+			Debug.Log("bomba");
 		}
 
 		private void Shoot()
@@ -148,14 +154,13 @@ namespace BubbleBobble
 		{
 			if (_currentState == EnemyState.Moving && !_isGrounded)
 			{
-				Debug.Log("Falling");
 				_currentState = EnemyState.Falling;
 			}
 			else if (_currentState == EnemyState.Falling && _isGrounded)
 			{
 				_currentState = EnemyState.Moving;
 			}
-			else if (_currentState == EnemyState.Moving && _playerPosition.y < _enemyPosition.y)
+			else if (_currentState == EnemyState.Moving && _isPlayerBelow && !_isGroundAhead)
 			{
 				_currentState = EnemyState.DroppingFromEdge;
 			}
@@ -163,7 +168,6 @@ namespace BubbleBobble
 			{
 				_currentState = EnemyState.Falling;
 			}
-			
 		}
 
 		private void Flip()

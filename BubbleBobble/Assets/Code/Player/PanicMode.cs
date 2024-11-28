@@ -22,6 +22,8 @@ namespace BubbleBobble
 		private float _flipTimer = 0f;
 		private Rigidbody2D _rigidBody;
 		private bool _panicOver = false;
+		private bool _isPanicking = false;
+		public bool IsPanicking => _isPanicking;
 
 		#region Unity Functions
 		private void Start()
@@ -43,6 +45,7 @@ namespace BubbleBobble
 				_flipTimer += Time.deltaTime;
 				if (_timer <= _panicTime)
 				{
+					_isPanicking = true;
 					ActivatePanic();
 					return;
 				}
@@ -104,6 +107,7 @@ namespace BubbleBobble
 		/// </summary>
 		private void ActivatePanic()
 		{
+			
 			_inputReader.enabled = false;
 			_playerControl.CanMove = false;
 			_rigidBody.velocity = Vector2.zero;
@@ -119,6 +123,7 @@ namespace BubbleBobble
 		/// </summary>
 		private void DeactivatePanic()
 		{
+			_isPanicking = false;
 			_inputReader.enabled = true;
 			_playerControl.CanMove = true;
 		}
