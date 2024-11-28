@@ -44,8 +44,9 @@ namespace BubbleBobble
 		[SerializeField] private Item _purpleBlueShell;
 		[SerializeField] private Item _redShell;
 		[SerializeField] private GameObject _hurryUpText;
-		[SerializeField] ScoreText scoreText;
-		[SerializeField] TextMeshProUGUI HighscoreText;
+		[SerializeField] ScoreText _scoreText;
+		[SerializeField] ScoreText _scoreEndScreen;
+		[SerializeField] TextMeshProUGUI _highscoreText;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -85,7 +86,8 @@ namespace BubbleBobble
 		public void HandleItemPickup(int points)
 		{
 			scoreCount += points;
-			scoreText.IncrementScoreCount(scoreCount);
+			_scoreText.IncrementScoreCount(scoreCount);
+			_scoreEndScreen.IncrementScoreCount(scoreCount);
 			CheckHighScore();
 
 		}
@@ -93,7 +95,8 @@ namespace BubbleBobble
 		public void HandleBubblePop(int points)
 		{
 			scoreCount += points;
-			scoreText.IncrementScoreCount(scoreCount);
+			_scoreText.IncrementScoreCount(scoreCount);
+			_scoreEndScreen.IncrementScoreCount(scoreCount);
 			CheckHighScore();
 		}
 
@@ -107,7 +110,7 @@ namespace BubbleBobble
 
 		void UpdateHighScoreText()
 		{
-			HighscoreText.text = $"Highscore: {PlayerPrefs.GetInt("HighScore", 0)}";
+			_highscoreText.text = $"Highscore: {PlayerPrefs.GetInt("HighScore", 0)}";
 		}
 
 		#endregion Unity Functions

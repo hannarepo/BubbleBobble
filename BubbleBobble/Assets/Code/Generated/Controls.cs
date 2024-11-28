@@ -64,6 +64,15 @@ namespace BubbleBobble
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenShop"",
+                    ""type"": ""Button"",
+                    ""id"": ""2f60b5c0-f05c-4743-8162-d290f0ea26cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -319,6 +328,50 @@ namespace BubbleBobble
                     ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f5649bff-1e47-4c60-9d47-491baf898ac2"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenShop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""1fceba88-8d9e-4adc-8d97-4f3087afcf97"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenShop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07bfac79-962e-4317-a85b-9c075795978f"",
+                    ""path"": ""<Keyboard>/rightCtrl"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenShop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""048055c4-34ef-4bb5-be23-4520afd6e62c"",
+                    ""path"": ""<Gamepad>/select"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenShop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,6 +384,7 @@ namespace BubbleBobble
             m_Game_Jump = m_Game.FindAction("Jump", throwIfNotFound: true);
             m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
             m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
+            m_Game_OpenShop = m_Game.FindAction("OpenShop", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -396,6 +450,7 @@ namespace BubbleBobble
         private readonly InputAction m_Game_Jump;
         private readonly InputAction m_Game_Shoot;
         private readonly InputAction m_Game_Pause;
+        private readonly InputAction m_Game_OpenShop;
         public struct GameActions
         {
             private @Controls m_Wrapper;
@@ -404,6 +459,7 @@ namespace BubbleBobble
             public InputAction @Jump => m_Wrapper.m_Game_Jump;
             public InputAction @Shoot => m_Wrapper.m_Game_Shoot;
             public InputAction @Pause => m_Wrapper.m_Game_Pause;
+            public InputAction @OpenShop => m_Wrapper.m_Game_OpenShop;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -425,6 +481,9 @@ namespace BubbleBobble
                 @Pause.started += instance.OnPause;
                 @Pause.performed += instance.OnPause;
                 @Pause.canceled += instance.OnPause;
+                @OpenShop.started += instance.OnOpenShop;
+                @OpenShop.performed += instance.OnOpenShop;
+                @OpenShop.canceled += instance.OnOpenShop;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -441,6 +500,9 @@ namespace BubbleBobble
                 @Pause.started -= instance.OnPause;
                 @Pause.performed -= instance.OnPause;
                 @Pause.canceled -= instance.OnPause;
+                @OpenShop.started -= instance.OnOpenShop;
+                @OpenShop.performed -= instance.OnOpenShop;
+                @OpenShop.canceled -= instance.OnOpenShop;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -464,6 +526,7 @@ namespace BubbleBobble
             void OnJump(InputAction.CallbackContext context);
             void OnShoot(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
+            void OnOpenShop(InputAction.CallbackContext context);
         }
     }
 }

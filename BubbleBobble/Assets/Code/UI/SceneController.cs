@@ -3,6 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class SceneController : MonoBehaviour
 {
+    /// <summary>
+    /// Handles the scene transitions. (no longer in use)
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     private string previousSceneName;
 
     // Lataa "Store"-scenen ja tallenna nykyinen scene
