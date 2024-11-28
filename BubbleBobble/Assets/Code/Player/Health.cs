@@ -21,7 +21,6 @@ namespace BubbleBobble
 		[SerializeField] private int _maxLives = 6;
 		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
-		[SerializeField] private GameObject _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
 		[SerializeField] private Vector3[] _heartPositions;
@@ -165,15 +164,8 @@ namespace BubbleBobble
 
 		private void Die()
 		{
-			_gameOverText.SetActive(true);
 			gameObject.SetActive(false);
 			_audioManager.PlaySFX(_deathSFX);
-			Invoke("BackToMenu", 3f);
-		}
-
-		private void BackToMenu()
-		{
-			SceneManager.LoadScene("Main Menu");
 		}
 	}
 }
