@@ -2101,13 +2101,14 @@ GameObject:
   - component: {fileID: 4501799860489865815}
   - component: {fileID: 3746332552686264717}
   - component: {fileID: 7425082674594151326}
+  - component: {fileID: 3080971846435499152}
   m_Layer: 0
-  m_Name: IntroAnim_0
+  m_Name: IntroAnimation
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4501799860489865815
 Transform:
   m_ObjectHideFlags: 0
@@ -2164,7 +2165,7 @@ SpriteRenderer:
   m_SortingLayerID: 1353614017
   m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: 163939851, guid: 6b3c96af2463e714ebba68d7f0896c20, type: 3}
+  m_Sprite: {fileID: -375212110, guid: d764baebede8996498aa6e7d8d718e06, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -2185,7 +2186,7 @@ Animator:
   m_GameObject: {fileID: 3305654062036943144}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 98530fa48aa473943888d3b94b55cd3f, type: 2}
+  m_Controller: {fileID: 9100000, guid: cba8578f37480784fa5f431250f132ae, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2196,6 +2197,102 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!82 &3080971846435499152
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305654062036943144}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3605060375100102433, guid: 7538bd1eab40f7a4db1ce3e34a4efbad, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 7f28944593b4cef4e873d68f5a28d3bb, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3409204180533181991
 GameObject:
   m_ObjectHideFlags: 0
@@ -4187,7 +4284,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5236705795139877546}
-  - component: {fileID: 7135240892510640622}
   m_Layer: 0
   m_Name: Level1
   m_TagString: Untagged
@@ -4224,25 +4320,6 @@ Transform:
   - {fileID: 4501799860489865815}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7135240892510640622
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9148315335681007025}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63ce90bf26a658e41819fabbf1dedc21, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _spawnPoints: []
-  _spawnInterval: 5
-  _maxItemCount: 3
-  _hurryUpTime: 30
-  _textFlashTime: 2
-  _canSpawnShell: 1
-  _enemies: {fileID: 404921331472023356}
 --- !u!1001 &513735724117680244
 PrefabInstance:
   m_ObjectHideFlags: 0
