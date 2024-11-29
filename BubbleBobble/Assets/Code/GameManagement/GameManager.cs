@@ -55,7 +55,11 @@ namespace BubbleBobble
 		int scoreCount;
 
 		public GameObject HurryUpText => _hurryUpText;
-		public int Score => scoreCount;
+		public int Score
+		{
+			get { return scoreCount; }
+			set { scoreCount = value; }
+		}
 
 		#region Unity Functions
 		private void Start()
