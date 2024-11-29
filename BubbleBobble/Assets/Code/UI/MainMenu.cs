@@ -5,9 +5,17 @@ using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
+
+    /// <summary>
+    /// Handles the main menu.
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     public class MainMenu : MonoBehaviour
     {
-		[SerializeField] private string _sceneName;
+        [SerializeField] private string _sceneName;
         public void PlayGame()
         {
             SceneManager.LoadSceneAsync(_sceneName);

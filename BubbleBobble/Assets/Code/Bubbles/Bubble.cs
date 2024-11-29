@@ -48,7 +48,14 @@ namespace BubbleBobble
 
 		protected virtual void OnCollisionEnter2D(Collision2D collision)
 		{
-			
+			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
+			{
+				PopBubble();
+				_gameManager.HandleBubblePop(_bubbleData.Points);
+				GameObject pointEffect = Instantiate(_pointEffectPrefab, transform.position, Quaternion.identity);
+				pointEffect.GetComponentInChildren<TextMeshPro>().text = _bubbleData.Points.ToString();
+				Destroy(pointEffect, 1.2f);
+			}
 		}
 
 		protected virtual void OnCollisionStay2D(Collision2D collision)
@@ -71,7 +78,8 @@ namespace BubbleBobble
 		protected virtual void OnTriggerEnter2D(Collider2D collider)
 		{
 			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform))
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = 0;
 				_rigidBody.velocity = Vector2.zero;
@@ -82,7 +90,8 @@ namespace BubbleBobble
 		protected virtual void OnTriggerExit2D(Collider2D collider)
 		{
 			if (Type == BubbleType.Fire && collider.gameObject.CompareTag(Tags._platform)
-				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform))
+				|| Type == BubbleType.Bomb && collider.gameObject.CompareTag(Tags._platform)
+				|| Type == BubbleType.Glitch && collider.gameObject.CompareTag(Tags._platform))
 			{
 				_rigidBody.gravityScale = _originalGravityScale;
 				_canMoveBubble = false;

@@ -11,8 +11,8 @@ namespace BubbleBobble
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private Color _deathColor;
 		[SerializeField] private float _rotationSpeed = 500f;
-		[SerializeField] private float _triggerYPos;
-		[SerializeField] private float _ySpawnPos;
+		[SerializeField] private float _topTriggerYPos;
+		[SerializeField] private float _bottomTriggerYPos;
 		[SerializeField] private AudioClip _launchSFX;
 		private GameManager _gameManager;
 		private Audiomanager _audioManager;
@@ -45,9 +45,33 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			if (transform.position.y < _triggerYPos && _levelChanger.IsLevelLoaded)
+			if (transform.position.y < _bottomTriggerYPos)
+            {
+                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag(Tags._topSpawnLeft);
+                GameObject topSpawnRight = GameObject.FindGameObjectWithTag(Tags._topSpawnRight);
+
+                if (transform.position.x < 0 && topSpawnLeft != null)
+                {
+                    transform.position = topSpawnLeft.transform.position;
+                }
+                else if (transform.position.x >= 0 && topSpawnRight != null)
+                {
+                    transform.position = topSpawnRight.transform.position;
+                }
+			}
+			else if (transform.position.y > _topTriggerYPos)
 			{
-				transform.position = new Vector3(transform.position.x, _ySpawnPos, 0);
+				GameObject bottomSpawnLeft = GameObject.FindGameObjectWithTag(Tags._bottomSpawnLeft);
+                GameObject bottomSpawnRight = GameObject.FindGameObjectWithTag(Tags._bottomSpawnRight);
+
+				if (transform.position.x > 0 && bottomSpawnLeft != null)
+                {
+                    transform.position = bottomSpawnLeft.transform.position;
+                }
+                else if (transform.position.x >= 0 && bottomSpawnRight != null)
+                {
+                    transform.position = bottomSpawnRight.transform.position;
+                }
 			}
 
 			if (_launched)
