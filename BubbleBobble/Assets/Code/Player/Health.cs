@@ -21,7 +21,6 @@ namespace BubbleBobble
 		[SerializeField] private int _maxLives = 6;
 		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
-		[SerializeField] private GameObject _gameOverText;
 		[SerializeField] private float _invincibilityTime = 1f;
 		[SerializeField] private float _flashRate = 1 / 10f;
 		[SerializeField] private Vector3[] _heartPositions;
@@ -30,6 +29,8 @@ namespace BubbleBobble
 		[SerializeField] private Audiomanager _audioManager;
 		[SerializeField] private AudioClip _loseHeartSFX;
 		[SerializeField] private AudioClip _deathSFX;
+		// Invincibility for testing purposes
+		[SerializeField] private bool _invincibility = false;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -119,7 +120,10 @@ namespace BubbleBobble
 				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 				_playerControl.CanMove = false;
 				Invoke("Respawn", 1f);
-				_currentLives--;
+				if (!_invincibility)
+				{
+					_currentLives--;
+				}
 				_hearts[_currentLives].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 				_audioManager.PlaySFX(_loseHeartSFX);
@@ -165,15 +169,8 @@ namespace BubbleBobble
 
 		private void Die()
 		{
-			_gameOverText.SetActive(true);
 			gameObject.SetActive(false);
 			_audioManager.PlaySFX(_deathSFX);
-			Invoke("BackToMenu", 3f);
-		}
-
-		private void BackToMenu()
-		{
-			SceneManager.LoadScene("Main Menu");
 		}
 	}
 }
