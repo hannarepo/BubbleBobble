@@ -615,7 +615,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 2.933748, y: 0.07126963}
+  m_Offset: {x: 3.268964, y: 0.07126963}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -626,7 +626,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6919312, y: 0.68976855}
+  m_Size: {x: 3.0214992, y: 0.68976855}
   m_EdgeRadius: 0
 --- !u!251 &4527485868438712869
 PlatformEffector2D:
@@ -1392,7 +1392,7 @@ GameObject:
   - component: {fileID: 5074663144466902360}
   m_Layer: 20
   m_Name: PlatformCollider (6)
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1444,7 +1444,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6912554, y: -1.1751165}
+  m_Offset: {x: 0.6912554, y: -1.1590433}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1455,7 +1455,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.68902624, y: 7.6}
+  m_Size: {x: 0.68902624, y: 7.632147}
   m_EdgeRadius: 0
 --- !u!251 &5074663144466902360
 PlatformEffector2D:
@@ -1618,7 +1618,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 2.936415, y: 0.07126963}
+  m_Offset: {x: 2.6109426, y: 0.07126963}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1629,7 +1629,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.6972651, y: 0.68976855}
+  m_Size: {x: 3.0463204, y: 0.68976855}
   m_EdgeRadius: 0
 --- !u!251 &7005595994506694033
 PlatformEffector2D:
@@ -2843,7 +2843,7 @@ GameObject:
   - component: {fileID: 6716181074535312416}
   m_Layer: 20
   m_Name: PlatformCollider (3)
-  m_TagString: Platform
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2895,7 +2895,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6912554, y: -1.1751165}
+  m_Offset: {x: 0.6912554, y: -1.1603074}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -2906,7 +2906,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.68902624, y: 7.6}
+  m_Size: {x: 0.68902624, y: 7.6296186}
   m_EdgeRadius: 0
 --- !u!251 &6716181074535312416
 PlatformEffector2D:
@@ -4027,6 +4027,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2944710022682343115, guid: 57ba60684e6d7ed409589fd72d342f5d, type: 3}
+      propertyPath: _startPos
+      value: 
+      objectReference: {fileID: 3052076381619680884}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4047,11 +4051,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 72505690510438998, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.8
+      value: -4.3
       objectReference: {fileID: 0}
     - target: {fileID: 72505690510438998, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.67
+      value: 3.47
       objectReference: {fileID: 0}
     - target: {fileID: 1109747248737078690, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: _enemies
@@ -4059,19 +4063,19 @@ PrefabInstance:
       objectReference: {fileID: 151098809203487621}
     - target: {fileID: 2303817012766791586, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.88
+      value: -4.02
       objectReference: {fileID: 0}
     - target: {fileID: 2303817012766791586, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.2
+      value: -3.37
       objectReference: {fileID: 0}
     - target: {fileID: 3940469712865603153, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.74
+      value: 4.75
       objectReference: {fileID: 0}
     - target: {fileID: 3940469712865603153, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7
+      value: 3.58
       objectReference: {fileID: 0}
     - target: {fileID: 4919459498230575640, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4119,19 +4123,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6995243968112537093, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 3.43
+      value: 3.91
       objectReference: {fileID: 0}
     - target: {fileID: 6995243968112537093, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -2.4
+      value: -3.27
       objectReference: {fileID: 0}
     - target: {fileID: 7436080242156840725, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5.64
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7436080242156840725, guid: d4cb23f65448e654994382d4a6da8abb, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.36
+      value: 2.44
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

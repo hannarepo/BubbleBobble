@@ -29,6 +29,8 @@ namespace BubbleBobble
 		[SerializeField] private Audiomanager _audioManager;
 		[SerializeField] private AudioClip _loseHeartSFX;
 		[SerializeField] private AudioClip _deathSFX;
+		// Invincibility for testing purposes
+		[SerializeField] private bool _invincibility = false;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -118,7 +120,10 @@ namespace BubbleBobble
 				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 				_playerControl.CanMove = false;
 				Invoke("Respawn", 1f);
-				_currentLives--;
+				if (!_invincibility)
+				{
+					_currentLives--;
+				}
 				_hearts[_currentLives].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
 				_audioManager.PlaySFX(_loseHeartSFX);
