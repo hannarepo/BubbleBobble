@@ -6,6 +6,13 @@ using UnityEngine.Audio;
 
 namespace BubbleBobble
 {
+    /// <summary>
+    /// Handles the volume settings.
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
     public class VolumeSetting : MonoBehaviour
     {
         [SerializeField] private AudioMixer _audioMixer;

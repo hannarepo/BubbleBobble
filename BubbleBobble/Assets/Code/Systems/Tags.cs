@@ -2,10 +2,10 @@ using System;
 
 namespace BubbleBobble
 {
-    public static class Tags
-    {
+	public static class Tags
+	{
 		public const String _player = "Player";
-        public const String _dropTrigger = "DropTrigger";
+		public const String _dropTrigger = "DropTrigger";
 		public const String _ground = "Ground";
 		public const String _platform = "Platform";
 		public const String _wall = "Wall";
@@ -19,5 +19,7 @@ namespace BubbleBobble
 		public const String _topSpawnRight = "TopSpawnRight";
 		public const String _dropDownPlatform = "DropDownPlatform";
 		public const String _deadEnemy = "DeadEnemy";
-    }
+		public const String _bottomSpawnLeft = "BottomSpawnLeft";
+		public const String _bottomSpawnRight = "BottomSpawnRight";
+	}
 }
