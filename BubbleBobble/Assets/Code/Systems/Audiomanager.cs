@@ -7,6 +7,7 @@ namespace BubbleBobble
     public class Audiomanager : MonoBehaviour
     {
 		[SerializeField] private float _musicFadeTime = 1f;
+		[SerializeField] private float _musicSpeedFadeTime = 0.5f;
 		[SerializeField] private float _hurryUpPitch = 140;
 		private bool _isPlayingMusicSource1 = true;
 		private bool _isHurryUpActive = false;
@@ -43,28 +44,24 @@ namespace BubbleBobble
 			}
         }
 
-		private void Update()
-		{
-			if (_isPlayingMusicSource1 && _isHurryUpActive)
-			{
-				_musicSource1.pitch = _hurryUpPitch;
-			}
-			else if (!_isPlayingMusicSource1 && _isHurryUpActive)
-			{
-				_musicSource2.pitch = _hurryUpPitch;
-			}
-			else
-			{
-				_musicSource1.pitch = _initialPitch;
-				_musicSource2.pitch = _initialPitch;
-			}
-		}
-
 		public void ChangeMusic(AudioClip audioClip)
 		{
 			StopAllCoroutines();
 			StartCoroutine(FadeMusic(audioClip));
 			_isPlayingMusicSource1 = !_isPlayingMusicSource1;
+		}
+
+		public void SpeedUpMusic()
+		{
+			StopAllCoroutines();
+			StartCoroutine(FadeMusicSpeedUp());
+		}
+
+		public void SlowDownMusic()
+		{
+			print("Slow down music");
+			StopAllCoroutines();
+			StartCoroutine(FadeMusicSpeedDown());
 		}
 
 		private IEnumerator FadeMusic(AudioClip musicClip)
@@ -102,6 +99,52 @@ namespace BubbleBobble
 				_musicSource2.Stop();
 			}
 		}
+
+		private IEnumerator FadeMusicSpeedUp()
+		{
+			AudioSource musicSource;
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
+			{
+				musicSource = _musicSource1;
+			}
+			else
+			{
+				musicSource = _musicSource2;
+			}
+
+			while (timeElapsed < _musicSpeedFadeTime)
+			{
+				musicSource.pitch = Mathf.Lerp(_initialPitch, _hurryUpPitch, timeElapsed / _musicSpeedFadeTime);
+				timeElapsed += Time.deltaTime;
+				yield return null;
+			}
+		}
+
+		
+		private IEnumerator FadeMusicSpeedDown()
+		{
+			AudioSource musicSource;
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
+			{
+				musicSource = _musicSource1;
+			}
+			else
+			{
+				musicSource = _musicSource2;
+			}
+
+			while (timeElapsed < _musicSpeedFadeTime)
+			{
+				musicSource.pitch = Mathf.Lerp(_hurryUpPitch, _initialPitch, timeElapsed / _musicSpeedFadeTime);
+				timeElapsed += Time.deltaTime;
+				yield return null;
+			}
+		}
+		
 
 		public void PlaySFX(AudioClip audioClip)
 		{

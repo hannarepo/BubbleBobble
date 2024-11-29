@@ -30,6 +30,7 @@ namespace BubbleBobble
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 		private Audiomanager _audioManager;
+		private bool _resetHurryUp = true;
 
 		public bool CanSpawnItem
 		{
@@ -66,11 +67,11 @@ namespace BubbleBobble
 				_audioManager.IsHurryUpActive = true;
 			}
 
-			if (_levelChanger.StartLevelChange)
+			if (_levelChanger.StartLevelChange && _resetHurryUp)
 			{
 				ResetHurryUp();
 				_hurryUp = false;
-				_audioManager.IsHurryUpActive = false;
+				_resetHurryUp = false;
 			}
 		}
 
@@ -113,11 +114,13 @@ namespace BubbleBobble
 		{
 			// TODO: Call enemy's angry mode
 			FlashHurryUpText();
+			_audioManager.SpeedUpMusic();
 		}
 
 		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
+			_audioManager.SlowDownMusic();
 			_hurryUpTimer = 0;
 			_gameManager.HurryUpText.SetActive(false);
 		}
