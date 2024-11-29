@@ -400,9 +400,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 100960769}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _currentLevelText
+      value: 
+      objectReference: {fileID: 1000453665}
+    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _playerReturnPoint
       value: 
       objectReference: {fileID: 1923604258}
+    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _levelOneStartDelay
+      value: 13
+      objectReference: {fileID: 0}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _newLevelSpawnPoint
       value: 
@@ -2767,6 +2775,10 @@ PrefabInstance:
       propertyPath: m_MatchWidthOrHeight
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7798939273121736144, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
+      propertyPath: m_Name
+      value: ScoreText (TMP)
+      objectReference: {fileID: 0}
     - target: {fileID: 7839534617518326471, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
       value: 1
@@ -4234,6 +4246,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1000453665 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8739096505414401326, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
+  m_PrefabInstance: {fileID: 507249585}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf6222cd42866d44db206ff352a024a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &1049910240 stripped
