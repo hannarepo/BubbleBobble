@@ -384,6 +384,10 @@ PrefabInstance:
       value: GameManager
       objectReference: {fileID: 0}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _intro
+      value: 
+      objectReference: {fileID: 849018648}
+    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _player
       value: 
       objectReference: {fileID: 1333773070}
@@ -417,7 +421,7 @@ PrefabInstance:
       objectReference: {fileID: 1923604258}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _levelOneStartDelay
-      value: 13
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _newLevelSpawnPoint
@@ -3713,8 +3717,8 @@ MonoBehaviour:
   _buttonImage: {fileID: 56829946}
   _activeStatus: {fileID: 1389052565}
   _timerImage: {fileID: 145409825}
-  _powerUpTime: 20
   _timerText: {fileID: 1156941302}
+  _powerUpTime: 20
 --- !u!1 &804867106
 GameObject:
   m_ObjectHideFlags: 0
@@ -3750,8 +3754,8 @@ MonoBehaviour:
   _buttonImage: {fileID: 1049910240}
   _activeStatus: {fileID: 1561102322}
   _timerImage: {fileID: 1724560475}
-  _powerUpTime: 20
   _timerText: {fileID: 541182178}
+  _powerUpTime: 20
 --- !u!4 &804867108
 Transform:
   m_ObjectHideFlags: 0
@@ -3782,6 +3786,11 @@ MonoBehaviour:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 96657693394403789, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
   m_PrefabInstance: {fileID: 507249585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &849018648 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+  m_PrefabInstance: {fileID: 6421202181135769890}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &865380250 stripped
 MonoBehaviour:
@@ -4462,8 +4471,8 @@ MonoBehaviour:
   _buttonImage: {fileID: 1852561034}
   _activeStatus: {fileID: 1855818997}
   _timerImage: {fileID: 1491322319}
-  _powerUpTime: 20
   _timerText: {fileID: 112157683}
+  _powerUpTime: 20
 --- !u!114 &1156127598 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1366239962663948868, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
@@ -4713,8 +4722,8 @@ MonoBehaviour:
   _buttonImage: {fileID: 903387948}
   _activeStatus: {fileID: 1423691582}
   _timerImage: {fileID: 1561473088}
-  _powerUpTime: 20
   _timerText: {fileID: 865380250}
+  _powerUpTime: 20
 --- !u!1 &1325799318 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6847628439476858129, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
