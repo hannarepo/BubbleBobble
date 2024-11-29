@@ -37,6 +37,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 		[SerializeField] private float _levelOneStartDelay = 10f;
+		[SerializeField] private GameObject _intro;
 
 		public int LevelIndex => _levelIndex;
 		public bool IsLevelLoaded => _isLevelLoaded;
@@ -50,7 +51,7 @@ namespace BubbleBobble
 			if (_currentLevel.name == "Level1")
 			{
 				// Call / invoke the intro thingies here
-				Invoke("IntroDone", _levelOneStartDelay);
+				Invoke("IntroDone", _intro.GetComponent<AudioSource>().clip.length);
 			}
 		}
 
@@ -72,7 +73,6 @@ namespace BubbleBobble
 					_startLevelChange = false;
 				}
 			}
-
 		}
 
 		/// <summary>
@@ -102,7 +102,7 @@ namespace BubbleBobble
 
 		private void DelayedLevelChange()
 		{
-			_startLevelChange = !_startLevelChange;
+			_startLevelChange = true;
 
 			if (_levelPrefab.name == _windowsLevelName)
 			{
@@ -119,6 +119,7 @@ namespace BubbleBobble
 			// Unrestrain player
 			_isLevelStarted = true;
 			_audioManager.ChangeMusic(_underwaterMusic);
+			_intro.SetActive(false);
 		}
 	}
 }
