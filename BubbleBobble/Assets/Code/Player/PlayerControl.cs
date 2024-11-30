@@ -138,15 +138,9 @@ namespace BubbleBobble
 
 		private void Collect(Item item)
 		{
-
-				if (_inventory.Add(item.ItemData, 1))
-				{
-					if (_inventory != null)
-					{
-						// TODO: Update inventory UI
-					}
-					item.Collect();
-
+			if (_inventory.Add(item.ItemData, 1))
+			{
+				item.Collect();
 				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
 		}
@@ -157,6 +151,11 @@ namespace BubbleBobble
 			if (item != null)
 			{
 				Collect(item);
+			}
+
+			if (other.CompareTag(Tags.Umbrella))
+			{
+				other.GetComponent<Umbrella>().SkipLevels();
 			}
 		}
 
@@ -172,7 +171,7 @@ namespace BubbleBobble
 			_canShoot = false;
 			if (toggleBubble)
 			{
-			_playerBubbleRenderer.enabled = true;
+				_playerBubbleRenderer.enabled = true;
 			}
 		}
 
