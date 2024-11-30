@@ -19,7 +19,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _popSFX;
 		[SerializeField] private GameObject _pointEffectPrefab;
 		private Audiomanager _audioManager;
-		private bool _canPop = false;
+		protected bool _canPop = false;
 		protected GameManager _gameManager;
 		private SpriteRenderer _spriteRenderer;
 		private Collider2D _collider;

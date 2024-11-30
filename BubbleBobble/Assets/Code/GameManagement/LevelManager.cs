@@ -64,7 +64,6 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
-				_audioManager.IsHurryUpActive = true;
 			}
 
 			if (_levelChanger.StartLevelChange && _resetHurryUp)
