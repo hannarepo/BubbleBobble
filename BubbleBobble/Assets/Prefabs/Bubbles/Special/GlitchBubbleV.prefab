@@ -77,6 +77,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6626626748018687453, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6626626748018687453, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
@@ -96,6 +100,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4402626030762059499, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6938482026543260509}
+    - targetCorrespondingSourceObject: {fileID: 4402626030762059499, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -775082069147210706}
   m_SourcePrefab: {fileID: 100100000, guid: ad18efb760f0394478734f0a3320bce8, type: 3}
 --- !u!1 &6199156379712337123 stripped
 GameObject:
@@ -121,3 +128,24 @@ MonoBehaviour:
   _pointEffectPrefab: {fileID: 6572181404418342949, guid: bc5cdbbc7c2cf6840810e5d763cdcc63, type: 3}
   _glitchPrefab: {fileID: 775633788103805502, guid: 09de879e3fb78c64097c04253a5971bb, type: 3}
   _moveLeft: 0
+--- !u!95 &-775082069147210706
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6199156379712337123}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6cf1f00ebcf803c4cbd003cbbace492a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
