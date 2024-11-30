@@ -247,6 +247,11 @@ namespace BubbleBobble
 			}
 		}
 
+		public void ClearEnemyList()
+		{
+			_enemyList.Clear();
+		}
+
 		// Adds an enemy object to a list
 		public void AddEnemyToList(GameObject enemyObject)
 		{
