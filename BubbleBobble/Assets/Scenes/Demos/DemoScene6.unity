@@ -408,10 +408,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1923604258}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _levelOneStartDelay
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _newLevelSpawnPoint
       value: 
       objectReference: {fileID: 987786896}
@@ -2746,6 +2742,7 @@ PrefabInstance:
     - {fileID: 5826285568511427719, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
     - {fileID: 9218579180739493864, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
     - {fileID: 1749521041794618840, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
+    - {fileID: 96657693394403789, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6989342169900065996, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
       insertIndex: 1
@@ -5576,6 +5573,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: _hurryUpText
+      value: 
+      objectReference: {fileID: 228530759}
+    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: _hurryUpTime
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 5236705795139877546, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -5621,7 +5626,8 @@ PrefabInstance:
       value: Level1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4353098651766417857, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}

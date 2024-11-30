@@ -150,12 +150,11 @@ namespace BubbleBobble
 			Item item = other.GetComponent<Item>();
 			if (item != null)
 			{
+				if (item.ItemData.ItemType == ItemType.Umbrella)
+				{
+					other.GetComponent<Umbrella>().SkipLevels();
+				}
 				Collect(item);
-			}
-
-			if (other.CompareTag(Tags.Umbrella))
-			{
-				other.GetComponent<Umbrella>().SkipLevels();
 			}
 		}
 
