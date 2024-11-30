@@ -64,7 +64,7 @@ namespace BubbleBobble
 
 		protected override void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag(Tags._player) && _canPop)
+			if (collision.gameObject.CompareTag(Tags.Player) && _canPop)
 			{
 				_enemy.SetActive(true);
 				_enemy.transform.position = transform.position;

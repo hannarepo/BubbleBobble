@@ -30,7 +30,7 @@ namespace BubbleBobble
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 		private Audiomanager _audioManager;
-		private bool _resetHurryUp = true;
+		private bool _canResetHurryUp = false;
 
 		public bool CanSpawnItem
 		{
@@ -64,13 +64,13 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
+				_canResetHurryUp = true;
 			}
 
-			if (_levelChanger.StartLevelChange && _resetHurryUp)
+			if (_levelChanger.StartLevelChange && _canResetHurryUp)
 			{
 				ResetHurryUp();
 				_hurryUp = false;
-				_resetHurryUp = false;
 			}
 		}
 
@@ -122,6 +122,8 @@ namespace BubbleBobble
 			_audioManager.SlowDownMusic();
 			_hurryUpTimer = 0;
 			_gameManager.HurryUpText.SetActive(false);
+			CancelInvoke("FlashHurryUpText");
+			_canResetHurryUp = false;
 		}
 
 		private void FlashHurryUpText()

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
@@ -153,6 +153,8 @@ namespace BubbleBobble
 
 		private void AddItemToList()
 		{
+			// TODO: Add umbrella at appropriate conditions
+
 			// If inventory contains three soap bottles, add a blue shell to the item list.
 			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, 3) && !_addedBlueShell)
 			{
@@ -213,6 +215,10 @@ namespace BubbleBobble
 				case "Enemy":
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
+						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+						{
+							Invoke("LoadCredits", _levelChangeDelay);
+						}
 						print("Invoking level change");
 						FindObjectOfType<LevelManager>().CanSpawnItem = false;
 						AddItemToList();
@@ -247,6 +253,11 @@ namespace BubbleBobble
 			}
 		}
 
+		public void ClearEnemyList()
+		{
+			_enemyList.Clear();
+		}
+
 		// Adds an enemy object to a list
 		public void AddEnemyToList(GameObject enemyObject)
 		{
@@ -277,5 +288,10 @@ namespace BubbleBobble
 			_projectileList.Remove(projectileObject);
 		}
 		#endregion Projectile Related
+
+		private void LoadCredits()
+		{
+			SceneManager.LoadSceneAsync("Credits");
+		}
 	}
 }
