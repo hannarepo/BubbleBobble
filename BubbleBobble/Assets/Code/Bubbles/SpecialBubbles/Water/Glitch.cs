@@ -101,15 +101,15 @@ namespace BubbleBobble
 				_inputReader = _player.GetComponent<InputReader>();
 				gameObject.layer = LayerMask.NameToLayer("Water");
 			}
+		}
+
+		private void OnCollisionStay2D(Collision2D collision)
+		{
 			if (collision.gameObject.CompareTag(Tags._platform)
 			|| collision.gameObject.CompareTag(Tags._ground))
 			{
 				_isTouchingFloor = true;
 			}
-		}
-
-		private void OnCollisionStay2D(Collision2D collision)
-		{
 		}
 
 		private void OnCollisionExit2D(Collision2D collision)
