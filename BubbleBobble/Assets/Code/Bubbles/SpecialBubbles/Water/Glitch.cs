@@ -94,15 +94,15 @@ namespace BubbleBobble
 			{
 				enemyManagement.LaunchAtDeath(true);
 			}
-			if (collision.gameObject.CompareTag(Tags._player) && _canGrabPlayer)
+			if (collision.gameObject.CompareTag(Tags.Player) && _canGrabPlayer)
 			{
 				_player = collision.gameObject;
 				_playerControl = _player.GetComponent<PlayerControl>();
 				_inputReader = _player.GetComponent<InputReader>();
 				gameObject.layer = LayerMask.NameToLayer("Water");
 			}
-			if (collision.gameObject.CompareTag(Tags._platform)
-			|| collision.gameObject.CompareTag(Tags._ground))
+			if (collision.gameObject.CompareTag(Tags.Platform)
+			|| collision.gameObject.CompareTag(Tags.Ground))
 			{
 				_isTouchingFloor = true;
 			}
@@ -114,8 +114,8 @@ namespace BubbleBobble
 
 		private void OnCollisionExit2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag(Tags._platform)
-			|| collision.gameObject.CompareTag(Tags._ground))
+			if (collision.gameObject.CompareTag(Tags.Platform)
+			|| collision.gameObject.CompareTag(Tags.Ground))
 			{
 				_isTouchingFloor = false;
 			}
@@ -123,8 +123,8 @@ namespace BubbleBobble
 
 		private void OnTriggerEnter2D(Collider2D collider)
 		{
-			if(collider.gameObject.CompareTag(Tags._platform)
-			|| collider.gameObject.CompareTag(Tags._wall))
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
 			{
 				_isTouchingWall = true;
 			}
@@ -132,8 +132,8 @@ namespace BubbleBobble
 
 		private void OnTriggerExit2D(Collider2D collider)
 		{
-			if(collider.gameObject.CompareTag(Tags._platform)
-			|| collider.gameObject.CompareTag(Tags._wall))
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
 			{
 				_isTouchingWall = false;
 			}

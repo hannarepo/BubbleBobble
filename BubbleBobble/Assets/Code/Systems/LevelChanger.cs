@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements.Experimental;
 
 namespace BubbleBobble
 {
@@ -40,7 +41,11 @@ namespace BubbleBobble
 		[SerializeField] private GameObject _intro;
 		[SerializeField] private CurrentLevelText _currentLevelText;
 
-		public int LevelIndex => _levelIndex;
+		public int LevelIndex
+		{
+			get => _levelIndex;
+			set { _levelIndex = value; }
+		}
 		public bool IsLevelLoaded => _isLevelLoaded;
 		public bool IsLevelStarted => _isLevelStarted;
 		public bool StartLevelChange => _startLevelChange;
