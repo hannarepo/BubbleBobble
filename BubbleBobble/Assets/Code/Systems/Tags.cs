@@ -2,22 +2,25 @@ using System;
 
 namespace BubbleBobble
 {
-    public static class Tags
-    {
-		public const String _player = "Player";
-        public const String _dropTrigger = "DropTrigger";
-		public const String _ground = "Ground";
-		public const String _platform = "Platform";
-		public const String _wall = "Wall";
-		public const String _bubble = "Bubble";
-		public const String _topSpawnPoint = "TopSpawnPoint";
-		public const String _projectile = "Projectile";
-		public const String _enemy = "Enemy";
-		public const String _playerFeet = "PlayerFeet";
-		public const String _enemyUp = "EnemyUp";
-		public const String _topSpawnLeft = "TopSpawnLeft";
-		public const String _topSpawnRight = "TopSpawnRight";
-		public const String _dropDownPlatform = "DropDownPlatform";
-		public const String _deadEnemy = "DeadEnemy";
-    }
+	public static class Tags
+	{
+		public const String Player = "Player";
+		public const String DropTrigger = "DropTrigger";
+		public const String Ground = "Ground";
+		public const String Platform = "Platform";
+		public const String Wall = "Wall";
+		public const String Bubble = "Bubble";
+		public const String TopSpawnPoint = "TopSpawnPoint";
+		public const String Projectile = "Projectile";
+		public const String Enemy = "Enemy";
+		public const String PlayerFeet = "PlayerFeet";
+		public const String EnemyUp = "EnemyUp";
+		public const String TopSpawnLeft = "TopSpawnLeft";
+		public const String TopSpawnRight = "TopSpawnRight";
+		public const String DropDownPlatform = "DropDownPlatform";
+		public const String DeadEnemy = "DeadEnemy";
+		public const String BottomSpawnLeft = "BottomSpawnLeft";
+		public const String BottomSpawnRight = "BottomSpawnRight";
+		public const String Umbrella = "Umbrella";
+	}
 }

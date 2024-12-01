@@ -1,4 +1,3 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace BubbleBobble
@@ -7,14 +6,17 @@ namespace BubbleBobble
 	{
 		[SerializeField] private float _speed;
 		[SerializeField] private Vector2 _velocity;
-		[SerializeField] FloorChecker _floorChecker;
-		[SerializeField] WallChecker _wallChecker;
 		[SerializeField] float _destructionPosition = -8f;
+		[SerializeField] Collider2D _leftCollider;
+		[SerializeField] Collider2D _rightCollider;
 		private Rigidbody2D _rigidBody;
 		private bool _directionRandomized = false;
 		private bool _canGrabPlayer = true;
 		private GameObject _player;
+		private PlayerControl _playerControl;
 		private InputReader _inputReader;
+		private bool _isTouchingFloor = false;
+		private bool _isTouchingWall = false;
 
 	#region Unity Functions
 
@@ -30,51 +32,51 @@ namespace BubbleBobble
 				Destroy(gameObject);
 			}
 
-			if (!_floorChecker.IsTouchingFloor)
+			if (!_isTouchingFloor)
 			{
 				_velocity = new Vector2(0, -_speed);
 				_directionRandomized = false;
 			}
 
-			if (!_floorChecker.IsTouchingFloor && _wallChecker.IsTouchingWall)
+			if (!_isTouchingFloor && _isTouchingWall)
 			{
-				_wallChecker.SwapCollider();
+				SwapWallCollider();
 			}
 
-			else if (_floorChecker.IsTouchingFloor && !_wallChecker.IsTouchingWall
+			else if (_isTouchingFloor && !_isTouchingWall
 					&& !_directionRandomized)
 			{
 				if (Random.Range(0, 2) == 0)
 				{
 					_velocity = new Vector2(_speed, 0);
-					_wallChecker.RightColliderOn();
+					RightColliderOn();
 				}
 				else
 				{
 					_velocity = new Vector2(-_speed, 0);
-					_wallChecker.LeftColliderOn();
+					LeftColliderOn();
 				}
 				_directionRandomized = true;
 			}
 
-			else if (_floorChecker.IsTouchingFloor && _wallChecker.IsTouchingWall)
+			else if (_isTouchingFloor && _isTouchingWall)
 			{
 				if (_velocity.x > 0)
 				{
 					_velocity = new Vector2(-_speed, 0);
-					_wallChecker.LeftColliderOn();
+					LeftColliderOn();
 				}
 				else if (_velocity.x < 0)
 				{
 					_velocity = new Vector2(_speed, 0);
-					_wallChecker.RightColliderOn();
+					RightColliderOn();
 				}
 			}
 
 			if (_player != null && _canGrabPlayer)
 			{
 				_player.transform.position = transform.position;
-				if (_inputReader.Jump || !_player.GetComponent<PlayerControl>().CanMove)
+				if (_inputReader.Jump || !_playerControl.CanMove)
 				{
 					_canGrabPlayer = false;
 				}
@@ -92,9 +94,10 @@ namespace BubbleBobble
 			{
 				enemyManagement.LaunchAtDeath(true);
 			}
-			if (collision.gameObject.CompareTag(Tags._player) && _canGrabPlayer)
+			if (collision.gameObject.CompareTag(Tags.Player) && _canGrabPlayer)
 			{
 				_player = collision.gameObject;
+				_playerControl = _player.GetComponent<PlayerControl>();
 				_inputReader = _player.GetComponent<InputReader>();
 				gameObject.layer = LayerMask.NameToLayer("Water");
 			}
@@ -102,22 +105,68 @@ namespace BubbleBobble
 
 		private void OnCollisionStay2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag(Tags._platform)
-			|| collision.gameObject.CompareTag(Tags._ground))
+			if (collision.gameObject.CompareTag(Tags.Platform)
+			|| collision.gameObject.CompareTag(Tags.Ground))
 			{
-				_floorChecker.IsTouchingFloor = true;
+				_isTouchingFloor = true;
 			}
 		}
 
 		private void OnCollisionExit2D(Collision2D collision)
 		{
-			if (collision.gameObject.CompareTag(Tags._platform)
-			|| collision.gameObject.CompareTag(Tags._ground))
+			if (collision.gameObject.CompareTag(Tags.Platform)
+			|| collision.gameObject.CompareTag(Tags.Ground))
 			{
-				_floorChecker.IsTouchingFloor = false;
+				_isTouchingFloor = false;
+			}
+		}
+
+		private void OnTriggerEnter2D(Collider2D collider)
+		{
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
+			{
+				_isTouchingWall = true;
+			}
+		}
+
+		private void OnTriggerExit2D(Collider2D collider)
+		{
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
+			{
+				_isTouchingWall = false;
 			}
 		}
 
 	#endregion Unity Functions
+
+	#region WallCheck
+
+		public void LeftColliderOn()
+		{
+			_leftCollider.enabled = true;
+			_rightCollider.enabled = false;
+		}
+
+		public void RightColliderOn()
+		{
+			_rightCollider.enabled = true;
+			_leftCollider.enabled = false;
+		}
+
+		public void SwapWallCollider()
+		{
+			if (_rightCollider.enabled)
+			{
+				LeftColliderOn();
+			}
+			else
+			{
+				RightColliderOn();
+			}
+		}
+
+	#endregion WallCheck
 	}
 }

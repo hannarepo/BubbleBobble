@@ -11,8 +11,8 @@ namespace BubbleBobble
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private Color _deathColor;
 		[SerializeField] private float _rotationSpeed = 500f;
-		[SerializeField] private float _triggerYPos;
-		[SerializeField] private float _ySpawnPos;
+		[SerializeField] private float _topTriggerYPos;
+		[SerializeField] private float _bottomTriggerYPos;
 		[SerializeField] private AudioClip _launchSFX;
 		private GameManager _gameManager;
 		private Audiomanager _audioManager;
@@ -45,9 +45,33 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			if (transform.position.y < _triggerYPos && _levelChanger.IsLevelLoaded)
+			if (transform.position.y < _bottomTriggerYPos)
+            {
+                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag(Tags.TopSpawnLeft);
+                GameObject topSpawnRight = GameObject.FindGameObjectWithTag(Tags.TopSpawnRight);
+
+                if (transform.position.x < 0 && topSpawnLeft != null)
+                {
+                    transform.position = topSpawnLeft.transform.position;
+                }
+                else if (transform.position.x >= 0 && topSpawnRight != null)
+                {
+                    transform.position = topSpawnRight.transform.position;
+                }
+			}
+			else if (transform.position.y > _topTriggerYPos)
 			{
-				transform.position = new Vector3(transform.position.x, _ySpawnPos, 0);
+				GameObject bottomSpawnLeft = GameObject.FindGameObjectWithTag(Tags.BottomSpawnLeft);
+                GameObject bottomSpawnRight = GameObject.FindGameObjectWithTag(Tags.BottomSpawnRight);
+
+				if (transform.position.x > 0 && bottomSpawnLeft != null)
+                {
+                    transform.position = bottomSpawnLeft.transform.position;
+                }
+                else if (transform.position.x >= 0 && bottomSpawnRight != null)
+                {
+                    transform.position = bottomSpawnRight.transform.position;
+                }
 			}
 
 			if (_launched)
@@ -79,7 +103,7 @@ namespace BubbleBobble
 			}
 
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
-			gameObject.tag = Tags._deadEnemy;
+			gameObject.tag = Tags.DeadEnemy;
 			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
@@ -116,7 +140,7 @@ namespace BubbleBobble
 		{
 			if (_launched && _canSpawn)
 			{
-				if (other.gameObject.CompareTag(Tags._ground) || other.gameObject.CompareTag(Tags._platform))
+				if (other.gameObject.CompareTag(Tags.Ground) || other.gameObject.CompareTag(Tags.Platform))
 				{
 					SpawnItem();
 				}

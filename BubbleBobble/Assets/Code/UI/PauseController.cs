@@ -4,6 +4,14 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Handles the pause menu.
+	/// Old Script, no longer in use AFAIK.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Juho Kokkonen
+	/// </remarks>
 	public class PauseController : MonoBehaviour
 	{
 

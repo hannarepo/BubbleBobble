@@ -20,11 +20,12 @@ namespace BubbleBobble
 		[SerializeField] protected GameObject _player;
 		[SerializeField] private PowerUpData _powerUpData;
 		[SerializeField] private TextMeshProUGUI _priceText;
-		[SerializeField] private Image _buttonImage;
-		[SerializeField] protected GameObject _activeStatus;
-		[SerializeField] protected Image _timerImage;
-		[SerializeField] protected float _powerUpTime = 20f;
+		[SerializeField, Tooltip("Shop button image")]private Image _buttonImage;
+		[SerializeField, Tooltip("Game object where power up script is attached")]
+		protected GameObject _activeStatus;
+		[SerializeField, Tooltip("Timer circle")] protected Image _timerImage;
 		[SerializeField] protected TMP_Text _timerText;
+		[SerializeField, Tooltip("How long the power up is active")] protected float _powerUpTime = 20f;
 		protected bool _isActive;
 		protected float _timer;
 
@@ -33,6 +34,7 @@ namespace BubbleBobble
 		protected virtual void Start()
 		{
 			SetActiveStatus(false);
+			SetPriceText();
 		}
 
 		private void Update()
@@ -49,6 +51,9 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Deactivates power up and resets timer and timer image fill amount.
+		/// </summary>
 		public virtual void DeactivatePowerUp()
 		{
 			_isActive = false;
@@ -72,6 +77,11 @@ namespace BubbleBobble
 			SetActiveStatus(true);
 		}
 
+		public void SetPriceText()
+		{
+			_priceText.text = _powerUpData.Price.ToString();
+		}
+
 		public void SetPriceColor(Color color)
 		{
 			_priceText.color = color;
@@ -85,7 +95,7 @@ namespace BubbleBobble
 		/// <summary>
 		/// Sets the active status of the power up to let player know when power up is active.
 		/// </summary>
-		/// <param name="isActive"></param>
+		/// <param name="isActive"> True if powerup is active, false if not. </param>
 		public virtual void SetActiveStatus(bool isActive)
 		{
 			_activeStatus.SetActive(isActive);
