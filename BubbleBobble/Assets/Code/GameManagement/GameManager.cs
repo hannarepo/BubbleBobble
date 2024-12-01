@@ -218,6 +218,8 @@ namespace BubbleBobble
 						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
 						{
 							Invoke("LoadCredits", _levelChangeDelay);
+							print("Invoking credits");
+							break;
 						}
 						print("Invoking level change");
 						FindObjectOfType<LevelManager>().CanSpawnItem = false;
