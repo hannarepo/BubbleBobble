@@ -570,6 +570,7 @@ GameObject:
   - component: {fileID: 69079300}
   - component: {fileID: 69079304}
   - component: {fileID: 69079305}
+  - component: {fileID: 69079306}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -693,6 +694,19 @@ MonoBehaviour:
   _audioMixer: {fileID: 24100000, guid: 7538bd1eab40f7a4db1ce3e34a4efbad, type: 2}
   _musicSlider: {fileID: 1707915910}
   _SFXSlider: {fileID: 632559931}
+--- !u!114 &69079306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 69079299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4931f61343445ca47973940ea8c16e77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _levelName: HannaTestScene
 --- !u!1 &74284300
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,9 +4476,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1118806468}
-        m_TargetAssemblyTypeName: BubbleBobble.BubbleFade, Assembly-CSharp
-        m_MethodName: StartFadeIn
+      - m_Target: {fileID: 69079306}
+        m_TargetAssemblyTypeName: SceneLoader.LoadLevelTrigger, Assembly-CSharp
+        m_MethodName: OnButtonClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
