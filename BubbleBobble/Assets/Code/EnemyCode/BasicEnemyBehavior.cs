@@ -142,7 +142,7 @@ namespace BubbleBobble
 		{
 			_rigidbody2D.velocity = Vector2.down * 0;
 			_rigidbody2D.velocity = _direction * _speed;
-			Debug.Log("bomba");
+			//Debug.Log("bomba");
 		}
 
 		private void Shoot()

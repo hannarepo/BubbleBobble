@@ -11,13 +11,13 @@ namespace BubbleBobble
 
 		public void UpdateLevelNumber()
 		{
-			_levelNumberText.text = $"{_levelCounter}";
 			_levelCounter++;
+			_levelNumberText.text = $"{_levelCounter}";
 		}
 
 		public void UpdateWorldNumber(int worldIndex)
 		{
-			_levelCounter = 1;
+			_levelCounter = -1;
 			_worldNumberText.text = $"{worldIndex}";
 		}
 	}
