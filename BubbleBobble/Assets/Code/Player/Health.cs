@@ -31,6 +31,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _deathSFX;
 		// Invincibility for testing purposes
 		[SerializeField] private bool _invincibility = false;
+		[SerializeField] private GameObject _gameOverScreen;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -171,6 +172,12 @@ namespace BubbleBobble
 		{
 			gameObject.SetActive(false);
 			_audioManager.PlaySFX(_deathSFX);
+			Invoke("GameOver", 1f);
+		}
+
+		private void GameOver()
+		{
+			_gameOverScreen.SetActive(true);
 		}
 	}
 }

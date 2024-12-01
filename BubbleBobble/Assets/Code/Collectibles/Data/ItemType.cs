@@ -9,7 +9,8 @@ namespace BubbleBobble
         Soap,
         Cd,
         Mp3Player,
-        FloppyDisk,
+        BlueFloppyDisk,
+		PurpleFloppyDisk,
         Camera,
 		Umbrella
     }
