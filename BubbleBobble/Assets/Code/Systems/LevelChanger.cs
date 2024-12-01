@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements.Experimental;
 
 namespace BubbleBobble
 {
@@ -49,6 +48,7 @@ namespace BubbleBobble
 		public bool IsLevelLoaded => _isLevelLoaded;
 		public bool IsLevelStarted => _isLevelStarted;
 		public bool StartLevelChange => _startLevelChange;
+		public int LevelCount => _levelPrefabs.Count;
 
 		private void Start()
 		{
@@ -77,7 +77,7 @@ namespace BubbleBobble
 					_isLevelLoaded = true;
 					_isLevelStarted = true;
 					_startLevelChange = false;
-					_currentLevelText.UpdateLevelNumber(_levelIndex + 1);
+					_currentLevelText.UpdateLevelNumber();
 				}
 			}
 		}

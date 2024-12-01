@@ -71,7 +71,6 @@ namespace BubbleBobble
 			{
 				ResetHurryUp();
 				_hurryUp = false;
-				_canResetHurryUp = false;
 			}
 		}
 
@@ -123,6 +122,8 @@ namespace BubbleBobble
 			_audioManager.SlowDownMusic();
 			_hurryUpTimer = 0;
 			_gameManager.HurryUpText.SetActive(false);
+			CancelInvoke("FlashHurryUpText");
+			_canResetHurryUp = false;
 		}
 
 		private void FlashHurryUpText()

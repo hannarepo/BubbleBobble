@@ -7,14 +7,17 @@ namespace BubbleBobble
 	{
 		[SerializeField] private TMP_Text _levelNumberText;
 		[SerializeField] private TMP_Text _worldNumberText;
+		private int _levelCounter = 1;
 
-		public void UpdateLevelNumber(int levelIndex)
+		public void UpdateLevelNumber()
 		{
-			_levelNumberText.text = $"{levelIndex}";
+			_levelCounter++;
+			_levelNumberText.text = $"{_levelCounter}";
 		}
 
 		public void UpdateWorldNumber(int worldIndex)
 		{
+			_levelCounter = -1;
 			_worldNumberText.text = $"{worldIndex}";
 		}
 	}
