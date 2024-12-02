@@ -170,7 +170,7 @@ namespace BubbleBobble
 			}
 
 			// If inventory contains three blue floppy discs, add purpleblue shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, 3) && _addedPurpleBlueShell)
+			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, 3) && !_addedPurpleBlueShell)
 			{
 				_spawnableItemPrefabs.Add(_purpleBlueShell);
 				_addedPurpleBlueShell = true;
