@@ -38,25 +38,26 @@ namespace BubbleBobble
             {
                 if (!isPaused)
                 {
-                    Pause();
+                    OpenStore();
                 }
                 else
                 {
-                    Resume();
+                    CloseStore();
                 }
             }
         }
-        public void Pause()
+        public void OpenStore()
         {
             isPaused = true;
             Time.timeScale = 0;
 
             _playerControl.enabled = false;
 
-            OpenStore();
+            _storeOpen.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_storeFirstButton);
         }
 
-        public void Resume()
+        public void CloseStore()
         {
             isPaused = false;
             Time.timeScale = 1;
@@ -66,10 +67,6 @@ namespace BubbleBobble
             _storeOpen.SetActive(false);
         }
 
-        public void OpenStore()
-        {
-            _storeOpen.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(_storeFirstButton);
-        }
+
     }
 }
