@@ -139,12 +139,12 @@ namespace BubbleBobble
 			if (_levelPrefab.name == _windowsLevelName)
 			{
 				_audioManager.ChangeMusic(_windowsMusic);
-				_currentLevelText.UpdateWorldNumber(2);
+				_currentLevelText.UpdateWorldNumber();
 			}
 			else if (_levelPrefab.name == _liminalLevelName)
 			{
 				_audioManager.ChangeMusic(_liminalMusic);
-				_currentLevelText.UpdateWorldNumber(3);
+				_currentLevelText.UpdateWorldNumber();
 			}
 		}
 

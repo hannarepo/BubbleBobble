@@ -47,6 +47,7 @@ namespace BubbleBobble
 		[SerializeField] ScoreText _scoreText;
 		[SerializeField] ScoreText _scoreEndScreen;
 		[SerializeField] TextMeshProUGUI _highscoreText;
+		[SerializeField] private GameObject _undefeatableEnemy;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -55,6 +56,7 @@ namespace BubbleBobble
 		int scoreCount;
 
 		public GameObject HurryUpText => _hurryUpText;
+		public GameObject UndefeatableEnemy => _undefeatableEnemy;
 		public int Score
 		{
 			get { return scoreCount; }
@@ -221,7 +223,7 @@ namespace BubbleBobble
 							print("Invoking credits");
 							break;
 						}
-						print("Invoking level change");
+						//print("Invoking level change");
 						FindObjectOfType<LevelManager>().CanSpawnItem = false;
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
@@ -270,7 +272,7 @@ namespace BubbleBobble
 		public void RemoveEnemyFromList(GameObject enemyObject)
 		{
 			_enemyList.Remove(enemyObject);
-			print("Enemies in list: " + _enemyList.Count);
+			//print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
 			//Destroy(enemyObject);
 		}
