@@ -20,15 +20,18 @@ namespace BubbleBobble
 
 		[SerializeField] private EnemyState _currentState;
 		[SerializeField] private float _speed;
+		[SerializeField] private float _jumpForce = 5f;
 		[SerializeField] private float _hurryUpSpeed;
 		[SerializeField] private Transform _edgeCheck;
 		[SerializeField] private Transform _groundCheck;
 		[SerializeField] private LayerMask _groundLayer;
 		[SerializeField] private Transform _wallCheck;
 		[SerializeField] private LayerMask _wallLayer;
+		[SerializeField] private Transform _platformAboveCheck;
 		[SerializeField] private Vector2 _edgeBoxCastSize;
 		[SerializeField] private Vector2 _groundBoxCastSize;
 		[SerializeField] private Vector2 _wallBoxCastSize;
+		[SerializeField] private Vector2 _platformAboveBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
 		private GameObject _player;
@@ -39,6 +42,7 @@ namespace BubbleBobble
 		private bool _isGrounded = false;
 		private bool _isWallAhead = false;
 		private bool _isGroundAhead = false;
+		private bool _isPlatformAbove = false;
 		private bool _isPlayerAbove = false;
 		private bool _isPlayerBelow = false;
 		private bool _isPlayerOnSameLevel = false;
@@ -59,12 +63,13 @@ namespace BubbleBobble
 		{
 			_isGroundAhead = Physics2D.BoxCast(_edgeCheck.position, _edgeBoxCastSize, 0f, _direction, _boxCastDistance, _groundLayer);
 			_isGrounded = Physics2D.BoxCast(_groundCheck.position, _groundBoxCastSize, 0f, Vector2.down, _boxCastDistance, _groundLayer);
+			_isPlatformAbove = Physics2D.BoxCast(_platformAboveCheck.position, _platformAboveBoxCastSize, 0f, Vector2.up, _boxCastDistance, _groundLayer);
 			_playerPosition = _player.transform.position;
 			_enemyPosition = transform.position;
 
-			_isPlayerAbove = _playerPosition.y > _enemyPosition.y;
-			_isPlayerBelow = _playerPosition.y < _enemyPosition.y;
-			_isPlayerOnSameLevel = _playerPosition.y == _enemyPosition.y;
+			PlayerYPosition();
+
+
 
 			switch (_currentState)
 			{
@@ -111,6 +116,13 @@ namespace BubbleBobble
 			}
 
 			Gizmos.DrawWireCube(_edgeCheck.position - new Vector3(0, _boxCastDistance, 0), _edgeBoxCastSize);
+
+			if (_platformAboveCheck == null)
+			{
+				return;
+			}
+
+			Gizmos.DrawWireCube(_platformAboveCheck.position - new Vector3(0, _boxCastDistance, 0), _platformAboveBoxCastSize);
 		}
 
 		private void Move()
@@ -128,7 +140,9 @@ namespace BubbleBobble
 
 		private void Jump()
 		{
-			// Jumping logic
+			_rigidbody2D.velocity = Vector2.left * 0;
+			_rigidbody2D.velocity = Vector2.right * 0;
+			_rigidbody2D.AddForce(transform.up * _jumpForce, ForceMode2D.Impulse);
 		}
 
 		private void Fall()
@@ -142,7 +156,6 @@ namespace BubbleBobble
 		{
 			_rigidbody2D.velocity = Vector2.down * 0;
 			_rigidbody2D.velocity = _direction * _speed;
-			Debug.Log("bomba");
 		}
 
 		private void Shoot()
@@ -168,12 +181,44 @@ namespace BubbleBobble
 			{
 				_currentState = EnemyState.Falling;
 			}
+			/*
+			else if (_currentState == EnemyState.Moving && _isPlayerAbove && _isPlatformAbove)
+			{
+				_currentState = EnemyState.Jumping;
+			}
+			else if (_currentState == EnemyState.Jumping && _isGrounded)
+			{
+				_currentState = EnemyState.Moving;
+			} */
 		}
 
 		private void Flip()
 		{
 			_isFacingRight = !_isFacingRight;
 			transform.Rotate(0f, 180f, 0f);
+		}
+
+		private void PlayerYPosition()
+		{
+			if (Vector2.Distance(new Vector2(0, _playerPosition.y), new Vector2(0, _enemyPosition.y)) < 0.3f)
+			{
+				_isPlayerOnSameLevel = true;
+				_isPlayerAbove = false;
+				_isPlayerBelow = false;
+			} 
+			else if (_playerPosition.y > _enemyPosition.y)
+			{
+				_isPlayerAbove = true;
+				_isPlayerBelow = false;
+				_isPlayerOnSameLevel = false;
+			} 
+			else if (_playerPosition.y < _enemyPosition.y)
+			{
+				_isPlayerBelow = true;
+				_isPlayerAbove = false;
+				_isPlayerOnSameLevel = false;
+			}
+
 		}
 	}
 }

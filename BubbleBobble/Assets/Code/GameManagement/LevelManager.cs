@@ -21,6 +21,7 @@ namespace BubbleBobble
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
 		[SerializeField] GameObject _enemies;
+		[SerializeField] private float _spawnUndefeatableTime = 35f;
 		private GameManager _gameManager;
 		private List<Item> _spawnableItemPrefabs;
 		private float _spawnedItemCount;
@@ -30,6 +31,8 @@ namespace BubbleBobble
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 		private Audiomanager _audioManager;
+		private bool _canResetHurryUp = false;
+		private GameObject _undefeatableEnemy;
 
 		public bool CanSpawnItem
 		{
@@ -43,6 +46,7 @@ namespace BubbleBobble
 			_levelChanger = FindObjectOfType<LevelChanger>();
 			_spawnableItemPrefabs = _gameManager._spawnableItemPrefabs;
 			_audioManager = FindObjectOfType<Audiomanager>();
+			_undefeatableEnemy = _gameManager.UndefeatableEnemy;
 		}
 
 		private void Update()
@@ -63,14 +67,18 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
-				_audioManager.IsHurryUpActive = true;
+				_canResetHurryUp = true;
 			}
 
-			if (_levelChanger.StartLevelChange)
+			if (_hurryUpTimer >= _spawnUndefeatableTime)
+			{
+				_undefeatableEnemy.SetActive(true);
+			}
+
+			if (_levelChanger.StartLevelChange && _canResetHurryUp)
 			{
 				ResetHurryUp();
 				_hurryUp = false;
-				_audioManager.IsHurryUpActive = false;
 			}
 		}
 
@@ -113,13 +121,18 @@ namespace BubbleBobble
 		{
 			// TODO: Call enemy's angry mode
 			FlashHurryUpText();
+			_audioManager.SpeedUpMusic();
 		}
 
 		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
+			_audioManager.SlowDownMusic();
 			_hurryUpTimer = 0;
 			_gameManager.HurryUpText.SetActive(false);
+			CancelInvoke("FlashHurryUpText");
+			_canResetHurryUp = false;
+			_undefeatableEnemy.SetActive(false);
 		}
 
 		private void FlashHurryUpText()

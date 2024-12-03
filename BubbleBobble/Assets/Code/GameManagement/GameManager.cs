@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
@@ -47,6 +47,7 @@ namespace BubbleBobble
 		[SerializeField] ScoreText _scoreText;
 		[SerializeField] ScoreText _scoreEndScreen;
 		[SerializeField] TextMeshProUGUI _highscoreText;
+		[SerializeField] private GameObject _undefeatableEnemy;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -55,6 +56,7 @@ namespace BubbleBobble
 		int scoreCount;
 
 		public GameObject HurryUpText => _hurryUpText;
+		public GameObject UndefeatableEnemy => _undefeatableEnemy;
 		public int Score
 		{
 			get { return scoreCount; }
@@ -153,6 +155,8 @@ namespace BubbleBobble
 
 		private void AddItemToList()
 		{
+			// TODO: Add umbrella at appropriate conditions
+
 			// If inventory contains three soap bottles, add a blue shell to the item list.
 			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, 3) && !_addedBlueShell)
 			{
@@ -168,7 +172,7 @@ namespace BubbleBobble
 			}
 
 			// If inventory contains three blue floppy discs, add purpleblue shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, 3) && _addedPurpleBlueShell)
+			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, 3) && !_addedPurpleBlueShell)
 			{
 				_spawnableItemPrefabs.Add(_purpleBlueShell);
 				_addedPurpleBlueShell = true;
@@ -213,7 +217,13 @@ namespace BubbleBobble
 				case "Enemy":
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
-						print("Invoking level change");
+						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+						{
+							Invoke("LoadCredits", _levelChangeDelay);
+							print("Invoking credits");
+							break;
+						}
+						//print("Invoking level change");
 						FindObjectOfType<LevelManager>().CanSpawnItem = false;
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
@@ -247,6 +257,11 @@ namespace BubbleBobble
 			}
 		}
 
+		public void ClearEnemyList()
+		{
+			_enemyList.Clear();
+		}
+
 		// Adds an enemy object to a list
 		public void AddEnemyToList(GameObject enemyObject)
 		{
@@ -257,7 +272,7 @@ namespace BubbleBobble
 		public void RemoveEnemyFromList(GameObject enemyObject)
 		{
 			_enemyList.Remove(enemyObject);
-			print("Enemies in list: " + _enemyList.Count);
+			//print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
 			//Destroy(enemyObject);
 		}
@@ -277,5 +292,10 @@ namespace BubbleBobble
 			_projectileList.Remove(projectileObject);
 		}
 		#endregion Projectile Related
+
+		private void LoadCredits()
+		{
+			SceneManager.LoadSceneAsync("Credits");
+		}
 	}
 }
