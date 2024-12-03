@@ -47,8 +47,8 @@ namespace BubbleBobble
 		{
 			if (transform.position.y < _bottomTriggerYPos)
             {
-                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag(Tags._topSpawnLeft);
-                GameObject topSpawnRight = GameObject.FindGameObjectWithTag(Tags._topSpawnRight);
+                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag(Tags.TopSpawnLeft);
+                GameObject topSpawnRight = GameObject.FindGameObjectWithTag(Tags.TopSpawnRight);
 
                 if (transform.position.x < 0 && topSpawnLeft != null)
                 {
@@ -61,8 +61,8 @@ namespace BubbleBobble
 			}
 			else if (transform.position.y > _topTriggerYPos)
 			{
-				GameObject bottomSpawnLeft = GameObject.FindGameObjectWithTag(Tags._bottomSpawnLeft);
-                GameObject bottomSpawnRight = GameObject.FindGameObjectWithTag(Tags._bottomSpawnRight);
+				GameObject bottomSpawnLeft = GameObject.FindGameObjectWithTag(Tags.BottomSpawnLeft);
+                GameObject bottomSpawnRight = GameObject.FindGameObjectWithTag(Tags.BottomSpawnRight);
 
 				if (transform.position.x > 0 && bottomSpawnLeft != null)
                 {
@@ -103,7 +103,7 @@ namespace BubbleBobble
 			}
 
 			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
-			gameObject.tag = Tags._deadEnemy;
+			gameObject.tag = Tags.DeadEnemy;
 			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
@@ -140,7 +140,7 @@ namespace BubbleBobble
 		{
 			if (_launched && _canSpawn)
 			{
-				if (other.gameObject.CompareTag(Tags._ground) || other.gameObject.CompareTag(Tags._platform))
+				if (other.gameObject.CompareTag(Tags.Ground) || other.gameObject.CompareTag(Tags.Platform))
 				{
 					SpawnItem();
 				}

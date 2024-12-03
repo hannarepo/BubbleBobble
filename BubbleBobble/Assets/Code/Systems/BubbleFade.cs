@@ -13,21 +13,15 @@ namespace BubbleBobble
 		}
 
 		[SerializeField] private float _fadeSpeed = 1f;
+		[SerializeField] private Image _image;
+		[SerializeField] private PauseMenu _pauseMenu;
 		[SerializeField] private MainMenu _mainMenu;
-		[SerializeField] private bool _fadeOutAtStart = false;
+		private AudioSource _audioSource;
 		private State _state = State.None;
-		private Image _image;
 
 		private void Awake()
 		{
-			_image = GetComponent<Image>();
-
-		}
-		private void Start()
-		{
-			_state = _fadeOutAtStart 
-			? _state = State.FadeOut
-			: _state = State.None;
+			_audioSource = GetComponent<AudioSource>();
 		}
 
 		private void Update()
@@ -38,12 +32,16 @@ namespace BubbleBobble
 				FadeIn();
 				if (Mathf.Approximately(_image.color.a, 1))
 				{
-					_state = State.None;
-					if (_mainMenu != null)
+					if (_pauseMenu != null)
+					{
+						_pauseMenu.Home();
+					}
+					else if (_mainMenu != null)
 					{
 						_mainMenu.PlayGame();
 					}
-					
+
+					_state = State.None;
 				}
 				break;
 
@@ -55,7 +53,6 @@ namespace BubbleBobble
 				}
 				break;
 			}
-
 		}
 
 		private void FadeIn()
@@ -82,7 +79,15 @@ namespace BubbleBobble
 
 		public void StartFadeIn()
 		{
+			SetAlpha(0);
 			_state = State.FadeIn;
+			Time.timeScale = 1;
+			_audioSource.Play();
+		}
+		public void StartFadeOut()
+		{
+			SetAlpha(1);
+			_state = State.FadeOut;
 		}
 	}
 }

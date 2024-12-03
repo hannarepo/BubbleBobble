@@ -12,8 +12,8 @@ namespace BubbleBobble
 
 		private void OnTriggerEnter2D(Collider2D collider)
 		{
-			if(collider.gameObject.CompareTag(Tags._platform)
-			|| collider.gameObject.CompareTag(Tags._wall))
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
 			{
 				_isTouchingWall = true;
 			}
@@ -21,8 +21,8 @@ namespace BubbleBobble
 
 		private void OnTriggerExit2D(Collider2D collider)
 		{
-			if(collider.gameObject.CompareTag(Tags._platform)
-			|| collider.gameObject.CompareTag(Tags._wall))
+			if(collider.gameObject.CompareTag(Tags.Platform)
+			|| collider.gameObject.CompareTag(Tags.Wall))
 			{
 				_isTouchingWall = false;
 			}
