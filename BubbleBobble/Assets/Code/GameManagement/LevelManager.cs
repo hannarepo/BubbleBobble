@@ -78,7 +78,6 @@ namespace BubbleBobble
 			if (_levelChanger.StartLevelChange && _canResetHurryUp)
 			{
 				ResetHurryUp();
-				_hurryUp = false;
 			}
 		}
 
@@ -129,6 +128,7 @@ namespace BubbleBobble
 			// TODO: Reset enemy's angry mode
 			_audioManager.SlowDownMusic();
 			_hurryUpTimer = 0;
+			_hurryUp = false;
 			_gameManager.HurryUpText.SetActive(false);
 			CancelInvoke("FlashHurryUpText");
 			_canResetHurryUp = false;

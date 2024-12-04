@@ -1,4 +1,5 @@
 using System.Diagnostics.Tracing;
+using TreeEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -46,32 +47,12 @@ namespace BubbleBobble
 		private void Update()
 		{
 			if (transform.position.y < _bottomTriggerYPos)
-            {
-                GameObject topSpawnLeft = GameObject.FindGameObjectWithTag(Tags.TopSpawnLeft);
-                GameObject topSpawnRight = GameObject.FindGameObjectWithTag(Tags.TopSpawnRight);
-
-                if (transform.position.x < 0 && topSpawnLeft != null)
-                {
-                    transform.position = topSpawnLeft.transform.position;
-                }
-                else if (transform.position.x >= 0 && topSpawnRight != null)
-                {
-                    transform.position = topSpawnRight.transform.position;
-                }
+			{
+				transform.position = new Vector3(transform.position.x, _topTriggerYPos, 0);
 			}
 			else if (transform.position.y > _topTriggerYPos)
 			{
-				GameObject bottomSpawnLeft = GameObject.FindGameObjectWithTag(Tags.BottomSpawnLeft);
-                GameObject bottomSpawnRight = GameObject.FindGameObjectWithTag(Tags.BottomSpawnRight);
-
-				if (transform.position.x > 0 && bottomSpawnLeft != null)
-                {
-                    transform.position = bottomSpawnLeft.transform.position;
-                }
-                else if (transform.position.x >= 0 && bottomSpawnRight != null)
-                {
-                    transform.position = bottomSpawnRight.transform.position;
-                }
+				transform.position = new Vector3(transform.position.x, _bottomTriggerYPos, 0);
 			}
 
 			if (_launched)
@@ -92,7 +73,7 @@ namespace BubbleBobble
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
 			Destroy(gameObject);
-			
+
 		}
 
 		public void LaunchAtDeath(bool playSFX)

@@ -132,6 +132,29 @@ namespace BubbleBobble
 				if (_currentLives > 0)
 				{
 					_invincibilityTimer = _invincibilityTime;
+					FindObjectOfType<LevelManager>().ResetHurryUp();
+				}
+			}
+			else if (collision.gameObject.CompareTag(Tags.Undefeatable))
+			{
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+				_playerControl.CanMove = false;
+				Invoke("Respawn", 1f);
+				if (!_invincibility)
+				{
+					_currentLives -= 2;
+				}
+				_hearts[_currentLives].SetActive(false);
+				_hearts[_currentLives+1].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_brokenHearts[_currentLives+1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives+1], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
+				
+				if (_currentLives > 0)
+				{
+					_invincibilityTimer = _invincibilityTime;
+					FindObjectOfType<LevelManager>().ResetHurryUp();
 				}
 			}
 		}
