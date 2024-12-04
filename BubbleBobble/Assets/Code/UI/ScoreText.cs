@@ -6,25 +6,29 @@ using UnityEngine;
 namespace BubbleBobble
 {
 
-	/// <summary>
-	/// Handles the score text in the game.
-	/// </summary>
-	///
-	/// <remarks>
-	/// author: Juho Kokkonen
-	/// </remarks>
-	public class ScoreText : MonoBehaviour
-	{
-		public TextMeshProUGUI ScoreCounter;
+    /// <summary>
+    /// Handles the score text in the game.
+    /// </summary>
+    ///
+    /// <remarks>
+    /// author: Juho Kokkonen
+    /// </remarks>
+    public class ScoreText : MonoBehaviour
+    {
+        public TextMeshProUGUI ScoreCounter;
 
-		public void IncrementScoreCount(int scoreTotal)
-		{
-			ScoreCounter.text = $"{scoreTotal}";
-		}
+        public void UpdateScore(int newScore)
+        {
+            ScoreCounter.text = newScore.ToString();
+        }
+        // public void IncrementScoreCount(int scoreTotal)
+        // {
+        // 	ScoreCounter.text = $"{scoreTotal}";
+        // }
 
-		public void DecrementScoreCount(int scoreTotal)
-		{
-			ScoreCounter.text = $"{scoreTotal}";
-		}
-	}
+        // public void DecrementScoreCount(int scoreTotal)
+        // {
+        // 	ScoreCounter.text = $"{scoreTotal}";
+        // }
+    }
 }
