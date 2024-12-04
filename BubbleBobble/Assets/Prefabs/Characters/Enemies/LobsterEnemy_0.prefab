@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3510119326784701859}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.342, y: -0.552, z: 0}
+  m_LocalPosition: {x: -0.342, y: -0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -305,18 +305,19 @@ MonoBehaviour:
   _groundCheck: {fileID: 2286991158909360805}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 192
   _wallCheck: {fileID: 5235782322899501706}
   _wallLayer:
     serializedVersion: 2
-    m_Bits: 9437184
+    m_Bits: 1048576
   _platformAboveCheck: {fileID: 5162612296814761748}
-  _edgeBoxCastSize: {x: 0.2, y: 0.1}
-  _groundBoxCastSize: {x: 0.57, y: 0.1}
+  _edgeBoxCastSize: {x: 0.2, y: 0.03}
+  _groundBoxCastSize: {x: 0.57, y: 0.03}
   _wallBoxCastSize: {x: 0.1, y: 0.5}
   _platformAboveBoxCastSize: {x: 0.1, y: 0.7}
   _boxCastDistance: 0
   _isFacingRight: 0
+  _jumpStateTime: 0
 --- !u!1 &5477114149300410955
 GameObject:
   m_ObjectHideFlags: 0
@@ -373,7 +374,7 @@ Transform:
   m_GameObject: {fileID: 6657442118741360042}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.142, y: -0.552, z: 0}
+  m_LocalPosition: {x: 0.142, y: -0.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
