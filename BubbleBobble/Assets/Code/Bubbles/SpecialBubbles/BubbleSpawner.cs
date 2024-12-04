@@ -47,7 +47,7 @@ namespace BubbleBobble
 		private void Update()
 		{
 			_timeToSpawn += Time.deltaTime;
-			if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelLoaded)
+			if (_timeToSpawn >= _spawnRate && _levelChanger.IsLevelStarted)
 			{
 				SpawnSpecialBubble();
 			}
