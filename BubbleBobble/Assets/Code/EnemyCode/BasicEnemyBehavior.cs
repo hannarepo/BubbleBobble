@@ -34,6 +34,7 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _platformAboveBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
+		[SerializeField] private float _jumpStateTime;
 		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
 		private Vector2 _direction;
@@ -52,11 +53,6 @@ namespace BubbleBobble
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_currentState = EnemyState.Moving;
 			_player = GameObject.Find("Player");
-		}
-
-		private void Start()
-		{
-			
 		}
 
 		private void Update()
@@ -181,15 +177,16 @@ namespace BubbleBobble
 			{
 				_currentState = EnemyState.Falling;
 			}
-			/*
+			
 			else if (_currentState == EnemyState.Moving && _isPlayerAbove && _isPlatformAbove)
 			{
 				_currentState = EnemyState.Jumping;
 			}
-			else if (_currentState == EnemyState.Jumping && _isGrounded)
+			else if (_currentState == EnemyState.Jumping && _isGrounded && !_isPlatformAbove)
 			{
 				_currentState = EnemyState.Moving;
-			} */
+			}
+			
 		}
 
 		private void Flip()
@@ -218,7 +215,6 @@ namespace BubbleBobble
 				_isPlayerAbove = false;
 				_isPlayerOnSameLevel = false;
 			}
-
 		}
 	}
 }

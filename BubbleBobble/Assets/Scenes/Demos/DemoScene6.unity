@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000001be92c76dbef4dc89b92fb6367222bc04d62d6b02170abbec182ae50df619957
+  m_ApplyToSortingLayers: 000000001be92c76dbef4dc89b92fb6367222bc04d62d6b02170abbec182ae50df6199573369382f
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4342,7 +4342,7 @@ GameObject:
   - component: {fileID: 956425637}
   m_Layer: 24
   m_Name: UndefeatableEnemy
-  m_TagString: Untagged
+  m_TagString: Undefeatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4359,9 +4359,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e020b494c871b4b4681c6f4bb21857e4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 0.2
+  _speed: 1
   _stopInterval: 4
-  _stopTime: 6
+  _stopTime: 7
   _startPosition: {fileID: 1371113908}
 --- !u!50 &956425638
 Rigidbody2D:
@@ -4821,7 +4821,7 @@ PrefabInstance:
       objectReference: {fileID: 968776435}
     - target: {fileID: 7458938812928138293, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _invincibility
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7458938812928138293, guid: a0b51d9e0637d474a85db3595f0bc895, type: 3}
       propertyPath: _gameOverScreen
@@ -6407,20 +6407,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: _hurryUpText
-      value: 
-      objectReference: {fileID: 228530759}
-    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: _hurryUpTime
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: _spawnUndefeatableTime
       value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5236705795139877546, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6467,8 +6459,7 @@ PrefabInstance:
       value: Level1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4353098651766417857, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
