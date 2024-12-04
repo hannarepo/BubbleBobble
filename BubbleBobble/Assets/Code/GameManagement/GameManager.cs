@@ -227,7 +227,10 @@ namespace BubbleBobble
 						}
 						//print("Invoking level change");
 						_levelManager.CanSpawnItem = false;
-						_levelManager.ResetHurryUp();
+						if (_levelManager.IsHurryUpActive)
+						{
+							_levelManager.ResetHurryUp();
+						}
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
