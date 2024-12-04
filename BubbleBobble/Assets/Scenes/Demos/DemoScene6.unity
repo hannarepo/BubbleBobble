@@ -744,7 +744,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 000000001be92c76dbef4dc89b92fb6367222bc04d62d6b02170abbec182ae50df619957
+  m_ApplyToSortingLayers: 000000001be92c76dbef4dc89b92fb6367222bc04d62d6b02170abbec182ae50df6199573369382f
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -4342,7 +4342,7 @@ GameObject:
   - component: {fileID: 956425637}
   m_Layer: 24
   m_Name: UndefeatableEnemy
-  m_TagString: Untagged
+  m_TagString: Undefeatable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6406,10 +6406,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: _hurryUpText
-      value: 
-      objectReference: {fileID: 228530759}
+    - target: {fileID: 1925894070230668965, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_SortingLayer
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1925894070230668965, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_SortingLayerID
+      value: 1469669855
+      objectReference: {fileID: 0}
     - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: _hurryUpTime
       value: 5
@@ -6467,8 +6471,7 @@ PrefabInstance:
       value: Level1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 4353098651766417857, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}

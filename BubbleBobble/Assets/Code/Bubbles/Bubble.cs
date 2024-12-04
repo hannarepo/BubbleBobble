@@ -16,6 +16,7 @@ namespace BubbleBobble
 		[SerializeField] private BubbleData _bubbleData;
 		[SerializeField] private float _moveSpeed = 1f;
 		[SerializeField] private ParticleSystem _popEffectPrefab;
+		[SerializeField] private ParticleSystem _bigPopEffectPrefab;
 		[SerializeField] private AudioClip _popSFX;
 		[SerializeField] private GameObject _pointEffectPrefab;
 		private Audiomanager _audioManager;
@@ -108,19 +109,16 @@ namespace BubbleBobble
 			_spriteRenderer.enabled = false;
 			_collider.enabled = false;
 
-			float delay = 0;
-
 			if (_audioManager != null)
 			{
 				_audioManager.PlaySFX(_popSFX);
 			}
 
-			if (_popEffectPrefab != null)
+			if (_popEffectPrefab != null && _bigPopEffectPrefab != null)
 			{
-				ParticleSystem effect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
-				delay = Mathf.Max(delay, effect.main.duration + 0.5f);
-				effect.Play(withChildren: true);
-				//Destroy(effect.gameObject, delay);
+				ParticleSystem popEffect = Instantiate(_popEffectPrefab, transform.position, Quaternion.identity);
+				ParticleSystem bigPopEffect = Instantiate(_bigPopEffectPrefab, transform.position, Quaternion.identity);
+				popEffect.Play(withChildren: true);
 			}
 
 			_gameManager.BubblePopped(Type);
