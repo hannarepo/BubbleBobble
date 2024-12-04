@@ -177,16 +177,16 @@ namespace BubbleBobble
 			{
 				_currentState = EnemyState.Falling;
 			}
-			/*
+			
 			else if (_currentState == EnemyState.Moving && _isPlayerAbove && _isPlatformAbove)
 			{
 				_currentState = EnemyState.Jumping;
 			}
-			else if (_currentState == EnemyState.Jumping && _isGrounded)
+			else if (_currentState == EnemyState.Jumping && _isGrounded && !_isPlatformAbove)
 			{
 				_currentState = EnemyState.Moving;
 			}
-			*/
+			
 		}
 
 		private void Flip()
@@ -215,7 +215,6 @@ namespace BubbleBobble
 				_isPlayerAbove = false;
 				_isPlayerOnSameLevel = false;
 			}
-
 		}
 	}
 }
