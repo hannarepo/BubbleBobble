@@ -23,6 +23,7 @@ namespace BubbleBobble
 		private GameObject _levelPrefab;
 		private float _currentLevelMovePosY = 0f;
 		private bool _startLevelChange = false;
+		private bool _waitForFade = false;
 		[SerializeField] private GameObject _currentLevel;
 		[SerializeField] private Transform _newLevelSpawnPoint;
 		[SerializeField] private float _speed = 1.0f;
@@ -37,11 +38,19 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 		[SerializeField] private float _levelOneStartDelay = 10f;
+		[SerializeField] private GameObject _intro;
+		[SerializeField] private CurrentLevelText _currentLevelText;
+		[SerializeField] private SpriteFade _spriteFade;
 
-		public int LevelIndex => _levelIndex;
+		public int LevelIndex
+		{
+			get => _levelIndex;
+			set { _levelIndex = value; }
+		}
 		public bool IsLevelLoaded => _isLevelLoaded;
 		public bool IsLevelStarted => _isLevelStarted;
 		public bool StartLevelChange => _startLevelChange;
+		public int LevelCount => _levelPrefabs.Count;
 
 		private void Start()
 		{
@@ -50,29 +59,40 @@ namespace BubbleBobble
 			if (_currentLevel.name == "Level1")
 			{
 				// Call / invoke the intro thingies here
-				Invoke("IntroDone", _levelOneStartDelay);
+				Invoke("IntroDone", _intro.GetComponent<AudioSource>().clip.length);
 			}
 		}
 
 		void Update()
 		{
 			// If the new level is loaded, move the current and the new level up until the new level is centered
-			if (_startLevelChange && !_isLevelLoaded && _levelIndex <= _levelPrefabs.Count)
+			if (_startLevelChange && !_isLevelStarted && _levelIndex <= _levelPrefabs.Count)
 			{
 				LevelChangeMovement();
-				if (_newLevel.transform.position == Vector3.zero
-					&& _player.transform.position == _playerReturnPoint.position)
+
+				if (_waitForFade)
 				{
-					Destroy(_currentLevel);
-					_currentLevel = _newLevel;
-					_playerControl.UnRestrainPlayer();
-					_levelIndex++;
-					_isLevelLoaded = true;
-					_isLevelStarted = true;
-					_startLevelChange = false;
+					if (_newLevel.transform.position == Vector3.zero
+					&& _player.transform.position == _playerReturnPoint.position
+					&& !_isLevelLoaded)
+					{
+						_spriteFade.StartFadeOut();
+						SpriteFade.FadeComplete += OnFadeComplete;
+						_isLevelLoaded = true;
+					}
+					else
+					{
+						return;
+					}
+				}
+
+				if (_newLevel.transform.position == Vector3.zero
+					&& _player.transform.position == _playerReturnPoint.position
+					&& !_waitForFade)
+				{
+					LevelChangeComplete();
 				}
 			}
-
 		}
 
 		/// <summary>
@@ -86,7 +106,18 @@ namespace BubbleBobble
 			_playerControl.RestrainPlayer(true);
 			_isLevelLoaded = false;
 			_isLevelStarted = false;
-			Invoke("DelayedLevelChange", _levelChangeDelay);
+			if (_levelPrefab.name == _windowsLevelName
+				|| _levelPrefab.name == _liminalLevelName)
+			{
+				_waitForFade = true;
+				_spriteFade = FindObjectOfType<SpriteFade>();
+				_spriteFade.StartFadeIn();
+				SpriteFade.FadeComplete += OnFadeComplete;
+			}
+			else
+			{
+				Invoke("DelayedLevelChange", _levelChangeDelay);
+			}
 		}
 
 		/// <summary>
@@ -100,25 +131,55 @@ namespace BubbleBobble
 			_player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
 		}
 
+		
 		private void DelayedLevelChange()
 		{
-			_startLevelChange = !_startLevelChange;
+			_startLevelChange = true;
 
 			if (_levelPrefab.name == _windowsLevelName)
 			{
 				_audioManager.ChangeMusic(_windowsMusic);
+				_currentLevelText.UpdateWorldNumber();
 			}
 			else if (_levelPrefab.name == _liminalLevelName)
 			{
 				_audioManager.ChangeMusic(_liminalMusic);
+				_currentLevelText.UpdateWorldNumber();
 			}
 		}
 
 		private void IntroDone()
 		{
 			// Unrestrain player
+			_intro.SetActive(false);
 			_isLevelStarted = true;
 			_audioManager.ChangeMusic(_underwaterMusic);
+		}
+
+		private void OnFadeComplete()
+		{
+			SpriteFade.FadeComplete -= OnFadeComplete;
+			if (_waitForFade && !_startLevelChange)
+			{
+				DelayedLevelChange();
+
+			}
+			else
+			{
+				_waitForFade = false;
+			}
+		}
+
+		private void LevelChangeComplete()
+		{
+			Destroy(_currentLevel);
+			_currentLevel = _newLevel;
+			_playerControl.UnRestrainPlayer();
+			_levelIndex++;
+			_isLevelLoaded = true;
+			_isLevelStarted = true;
+			_startLevelChange = false;
+			_currentLevelText.UpdateLevelNumber();
 		}
 	}
 }

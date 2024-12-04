@@ -4,33 +4,29 @@ using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
-    public class Audiomanager : MonoBehaviour
-    {
+	public class Audiomanager : MonoBehaviour
+	{
 		[SerializeField] private float _musicFadeTime = 1f;
+		[SerializeField] private float _musicSpeedFadeTime = 0.5f;
 		[SerializeField] private float _hurryUpPitch = 140;
 		private bool _isPlayingMusicSource1 = true;
-		private bool _isHurryUpActive = false;
 		private float _initialPitch = 0;
+		private Coroutine _speedChangeCoroutine;
 
-        [Header("------------------- Audio Sources -----------------")]
-        [SerializeField] private AudioSource _musicSource1;
+		[Header("------------------- Audio Sources -----------------")]
+		[SerializeField] private AudioSource _musicSource1;
 		[SerializeField] private AudioSource _musicSource2;
-        [SerializeField] private AudioSource _sfxSource;
+		[SerializeField] private AudioSource _sfxSource;
 
-        [Header("------------------- Audio Clips -----------------")]
-        [SerializeField] private AudioClip _backgroundMusic;
-        [SerializeField] private AudioClip _popSFX;
-        // add more audio clips here
-        // Juho's note: check rehopeT
+		[Header("------------------- Audio Clips -----------------")]
+		[SerializeField] private AudioClip _backgroundMusic;
+		[SerializeField] private AudioClip _popSFX;
+		// add more audio clips here
+		// Juho's note: check rehopeT
 
-		public bool IsHurryUpActive
+		private void Start()
 		{
-			set { _isHurryUpActive = value; }
-		}
-
-        private void Start()
-        {
-            _musicSource1.clip = _backgroundMusic;
+			_musicSource1.clip = _backgroundMusic;
 			_initialPitch = _musicSource1.pitch;
 
 			if (SceneManager.GetActiveScene().name != "Main Menu")
@@ -41,23 +37,6 @@ namespace BubbleBobble
 			{
 				_musicSource1.Play();
 			}
-        }
-
-		private void Update()
-		{
-			if (_isPlayingMusicSource1 && _isHurryUpActive)
-			{
-				_musicSource1.pitch = _hurryUpPitch;
-			}
-			else if (!_isPlayingMusicSource1 && _isHurryUpActive)
-			{
-				_musicSource2.pitch = _hurryUpPitch;
-			}
-			else
-			{
-				_musicSource1.pitch = _initialPitch;
-				_musicSource2.pitch = _initialPitch;
-			}
 		}
 
 		public void ChangeMusic(AudioClip audioClip)
@@ -65,6 +44,24 @@ namespace BubbleBobble
 			StopAllCoroutines();
 			StartCoroutine(FadeMusic(audioClip));
 			_isPlayingMusicSource1 = !_isPlayingMusicSource1;
+		}
+
+		public void SpeedUpMusic()
+		{
+			if (_speedChangeCoroutine != null)
+			{
+				StopCoroutine(_speedChangeCoroutine);
+			}
+			_speedChangeCoroutine = StartCoroutine(FadeMusicSpeedUp());
+		}
+
+		public void SlowDownMusic()
+		{
+			if (_speedChangeCoroutine != null)
+			{
+				StopCoroutine(_speedChangeCoroutine);
+			}
+			_speedChangeCoroutine = StartCoroutine(FadeMusicSpeedDown());
 		}
 
 		private IEnumerator FadeMusic(AudioClip musicClip)
@@ -103,9 +100,55 @@ namespace BubbleBobble
 			}
 		}
 
+		private IEnumerator FadeMusicSpeedUp()
+		{
+			AudioSource musicSource;
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
+			{
+				musicSource = _musicSource1;
+			}
+			else
+			{
+				musicSource = _musicSource2;
+			}
+
+			while (timeElapsed < _musicSpeedFadeTime)
+			{
+				musicSource.pitch = Mathf.Lerp(_initialPitch, _hurryUpPitch, timeElapsed / _musicSpeedFadeTime);
+				timeElapsed += Time.deltaTime;
+				yield return null;
+			}
+		}
+
+
+		private IEnumerator FadeMusicSpeedDown()
+		{
+			AudioSource musicSource;
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
+			{
+				musicSource = _musicSource1;
+			}
+			else
+			{
+				musicSource = _musicSource2;
+			}
+
+			while (timeElapsed < _musicSpeedFadeTime)
+			{
+				musicSource.pitch = Mathf.Lerp(_hurryUpPitch, _initialPitch, timeElapsed / _musicSpeedFadeTime);
+				timeElapsed += Time.deltaTime;
+				yield return null;
+			}
+		}
+
+
 		public void PlaySFX(AudioClip audioClip)
 		{
 			_sfxSource.PlayOneShot(audioClip);
 		}
-    }
+	}
 }

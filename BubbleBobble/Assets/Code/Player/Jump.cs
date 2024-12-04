@@ -2,16 +2,16 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-/// <summary>
-/// Player jump script
-/// Checks if the player is on the ground or a platform and if the player presses the jump button.
-/// If player is on a platform, player can drop down through the platform.
-/// Player can jump on bubbles to bounce higher, but only once per bubble.
-/// </summary>
-/// 
-/// <remarks>
-/// author: Hanna Repo
-/// </remarks>
+	/// <summary>
+	/// Player jump script
+	/// Checks if the player is on the ground or a platform and if the player presses the jump button.
+	/// If player is on a platform, player can drop down through the platform.
+	/// Player can jump on bubbles to bounce higher, but only once per bubble.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
 	public class Jump : MonoBehaviour
 	{
 		private InputReader _inputReader;
@@ -47,6 +47,9 @@ namespace BubbleBobble
 
 		private void Update()
 		{
+			// Debug.Log($"Velocity: {_rb.velocity.y}");
+			// Debug.Log($"Grounded: {_grounded}, Jumping: {_jumping}, Falling: {_falling}");
+
 			// If player is moving down (falling), change gravity scale higher so player drops faster.
 			if (_rb.velocity.y < _fallingThreshold)
 			{
@@ -105,8 +108,9 @@ namespace BubbleBobble
 
 			// If the collider hit with BoxCast is Ground or Platform
 			//  and player is not pressing down, player can jump.
-			if (hit.collider.CompareTag(Tags._ground) ||
-				hit.collider.CompareTag(Tags._platform))
+
+			if (_grounded &&
+				(hit.collider.CompareTag(Tags.Ground) || hit.collider.CompareTag(Tags.Platform)))
 			{
 				if (_inputReader.Movement.y >= 0 && _inputReader.Jump)
 				{
@@ -117,7 +121,7 @@ namespace BubbleBobble
 			// If collider hit with BoxCast is a bubble and player is holding down jump button.
 			// Bubble jump counter needs to be under 2, so that bubbles can be jumped on only once before popping.
 			// Reset y velocity before bubble jump to not gain more velocity each jump. Do a bubble jump with less jump force.
-			if (hit.collider.CompareTag(Tags._projectile) || hit.collider.CompareTag(Tags._bubble))
+			if (hit.collider.CompareTag(Tags.Projectile) || hit.collider.CompareTag(Tags.Bubble))
 			{
 				Bubble bubble = hit.collider.GetComponent<Bubble>();
 				if (bubble != null)
