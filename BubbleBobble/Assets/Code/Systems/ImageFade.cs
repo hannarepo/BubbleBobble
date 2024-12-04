@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-	public class BubbleFade : MonoBehaviour
+	public class ImageFade : MonoBehaviour
 	{
 		public enum State
 		{

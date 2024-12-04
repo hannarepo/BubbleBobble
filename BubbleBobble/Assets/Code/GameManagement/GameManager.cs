@@ -52,6 +52,7 @@ namespace BubbleBobble
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
 		private bool _addedRedShell = false;
+		private LevelManager _levelManager;
 
 		int scoreCount;
 
@@ -217,6 +218,7 @@ namespace BubbleBobble
 				case "Enemy":
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
+						_levelManager = FindObjectOfType<LevelManager>();
 						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
 						{
 							Invoke("LoadCredits", _levelChangeDelay);
@@ -224,7 +226,11 @@ namespace BubbleBobble
 							break;
 						}
 						//print("Invoking level change");
-						FindObjectOfType<LevelManager>().CanSpawnItem = false;
+						_levelManager.CanSpawnItem = false;
+						if (_levelManager.IsHurryUpActive)
+						{
+							_levelManager.ResetHurryUp();
+						}
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
