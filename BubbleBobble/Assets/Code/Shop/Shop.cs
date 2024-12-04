@@ -11,6 +11,7 @@ namespace BubbleBobble
 		[SerializeField] private UnityEngine.UI.Image _heartIcon;
 		[SerializeField] private UnityEngine.UI.Image[] _shellIcons;
 		[SerializeField] private Color _grayPriceColor;
+		//[SerializeField] private ScoreText _scoreText;
 		private Inventory _inventory;
 		private GameManager _gameManager;
 
@@ -101,6 +102,7 @@ namespace BubbleBobble
 				{
 					_powerUps[index].ActivatePowerUp();
 					_gameManager.Score -= _powerUps[index].PowerUpData.Price;
+					//_scoreText.DecrementScoreCount (-_powerUps[index].PowerUpData.Price);
 				}
 			}
 			else if (index == 4)
