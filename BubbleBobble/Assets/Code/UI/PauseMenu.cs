@@ -27,6 +27,7 @@ namespace BubbleBobble
 
         [Header("Player scripts to disable on pause")]
         [SerializeField] private PlayerControl _playerControl;
+        [SerializeField] private StoreInput _storeControl;
 
         [Header("Selected button on menus")]
         [SerializeField] private GameObject _pauseMenuFirstButton;
@@ -68,6 +69,7 @@ namespace BubbleBobble
             Time.timeScale = 0;
 
             _playerControl.enabled = false;
+            _storeControl.enabled = false;
 
             OpenPauseMenu();
         }
@@ -78,6 +80,7 @@ namespace BubbleBobble
             Time.timeScale = 1;
 
             _playerControl.enabled = true;
+            _storeControl.enabled = true;
 
             CloseAllMenus();
         }
