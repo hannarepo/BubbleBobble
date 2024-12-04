@@ -43,11 +43,14 @@ namespace BubbleBobble
 		private InputReader _inputReader;
 		private bool _notInvincible = false;
 		private PlayerControl _playerControl;
+		private bool _lostLife = false;
 
 		public bool IsInvincible
 		{
 			get { return _invincibilityTimer > 0 ; }
 		}
+
+		public bool LostLife => _lostLife;
 
 		public int CurrentLives => _currentLives;
 
@@ -132,7 +135,7 @@ namespace BubbleBobble
 				if (_currentLives > 0)
 				{
 					_invincibilityTimer = _invincibilityTime;
-					FindObjectOfType<LevelManager>().ResetHurryUp();
+					_lostLife = true;
 				}
 			}
 			else if (collision.gameObject.CompareTag(Tags.Undefeatable))
@@ -154,7 +157,7 @@ namespace BubbleBobble
 				if (_currentLives > 0)
 				{
 					_invincibilityTimer = _invincibilityTime;
-					FindObjectOfType<LevelManager>().ResetHurryUp();
+					_lostLife = true;
 				}
 			}
 		}
@@ -183,6 +186,7 @@ namespace BubbleBobble
 			_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 			_playerControl.CanMove = true;
 			_notInvincible = true;
+			_lostLife = false;
 		}
 
 		private void Flash()
