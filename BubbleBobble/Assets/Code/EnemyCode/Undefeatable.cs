@@ -29,7 +29,7 @@ namespace BubbleBobble
 
 			if (_timer < _stopInterval)
 			{
-				_rb.velocity += new Vector2(_player.transform.position.x, _player.transform.position.y) * _speed * Time.deltaTime;
+				transform.position = Vector3.MoveTowards(transform.position, _player.transform.position, _speed * Time.deltaTime);
 			}
 			else if (_timer > _stopInterval && _timer < _stopTime)
 			{
