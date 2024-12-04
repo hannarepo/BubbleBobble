@@ -79,7 +79,7 @@ namespace BubbleBobble
 				_undefeatableEnemy.SetActive(true);
 			}
 
-			if ((_levelChanger.StartLevelChange && _hurryUp) || (_hurryUp && _playerHealth.LostLife))
+			if (_hurryUp && _playerHealth.LostLife)
 			{
 				ResetHurryUp();
 			}
