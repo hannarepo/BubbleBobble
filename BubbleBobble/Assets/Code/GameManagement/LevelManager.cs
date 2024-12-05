@@ -31,7 +31,6 @@ namespace BubbleBobble
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 		private Audiomanager _audioManager;
-		private bool _canResetHurryUp = false;
 		private GameObject _undefeatableEnemy;
 		private Health _playerHealth;
 
@@ -71,7 +70,6 @@ namespace BubbleBobble
 			{
 				HurryUp();
 				_hurryUp = true;
-				_canResetHurryUp = true;
 			}
 
 			if (_hurryUpTimer >= _spawnUndefeatableTime)
@@ -79,7 +77,7 @@ namespace BubbleBobble
 				_undefeatableEnemy.SetActive(true);
 			}
 
-			if ((_levelChanger.StartLevelChange && _hurryUp) || (_hurryUp && _playerHealth.LostLife))
+			if (_hurryUp && _playerHealth.LostLife)
 			{
 				ResetHurryUp();
 			}
@@ -135,7 +133,6 @@ namespace BubbleBobble
 			_hurryUp = false;
 			_gameManager.HurryUpText.SetActive(false);
 			CancelInvoke("FlashHurryUpText");
-			_canResetHurryUp = false;
 			_undefeatableEnemy.SetActive(false);
 		}
 
