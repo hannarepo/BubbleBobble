@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements.Experimental;
 
 namespace BubbleBobble
 {
@@ -28,12 +29,13 @@ namespace BubbleBobble
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
+
 		[SerializeField, Tooltip("This list should contain soap, camera, blue floppy disc and purple floppy disc")]
-		public List<Item> _spawnableItemPrefabs = new List<Item>();
+		private List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private int _mp3SpawnThreshold = 20;
 		[SerializeField] private int _cdSpawnThreshold = 40;
-		[SerializeField] private Item _soap;
+		[SerializeField ] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
 		[SerializeField] private Item _camera;
@@ -51,6 +53,7 @@ namespace BubbleBobble
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
+		private bool _addedUmbrella = false;
 		private bool _addedRedShell = false;
 		private LevelManager _levelManager;
 
@@ -58,6 +61,7 @@ namespace BubbleBobble
 
 		public GameObject HurryUpText => _hurryUpText;
 		public GameObject UndefeatableEnemy => _undefeatableEnemy;
+		public List<Item> SpawnableItems => _spawnableItemPrefabs;
 		public int Score
 		{
 			get { return _scoreCount; }
@@ -83,16 +87,6 @@ namespace BubbleBobble
 				_projectileList[0].GetComponent<ProjectileBubble>().PopBubble();
 			}
 		}
-
-		// private void OnEnable()
-		// {
-		// 	Item.OnItemCollected += HandleItemPickup;
-		// }
-
-		// private void OnDisable()
-		// {
-		// 	Item.OnItemCollected -= HandleItemPickup;
-		// }
 
 		public void HandleItemPickup(int points)
 		{
@@ -160,8 +154,6 @@ namespace BubbleBobble
 
 		private void AddItemToList()
 		{
-			// TODO: Add umbrella at appropriate conditions
-
 			// If inventory contains three soap bottles, add a blue shell to the item list.
 			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, 3) && !_addedBlueShell)
 			{
