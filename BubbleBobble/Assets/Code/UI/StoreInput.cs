@@ -21,6 +21,7 @@ namespace BubbleBobble
 
         [Header("Player scripts to disable on pause")]
         [SerializeField] private PlayerControl _playerControl;
+        [SerializeField] private PauseMenu _pauseControl;
 
         [Header("Selected button in store")]
         [SerializeField] private GameObject _storeFirstButton;
@@ -38,38 +39,37 @@ namespace BubbleBobble
             {
                 if (!isPaused)
                 {
-                    Pause();
+                    OpenStore();
                 }
                 else
                 {
-                    Resume();
+                    CloseStore();
                 }
             }
         }
-        public void Pause()
+        public void OpenStore()
         {
             isPaused = true;
             Time.timeScale = 0;
 
             _playerControl.enabled = false;
+            _pauseControl.enabled = false;
 
-            OpenStore();
+            _storeOpen.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_storeFirstButton);
         }
 
-        public void Resume()
+        public void CloseStore()
         {
             isPaused = false;
             Time.timeScale = 1;
 
             _playerControl.enabled = true;
+            _pauseControl.enabled = true;
 
             _storeOpen.SetActive(false);
         }
 
-        public void OpenStore()
-        {
-            _storeOpen.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(_storeFirstButton);
-        }
+
     }
 }

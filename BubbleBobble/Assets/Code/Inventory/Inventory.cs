@@ -39,9 +39,6 @@ namespace BubbleBobble
 				_items.Add(item, amount);
 			}
 
-			Debug.Log($"Added item {item.Name}, amount: {amount}.");
-			Debug.Log($"Item {item.Name} total number: {_items[item]}.");
-
 			return true;
 		}
 
@@ -65,8 +62,6 @@ namespace BubbleBobble
 			{
 				_items[item] -= amount;
 			}
-
-			Debug.Log($"Removed item {item.Name}, amount: {amount}.");
 
 			return true;
 		}

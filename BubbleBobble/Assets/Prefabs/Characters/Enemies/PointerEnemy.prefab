@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 4831517932412405423}
   - component: {fileID: 6412098031909333460}
   - component: {fileID: 6018960938706128640}
-  m_Layer: 12
+  m_Layer: 25
   m_Name: PointerEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -133,8 +133,7 @@ MonoBehaviour:
   _deathColor: {r: 0.50980395, g: 0.5882353, b: 0.74509805, a: 1}
   _rotationSpeed: 900
   _topTriggerYPos: 7.2
-  _bottomTriggerYPos: -5
-  _ySpawnPos: 7
+  _bottomTriggerYPos: -7.5
   _launchSFX: {fileID: 8300000, guid: d8430ac0c517e164ba5e992e9df8ae04, type: 3}
 --- !u!50 &2344117993429417867
 Rigidbody2D:
@@ -148,7 +147,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 2000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -175,7 +174,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 577da1d519b32bc42a7877c2bccef0e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 3
+  _speed: 7250
+  _isFacingRight: 1
+  _canFlip: 0
 --- !u!61 &6412098031909333460
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -208,7 +209,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.015591621, y: -0.012992948}
+  m_Offset: {x: 0.01504761, y: -0.015772462}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -219,7 +220,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.85447884, y: 0.9740141}
+  m_Size: {x: 0.7821871, y: 0.9084171}
   m_EdgeRadius: 0
 --- !u!114 &6018960938706128640
 MonoBehaviour:

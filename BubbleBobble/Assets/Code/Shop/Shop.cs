@@ -4,8 +4,6 @@ namespace BubbleBobble
 {
 	public class Shop : MonoBehaviour
 	{
-		// Points serialized for testing
-		[SerializeField] private int _points = 0;
 		[SerializeField] private PowerUp[] _powerUps;
 		[SerializeField] private ItemData[] _shells;
 		[SerializeField] private PlayerControl _playerControl;
@@ -13,11 +11,14 @@ namespace BubbleBobble
 		[SerializeField] private UnityEngine.UI.Image _heartIcon;
 		[SerializeField] private UnityEngine.UI.Image[] _shellIcons;
 		[SerializeField] private Color _grayPriceColor;
+
 		private Inventory _inventory;
+		private GameManager _gameManager;
 
 		private void Start()
 		{
 			_inventory = _playerControl.Inventory;
+			_gameManager = FindObjectOfType<GameManager>();
 		}
 
 		private void Update()
@@ -42,7 +43,7 @@ namespace BubbleBobble
 		{
 			foreach (PowerUp powerUp in _powerUps)
 			{
-				if (powerUp.PowerUpData.Price > _points)
+				if (powerUp.PowerUpData.Price > _gameManager.Score)
 				{
 					powerUp.SetButtonColor(_grayPriceColor);
 					powerUp.SetPriceColor(_grayPriceColor);
@@ -69,7 +70,7 @@ namespace BubbleBobble
 				}
 				else
 				{
-					_shellIcons[i]. color = Color.white;
+					_shellIcons[i].color = Color.white;
 				}
 			}
 
@@ -95,11 +96,13 @@ namespace BubbleBobble
 		/// <param name="index"> Set in each button to pick correct power up. </param>
 		public void Buy(int index)
 		{
-			if (index >= 0 && index  <= 3)
+			if (index >= 0 && index <= 3)
 			{
-				if (_powerUps[index].PowerUpData.Price <= _points)
+				if (_powerUps[index].PowerUpData.Price <= _gameManager.Score)
 				{
 					_powerUps[index].ActivatePowerUp();
+					_gameManager.Score -= _powerUps[index].PowerUpData.Price;
+					//_scoreText.UpdateScore(_powerUps[index].PowerUpData.Price);
 				}
 			}
 			else if (index == 4)
