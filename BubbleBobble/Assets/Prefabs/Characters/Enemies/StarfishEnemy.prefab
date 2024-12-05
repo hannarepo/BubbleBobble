@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 5109868184487390979}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.15, y: -0.52, z: 0}
+  m_LocalPosition: {x: -0.15, y: -0.524, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -87,7 +87,7 @@ Transform:
   m_GameObject: {fileID: 5377697641185381667}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.336, y: -0.52, z: 0}
+  m_LocalPosition: {x: 0.336, y: -0.52400017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 6961041819861670593}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.41, y: 0.783, z: 0}
+  m_LocalPosition: {x: -0.41, y: 0.201, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -361,22 +361,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _currentState: 0
   _speed: 1.5
-  _jumpForce: 5
+  _jumpForce: 2
   _hurryUpSpeed: 0
   _edgeCheck: {fileID: 3589800377476286867}
   _groundCheck: {fileID: 5825875909100510289}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 320
+    m_Bits: 192
   _wallCheck: {fileID: 6227575716068693329}
   _wallLayer:
     serializedVersion: 2
-    m_Bits: 9437184
+    m_Bits: 1048576
   _platformAboveCheck: {fileID: 5319360140659315457}
   _edgeBoxCastSize: {x: 0.2, y: 0.03}
   _groundBoxCastSize: {x: 0.63, y: 0.03}
   _wallBoxCastSize: {x: 0.1, y: 0.5}
-  _platformAboveBoxCastSize: {x: 0.1, y: 0.6}
+  _platformAboveBoxCastSize: {x: 0.1, y: 1.4}
   _boxCastDistance: 0
   _isFacingRight: 1
-  _jumpStateTime: 0
