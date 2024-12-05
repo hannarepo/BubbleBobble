@@ -204,5 +204,10 @@ namespace BubbleBobble
 			_spriteFade.StartFadeIn();
 			SpriteFade.FadeComplete += OnFadeComplete;
 		}
+
+		public void SkipIntro()
+		{
+			IntroDone();
+		}
 	}
 }
