@@ -54,20 +54,24 @@ namespace BubbleBobble
 		private bool _addedRedShell = false;
 		private LevelManager _levelManager;
 
-		int scoreCount;
+		private int _scoreCount;
 
 		public GameObject HurryUpText => _hurryUpText;
 		public GameObject UndefeatableEnemy => _undefeatableEnemy;
 		public int Score
 		{
-			get { return scoreCount; }
-			set { scoreCount = value; }
+			get { return _scoreCount; }
+			set
+			{
+				_scoreCount = value;
+				_scoreText.UpdateScore(_scoreCount);
+			}
 		}
 
 		#region Unity Functions
 		private void Start()
 		{
-			scoreCount = 0;
+			_scoreCount = 0;
 			_levelChanger = GetComponent<LevelChanger>();
 			UpdateHighScoreText();
 		}
@@ -92,26 +96,26 @@ namespace BubbleBobble
 
 		public void HandleItemPickup(int points)
 		{
-			scoreCount += points;
-			_scoreText.IncrementScoreCount(scoreCount);
-			_scoreEndScreen.IncrementScoreCount(scoreCount);
+			_scoreCount += points;
+			_scoreText.UpdateScore(_scoreCount);
+			_scoreEndScreen.UpdateScore(_scoreCount);
 			CheckHighScore();
 
 		}
 
 		public void HandleBubblePop(int points)
 		{
-			scoreCount += points;
-			_scoreText.IncrementScoreCount(scoreCount);
-			_scoreEndScreen.IncrementScoreCount(scoreCount);
+			_scoreCount += points;
+			_scoreText.UpdateScore(_scoreCount);
+			_scoreEndScreen.UpdateScore(_scoreCount);
 			CheckHighScore();
 		}
 
 		void CheckHighScore()
 		{
-			if (scoreCount > PlayerPrefs.GetInt("HighScore", 0))
+			if (_scoreCount > PlayerPrefs.GetInt("HighScore", 0))
 			{
-				PlayerPrefs.SetInt("HighScore", scoreCount);
+				PlayerPrefs.SetInt("HighScore", _scoreCount);
 			}
 		}
 
@@ -227,7 +231,10 @@ namespace BubbleBobble
 						}
 						//print("Invoking level change");
 						_levelManager.CanSpawnItem = false;
-						_levelManager.ResetHurryUp();
+						if (_levelManager.IsHurryUpActive)
+						{
+							_levelManager.ResetHurryUp();
+						}
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
