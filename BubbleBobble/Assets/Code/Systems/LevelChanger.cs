@@ -207,6 +207,7 @@ namespace BubbleBobble
 
 		public void SkipIntro()
 		{
+			CancelInvoke("IntroDone");
 			IntroDone();
 		}
 	}
