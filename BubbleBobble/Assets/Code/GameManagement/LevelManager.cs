@@ -20,6 +20,7 @@ namespace BubbleBobble
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
+		[SerializeField] private bool _canSpawnUmbrella = false;
 		[SerializeField] GameObject _enemies;
 		[SerializeField] private float _spawnUndefeatableTime = 35f;
 		private GameManager _gameManager;
@@ -46,7 +47,7 @@ namespace BubbleBobble
 		{
 			_gameManager = FindObjectOfType<GameManager>();
 			_levelChanger = FindObjectOfType<LevelChanger>();
-			_spawnableItemPrefabs = _gameManager._spawnableItemPrefabs;
+			_spawnableItemPrefabs = _gameManager.SpawnableItems;
 			_audioManager = FindObjectOfType<Audiomanager>();
 			_undefeatableEnemy = _gameManager.UndefeatableEnemy;
 			_playerHealth = FindObjectOfType<Health>();
@@ -63,7 +64,7 @@ namespace BubbleBobble
 
 			if (_spawnTimer > _spawnInterval)
 			{
-				SpawnItemAtInterval(Random.Range(0, _gameManager._spawnableItemPrefabs.Count));
+				SpawnItemAtInterval(Random.Range(0, _spawnableItemPrefabs.Count));
 			}
 
 			if (_hurryUpTimer >= _hurryUpTime && !_hurryUp)
@@ -94,27 +95,37 @@ namespace BubbleBobble
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
 				Item item = null;
 
-				if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell)
+				if ((_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell) ||
+					 (_spawnableItemPrefabs[index]. ItemData.ItemType == ItemType.Umbrella && !_canSpawnUmbrella))
 				{
 					index = Random.Range(0, _spawnableItemPrefabs.Count);
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
 										transform);
 				}
-				else
+				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Umbrella && _canSpawnUmbrella)
+				{
+					int spawnChance = Random.Range(0, 2);
+					print(spawnChance);
+					if (spawnChance == 1)
+					{
+						Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity);
+						_canSpawnUmbrella = false;
+					}
+					print(_canSpawnUmbrella);
+				}
+				else if (_spawnableItemPrefabs[index].ItemData.ItemType != ItemType.Umbrella)
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
 										transform);
+					if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell)
+					{
+						_canSpawnShell = false;
+					}
 				}
 
 				_spawnedItemCount++;
 				_spawnPoints.Remove(_spawnPoints[randomSpawnPoint]);
 				_spawnTimer = 0;
-
-				// If the spawned item is a shell, remove it from the item list so that no two shells spawn in one level.
-				if (item.ItemData.ItemType == ItemType.Shell)
-				{
-					_canSpawnShell = false;
-				}
 			}
 		}
 
