@@ -8,6 +8,8 @@ namespace BubbleBobble
 	{
 		[SerializeField] private float _musicFadeTime = 1f;
 		[SerializeField] private float _musicSpeedFadeTime = 0.5f;
+		[SerializeField, Tooltip("This fade time is used when game ends and credits are being loaded")]
+		private float _musicFadeOutTime = 1f;
 		[SerializeField] private float _hurryUpPitch = 140;
 		private bool _isPlayingMusicSource1 = true;
 		private float _initialPitch = 0;
@@ -44,6 +46,12 @@ namespace BubbleBobble
 			StopAllCoroutines();
 			StartCoroutine(FadeMusic(audioClip));
 			_isPlayingMusicSource1 = !_isPlayingMusicSource1;
+		}
+
+		public void FadeOut()
+		{
+			StopAllCoroutines();
+			StartCoroutine(FadeOutMusic());
 		}
 
 		public void SpeedUpMusic()
@@ -92,6 +100,34 @@ namespace BubbleBobble
 				{
 					_musicSource1.volume = Mathf.Lerp(0, 1, timeElapsed / _musicFadeTime);
 					_musicSource2.volume = Mathf.Lerp(1, 0, timeElapsed / _musicFadeTime);
+					timeElapsed += Time.deltaTime;
+					yield return null;
+				}
+
+				_musicSource2.Stop();
+			}
+		}
+
+		private IEnumerator FadeOutMusic()
+		{
+			float timeElapsed = 0f;
+
+			if (_isPlayingMusicSource1)
+			{
+				while (timeElapsed < _musicFadeTime)
+				{
+					_musicSource1.volume = Mathf.Lerp(1, 0, timeElapsed / _musicFadeOutTime);
+					timeElapsed += Time.deltaTime;
+					yield return null;
+				}
+
+				_musicSource1.Stop();
+			}
+			else
+			{
+				while (timeElapsed < _musicFadeTime)
+				{
+					_musicSource2.volume = Mathf.Lerp(1, 0, timeElapsed / _musicFadeOutTime);
 					timeElapsed += Time.deltaTime;
 					yield return null;
 				}

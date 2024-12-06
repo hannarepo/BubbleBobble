@@ -400,6 +400,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 100960769}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _skipIntroButton
+      value: 
+      objectReference: {fileID: 78999441}
+    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _currentLevelText
       value: 
       objectReference: {fileID: 1000453665}
@@ -428,6 +432,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 228530759}
     - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _audioManager
+      value: 
+      objectReference: {fileID: 632232029}
+    - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _highscoreText
       value: 
       objectReference: {fileID: 1668977316}
@@ -439,6 +447,10 @@ PrefabInstance:
       propertyPath: _scoreEndScreen
       value: 
       objectReference: {fileID: 303371069}
+    - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _creditLoadDelay
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _undefeatableEnemy
       value: 
@@ -468,6 +480,23 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a814fa0710ff4c43afc51a0f36d6dc1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &78999440 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6100291757235563038, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
+  m_PrefabInstance: {fileID: 507249585}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &78999441
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 78999440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 359f1320feff8054db82cdecfb8f7383, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &80307660
@@ -3212,6 +3241,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2944024990273790892, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1655254462}
+    - targetCorrespondingSourceObject: {fileID: 6100291757235563038, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 78999441}
   m_SourcePrefab: {fileID: 100100000, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
 --- !u!224 &507249586 stripped
 RectTransform:
@@ -4146,6 +4178,7 @@ GameObject:
   - component: {fileID: 956425639}
   - component: {fileID: 956425638}
   - component: {fileID: 956425637}
+  - component: {fileID: 956425642}
   m_Layer: 24
   m_Name: UndefeatableEnemy
   m_TagString: Undefeatable
@@ -4298,6 +4331,102 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &956425642
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 956425636}
+  m_Enabled: 0
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 3605060375100102433, guid: 7538bd1eab40f7a4db1ce3e34a4efbad, type: 2}
+  m_audioClip: {fileID: 8300000, guid: bffe738eec17b1f4390bb3ad088cef37, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &968776435 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1661320537225335238, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
@@ -6091,6 +6220,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3607081744895915994, guid: 055e7c446f2ded14aad0ece27d5c9cd8, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 208f7428579fbb548a31734d944a62a3, type: 2}
+    - target: {fileID: 3607081744895915994, guid: 055e7c446f2ded14aad0ece27d5c9cd8, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4549692475444005001, guid: 055e7c446f2ded14aad0ece27d5c9cd8, type: 3}
       propertyPath: m_Name
       value: HurryUpText
@@ -6099,6 +6236,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6377618168796617805, guid: 055e7c446f2ded14aad0ece27d5c9cd8, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 6184932633608859973, guid: 208f7428579fbb548a31734d944a62a3, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6417,6 +6558,10 @@ PrefabInstance:
     - target: {fileID: 8043187384936524403, guid: 744fd235f4bf3e24a8b0ff72a7521b7c, type: 3}
       propertyPath: _backgroundMusic
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043187384936524403, guid: 744fd235f4bf3e24a8b0ff72a7521b7c, type: 3}
+      propertyPath: _musicFadeOutTime
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8043187384936524403, guid: 744fd235f4bf3e24a8b0ff72a7521b7c, type: 3}
       propertyPath: _musicSpeedFadeTime
