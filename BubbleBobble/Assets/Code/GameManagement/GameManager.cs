@@ -35,7 +35,7 @@ namespace BubbleBobble
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private int _mp3SpawnThreshold = 20;
 		[SerializeField] private int _cdSpawnThreshold = 40;
-		[SerializeField ] private Item _soap;
+		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
 		[SerializeField] private Item _camera;
@@ -50,6 +50,10 @@ namespace BubbleBobble
 		[SerializeField] ScoreText _scoreEndScreen;
 		[SerializeField] TextMeshProUGUI _highscoreText;
 		[SerializeField] private GameObject _undefeatableEnemy;
+		[SerializeField] private ImageFade _creditFade;
+		[SerializeField] private float _creditFadeDelay = 3f;
+		[SerializeField] private float _creditLoadDelay = 5f;
+		[SerializeField] private Audiomanager _audioManager;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
@@ -222,18 +226,25 @@ namespace BubbleBobble
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						_levelManager = FindObjectOfType<LevelManager>();
-						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
-						{
-							Invoke("LoadCredits", _levelChangeDelay);
-							print("Invoking credits");
-							break;
-						}
-						//print("Invoking level change");
-						_levelManager.CanSpawnItem = false;
+						_levelManager.ResetHurryUpTimer();
 						if (_levelManager.IsHurryUpActive)
 						{
 							_levelManager.ResetHurryUp();
 						}
+						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+						{
+							Invoke("DelayedFade", _creditFadeDelay);
+							Invoke("LoadCredits", _creditLoadDelay);
+							_audioManager.FadeOut();
+							if (_levelManager.IsHurryUpActive)
+							{
+								_levelManager.ResetHurryUp();
+							}
+							break;
+						}
+						//print("Invoking level change");
+						_levelManager.CanSpawnItem = false;
+
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
@@ -305,6 +316,11 @@ namespace BubbleBobble
 			_projectileList.Remove(projectileObject);
 		}
 		#endregion Projectile Related
+
+		private void DelayedFade()
+		{
+			_creditFade.StartFadeIn();
+		}
 
 		private void LoadCredits()
 		{
