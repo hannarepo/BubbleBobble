@@ -34,7 +34,7 @@ namespace BubbleBobble
 		[SerializeField] private Vector2 _platformAboveBoxCastSize;
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
-		[SerializeField] private float _jumpStateTime;
+		private Animator _animator;
 		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
 		private Vector2 _direction;
@@ -53,6 +53,7 @@ namespace BubbleBobble
 			_rigidbody2D = GetComponent<Rigidbody2D>();
 			_currentState = EnemyState.Moving;
 			_player = GameObject.Find("Player");
+			_animator = GetComponent<Animator>();
 		}
 
 		private void Update()
@@ -62,10 +63,9 @@ namespace BubbleBobble
 			_isPlatformAbove = Physics2D.BoxCast(_platformAboveCheck.position, _platformAboveBoxCastSize, 0f, Vector2.up, _boxCastDistance, _groundLayer);
 			_playerPosition = _player.transform.position;
 			_enemyPosition = transform.position;
+			
 
 			PlayerYPosition();
-
-
 
 			switch (_currentState)
 			{
@@ -163,30 +163,37 @@ namespace BubbleBobble
 		{
 			if (_currentState == EnemyState.Moving && !_isGrounded)
 			{
+				_animator.SetTrigger("IsFalling");
 				_currentState = EnemyState.Falling;
 			}
 			else if (_currentState == EnemyState.Falling && _isGrounded)
 			{
+				_animator.SetTrigger("IsLanding");
+				_animator.SetBool("IsWalking", true);
 				_currentState = EnemyState.Moving;
 			}
 			else if (_currentState == EnemyState.Moving && _isPlayerBelow && !_isGroundAhead)
 			{
+				_animator.SetBool("IsWalking", false);
 				_currentState = EnemyState.DroppingFromEdge;
 			}
 			else if (_currentState == EnemyState.DroppingFromEdge && !_isGrounded)
 			{
+				_animator.SetTrigger("IsFalling");
 				_currentState = EnemyState.Falling;
 			}
-			
 			else if (_currentState == EnemyState.Moving && _isPlayerAbove && _isPlatformAbove)
 			{
+				_animator.SetBool("IsWalking", false);
+				_animator.SetTrigger("IsJumping");
 				_currentState = EnemyState.Jumping;
 			}
 			else if (_currentState == EnemyState.Jumping && _isGrounded && !_isPlatformAbove)
 			{
+				_animator.SetTrigger("IsLanding");
+				_animator.SetBool("IsWalking", true);
 				_currentState = EnemyState.Moving;
 			}
-			
 		}
 
 		private void Flip()
@@ -197,7 +204,7 @@ namespace BubbleBobble
 
 		private void PlayerYPosition()
 		{
-			if (Vector2.Distance(new Vector2(0, _playerPosition.y), new Vector2(0, _enemyPosition.y)) < 0.3f)
+			if (Vector2.Distance(new Vector2(0, _playerPosition.y), new Vector2(0, _enemyPosition.y)) < 0.5f)
 			{
 				_isPlayerOnSameLevel = true;
 				_isPlayerAbove = false;

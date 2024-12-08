@@ -1,7 +1,4 @@
-using System.Diagnostics.Tracing;
-using TreeEditor;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 namespace BubbleBobble
 {

@@ -60,7 +60,6 @@ namespace BubbleBobble
 			float alpha = _image.color.a;
 			alpha += Time.deltaTime * _fadeSpeed;
 			SetAlpha(alpha);
-			print("Fading in");
 		}
 
 		private void FadeOut()
@@ -82,7 +81,10 @@ namespace BubbleBobble
 			SetAlpha(0);
 			_state = State.FadeIn;
 			Time.timeScale = 1;
-			_audioSource.Play();
+			if (_audioSource != null)
+			{
+				_audioSource.Play();
+			}
 		}
 		public void StartFadeOut()
 		{
