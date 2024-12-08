@@ -140,6 +140,9 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// GameManager's method to start level change with Invoke.
+		/// </summary>
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
@@ -195,6 +198,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Sets the BubbleSpawner object for the GameManager.
+		/// </summary>
+		/// <param name="spawner">BubbleSpawner gameobject</param>
 		public void BubbleSpawnerInitialization(BubbleSpawner spawner)
 		{
 			_bubbleSpawner = spawner;
@@ -264,19 +271,23 @@ namespace BubbleBobble
 			_enemyList.Clear();
 		}
 
-		// Adds an enemy object to a list
+		/// <summary>
+		/// Adds an enemy object to a list to keep track of their amount.
+		/// </summary>
+		/// <param name="enemyObject">Enemy gameobject</param>
 		public void AddEnemyToList(GameObject enemyObject)
 		{
 			_enemyList.Add(enemyObject);
-			// print("Enemies in list: " + _enemyList.Count);
 		}
 
+		/// <summary>
+		/// Removes an enemy object from the list and checks how many are left.
+		/// </summary>
+		/// <param name="enemyObject">Enemy gameobject</param>
 		public void RemoveEnemyFromList(GameObject enemyObject)
 		{
 			_enemyList.Remove(enemyObject);
-			//print("Enemies in list: " + _enemyList.Count);
 			CheckCounters("Enemy");
-			//Destroy(enemyObject);
 		}
 		#endregion Enemy Related
 
