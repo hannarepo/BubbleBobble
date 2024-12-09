@@ -66,6 +66,7 @@ namespace BubbleBobble
 		public GameObject HurryUpText => _hurryUpText;
 		public GameObject UndefeatableEnemy => _undefeatableEnemy;
 		public List<Item> SpawnableItems => _spawnableItemPrefabs;
+		public bool CanChangeLevel => _canChangeLevel;
 		public int Score
 		{
 			get { return _scoreCount; }
