@@ -58,7 +58,7 @@ namespace BubbleBobble
 				_timer += Time.deltaTime;
 				if (_timer > _deathDelay)
 				{
-					gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+					gameObject.layer = LayerMask.NameToLayer("Item");
 					_canSpawn = true;
 				}
 			}
@@ -70,7 +70,6 @@ namespace BubbleBobble
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
 			Destroy(gameObject);
-
 		}
 
 		public void LaunchAtDeath(bool playSFX)
@@ -80,7 +79,7 @@ namespace BubbleBobble
 				_audioManager.PlaySFX(_launchSFX);
 			}
 
-			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
+			gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 			gameObject.tag = Tags.DeadEnemy;
 			_spriteRenderer.color = _deathColor;
 			_launched = true;
