@@ -29,6 +29,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 		[SerializeField] private GameObject _intro;
+		[SerializeField] private SkipButton _skipIntroButton;
 		[SerializeField] private CurrentLevelText _currentLevelText;
 		[SerializeField] private SpriteFade _windowsTransitionPrefab;
 		[SerializeField] private SpriteFade _liminalTransitionPrefab;
@@ -146,14 +147,6 @@ namespace BubbleBobble
 			}
 		}
 
-		private void IntroDone()
-		{
-			// Unrestrain player
-			_intro.SetActive(false);
-			_isLevelStarted = true;
-			_audioManager.ChangeMusic(_underwaterMusic);
-		}
-
 		/// <summary>
 		/// Stop listening to the FadeComplete event and execute actions
 		/// </summary>
@@ -203,6 +196,21 @@ namespace BubbleBobble
 			_waitForFade = true;
 			_spriteFade.StartFadeIn();
 			SpriteFade.FadeComplete += OnFadeComplete;
+		}
+
+		private void IntroDone()
+		{
+			// Unrestrain player
+			_intro.SetActive(false);
+			_skipIntroButton.SetButtonActive(false);
+			_isLevelStarted = true;
+			_audioManager.ChangeMusic(_underwaterMusic);
+		}
+
+		public void SkipIntro()
+		{
+			CancelInvoke("IntroDone");
+			IntroDone();
 		}
 	}
 }

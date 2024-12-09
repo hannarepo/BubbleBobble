@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
+using UnityEngine.UIElements.Experimental;
 
 namespace BubbleBobble
 {
@@ -28,8 +29,9 @@ namespace BubbleBobble
 		// List is serialized for debugging
 		[SerializeField] private List<GameObject> _enemyList = new List<GameObject>();
 		[SerializeField] private List<GameObject> _projectileList = new List<GameObject>();
+
 		[SerializeField, Tooltip("This list should contain soap, camera, blue floppy disc and purple floppy disc")]
-		public List<Item> _spawnableItemPrefabs = new List<Item>();
+		private List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private int _mp3SpawnThreshold = 20;
 		[SerializeField] private int _cdSpawnThreshold = 40;
@@ -48,9 +50,14 @@ namespace BubbleBobble
 		[SerializeField] ScoreText _scoreEndScreen;
 		[SerializeField] TextMeshProUGUI _highscoreText;
 		[SerializeField] private GameObject _undefeatableEnemy;
+		[SerializeField] private ImageFade _creditFade;
+		[SerializeField] private float _creditFadeDelay = 3f;
+		[SerializeField] private float _creditLoadDelay = 5f;
+		[SerializeField] private Audiomanager _audioManager;
 		private bool _addedBlueShell = false;
 		private bool _addedPurpleShell = false;
 		private bool _addedPurpleBlueShell = false;
+		private bool _addedUmbrella = false;
 		private bool _addedRedShell = false;
 		private LevelManager _levelManager;
 
@@ -58,6 +65,7 @@ namespace BubbleBobble
 
 		public GameObject HurryUpText => _hurryUpText;
 		public GameObject UndefeatableEnemy => _undefeatableEnemy;
+		public List<Item> SpawnableItems => _spawnableItemPrefabs;
 		public int Score
 		{
 			get { return _scoreCount; }
@@ -83,16 +91,6 @@ namespace BubbleBobble
 				_projectileList[0].GetComponent<ProjectileBubble>().PopBubble();
 			}
 		}
-
-		// private void OnEnable()
-		// {
-		// 	Item.OnItemCollected += HandleItemPickup;
-		// }
-
-		// private void OnDisable()
-		// {
-		// 	Item.OnItemCollected -= HandleItemPickup;
-		// }
 
 		public void HandleItemPickup(int points)
 		{
@@ -160,8 +158,6 @@ namespace BubbleBobble
 
 		private void AddItemToList()
 		{
-			// TODO: Add umbrella at appropriate conditions
-
 			// If inventory contains three soap bottles, add a blue shell to the item list.
 			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, 3) && !_addedBlueShell)
 			{
@@ -223,18 +219,25 @@ namespace BubbleBobble
 					if (_enemyList.Count == 0 && _canChangeLevel)
 					{
 						_levelManager = FindObjectOfType<LevelManager>();
-						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
-						{
-							Invoke("LoadCredits", _levelChangeDelay);
-							print("Invoking credits");
-							break;
-						}
-						//print("Invoking level change");
-						_levelManager.CanSpawnItem = false;
+						_levelManager.ResetHurryUpTimer();
 						if (_levelManager.IsHurryUpActive)
 						{
 							_levelManager.ResetHurryUp();
 						}
+						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+						{
+							Invoke("DelayedFade", _creditFadeDelay);
+							Invoke("LoadCredits", _creditLoadDelay);
+							_audioManager.FadeOut();
+							if (_levelManager.IsHurryUpActive)
+							{
+								_levelManager.ResetHurryUp();
+							}
+							break;
+						}
+						//print("Invoking level change");
+						_levelManager.CanSpawnItem = false;
+
 						AddItemToList();
 						Invoke("NextLevel", _levelChangeDelay);
 						_canChangeLevel = false;
@@ -302,6 +305,11 @@ namespace BubbleBobble
 			_projectileList.Remove(projectileObject);
 		}
 		#endregion Projectile Related
+
+		private void DelayedFade()
+		{
+			_creditFade.StartFadeIn();
+		}
 
 		private void LoadCredits()
 		{
