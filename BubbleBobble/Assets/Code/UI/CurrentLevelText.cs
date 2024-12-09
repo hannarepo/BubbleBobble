@@ -26,11 +26,6 @@ namespace BubbleBobble
 			{
 				_levelNumber++;
 			}
-
-			if (_levelNumber == _transition1Number || _levelNumber == _transition2Number)
-			{
-				_levelNumber = 0;
-			}
 			_levelNumberText.text = $"{_levelNumber}";
 		}
 
@@ -38,6 +33,8 @@ namespace BubbleBobble
 		{
 			_worldNumber++;
 			_worldNumberText.text = $"{_worldNumber}";
+			_levelNumber = -1;
+			UpdateLevelNumber();
 		}
 	}
 }
