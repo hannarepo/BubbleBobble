@@ -3,18 +3,18 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-	/// <remarks>
-	/// author: Jose Mäntylä
-	/// </remarks>
-	/// 
 	/// <summary>
 	/// This script activates panic mode when the player is standing in fire.
 	/// </summary>
+	///
+	/// <remarks>
+	/// author: Jose Mäntylä
+	/// </remarks>
 	public class PanicMode : MonoBehaviour
 	{
-		private bool _canPanic = false;
 		[SerializeField] private float _panicTime = 2f;
 		[SerializeField] private float _panicImmuneTime = 1f;
+		private bool _canPanic = false;
 		private InputReader _inputReader;
 		private float _timer = 0f;
 		private PlayerControl _playerControl;
@@ -43,6 +43,7 @@ namespace BubbleBobble
 			{
 				_timer += Time.deltaTime;
 				_flipTimer += Time.deltaTime;
+				// Activate panic in the player if the timer is less or equal to the panic time.
 				if (_timer <= _panicTime)
 				{
 					_isPanicking = true;
@@ -51,12 +52,17 @@ namespace BubbleBobble
 				}
 
 				_panicOver = true;
+
+				// Deactivate panic if the timer is greater than the panic time.
+				// This is to give the player a chance to move or jump out of the fire.
 				if (_timer > _panicTime && _panicOver)
 				{
 					DeactivatePanic();
 					_panicOver = false;
 				}
 
+				// Reset the timer when the timer is greater than the panic time and panic immune time combined.
+				// If the player is still standing in the fire after the panic immune time, the timer is reset.
 				if (_timer > _panicTime + _panicImmuneTime)
 				{
 					_timer = 0f;

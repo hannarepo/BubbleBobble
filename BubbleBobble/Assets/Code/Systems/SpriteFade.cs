@@ -71,6 +71,9 @@ namespace BubbleBobble
 			SetAlpha(alpha);
 		}
 
+		/// <summary>
+		/// Sends an event when the fading is complete.
+		/// </summary>
 		private void FadingDone()
 		{
 			if (FadeComplete != null)
@@ -79,6 +82,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Sets the alpha value of the sprite and possible children.
+		/// </summary>
+		/// <param name="alpha">Float value</param>
 		private void SetAlpha(float alpha)
 		{
 			Color color = _sprite.color;
@@ -98,10 +105,17 @@ namespace BubbleBobble
 			_sprite.color = color;
 		}
 
+		/// <summary>
+		/// Starts the fade in process.
+		/// </summary>
 		public void StartFadeIn()
 		{
 			_state = State.FadeIn;
 		}
+
+		/// <summary>
+		/// Starts the fade out process.
+		/// </summary>
 		public void StartFadeOut()
 		{
 			_state = State.FadeOut;
