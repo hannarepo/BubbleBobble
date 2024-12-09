@@ -17,14 +17,18 @@ namespace BubbleBobble
     {
         public TextMeshProUGUI ScoreCounter;
 
-        public void IncrementScoreCount(int scoreTotal)
+        public void UpdateScore(int newScore)
         {
-            ScoreCounter.text = $"{scoreTotal}";
+            ScoreCounter.text = newScore.ToString();
         }
-
-		//         public void IncrementScoreCount(int scoreTotal)
+        // public void IncrementScoreCount(int scoreTotal)
         // {
-        //     ScoreCounter.text = $"{scoreTotal}";
+        // 	ScoreCounter.text = $"{scoreTotal}";
+        // }
+
+        // public void DecrementScoreCount(int scoreTotal)
+        // {
+        // 	ScoreCounter.text = $"{scoreTotal}";
         // }
     }
 }

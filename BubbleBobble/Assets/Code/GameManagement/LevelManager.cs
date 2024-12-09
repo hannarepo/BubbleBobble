@@ -20,8 +20,10 @@ namespace BubbleBobble
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private float _textFlashTime = 2f;
 		[SerializeField] private bool _canSpawnShell = true;
+		[SerializeField] private bool _canSpawnUmbrella = false;
 		[SerializeField] GameObject _enemies;
 		[SerializeField] private float _spawnUndefeatableTime = 35f;
+		[SerializeField] private AudioClip _bossSFX;
 		private GameManager _gameManager;
 		private List<Item> _spawnableItemPrefabs;
 		private float _spawnedItemCount;
@@ -31,8 +33,9 @@ namespace BubbleBobble
 		private bool _hurryUp = false;
 		private LevelChanger _levelChanger;
 		private Audiomanager _audioManager;
-		private bool _canResetHurryUp = false;
 		private GameObject _undefeatableEnemy;
+		private Health _playerHealth;
+		private bool _spawnedUndefeatable = false;
 
 		public bool CanSpawnItem
 		{
@@ -40,13 +43,16 @@ namespace BubbleBobble
 			set => _canSpawnItem = value;
 		}
 
+		public bool IsHurryUpActive => _hurryUp;
+
 		private void Start()
 		{
 			_gameManager = FindObjectOfType<GameManager>();
 			_levelChanger = FindObjectOfType<LevelChanger>();
-			_spawnableItemPrefabs = _gameManager._spawnableItemPrefabs;
+			_spawnableItemPrefabs = _gameManager.SpawnableItems;
 			_audioManager = FindObjectOfType<Audiomanager>();
 			_undefeatableEnemy = _gameManager.UndefeatableEnemy;
+			_playerHealth = FindObjectOfType<Health>();
 		}
 
 		private void Update()
@@ -60,25 +66,25 @@ namespace BubbleBobble
 
 			if (_spawnTimer > _spawnInterval)
 			{
-				SpawnItemAtInterval(Random.Range(0, _gameManager._spawnableItemPrefabs.Count));
+				SpawnItemAtInterval(Random.Range(0, _spawnableItemPrefabs.Count));
 			}
 
 			if (_hurryUpTimer >= _hurryUpTime && !_hurryUp)
 			{
 				HurryUp();
 				_hurryUp = true;
-				_canResetHurryUp = true;
 			}
 
-			if (_hurryUpTimer >= _spawnUndefeatableTime)
+			if (_hurryUpTimer >= _spawnUndefeatableTime && !_spawnedUndefeatable)
 			{
 				_undefeatableEnemy.SetActive(true);
+				_audioManager.PlaySFX(_bossSFX);
+				_spawnedUndefeatable = true;
 			}
 
-			if (_levelChanger.StartLevelChange && _canResetHurryUp)
+			if (_hurryUp && _playerHealth.LostLife)
 			{
 				ResetHurryUp();
-				_hurryUp = false;
 			}
 		}
 
@@ -93,27 +99,35 @@ namespace BubbleBobble
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
 				Item item = null;
 
-				if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell)
+				if ((_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell) ||
+					 (_spawnableItemPrefabs[index]. ItemData.ItemType == ItemType.Umbrella && !_canSpawnUmbrella))
 				{
 					index = Random.Range(0, _spawnableItemPrefabs.Count);
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
 										transform);
 				}
-				else
+				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Umbrella && _canSpawnUmbrella)
+				{
+					int spawnChance = Random.Range(0, 2);
+					if (spawnChance == 1)
+					{
+						Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity);
+						_canSpawnUmbrella = false;
+					}
+				}
+				else if (_spawnableItemPrefabs[index].ItemData.ItemType != ItemType.Umbrella)
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
 										transform);
+					if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell)
+					{
+						_canSpawnShell = false;
+					}
 				}
 
 				_spawnedItemCount++;
 				_spawnPoints.Remove(_spawnPoints[randomSpawnPoint]);
 				_spawnTimer = 0;
-
-				// If the spawned item is a shell, remove it from the item list so that no two shells spawn in one level.
-				if (item.ItemData.ItemType == ItemType.Shell)
-				{
-					_canSpawnShell = false;
-				}
 			}
 		}
 
@@ -124,14 +138,19 @@ namespace BubbleBobble
 			_audioManager.SpeedUpMusic();
 		}
 
+		public void ResetHurryUpTimer()
+		{
+			_hurryUpTimer = 0;
+		}
+
 		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
 			_audioManager.SlowDownMusic();
-			_hurryUpTimer = 0;
+			ResetHurryUpTimer();
+			_hurryUp = false;
 			_gameManager.HurryUpText.SetActive(false);
 			CancelInvoke("FlashHurryUpText");
-			_canResetHurryUp = false;
 			_undefeatableEnemy.SetActive(false);
 		}
 

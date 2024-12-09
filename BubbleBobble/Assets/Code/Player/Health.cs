@@ -43,11 +43,14 @@ namespace BubbleBobble
 		private InputReader _inputReader;
 		private bool _notInvincible = false;
 		private PlayerControl _playerControl;
+		private bool _lostLife = false;
 
 		public bool IsInvincible
 		{
 			get { return _invincibilityTimer > 0 ; }
 		}
+
+		public bool LostLife => _lostLife;
 
 		public int CurrentLives => _currentLives;
 
@@ -132,6 +135,29 @@ namespace BubbleBobble
 				if (_currentLives > 0)
 				{
 					_invincibilityTimer = _invincibilityTime;
+					_lostLife = true;
+				}
+			}
+			else if (collision.gameObject.CompareTag(Tags.Undefeatable))
+			{
+				_inputReader.enabled = false;
+				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+				_playerControl.CanMove = false;
+				Invoke("Respawn", 1f);
+				if (!_invincibility)
+				{
+					_currentLives -= 2;
+				}
+				_hearts[_currentLives].SetActive(false);
+				_hearts[_currentLives+1].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_brokenHearts[_currentLives+1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives+1], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
+				
+				if (_currentLives > 0)
+				{
+					_invincibilityTimer = _invincibilityTime;
+					_lostLife = true;
 				}
 			}
 		}
@@ -160,6 +186,7 @@ namespace BubbleBobble
 			_rb.constraints = RigidbodyConstraints2D.FreezeRotation;
 			_playerControl.CanMove = true;
 			_notInvincible = true;
+			_lostLife = false;
 		}
 
 		private void Flash()

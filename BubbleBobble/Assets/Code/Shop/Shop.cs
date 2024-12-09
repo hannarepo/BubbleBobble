@@ -11,6 +11,7 @@ namespace BubbleBobble
 		[SerializeField] private UnityEngine.UI.Image _heartIcon;
 		[SerializeField] private UnityEngine.UI.Image[] _shellIcons;
 		[SerializeField] private Color _grayPriceColor;
+
 		private Inventory _inventory;
 		private GameManager _gameManager;
 
@@ -69,7 +70,7 @@ namespace BubbleBobble
 				}
 				else
 				{
-					_shellIcons[i]. color = Color.white;
+					_shellIcons[i].color = Color.white;
 				}
 			}
 
@@ -95,12 +96,13 @@ namespace BubbleBobble
 		/// <param name="index"> Set in each button to pick correct power up. </param>
 		public void Buy(int index)
 		{
-			if (index >= 0 && index  <= 3)
+			if (index >= 0 && index <= 3)
 			{
 				if (_powerUps[index].PowerUpData.Price <= _gameManager.Score)
 				{
 					_powerUps[index].ActivatePowerUp();
 					_gameManager.Score -= _powerUps[index].PowerUpData.Price;
+					//_scoreText.UpdateScore(_powerUps[index].PowerUpData.Price);
 				}
 			}
 			else if (index == 4)

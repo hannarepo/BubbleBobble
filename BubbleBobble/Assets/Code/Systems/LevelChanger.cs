@@ -15,6 +15,24 @@ namespace BubbleBobble
 	/// </summary>
 	public class LevelChanger : MonoBehaviour
 	{
+		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
+		[SerializeField] private GameObject _currentLevel;
+		[SerializeField] private Transform _newLevelSpawnPoint;
+		[SerializeField] private float _speed = 1.0f;
+		[SerializeField] private GameObject _player;
+		[SerializeField] private Transform _playerReturnPoint;
+		[SerializeField] private float _levelChangeDelay = 1f;
+		[SerializeField] private string _windowsLevelName;
+		[SerializeField] private string _liminalLevelName;
+		[SerializeField] private Audiomanager _audioManager;
+		[SerializeField] private AudioClip _underwaterMusic;
+		[SerializeField] private AudioClip _windowsMusic;
+		[SerializeField] private AudioClip _liminalMusic;
+		[SerializeField] private GameObject _intro;
+		[SerializeField] private SkipButton _skipIntroButton;
+		[SerializeField] private CurrentLevelText _currentLevelText;
+		[SerializeField] private SpriteFade _windowsTransitionPrefab;
+		[SerializeField] private SpriteFade _liminalTransitionPrefab;
 		private int _levelIndex = 0;
 		private bool _isLevelLoaded = true;
 		private bool _isLevelStarted = false;
@@ -24,23 +42,7 @@ namespace BubbleBobble
 		private float _currentLevelMovePosY = 0f;
 		private bool _startLevelChange = false;
 		private bool _waitForFade = false;
-		[SerializeField] private GameObject _currentLevel;
-		[SerializeField] private Transform _newLevelSpawnPoint;
-		[SerializeField] private float _speed = 1.0f;
-		[SerializeField] private GameObject _player;
-		[SerializeField] private Transform _playerReturnPoint;
-		[SerializeField] private float _levelChangeDelay = 1f;
-		[SerializeField] private List<GameObject> _levelPrefabs = new List<GameObject>();
-		[SerializeField] private string _windowsLevelName;
-		[SerializeField] private string _liminalLevelName;
-		[SerializeField] private Audiomanager _audioManager;
-		[SerializeField] private AudioClip _underwaterMusic;
-		[SerializeField] private AudioClip _windowsMusic;
-		[SerializeField] private AudioClip _liminalMusic;
-		[SerializeField] private float _levelOneStartDelay = 10f;
-		[SerializeField] private GameObject _intro;
-		[SerializeField] private CurrentLevelText _currentLevelText;
-		[SerializeField] private SpriteFade _spriteFade;
+		private SpriteFade _spriteFade;
 
 		public int LevelIndex
 		{
@@ -109,10 +111,7 @@ namespace BubbleBobble
 			if (_levelPrefab.name == _windowsLevelName
 				|| _levelPrefab.name == _liminalLevelName)
 			{
-				_waitForFade = true;
-				_spriteFade = FindObjectOfType<SpriteFade>();
-				_spriteFade.StartFadeIn();
-				SpriteFade.FadeComplete += OnFadeComplete;
+				StartTransition();
 			}
 			else
 			{
@@ -148,21 +147,15 @@ namespace BubbleBobble
 			}
 		}
 
-		private void IntroDone()
-		{
-			// Unrestrain player
-			_intro.SetActive(false);
-			_isLevelStarted = true;
-			_audioManager.ChangeMusic(_underwaterMusic);
-		}
-
+		/// <summary>
+		/// Stop listening to the FadeComplete event and execute actions
+		/// </summary>
 		private void OnFadeComplete()
 		{
 			SpriteFade.FadeComplete -= OnFadeComplete;
 			if (_waitForFade && !_startLevelChange)
 			{
 				DelayedLevelChange();
-
 			}
 			else
 			{
@@ -170,6 +163,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// This method contains all the variable changes and method calls
+		/// needed when the level change is complete and playing can continue.
+		/// </summary>
 		private void LevelChangeComplete()
 		{
 			Destroy(_currentLevel);
@@ -180,6 +177,40 @@ namespace BubbleBobble
 			_isLevelStarted = true;
 			_startLevelChange = false;
 			_currentLevelText.UpdateLevelNumber();
+		}
+
+		/// <summary>
+		/// Checks which transition screen is needed and instantiates it,
+		/// then start fading it and listening for the FadeComplete event.
+		/// </summary>
+		private void StartTransition()
+		{
+			if (_levelPrefab.name == _windowsLevelName)
+			{
+				_spriteFade = Instantiate(_windowsTransitionPrefab);
+			}
+			else
+			{
+				_spriteFade = Instantiate(_liminalTransitionPrefab);
+			}
+			_waitForFade = true;
+			_spriteFade.StartFadeIn();
+			SpriteFade.FadeComplete += OnFadeComplete;
+		}
+
+		private void IntroDone()
+		{
+			// Unrestrain player
+			_intro.SetActive(false);
+			_skipIntroButton.SetButtonActive(false);
+			_isLevelStarted = true;
+			_audioManager.ChangeMusic(_underwaterMusic);
+		}
+
+		public void SkipIntro()
+		{
+			CancelInvoke("IntroDone");
+			IntroDone();
 		}
 	}
 }
