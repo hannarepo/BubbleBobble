@@ -242,7 +242,7 @@ namespace BubbleBobble
 							}
 							break;
 						}
-						//print("Invoking level change");
+
 						_levelManager.CanSpawnItem = false;
 
 						AddItemToList();
