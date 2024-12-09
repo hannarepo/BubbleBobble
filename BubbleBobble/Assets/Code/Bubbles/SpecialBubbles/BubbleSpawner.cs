@@ -1,16 +1,14 @@
-/// <remarks>
-/// author: Jose Mäntylä
-/// </remarks>
-/// 
-/// <summary>
-/// Used to spawn special bubbles.
-/// </summary>
-using System;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Script used in level to spawn bubbles.
+	/// </summary>
+	///
+	/// <remarks>
+	/// author: Jose Mäntylä
+	/// </remarks>
 	public class BubbleSpawner : MonoBehaviour
 	{
 		[SerializeField] private GameObject _specialBubblePrefab;
@@ -41,9 +39,11 @@ namespace BubbleBobble
 			_gameManager.BubbleSpawnerInitialization(this);
 			_levelChanger = _gameManager.GetComponent<LevelChanger>();
 
+			// Set the colliders to match the spawn direction
 			_topCollider.enabled = !_spawnFromTop;
 			_bottomCollider.enabled = _spawnFromTop;
 		}
+
 		private void Update()
 		{
 			_timeToSpawn += Time.deltaTime;
@@ -73,7 +73,7 @@ namespace BubbleBobble
 		#region Spawners
 
 		/// <summary>
-		/// Instantiates a special bubble and adjusts its' movement
+		/// Instantiates a special bubble and sets its direction.
 		/// </summary>
 		private void SpawnSpecialBubble()
 		{
@@ -103,6 +103,10 @@ namespace BubbleBobble
 
 			_timeToSpawn = 0f;
 		}
+
+		/// <summary>
+		/// Instantiates a bomb bubble.
+		/// </summary>
 		public void SpawnBomb()
 		{
 			GameObject bombBubble = Instantiate(_bombBubblePrefab, transform.position, Quaternion.identity, transform);
@@ -112,6 +116,11 @@ namespace BubbleBobble
 
 		#endregion Spawners
 
+		/// <summary>
+		/// Changes the gravity scale to negative or positive depending on the spawn direction.
+		/// </summary>
+		/// <param name="bubble">Bubble gameobject</param>
+		/// <returns></returns>
 		private GameObject FloatDirection(GameObject bubble)
 		{
 			Rigidbody2D rb = bubble.GetComponent<Rigidbody2D>();
@@ -126,6 +135,10 @@ namespace BubbleBobble
 			return bubble;
 		}
 
+		/// <summary>
+		/// Sets the horizontal movement direction of the bubble.
+		/// </summary>
+		/// <param name="bubble">Bubble gameobject</param>
 		private void MoveDirection(GameObject bubble)
 		{
 			if (bubble.TryGetComponent<FireBubble>(out FireBubble fBubble))
