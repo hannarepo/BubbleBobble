@@ -23,6 +23,7 @@ namespace BubbleBobble
 		[SerializeField] private bool _canSpawnUmbrella = false;
 		[SerializeField] GameObject _enemies;
 		[SerializeField] private float _spawnUndefeatableTime = 35f;
+		[SerializeField] private AudioClip _bossSFX;
 		private GameManager _gameManager;
 		private List<Item> _spawnableItemPrefabs;
 		private float _spawnedItemCount;
@@ -34,6 +35,7 @@ namespace BubbleBobble
 		private Audiomanager _audioManager;
 		private GameObject _undefeatableEnemy;
 		private Health _playerHealth;
+		private bool _spawnedUndefeatable = false;
 
 		public bool CanSpawnItem
 		{
@@ -73,9 +75,11 @@ namespace BubbleBobble
 				_hurryUp = true;
 			}
 
-			if (_hurryUpTimer >= _spawnUndefeatableTime)
+			if (_hurryUpTimer >= _spawnUndefeatableTime && !_spawnedUndefeatable)
 			{
 				_undefeatableEnemy.SetActive(true);
+				_audioManager.PlaySFX(_bossSFX);
+				_spawnedUndefeatable = true;
 			}
 
 			if (_hurryUp && _playerHealth.LostLife)
@@ -105,13 +109,11 @@ namespace BubbleBobble
 				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Umbrella && _canSpawnUmbrella)
 				{
 					int spawnChance = Random.Range(0, 2);
-					print(spawnChance);
 					if (spawnChance == 1)
 					{
 						Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity);
 						_canSpawnUmbrella = false;
 					}
-					print(_canSpawnUmbrella);
 				}
 				else if (_spawnableItemPrefabs[index].ItemData.ItemType != ItemType.Umbrella)
 				{
@@ -136,11 +138,16 @@ namespace BubbleBobble
 			_audioManager.SpeedUpMusic();
 		}
 
+		public void ResetHurryUpTimer()
+		{
+			_hurryUpTimer = 0;
+		}
+
 		public void ResetHurryUp()
 		{
 			// TODO: Reset enemy's angry mode
 			_audioManager.SlowDownMusic();
-			_hurryUpTimer = 0;
+			ResetHurryUpTimer();
 			_hurryUp = false;
 			_gameManager.HurryUpText.SetActive(false);
 			CancelInvoke("FlashHurryUpText");
