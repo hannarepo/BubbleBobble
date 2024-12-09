@@ -16,6 +16,7 @@ namespace BubbleBobble
 		{
 			_rb = GetComponent<Rigidbody2D>();
 			_player = GameObject.FindWithTag(Tags.Player);
+			_timer = _stopInterval;
 		}
 
 		private void OnEnable()
