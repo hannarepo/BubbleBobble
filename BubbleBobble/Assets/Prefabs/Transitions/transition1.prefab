@@ -393,7 +393,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4270521345495926218}
   - component: {fileID: 5877462997686863556}
-  - component: {fileID: 4174477030155539002}
   m_Layer: 0
   m_Name: background
   m_TagString: Untagged
@@ -471,22 +470,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4174477030155539002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8322291998352703381}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c97e121c150a98c459a4d43a198656a8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _fadeSpeed: 1
-  _sprite: {fileID: 5877462997686863556}
-  _text: {fileID: 4218824403155089634}
-  _hasChildren: 1
 --- !u!1 &8401119039179380967
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,6 +479,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7670388931768182926}
+  - component: {fileID: 1146553548979168551}
   m_Layer: 0
   m_Name: transition1
   m_TagString: Untagged
@@ -519,3 +503,19 @@ Transform:
   - {fileID: 4270521345495926218}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1146553548979168551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8401119039179380967}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c97e121c150a98c459a4d43a198656a8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _fadeSpeed: 1
+  _sprite: {fileID: 5877462997686863556}
+  _text: {fileID: 4218824403155089634}
+  _hasChildren: 1
