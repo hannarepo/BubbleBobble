@@ -36,6 +36,10 @@ namespace BubbleBobble
 		[SerializeField] private float _boxCastDistance;
 		[SerializeField] private bool _isFacingRight;
 		[SerializeField] private float _jumpHeight;
+		[SerializeField] private bool _isAShootingEnemy;
+		[SerializeField] private GameObject _enemyProjectile;
+		[SerializeField] private float _spawnOffset = 0.9f;
+		[SerializeField] private float _shootCooldown;
 		private Animator _animator;
 		private GameObject _player;
 		private Rigidbody2D _rigidbody2D;
@@ -51,6 +55,9 @@ namespace BubbleBobble
 		private bool _isPlayerBelow = false;
 		private bool _isPlayerOnSameLevel = false;
 		private Vector2 _jumpStartPosition;
+		private bool _canShoot = false;
+		private float _timer = 0;
+		private LevelManager _levelManager;
 		
 		private void Awake()
 		{
@@ -58,6 +65,7 @@ namespace BubbleBobble
 			_currentState = EnemyState.Moving;
 			_player = GameObject.Find("Player");
 			_animator = GetComponent<Animator>();
+			_levelManager = FindObjectOfType<LevelManager>();
 		}
 
 		private void Update()
@@ -68,7 +76,19 @@ namespace BubbleBobble
 			_isPlatformAboveFront = Physics2D.BoxCast(_platformAboveCheckFront.position, _platformAboveBoxCastSize, 0f, Vector2.up, _boxCastDistance, _groundLayer);
 			_playerPosition = _player.transform.position;
 			_enemyPosition = transform.position;
-			
+			_timer += Time.deltaTime;
+
+			if (_levelManager.IsHurryUpActive)
+			{
+				_speed = _hurryUpSpeed;
+			}
+
+			if (_timer >= _shootCooldown)
+			{
+				_canShoot = true;
+				_timer = 0;
+			}
+
 
 			PlayerYPosition();
 
@@ -168,7 +188,23 @@ namespace BubbleBobble
 
 		private void Shoot()
 		{
-			// Shooting logic
+			GameObject projectile;
+				if (_isFacingRight)
+				{
+					projectile = Instantiate(_enemyProjectile, new Vector3(transform.position.x + _spawnOffset,
+											transform.position.y, 0), Quaternion.identity);
+				}
+				else
+				{
+					projectile = Instantiate(_enemyProjectile, new Vector3(transform.position.x - _spawnOffset,
+											transform.position.y, 0), Quaternion.identity);
+				}
+
+				EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
+				if (enemyProjectile != null)
+				{
+					enemyProjectile.Launch(_isFacingRight);
+				}
 		}
 
 		private void CheckTransitions()
@@ -204,6 +240,18 @@ namespace BubbleBobble
 			else if (_currentState == EnemyState.Jumping && Vector2.Distance(new Vector2(0, _jumpStartPosition.y), new Vector2(0, _enemyPosition.y)) >= _jumpHeight)
 			{
 				_animator.SetTrigger("IsLanding");
+				_animator.SetBool("IsWalking", true);
+				_currentState = EnemyState.Moving;
+			}
+			else if (_currentState == EnemyState.Moving && _isPlayerOnSameLevel && _isAShootingEnemy && _canShoot)
+			{
+				_animator.SetBool("IsWalking", false);
+				_animator.SetTrigger("IsShooting");
+				_currentState = EnemyState.Shooting;
+			}
+			else if (_currentState == EnemyState.Shooting)
+			{
+				_canShoot = false;
 				_animator.SetBool("IsWalking", true);
 				_currentState = EnemyState.Moving;
 			}

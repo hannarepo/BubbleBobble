@@ -12,6 +12,7 @@ namespace BubbleBobble
         BlueFloppyDisk,
 		PurpleFloppyDisk,
         Camera,
+		Butterfly,
 		Umbrella
     }
 }

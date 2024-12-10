@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+/// <summary>
+/// Defines the features and functions of the bomb bubbles.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
 	public class BombBubble : Bubble
 	{
 		[SerializeField] private GameObject _explosionPrefab;
