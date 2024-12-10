@@ -13,13 +13,14 @@ GameObject:
   - component: {fileID: 2707540041471069676}
   - component: {fileID: 7227302762578745512}
   - component: {fileID: 3058065647410347726}
+  - component: {fileID: 6553770391622763115}
   m_Layer: 24
   m_Name: UndefeatableEnemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &388670029129279162
 Transform:
   m_ObjectHideFlags: 0
@@ -76,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -1070914969
   m_SortingLayer: 5
   m_SortingOrder: 0
-  m_Sprite: {fileID: -9095717837082945937, guid: e3928a2ba6d0f024c81e3d7bd177db06, type: 3}
+  m_Sprite: {fileID: -1451670758, guid: 31ce159fdc77889488ce55119363c84f, type: 3}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -165,3 +166,24 @@ MonoBehaviour:
   _stopInterval: 4
   _stopTime: 7
   _startPosition: {fileID: 0}
+--- !u!95 &6553770391622763115
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1810985454904803781}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4166588edf0f14449a89d9025549178b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
