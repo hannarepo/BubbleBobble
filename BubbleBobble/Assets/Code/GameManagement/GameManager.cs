@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
+using Unity.VisualScripting;
 
 namespace BubbleBobble
 {
@@ -34,13 +35,15 @@ namespace BubbleBobble
 		private List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private int _mp3SpawnThreshold = 20;
-		[SerializeField] private int _cdSpawnThreshold = 40;
+		[SerializeField] private int _cdSpawnThreshold = 30;
+		[SerializeField] private int _butterflySpawnThreshold = 40;
 		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
 		[SerializeField] private Item _camera;
 		[SerializeField] private Item _mp3;
 		[SerializeField] private Item _cd;
+		[SerializeField] private Item _butterfly;
 		[SerializeField] private Item _blueShell;
 		[SerializeField] private Item _pupleShell;
 		[SerializeField] private Item _purpleBlueShell;
@@ -200,6 +203,12 @@ namespace BubbleBobble
 			if (_playerControl.Inventory.Count(_cdSpawnThreshold))
 			{
 				_spawnableItemPrefabs.Add(_cd);
+			}
+
+			// If inventory contains x number of items, add a butterfly to the item list.
+			if (_playerControl.Inventory.Count(_butterflySpawnThreshold))
+			{
+				_spawnableItemPrefabs.Add(_butterfly);
 			}
 		}
 
