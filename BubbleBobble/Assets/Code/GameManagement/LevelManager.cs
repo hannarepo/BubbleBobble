@@ -152,6 +152,7 @@ namespace BubbleBobble
 			_gameManager.HurryUpText.SetActive(false);
 			CancelInvoke("FlashHurryUpText");
 			_undefeatableEnemy.SetActive(false);
+			_spawnedUndefeatable = false;
 		}
 
 		private void FlashHurryUpText()
