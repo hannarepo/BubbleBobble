@@ -284,12 +284,16 @@ MonoBehaviour:
   _platformAboveCheckBack: {fileID: 7526166410451577577}
   _platformAboveCheckFront: {fileID: 2446634399938184141}
   _edgeBoxCastSize: {x: 0.2, y: 0.03}
-  _groundBoxCastSize: {x: 0.47, y: 0.03}
+  _groundBoxCastSize: {x: 0.93, y: 0.03}
   _wallBoxCastSize: {x: 0.1, y: 0.5}
   _platformAboveBoxCastSize: {x: 0.1, y: 0.7}
   _boxCastDistance: 0
   _isFacingRight: 1
   _jumpHeight: 2.1
+  _isAShootingEnemy: 0
+  _enemyProjectile: {fileID: 0}
+  _spawnOffset: 0
+  _shootCooldown: 0
 --- !u!1 &2934540865212895458
 GameObject:
   m_ObjectHideFlags: 0
@@ -346,7 +350,7 @@ Transform:
   m_GameObject: {fileID: 5600131626171010648}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.237, y: -0.52020025, z: 0}
+  m_LocalPosition: {x: 0.009, y: -0.52020025, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -408,7 +412,7 @@ Transform:
   m_GameObject: {fileID: 6271072136581967036}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.123, y: -0.5202, z: 0}
+  m_LocalPosition: {x: 0.591, y: -0.5202, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
