@@ -23,5 +23,6 @@ namespace BubbleBobble
 		public const String BottomSpawnRight = "BottomSpawnRight";
 		public const String Umbrella = "Umbrella";
 		public const String Undefeatable = "Undefeatable";
+		public const String EnemyProjectile = "EnemyProjectile";
 	}
 }

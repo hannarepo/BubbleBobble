@@ -69,6 +69,10 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.color = _hurryUpColor;
 			}
+			else if (_launched)
+			{
+				_spriteRenderer.color = _deathColor;
+			}
 			else
 			{
 				_spriteRenderer.color = Color.white;
@@ -92,7 +96,6 @@ namespace BubbleBobble
 
 			gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 			gameObject.tag = Tags.DeadEnemy;
-			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
 
