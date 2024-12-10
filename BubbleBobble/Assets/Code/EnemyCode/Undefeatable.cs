@@ -11,12 +11,14 @@ namespace BubbleBobble
 		private Rigidbody2D _rb;
 		private GameObject _player;
 		private float _timer = 0f;
+		private SpriteRenderer _spriteRenderer;
 
 		private void Start()
 		{
 			_rb = GetComponent<Rigidbody2D>();
 			_player = GameObject.FindWithTag(Tags.Player);
 			_timer = _stopInterval;
+			_spriteRenderer = GetComponent<SpriteRenderer>();
 		}
 
 		private void OnEnable()
@@ -39,6 +41,15 @@ namespace BubbleBobble
 			else
 			{
 				_timer = 0;
+			}
+
+			if (_player.transform.position.x < transform.position.x)
+			{
+				_spriteRenderer.flipX = false;
+			}
+			else
+			{
+				_spriteRenderer.flipX = true;
 			}
 		}
     }
