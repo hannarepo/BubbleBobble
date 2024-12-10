@@ -78,7 +78,8 @@ MonoBehaviour:
   _undefeatableEnemy: {fileID: 0}
   _creditFade: {fileID: 0}
   _creditFadeDelay: 3
-  _creditLoadDelay: 7
+  _creditLoadDelay: 6
+  _audioManager: {fileID: 0}
 --- !u!114 &2435661641220886971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -92,10 +93,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelPrefabs:
-  - {fileID: 9148315335681007025, guid: 2d701d39e63fd214db6f910efa285f5b, type: 3}
   - {fileID: 3358445421767054927, guid: e234decaab931494eb07c9971b86c0d7, type: 3}
   - {fileID: 2713228957434252496, guid: cf9b1f0b4be507446963403017e33ca4, type: 3}
   - {fileID: 2713228957434252496, guid: 57f2f3f98ffaf9c4ebd6e1e79481c1d4, type: 3}
+  - {fileID: 9148315335681007025, guid: 2d701d39e63fd214db6f910efa285f5b, type: 3}
   - {fileID: 3358445421767054927, guid: 384ef45be0dc2da47adf40743cdd23d6, type: 3}
   - {fileID: 3358445421767054927, guid: 34af1c3ff7794a64bb1bc4296114fb82, type: 3}
   - {fileID: 3358445421767054927, guid: 3ca8134a2938a1d4096e734c7eb8d229, type: 3}
@@ -137,6 +138,8 @@ MonoBehaviour:
   _windowsMusic: {fileID: 8300000, guid: ef07c101a94af2746a26dc9a892567de, type: 3}
   _liminalMusic: {fileID: 8300000, guid: 7572b2fad26b6f0408daf8a4abbb7622, type: 3}
   _intro: {fileID: 0}
+  _introDelay: 21
+  _skipIntroButton: {fileID: 0}
   _currentLevelText: {fileID: 0}
   _windowsTransitionPrefab: {fileID: 1146553548979168551, guid: c5406329d3ba3af43ab443934d780746, type: 3}
   _liminalTransitionPrefab: {fileID: 1331679285876340483, guid: e54654395c08fcb4fbc4e7efd19e1d50, type: 3}

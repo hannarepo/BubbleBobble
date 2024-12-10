@@ -2270,6 +2270,7 @@ GameObject:
   - component: {fileID: 3746332552686264717}
   - component: {fileID: 7425082674594151326}
   - component: {fileID: 3080971846435499152}
+  - component: {fileID: 5586454924732240243}
   m_Layer: 0
   m_Name: IntroAnimation
   m_TagString: Untagged
@@ -2333,15 +2334,15 @@ SpriteRenderer:
   m_SortingLayerID: 1353614017
   m_SortingLayer: 9
   m_SortingOrder: 0
-  m_Sprite: {fileID: -375212110, guid: d764baebede8996498aa6e7d8d718e06, type: 3}
+  m_Sprite: {fileID: -1803130071, guid: 1fc6af60fe27ac2418506392b1ccff1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 16.004631, y: 12}
+  m_Size: {x: 16, y: 12}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!95 &7425082674594151326
@@ -2354,7 +2355,7 @@ Animator:
   m_GameObject: {fileID: 3305654062036943144}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: cba8578f37480784fa5f431250f132ae, type: 2}
+  m_Controller: {fileID: 9100000, guid: 22a61942d3347d04a9bb5f33d46be2d3, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -2376,7 +2377,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 3605060375100102433, guid: 7538bd1eab40f7a4db1ce3e34a4efbad, type: 2}
   m_audioClip: {fileID: 8300000, guid: 7f28944593b4cef4e873d68f5a28d3bb, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1
@@ -2461,6 +2462,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5586454924732240243
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3305654062036943144}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a78b588234ecea43ad7547ce8656e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3409204180533181991
 GameObject:
   m_ObjectHideFlags: 0
