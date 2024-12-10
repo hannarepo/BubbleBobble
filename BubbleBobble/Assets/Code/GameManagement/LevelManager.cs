@@ -133,7 +133,6 @@ namespace BubbleBobble
 
 		private void HurryUp()
 		{
-			// TODO: Call enemy's angry mode
 			FlashHurryUpText();
 			_audioManager.SpeedUpMusic();
 		}
@@ -145,7 +144,6 @@ namespace BubbleBobble
 
 		public void ResetHurryUp()
 		{
-			// TODO: Reset enemy's angry mode
 			_audioManager.SlowDownMusic();
 			ResetHurryUpTimer();
 			_hurryUp = false;

@@ -122,10 +122,6 @@ namespace BubbleBobble
 			{
 				LoseLife();
 			}
-			else if (collision.gameObject.CompareTag(Tags.Undefeatable))
-			{
-				LoseTwoLives();
-			}
 		}
 
 		private void OnTriggerEnter2D(Collider2D collider)
@@ -133,6 +129,10 @@ namespace BubbleBobble
 			if (collider.gameObject.CompareTag(Tags.EnemyProjectile))
 			{
 				LoseLife();
+			}
+			else if (collider.gameObject.CompareTag(Tags.Undefeatable))
+			{
+				LoseTwoLives();
 			}
 		}
 
