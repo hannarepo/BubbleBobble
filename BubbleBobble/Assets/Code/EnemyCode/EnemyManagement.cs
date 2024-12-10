@@ -8,13 +8,14 @@ namespace BubbleBobble
 		[SerializeField] private float _deathDelay = 4f;
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private Color _deathColor;
+		[SerializeField] private Color _hurryUpColor;
 		[SerializeField] private float _rotationSpeed = 500f;
 		[SerializeField] private float _topTriggerYPos;
 		[SerializeField] private float _bottomTriggerYPos;
 		[SerializeField] private AudioClip _launchSFX;
 		private GameManager _gameManager;
 		private Audiomanager _audioManager;
-		private LevelChanger _levelChanger;
+		private LevelManager _levelManager;
 		private Transform _levelParent;
 		private Rigidbody2D _rb;
 		private SpriteRenderer _spriteRenderer;
@@ -35,10 +36,11 @@ namespace BubbleBobble
 			_audioManager = FindObjectOfType<Audiomanager>();
 			_gameManager.AddEnemyToList(gameObject);
 			_levelParent = FindObjectOfType<LevelManager>().transform;
-			_levelChanger = FindObjectOfType<LevelChanger>();
+			_levelManager = FindObjectOfType<LevelManager>();
 			_animator = GetComponent<Animator>();
 			_movement = GetComponent<BasicEnemyBehavior>();
 			_bounce = GetComponent<BouncingEnemyMovement>();
+
 		}
 
 		private void Update()
@@ -61,6 +63,15 @@ namespace BubbleBobble
 					gameObject.layer = LayerMask.NameToLayer("Item");
 					_canSpawn = true;
 				}
+			}
+
+			if (_levelManager.IsHurryUpActive)
+			{
+				_spriteRenderer.color = _hurryUpColor;
+			}
+			else
+			{
+				_spriteRenderer.color = Color.white;
 			}
 		}
 
