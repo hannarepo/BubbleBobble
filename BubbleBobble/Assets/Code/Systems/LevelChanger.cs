@@ -29,6 +29,7 @@ namespace BubbleBobble
 		[SerializeField] private AudioClip _windowsMusic;
 		[SerializeField] private AudioClip _liminalMusic;
 		[SerializeField] private GameObject _intro;
+		[SerializeField] private float _introDelay = 13f;
 		[SerializeField] private SkipButton _skipIntroButton;
 		[SerializeField] private CurrentLevelText _currentLevelText;
 		[SerializeField] private SpriteFade _windowsTransitionPrefab;
@@ -61,7 +62,7 @@ namespace BubbleBobble
 			if (_currentLevel.name == "Level1")
 			{
 				// Call / invoke the intro thingies here
-				Invoke("IntroDone", _intro.GetComponent<AudioSource>().clip.length);
+				Invoke("IntroDone", _introDelay);
 			}
 		}
 
