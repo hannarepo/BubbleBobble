@@ -118,7 +118,8 @@ namespace BubbleBobble
 			// If player hits an enemy, they lose a life and are respawned to set location.
 			// A heart is disabled and a broken heart is instatiated in it's place to
 			// indicate loss of life to player.
-			if (collision.gameObject.CompareTag(Tags.Enemy) && !IsInvincible && _currentLives > 0)
+			if ((collision.gameObject.CompareTag(Tags.Enemy) || collision.gameObject.CompareTag(Tags.EnemyProjectile))
+				&& !IsInvincible && _currentLives > 0)
 			{
 				_inputReader.enabled = false;
 				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
