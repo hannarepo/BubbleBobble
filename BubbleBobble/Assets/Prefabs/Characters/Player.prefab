@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 7458938812928138293}
   - component: {fileID: 7613198819266639514}
   - component: {fileID: 682509135643954411}
-  - component: {fileID: 7852315019599692977}
   m_Layer: 3
   m_Name: Player
   m_TagString: Player
@@ -317,8 +316,8 @@ MonoBehaviour:
   _audioManager: {fileID: 0}
   _loseHeartSFX: {fileID: 8300000, guid: 79a8184377171b44f8ce3e6a86d925c8, type: 3}
   _deathSFX: {fileID: 8300000, guid: dabd480944d70c14cbd6e4d62098a37d, type: 3}
-  _gameOverText: {fileID: 0}
   _invincibility: 0
+  _gameOverScreen: {fileID: 0}
 --- !u!114 &7613198819266639514
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -347,52 +346,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _panicTime: 2
   _panicImmuneTime: 2
---- !u!68 &7852315019599692977
-EdgeCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4398036962778295810}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_EdgeRadius: 0
-  m_Points:
-  - {x: -0.26929474, y: 0.33532745}
-  - {x: -0.25666332, y: -0.4587278}
-  - {x: -0.17291355, y: -0.49919075}
-  - {x: 0.33189392, y: -0.4998752}
-  - {x: 0.3942709, y: -0.45303875}
-  - {x: 0.39817762, y: 0.3329873}
-  - {x: -0.2712531, y: 0.33398616}
-  m_AdjacentStartPoint: {x: 0, y: 0}
-  m_AdjacentEndPoint: {x: 0, y: 0}
-  m_UseAdjacentStartPoint: 0
-  m_UseAdjacentEndPoint: 0
 --- !u!1 &9032662658068158579
 GameObject:
   m_ObjectHideFlags: 0
