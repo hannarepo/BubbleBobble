@@ -8,6 +8,8 @@ namespace BubbleBobble
 		[SerializeField] private float _stopInterval = 2f;
 		[SerializeField] private float _stopTime = 2f;
 		[SerializeField] private Transform _startPosition;
+		[SerializeField] private AudioClip _bossSFX;
+		[SerializeField] private Audiomanager _audioManager;
 		private Rigidbody2D _rb;
 		private GameObject _player;
 		private float _timer = 0f;
@@ -43,6 +45,11 @@ namespace BubbleBobble
 				_timer = 0;
 			}
 
+			if (_timer == 0)
+			{
+				PlaySFXOnMove();
+			}
+
 			if (_player.transform.position.x < transform.position.x)
 			{
 				_spriteRenderer.flipX = false;
@@ -51,6 +58,11 @@ namespace BubbleBobble
 			{
 				_spriteRenderer.flipX = true;
 			}
+		}
+
+		private void PlaySFXOnMove()
+		{
+			_audioManager.PlaySFX(_bossSFX);
 		}
     }
 }
