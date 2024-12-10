@@ -392,10 +392,6 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1333773070}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _introDelay
-      value: 21
-      objectReference: {fileID: 0}
-    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _audioManager
       value: 
       objectReference: {fileID: 632232029}
@@ -419,18 +415,6 @@ PrefabInstance:
       propertyPath: _newLevelSpawnPoint
       value: 
       objectReference: {fileID: 987786896}
-    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _levelPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 3358445421767054927, guid: 2d701d39e63fd214db6f910efa285f5b, type: 3}
-    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _levelPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 2713228957434252496, guid: e234decaab931494eb07c9971b86c0d7, type: 3}
-    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _levelPrefabs.Array.data[3]
-      value: 
-      objectReference: {fileID: 9148315335681007025, guid: 57f2f3f98ffaf9c4ebd6e1e79481c1d4, type: 3}
     - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _player
       value: 
@@ -463,10 +447,6 @@ PrefabInstance:
       propertyPath: _scoreEndScreen
       value: 
       objectReference: {fileID: 303371069}
-    - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
-      propertyPath: _creditLoadDelay
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 8627880837166882608, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _undefeatableEnemy
       value: 
@@ -1630,7 +1610,8 @@ PrefabInstance:
       propertyPath: _startPosition
       value: 
       objectReference: {fileID: 1371113908}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -825505956893186351, guid: 0eaa43351cf291a418bd972e315b7038, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6663,18 +6644,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: _hurryUpTime
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2142757097997818744, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: _spawnUndefeatableTime
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5236705795139877546, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
