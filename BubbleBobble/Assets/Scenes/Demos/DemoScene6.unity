@@ -392,6 +392,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1333773070}
     - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
+      propertyPath: _introDelay
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 2435661641220886971, guid: adb11820d2b1956488d3e714179cd6d9, type: 3}
       propertyPath: _audioManager
       value: 
       objectReference: {fileID: 632232029}
@@ -6615,6 +6619,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
   m_PrefabInstance: {fileID: 6421202181135769890}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1958712268
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1958712262}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8a78b588234ecea43ad7547ce8656e65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2013897902 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5397099979837710100, guid: d5373a99554e4ed4aa23bbc7e2321b77, type: 3}
@@ -6734,14 +6750,30 @@ PrefabInstance:
       propertyPath: _hurryUpTime
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 3080971846435499152, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_Name
+      value: IntroAnimationPart1
+      objectReference: {fileID: 0}
     - target: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3746332552686264717, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_Size.x
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 3746332552686264717, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1918864636, guid: a5019a367cda4bd4396b2945562756af, type: 3}
+      objectReference: {fileID: -1803130071, guid: 1fc6af60fe27ac2418506392b1ccff1a, type: 3}
+    - target: {fileID: 3746332552686264717, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5236705795139877546, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6785,7 +6817,7 @@ PrefabInstance:
     - target: {fileID: 7425082674594151326, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: e187266e89a5e424bba3f21580ff72b3, type: 2}
+      objectReference: {fileID: 9100000, guid: 22a61942d3347d04a9bb5f33d46be2d3, type: 2}
     - target: {fileID: 9148315335681007025, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
       propertyPath: m_Name
       value: Level1
@@ -6793,7 +6825,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3305654062036943144, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1958712268}
   m_SourcePrefab: {fileID: 100100000, guid: 03d13ff86f3795a44a14231082d05e06, type: 3}
 --- !u!1001 &6612186498020466814
 PrefabInstance:
