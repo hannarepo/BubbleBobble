@@ -65,7 +65,7 @@ namespace BubbleBobble
 				}
 			}
 
-			if (_levelManager.IsHurryUpActive)
+			if (_levelManager.IsHurryUpActive && !_launched)
 			{
 				_spriteRenderer.color = _hurryUpColor;
 			}
