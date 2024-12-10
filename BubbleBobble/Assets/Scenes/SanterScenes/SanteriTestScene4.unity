@@ -1786,14 +1786,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: FolderEnemy
       objectReference: {fileID: 0}
-    - target: {fileID: 1955929212195834462, guid: 315af6fd273f00243b6242ab2e546e60, type: 3}
-      propertyPath: _shootCooldown
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1955929212195834462, guid: 315af6fd273f00243b6242ab2e546e60, type: 3}
-      propertyPath: _enemyProjectile
-      value: 
-      objectReference: {fileID: 2556416487281445497, guid: 01434a001e697e546839090535aa1de8, type: 3}
     - target: {fileID: 6546872168070715768, guid: 315af6fd273f00243b6242ab2e546e60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 3.33
@@ -8531,10 +8523,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LobsterEnemy_0
       objectReference: {fileID: 0}
-    - target: {fileID: 4192683632561279453, guid: 9adb388c0335c1a458e42a4215c20056, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 5140593072920795032, guid: 9adb388c0335c1a458e42a4215c20056, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.71
@@ -9609,10 +9597,6 @@ PrefabInstance:
     - target: {fileID: 189168327991558119, guid: 66be47dac8175434f94ccdbb915f27b9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4416208118620453667, guid: 66be47dac8175434f94ccdbb915f27b9, type: 3}
-      propertyPath: _isAShootingEnemy
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8189101716449468307, guid: 66be47dac8175434f94ccdbb915f27b9, type: 3}
       propertyPath: m_Name
@@ -10921,6 +10905,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 744fd235f4bf3e24a8b0ff72a7521b7c, type: 3}
+--- !u!1001 &8685797181278479944
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -3.62
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3800882104677061083, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599191359243733253, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
+      propertyPath: m_Name
+      value: StarfishEnemyProjectile
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 36624dbe8d7d74941baedf07966a54b8, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -10939,4 +10980,5 @@ SceneRoots:
   - {fileID: 1936218847}
   - {fileID: 1398951055}
   - {fileID: 1016818316547350691}
+  - {fileID: 8685797181278479944}
   - {fileID: 718987204}

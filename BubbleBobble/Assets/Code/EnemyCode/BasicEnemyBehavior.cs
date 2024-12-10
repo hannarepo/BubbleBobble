@@ -57,6 +57,8 @@ namespace BubbleBobble
 		private Vector2 _jumpStartPosition;
 		private bool _canShoot = false;
 		private float _timer = 0;
+		private LevelManager _levelManager;
+		private float _originalSpeed;
 		
 		private void Awake()
 		{
@@ -64,6 +66,8 @@ namespace BubbleBobble
 			_currentState = EnemyState.Moving;
 			_player = GameObject.Find("Player");
 			_animator = GetComponent<Animator>();
+			_levelManager = FindObjectOfType<LevelManager>();
+			_originalSpeed = _speed;
 		}
 
 		private void Update()
@@ -75,6 +79,15 @@ namespace BubbleBobble
 			_playerPosition = _player.transform.position;
 			_enemyPosition = transform.position;
 			_timer += Time.deltaTime;
+
+			if (_levelManager.IsHurryUpActive)
+			{
+				_speed = _hurryUpSpeed;
+			}
+			else if (!_levelManager.IsHurryUpActive)
+			{
+				_speed = _originalSpeed;
+			}
 
 			if (_timer >= _shootCooldown)
 			{
