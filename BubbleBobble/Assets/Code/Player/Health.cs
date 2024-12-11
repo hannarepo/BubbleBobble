@@ -138,45 +138,60 @@ namespace BubbleBobble
 
 		private void LoseLife()
 		{
+			_lostLife = true;
 			_inputReader.enabled = false;
 			_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 			_playerControl.CanMove = false;
-			Invoke("Respawn", 1f);
 			if (!_invincibility)
 			{
 				_currentLives--;
 			}
-			_hearts[_currentLives].SetActive(false);
-			_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
-			_audioManager.PlaySFX(_loseHeartSFX);
 
 			if (_currentLives > 0)
 			{
+				Invoke("Respawn", 1f);
+				_hearts[_currentLives].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
 				_invincibilityTimer = _invincibilityTime;
-				_lostLife = true;
+			}
+			else
+			{
+				_hearts[0].SetActive(false);
+				_brokenHearts[0] = Instantiate(_brokenHeartPrefab, _heartPositions[0], Quaternion.identity);
+				Die();
 			}
 		}
 
 		private void LoseTwoLives()
 		{
+			_lostLife = true;
 			_inputReader.enabled = false;
 			_rb.constraints = RigidbodyConstraints2D.FreezeAll;
 			_playerControl.CanMove = false;
-			Invoke("Respawn", 1f);
+
 			if (!_invincibility)
 			{
 				_currentLives -= 2;
 			}
-			_hearts[_currentLives].SetActive(false);
-			_hearts[_currentLives + 1].SetActive(false);
-			_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
-			_brokenHearts[_currentLives + 1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives + 1], Quaternion.identity);
-			_audioManager.PlaySFX(_loseHeartSFX);
 
 			if (_currentLives > 0)
 			{
+				Invoke("Respawn", 1f);
+				_hearts[_currentLives].SetActive(false);
+				_hearts[_currentLives + 1].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_brokenHearts[_currentLives + 1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives + 1], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
 				_invincibilityTimer = _invincibilityTime;
-				_lostLife = true;
+			}
+			else
+			{
+				_hearts[0].SetActive(false);
+				_hearts[1].SetActive(false);
+				_brokenHearts[0] = Instantiate(_brokenHeartPrefab, _heartPositions[0], Quaternion.identity);
+				_brokenHearts[1] = Instantiate(_brokenHeartPrefab, _heartPositions[1], Quaternion.identity);
+				Die();
 			}
 		}
 
