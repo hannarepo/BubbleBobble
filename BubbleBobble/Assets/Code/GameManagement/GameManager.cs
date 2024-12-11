@@ -232,34 +232,34 @@ namespace BubbleBobble
 						_bubbleSpawner.SpawnBomb();
 					}
 					break;
-				case "Enemy":
-					if (_enemyList.Count == 0 && _canChangeLevel)
-					{
-						_levelManager = FindObjectOfType<LevelManager>();
-						_levelManager.ResetHurryUpTimer();
-						if (_levelManager.IsHurryUpActive)
-						{
-							_levelManager.ResetHurryUp();
-						}
-						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
-						{
-							Invoke("DelayedFade", _creditFadeDelay);
-							Invoke("LoadCredits", _creditLoadDelay);
-							_audioManager.FadeOut();
-							if (_levelManager.IsHurryUpActive)
-							{
-								_levelManager.ResetHurryUp();
-							}
-							break;
-						}
+				// case "Enemy":
+				// 	if (_enemyList.Count == 0 && _canChangeLevel)
+				// 	{
+				// 		_levelManager = FindObjectOfType<LevelManager>();
+				// 		_levelManager.ResetHurryUpTimer();
+				// 		if (_levelManager.IsHurryUpActive)
+				// 		{
+				// 			_levelManager.ResetHurryUp();
+				// 		}
+				// 		if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+				// 		{
+				// 			Invoke("DelayedFade", _creditFadeDelay);
+				// 			Invoke("LoadCredits", _creditLoadDelay);
+				// 			_audioManager.FadeOut();
+				// 			if (_levelManager.IsHurryUpActive)
+				// 			{
+				// 				_levelManager.ResetHurryUp();
+				// 			}
+				// 			break;
+				// 		}
 
-						_levelManager.CanSpawnItem = false;
+				// 		_levelManager.CanSpawnItem = false;
 
-						AddItemToList();
-						Invoke("NextLevel", _levelChangeDelay);
-						_canChangeLevel = false;
-					}
-					break;
+				// 		AddItemToList();
+				// 		Invoke("NextLevel", _levelChangeDelay);
+				// 		_canChangeLevel = false;
+				// 	}
+					//break;
 			}
 		}
 
@@ -308,12 +308,36 @@ namespace BubbleBobble
 		public void RemoveEnemyFromList(GameObject enemyObject)
 		{
 			_enemyList.Remove(enemyObject);
-			CheckCounters("Enemy");
+			if (_enemyList.Count == 0 && _canChangeLevel)
+			{
+				_levelManager = FindObjectOfType<LevelManager>();
+				_levelManager.ResetHurryUpTimer();
+				if (_levelManager.IsHurryUpActive)
+				{
+					_levelManager.ResetHurryUp();
+				}
+				if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+				{
+					Invoke("DelayedFade", _creditFadeDelay);
+					Invoke("LoadCredits", _creditLoadDelay);
+					_audioManager.FadeOut();
+					if (_levelManager.IsHurryUpActive)
+					{
+						_levelManager.ResetHurryUp();
+					}
+				}
+
+				_levelManager.CanSpawnItem = false;
+
+				AddItemToList();
+				Invoke("NextLevel", _levelChangeDelay);
+				_canChangeLevel = false;
+			}
 		}
 		#endregion Enemy Related
 
-		#region Projectile Related
-		// Adds a projectile object to a list for keeping track of amount.
+			#region Projectile Related
+			// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
 			CheckCounters("Projectile");

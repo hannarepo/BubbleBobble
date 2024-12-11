@@ -59,6 +59,7 @@ namespace BubbleBobble
 		{
 			_currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.position.y);
 			_playerControl = _player.GetComponent<PlayerControl>();
+			_playerControl.RestrainPlayer(false);
 			if (_currentLevel.name == "Level1")
 			{
 				// Call / invoke the intro thingies here
@@ -201,7 +202,7 @@ namespace BubbleBobble
 
 		private void IntroDone()
 		{
-			// Unrestrain player
+			_playerControl.UnRestrainPlayer();
 			_intro.SetActive(false);
 			_skipIntroButton.SetButtonActive(false);
 			_isLevelStarted = true;

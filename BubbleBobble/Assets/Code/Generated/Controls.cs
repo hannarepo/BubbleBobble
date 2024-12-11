@@ -73,15 +73,6 @@ namespace BubbleBobble
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Skip"",
-                    ""type"": ""Button"",
-                    ""id"": ""b523002b-252e-4cdc-9beb-209b6f214518"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -381,28 +372,6 @@ namespace BubbleBobble
                     ""action"": ""OpenShop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e6e74634-09c4-4c87-a39c-357566fad832"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Skip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""ab366912-1fd5-4d2b-b823-11e9af22fd83"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Skip"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -416,7 +385,6 @@ namespace BubbleBobble
             m_Game_Shoot = m_Game.FindAction("Shoot", throwIfNotFound: true);
             m_Game_Pause = m_Game.FindAction("Pause", throwIfNotFound: true);
             m_Game_OpenShop = m_Game.FindAction("OpenShop", throwIfNotFound: true);
-            m_Game_Skip = m_Game.FindAction("Skip", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -483,7 +451,6 @@ namespace BubbleBobble
         private readonly InputAction m_Game_Shoot;
         private readonly InputAction m_Game_Pause;
         private readonly InputAction m_Game_OpenShop;
-        private readonly InputAction m_Game_Skip;
         public struct GameActions
         {
             private @Controls m_Wrapper;
@@ -493,7 +460,6 @@ namespace BubbleBobble
             public InputAction @Shoot => m_Wrapper.m_Game_Shoot;
             public InputAction @Pause => m_Wrapper.m_Game_Pause;
             public InputAction @OpenShop => m_Wrapper.m_Game_OpenShop;
-            public InputAction @Skip => m_Wrapper.m_Game_Skip;
             public InputActionMap Get() { return m_Wrapper.m_Game; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -518,9 +484,6 @@ namespace BubbleBobble
                 @OpenShop.started += instance.OnOpenShop;
                 @OpenShop.performed += instance.OnOpenShop;
                 @OpenShop.canceled += instance.OnOpenShop;
-                @Skip.started += instance.OnSkip;
-                @Skip.performed += instance.OnSkip;
-                @Skip.canceled += instance.OnSkip;
             }
 
             private void UnregisterCallbacks(IGameActions instance)
@@ -540,9 +503,6 @@ namespace BubbleBobble
                 @OpenShop.started -= instance.OnOpenShop;
                 @OpenShop.performed -= instance.OnOpenShop;
                 @OpenShop.canceled -= instance.OnOpenShop;
-                @Skip.started -= instance.OnSkip;
-                @Skip.performed -= instance.OnSkip;
-                @Skip.canceled -= instance.OnSkip;
             }
 
             public void RemoveCallbacks(IGameActions instance)
@@ -567,7 +527,6 @@ namespace BubbleBobble
             void OnShoot(InputAction.CallbackContext context);
             void OnPause(InputAction.CallbackContext context);
             void OnOpenShop(InputAction.CallbackContext context);
-            void OnSkip(InputAction.CallbackContext context);
         }
     }
 }
