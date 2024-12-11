@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 namespace BubbleBobble
 {
@@ -11,7 +12,7 @@ namespace BubbleBobble
 	/// and when losing a life, hearts change to broken hearts. When player
 	/// loses all lives the game is over.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
@@ -32,6 +33,7 @@ namespace BubbleBobble
 		// Invincibility for testing purposes
 		[SerializeField] private bool _invincibility = false;
 		[SerializeField] private GameObject _gameOverScreen;
+		[SerializeField] private GameObject _gameOverFirstButton;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -238,6 +240,10 @@ namespace BubbleBobble
 		private void GameOver()
 		{
 			_gameOverScreen.SetActive(true);
+			Time.timeScale = 0;
+
+			EventSystem.current.SetSelectedGameObject(_gameOverFirstButton);
+
 		}
 	}
 }
