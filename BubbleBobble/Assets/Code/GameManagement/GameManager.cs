@@ -3,6 +3,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
+using Unity.VisualScripting;
 
 namespace BubbleBobble
 {
@@ -34,13 +35,15 @@ namespace BubbleBobble
 		private List<Item> _spawnableItemPrefabs = new List<Item>();
 		[SerializeField] private PlayerControl _playerControl;
 		[SerializeField] private int _mp3SpawnThreshold = 20;
-		[SerializeField] private int _cdSpawnThreshold = 40;
+		[SerializeField] private int _cdSpawnThreshold = 30;
+		[SerializeField] private int _butterflySpawnThreshold = 40;
 		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
 		[SerializeField] private Item _camera;
 		[SerializeField] private Item _mp3;
 		[SerializeField] private Item _cd;
+		[SerializeField] private Item _butterfly;
 		[SerializeField] private Item _blueShell;
 		[SerializeField] private Item _pupleShell;
 		[SerializeField] private Item _purpleBlueShell;
@@ -66,6 +69,7 @@ namespace BubbleBobble
 		public GameObject HurryUpText => _hurryUpText;
 		public GameObject UndefeatableEnemy => _undefeatableEnemy;
 		public List<Item> SpawnableItems => _spawnableItemPrefabs;
+		public bool CanChangeLevel => _canChangeLevel;
 		public int Score
 		{
 			get { return _scoreCount; }
@@ -144,6 +148,9 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// GameManager's method to start level change with Invoke.
+		/// </summary>
 		private void NextLevel()
 		{
 			_levelChanger.LoadLevel();
@@ -197,8 +204,18 @@ namespace BubbleBobble
 			{
 				_spawnableItemPrefabs.Add(_cd);
 			}
+
+			// If inventory contains x number of items, add a butterfly to the item list.
+			if (_playerControl.Inventory.Count(_butterflySpawnThreshold))
+			{
+				_spawnableItemPrefabs.Add(_butterfly);
+			}
 		}
 
+		/// <summary>
+		/// Sets the BubbleSpawner object for the GameManager.
+		/// </summary>
+		/// <param name="spawner">BubbleSpawner gameobject</param>
 		public void BubbleSpawnerInitialization(BubbleSpawner spawner)
 		{
 			_bubbleSpawner = spawner;
@@ -215,34 +232,34 @@ namespace BubbleBobble
 						_bubbleSpawner.SpawnBomb();
 					}
 					break;
-				case "Enemy":
-					if (_enemyList.Count == 0 && _canChangeLevel)
-					{
-						_levelManager = FindObjectOfType<LevelManager>();
-						_levelManager.ResetHurryUpTimer();
-						if (_levelManager.IsHurryUpActive)
-						{
-							_levelManager.ResetHurryUp();
-						}
-						if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
-						{
-							Invoke("DelayedFade", _creditFadeDelay);
-							Invoke("LoadCredits", _creditLoadDelay);
-							_audioManager.FadeOut();
-							if (_levelManager.IsHurryUpActive)
-							{
-								_levelManager.ResetHurryUp();
-							}
-							break;
-						}
-						//print("Invoking level change");
-						_levelManager.CanSpawnItem = false;
+				// case "Enemy":
+				// 	if (_enemyList.Count == 0 && _canChangeLevel)
+				// 	{
+				// 		_levelManager = FindObjectOfType<LevelManager>();
+				// 		_levelManager.ResetHurryUpTimer();
+				// 		if (_levelManager.IsHurryUpActive)
+				// 		{
+				// 			_levelManager.ResetHurryUp();
+				// 		}
+				// 		if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+				// 		{
+				// 			Invoke("DelayedFade", _creditFadeDelay);
+				// 			Invoke("LoadCredits", _creditLoadDelay);
+				// 			_audioManager.FadeOut();
+				// 			if (_levelManager.IsHurryUpActive)
+				// 			{
+				// 				_levelManager.ResetHurryUp();
+				// 			}
+				// 			break;
+				// 		}
 
-						AddItemToList();
-						Invoke("NextLevel", _levelChangeDelay);
-						_canChangeLevel = false;
-					}
-					break;
+				// 		_levelManager.CanSpawnItem = false;
+
+				// 		AddItemToList();
+				// 		Invoke("NextLevel", _levelChangeDelay);
+				// 		_canChangeLevel = false;
+				// 	}
+					//break;
 			}
 		}
 
@@ -275,24 +292,52 @@ namespace BubbleBobble
 			_enemyList.Clear();
 		}
 
-		// Adds an enemy object to a list
+		/// <summary>
+		/// Adds an enemy object to a list to keep track of their amount.
+		/// </summary>
+		/// <param name="enemyObject">Enemy gameobject</param>
 		public void AddEnemyToList(GameObject enemyObject)
 		{
 			_enemyList.Add(enemyObject);
-			// print("Enemies in list: " + _enemyList.Count);
 		}
 
+		/// <summary>
+		/// Removes an enemy object from the list and checks how many are left.
+		/// </summary>
+		/// <param name="enemyObject">Enemy gameobject</param>
 		public void RemoveEnemyFromList(GameObject enemyObject)
 		{
 			_enemyList.Remove(enemyObject);
-			//print("Enemies in list: " + _enemyList.Count);
-			CheckCounters("Enemy");
-			//Destroy(enemyObject);
+			if (_enemyList.Count == 0 && _canChangeLevel)
+			{
+				_levelManager = FindObjectOfType<LevelManager>();
+				_levelManager.ResetHurryUpTimer();
+				if (_levelManager.IsHurryUpActive)
+				{
+					_levelManager.ResetHurryUp();
+				}
+				if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
+				{
+					Invoke("DelayedFade", _creditFadeDelay);
+					Invoke("LoadCredits", _creditLoadDelay);
+					_audioManager.FadeOut();
+					if (_levelManager.IsHurryUpActive)
+					{
+						_levelManager.ResetHurryUp();
+					}
+				}
+
+				_levelManager.CanSpawnItem = false;
+
+				AddItemToList();
+				Invoke("NextLevel", _levelChangeDelay);
+				_canChangeLevel = false;
+			}
 		}
 		#endregion Enemy Related
 
-		#region Projectile Related
-		// Adds a projectile object to a list for keeping track of amount.
+			#region Projectile Related
+			// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
 			CheckCounters("Projectile");

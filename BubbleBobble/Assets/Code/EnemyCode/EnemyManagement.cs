@@ -8,13 +8,14 @@ namespace BubbleBobble
 		[SerializeField] private float _deathDelay = 4f;
 		[SerializeField] private float _launchForce = 5f;
 		[SerializeField] private Color _deathColor;
+		[SerializeField] private Color _hurryUpColor;
 		[SerializeField] private float _rotationSpeed = 500f;
 		[SerializeField] private float _topTriggerYPos;
 		[SerializeField] private float _bottomTriggerYPos;
 		[SerializeField] private AudioClip _launchSFX;
 		private GameManager _gameManager;
 		private Audiomanager _audioManager;
-		private LevelChanger _levelChanger;
+		private LevelManager _levelManager;
 		private Transform _levelParent;
 		private Rigidbody2D _rb;
 		private SpriteRenderer _spriteRenderer;
@@ -35,10 +36,11 @@ namespace BubbleBobble
 			_audioManager = FindObjectOfType<Audiomanager>();
 			_gameManager.AddEnemyToList(gameObject);
 			_levelParent = FindObjectOfType<LevelManager>().transform;
-			_levelChanger = FindObjectOfType<LevelChanger>();
+			_levelManager = FindObjectOfType<LevelManager>();
 			_animator = GetComponent<Animator>();
 			_movement = GetComponent<BasicEnemyBehavior>();
 			_bounce = GetComponent<BouncingEnemyMovement>();
+
 		}
 
 		private void Update()
@@ -58,9 +60,22 @@ namespace BubbleBobble
 				_timer += Time.deltaTime;
 				if (_timer > _deathDelay)
 				{
-					gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
+					gameObject.layer = LayerMask.NameToLayer("Item");
 					_canSpawn = true;
 				}
+			}
+
+			if (_levelManager.IsHurryUpActive && !_launched)
+			{
+				_spriteRenderer.color = _hurryUpColor;
+			}
+			else if (_launched)
+			{
+				_spriteRenderer.color = _deathColor;
+			}
+			else
+			{
+				_spriteRenderer.color = Color.white;
 			}
 		}
 
@@ -70,7 +85,6 @@ namespace BubbleBobble
 			int randomItem = Random.Range(0, _itemPrefabs.Length);
 			Instantiate(_itemPrefabs[randomItem], transform.position, Quaternion.identity, _levelParent);
 			Destroy(gameObject);
-
 		}
 
 		public void LaunchAtDeath(bool playSFX)
@@ -80,9 +94,8 @@ namespace BubbleBobble
 				_audioManager.PlaySFX(_launchSFX);
 			}
 
-			gameObject.layer = LayerMask.NameToLayer("IgnorePlatform");
+			gameObject.layer = LayerMask.NameToLayer("DeadEnemy");
 			gameObject.tag = Tags.DeadEnemy;
-			_spriteRenderer.color = _deathColor;
 			_launched = true;
 			_rb.constraints = RigidbodyConstraints2D.None;
 

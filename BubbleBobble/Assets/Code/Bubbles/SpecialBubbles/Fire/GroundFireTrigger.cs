@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+/// <summary>
+/// If enemies with "EnemyManagement" component collide with this trigger, they will die.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
 	public class GroundFireTrigger : MonoBehaviour
 	{
 
