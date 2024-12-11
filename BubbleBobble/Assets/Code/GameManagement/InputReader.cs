@@ -19,7 +19,6 @@ namespace BubbleBobble
 		private bool _shootBubble = false;
 		private bool _jumpOnBubble = false;
 		private bool _pauseEsc = false;
-		private bool _skip = false;
 
 		#region UnityMethods
 		private void Awake()
@@ -45,7 +44,6 @@ namespace BubbleBobble
 			_jumpOnBubble = _controls.Game.Jump.IsPressed();
 			_shootBubble = _controls.Game.Shoot.WasPerformedThisFrame();
 			_pauseEsc = _controls.Game.Pause.WasPressedThisFrame();
-			_skip = _controls.Game.Skip.WasPressedThisFrame();
 		}
 		#endregion
 
@@ -73,11 +71,6 @@ namespace BubbleBobble
 		public bool PauseEsc
 		{
 			get { return _pauseEsc; }
-		}
-
-		public bool Skip
-		{
-			get { return _skip; }
 		}
 		#endregion
 	}
