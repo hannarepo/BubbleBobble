@@ -24,7 +24,6 @@ namespace BubbleBobble
 
 		public ItemData ItemData => _itemData;
 
-		public static event Action OnItemCollected;
 		private void Awake()
 		{
 			_renderer = GetComponent<Renderer>();
@@ -62,7 +61,6 @@ namespace BubbleBobble
 
 			Destroy(effect, delay);
 			Destroy(gameObject, delay);
-			OnItemCollected?.Invoke();
 		}
 	}
 }

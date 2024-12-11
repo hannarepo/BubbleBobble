@@ -72,6 +72,12 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Launches bubble in given direction with given force.
+		/// </summary>
+		/// <param name="shootRight">If true launch bubble right, if false launch bubble left.</param>
+		/// <param name="forceBoostIsActive">True if bubble force power up is active.</param>
+		/// <param name="sizeBoostIsActive">True if bubble size power up is active.</param>
 		public void Launch(bool shootRight, bool forceBoostIsActive, bool sizeBoostIsActive)
 		{
 			// If bubble size power up is active, bubble size will be size with boost,
