@@ -11,69 +11,74 @@ namespace BubbleBobble
 	/// author: Hanna Repo
 	/// </remarks>
 
-    public class InputReader : MonoBehaviour
-    {
-        private Controls _controls;
-        private Vector2 _movementControls;
-        private bool _jump = false;
-        private bool _shootBubble = false;
-        private bool _jumpOnBubble = false;
-
+	public class InputReader : MonoBehaviour
+	{
+		private Controls _controls;
+		private Vector2 _movementControls;
+		private bool _jump = false;
+		private bool _shootBubble = false;
+		private bool _jumpOnBubble = false;
 		private bool _pauseEsc = false;
+		private bool _skip = false;
 
-        #region UnityMethods
-        private void Awake()
-        {
-            _controls = new Controls();
-        }
+		#region UnityMethods
+		private void Awake()
+		{
+			_controls = new Controls();
+		}
 
-        private void OnEnable()
-        {
-            _controls.Enable();
-        }
+		private void OnEnable()
+		{
+			_controls.Enable();
+		}
 
-        private void OnDisable()
-        {
-            _controls.Disable();
+		private void OnDisable()
+		{
+			_controls.Disable();
 			_movementControls = Vector2.zero;
-        }
+		}
 
-        private void Update()
-        {
-            _movementControls = _controls.Game.Move.ReadValue<Vector2>();
-            _jump = _controls.Game.Jump.WasPressedThisFrame();
-            _jumpOnBubble = _controls.Game.Jump.IsPressed();
-            _shootBubble = _controls.Game.Shoot.WasPerformedThisFrame();
+		private void Update()
+		{
+			_movementControls = _controls.Game.Move.ReadValue<Vector2>();
+			_jump = _controls.Game.Jump.WasPressedThisFrame();
+			_jumpOnBubble = _controls.Game.Jump.IsPressed();
+			_shootBubble = _controls.Game.Shoot.WasPerformedThisFrame();
 			_pauseEsc = _controls.Game.Pause.WasPressedThisFrame();
+			_skip = _controls.Game.Skip.WasPressedThisFrame();
+		}
+		#endregion
 
-        }
-        #endregion
+		#region Getters
+		public Vector2 Movement
+		{
+			get { return _movementControls; }
+		}
 
-        #region Getters
-        public Vector2 Movement
-        {
-            get { return _movementControls; }
-        }
+		public bool Jump
+		{
+			get { return _jump; }
+		}
 
-        public bool Jump
-        {
-            get { return _jump; }
-        }
+		public bool JumpOnBubble
+		{
+			get { return _jumpOnBubble; }
+		}
 
-        public bool JumpOnBubble
-        {
-            get { return _jumpOnBubble; }
-        }
-
-        public bool ShootBubble
-        {
-            get { return _shootBubble; }
-        }
+		public bool ShootBubble
+		{
+			get { return _shootBubble; }
+		}
 
 		public bool PauseEsc
 		{
 			get { return _pauseEsc; }
 		}
-        #endregion
-    }
+
+		public bool Skip
+		{
+			get { return _skip; }
+		}
+		#endregion
+	}
 }
