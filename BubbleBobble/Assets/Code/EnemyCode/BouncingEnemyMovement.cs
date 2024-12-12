@@ -6,7 +6,7 @@ namespace BubbleBobble
 {
 	public class BouncingEnemyMovement : MonoBehaviour
 	{
-		[SerializeField] private float _speed = 5;
+		[SerializeField] private float _speed;
 		[SerializeField] private bool _isFacingRight;
 		[SerializeField] private bool _canFlip;
 		private Rigidbody2D _rigidbody;
