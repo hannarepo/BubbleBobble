@@ -115,7 +115,7 @@ namespace BubbleBobble
 		/// <param name="collision">Detected collision</param>
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			if (collision.gameObject.TryGetComponent<EnemyManagement>(out EnemyManagement enemyManagement))
+			if (collision.gameObject.TryGetComponent<EnemyDeath>(out EnemyDeath enemyManagement))
 			{
 				enemyManagement.LaunchAtDeath(true);
 			}

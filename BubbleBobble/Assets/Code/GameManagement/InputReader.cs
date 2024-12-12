@@ -18,7 +18,6 @@ namespace BubbleBobble
 		private bool _jump = false;
 		private bool _shootBubble = false;
 		private bool _jumpOnBubble = false;
-
 		private bool _pauseEsc = false;
 
 		#region UnityMethods

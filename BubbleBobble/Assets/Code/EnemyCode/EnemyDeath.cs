@@ -2,7 +2,11 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-	public class EnemyManagement : MonoBehaviour
+	/// <summary>
+	/// Handles the death of an enemy. It will launch the enemy in a random direction
+	/// and spawn an item after a certain amount of time.
+	/// </summary>
+	public class EnemyDeath : MonoBehaviour
 	{
 		[SerializeField] private Item[] _itemPrefabs;
 		[SerializeField] private float _deathDelay = 4f;
@@ -27,14 +31,15 @@ namespace BubbleBobble
 		private BouncingEnemyMovement _bounce;
 
 
-		// Find the Game Manager and add this enemy object to the list of enemies
 		void Start()
 		{
+			// Find the Game Manager and add this enemy object to the list of enemies
+			_gameManager = FindObjectOfType<GameManager>();
+			_gameManager.AddEnemyToList(gameObject);
+
 			_rb = GetComponent<Rigidbody2D>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
-			_gameManager = FindObjectOfType<GameManager>();
 			_audioManager = FindObjectOfType<Audiomanager>();
-			_gameManager.AddEnemyToList(gameObject);
 			_levelParent = FindObjectOfType<LevelManager>().transform;
 			_levelManager = FindObjectOfType<LevelManager>();
 			_animator = GetComponent<Animator>();
@@ -45,6 +50,7 @@ namespace BubbleBobble
 
 		private void Update()
 		{
+			// Check if the enemy is out of level bounds and move it to the other side
 			if (transform.position.y < _bottomTriggerYPos)
 			{
 				transform.position = new Vector3(transform.position.x, _topTriggerYPos, 0);
@@ -54,6 +60,7 @@ namespace BubbleBobble
 				transform.position = new Vector3(transform.position.x, _bottomTriggerYPos, 0);
 			}
 
+			// When enemy is launched, rotate it and spawn an item after a certain amount of time
 			if (_launched)
 			{
 				transform.Rotate(Vector3.forward * _rotationSpeed * Time.deltaTime);
@@ -65,6 +72,7 @@ namespace BubbleBobble
 				}
 			}
 
+			// Change color of enemy when hurry up is active or when enemy is launched
 			if (_levelManager.IsHurryUpActive && !_launched)
 			{
 				_spriteRenderer.color = _hurryUpColor;
@@ -87,6 +95,12 @@ namespace BubbleBobble
 			Destroy(gameObject);
 		}
 
+		/// <summary>
+		/// When enemy is killed, it is launched either to up and right or up and left.
+		/// All enemy other enemy scripts are disabled and layer and tag is set to DeadEnemy so that
+		/// player won't take damage from a dead enemy and launched enemy won't collide with platforms.
+		/// </summary>
+		/// <param name="playSFX">True if death sound effect will be played.</param>
 		public void LaunchAtDeath(bool playSFX)
 		{
 			if (playSFX)

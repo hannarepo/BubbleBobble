@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 namespace BubbleBobble
 {
@@ -11,13 +12,13 @@ namespace BubbleBobble
 	/// and when losing a life, hearts change to broken hearts. When player
 	/// loses all lives the game is over.
 	/// </summary>
-	/// 
+	///
 	/// <remarks>
 	/// author: Hanna Repo
 	/// </remarks>
 
-		public class Health : MonoBehaviour
-		{
+	public class Health : MonoBehaviour
+	{
 		[SerializeField] private int _maxLives = 6;
 		[SerializeField] private int _startLives = 4;
 		[SerializeField] private Transform _playerReturnPoint;
@@ -32,6 +33,7 @@ namespace BubbleBobble
 		// Invincibility for testing purposes
 		[SerializeField] private bool _invincibility = false;
 		[SerializeField] private GameObject _gameOverScreen;
+		[SerializeField] private GameObject _gameOverFirstButton;
 		private GameObject[] _hearts;
 		private GameObject[] _brokenHearts;
 		private int _currentLives;
@@ -47,7 +49,7 @@ namespace BubbleBobble
 
 		public bool IsInvincible
 		{
-			get { return _invincibilityTimer > 0 ; }
+			get { return _invincibilityTimer > 0; }
 		}
 
 		public bool LostLife => _lostLife;
@@ -71,7 +73,7 @@ namespace BubbleBobble
 			_currentLives = _startLives;
 			_hearts = new GameObject[_maxLives];
 			_brokenHearts = new GameObject[_maxLives];
-			
+
 			for (int i = 0; i < _maxLives; i++)
 			{
 				_hearts[i] = Instantiate(_heartPrefab, _heartPositions[i], Quaternion.identity);
@@ -118,48 +120,80 @@ namespace BubbleBobble
 			// If player hits an enemy, they lose a life and are respawned to set location.
 			// A heart is disabled and a broken heart is instatiated in it's place to
 			// indicate loss of life to player.
-			if ((collision.gameObject.CompareTag(Tags.Enemy) || collision.gameObject.CompareTag(Tags.EnemyProjectile))
-				&& !IsInvincible && _currentLives > 0)
+			if (collision.gameObject.CompareTag(Tags.Enemy) && !IsInvincible && _currentLives > 0)
 			{
-				_inputReader.enabled = false;
-				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
-				_playerControl.CanMove = false;
-				Invoke("Respawn", 1f);
-				if (!_invincibility)
-				{
-					_currentLives--;
-				}
-				_hearts[_currentLives].SetActive(false);
-				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
-				_audioManager.PlaySFX(_loseHeartSFX);
-
-				if (_currentLives > 0)
-				{
-					_invincibilityTimer = _invincibilityTime;
-					_lostLife = true;
-				}
+				LoseLife();
 			}
-			else if (collision.gameObject.CompareTag(Tags.Undefeatable))
+		}
+
+		private void OnTriggerEnter2D(Collider2D collider)
+		{
+			if (collider.gameObject.CompareTag(Tags.EnemyProjectile) && !IsInvincible && _currentLives > 0)
 			{
-				_inputReader.enabled = false;
-				_rb.constraints = RigidbodyConstraints2D.FreezeAll;
-				_playerControl.CanMove = false;
+				LoseLife();
+			}
+			else if (collider.gameObject.CompareTag(Tags.Undefeatable) && !IsInvincible && _currentLives > 0)
+			{
+				LoseTwoLives();
+			}
+		}
+
+		private void LoseLife()
+		{
+			_lostLife = true;
+			_inputReader.enabled = false;
+			_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+			_playerControl.CanMove = false;
+			if (!_invincibility)
+			{
+				_currentLives--;
+			}
+
+			if (_currentLives > 0)
+			{
 				Invoke("Respawn", 1f);
-				if (!_invincibility)
-				{
-					_currentLives -= 2;
-				}
 				_hearts[_currentLives].SetActive(false);
-				_hearts[_currentLives+1].SetActive(false);
 				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
-				_brokenHearts[_currentLives+1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives+1], Quaternion.identity);
 				_audioManager.PlaySFX(_loseHeartSFX);
-				
-				if (_currentLives > 0)
-				{
-					_invincibilityTimer = _invincibilityTime;
-					_lostLife = true;
-				}
+				_invincibilityTimer = _invincibilityTime;
+			}
+			else
+			{
+				_hearts[0].SetActive(false);
+				_brokenHearts[0] = Instantiate(_brokenHeartPrefab, _heartPositions[0], Quaternion.identity);
+				Die();
+			}
+		}
+
+		private void LoseTwoLives()
+		{
+			_lostLife = true;
+			_inputReader.enabled = false;
+			_rb.constraints = RigidbodyConstraints2D.FreezeAll;
+			_playerControl.CanMove = false;
+
+			if (!_invincibility)
+			{
+				_currentLives -= 2;
+			}
+
+			if (_currentLives > 0)
+			{
+				Invoke("Respawn", 1f);
+				_hearts[_currentLives].SetActive(false);
+				_hearts[_currentLives + 1].SetActive(false);
+				_brokenHearts[_currentLives] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives], Quaternion.identity);
+				_brokenHearts[_currentLives + 1] = Instantiate(_brokenHeartPrefab, _heartPositions[_currentLives + 1], Quaternion.identity);
+				_audioManager.PlaySFX(_loseHeartSFX);
+				_invincibilityTimer = _invincibilityTime;
+			}
+			else
+			{
+				_hearts[0].SetActive(false);
+				_hearts[1].SetActive(false);
+				_brokenHearts[0] = Instantiate(_brokenHeartPrefab, _heartPositions[0], Quaternion.identity);
+				_brokenHearts[1] = Instantiate(_brokenHeartPrefab, _heartPositions[1], Quaternion.identity);
+				Die();
 			}
 		}
 
@@ -206,6 +240,10 @@ namespace BubbleBobble
 		private void GameOver()
 		{
 			_gameOverScreen.SetActive(true);
+			Time.timeScale = 0;
+
+			EventSystem.current.SetSelectedGameObject(_gameOverFirstButton);
+
 		}
 	}
 }
