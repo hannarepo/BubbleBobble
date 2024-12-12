@@ -2,6 +2,11 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// An undefeatable enemy that cannot be trapped and follows the player.
+	/// Stops at given intervals for a given time and then starts moving again.
+	/// Sound effect is played every time movement starts.
+	/// </summary>
     public class Undefeatable : MonoBehaviour
     {
         [SerializeField] private float _speed = 3f;
@@ -28,7 +33,7 @@ namespace BubbleBobble
 			transform.position = _startPosition.position;
 		}
 
-		private void FixedUpdate()
+		private void Update()
 		{
 			_timer += Time.deltaTime;
 
