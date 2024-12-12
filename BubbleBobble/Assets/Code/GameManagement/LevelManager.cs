@@ -101,7 +101,6 @@ namespace BubbleBobble
 				_spawnedItemCount < _maxItemCount && _canSpawnItem)
 			{
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
-				print(randomSpawnPoint);
 				Item item = null;
 
 				// If random item is a shell or an umbrella and they can't be spawned, randomize a new item index

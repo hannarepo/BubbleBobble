@@ -4,6 +4,13 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Music fade in for credit scene.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Hanna Repo
+	/// </remarks>
     public class CreditMusicFade : MonoBehaviour
     {
 		[SerializeField] private float _musicFadeTime = 1f;

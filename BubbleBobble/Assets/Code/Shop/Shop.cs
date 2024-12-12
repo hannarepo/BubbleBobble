@@ -4,11 +4,13 @@ namespace BubbleBobble
 {
 	public class Shop : MonoBehaviour
 	{
+		/// <summary>
+		/// Manages shop where power ups can be bought.
+		/// Checks if player has enough points to buy power up and updates the price text.
+		/// </summary>
 		[SerializeField] private PowerUp[] _powerUps;
 		[SerializeField] private ItemData[] _shells;
 		[SerializeField] private PlayerControl _playerControl;
-		[SerializeField] private Health _health;
-		[SerializeField] private UnityEngine.UI.Image _heartIcon;
 		[SerializeField] private UnityEngine.UI.Image[] _shellIcons;
 		[SerializeField] private Color _grayPriceColor;
 
@@ -25,14 +27,6 @@ namespace BubbleBobble
 		{
 			CheckPoints();
 			CheckInventory();
-			if (!CheckInventory())
-			{
-				_heartIcon.color = _grayPriceColor;
-			}
-			else
-			{
-				_heartIcon.color = Color.white;
-			}
 		}
 
 		/// <summary>
@@ -60,7 +54,7 @@ namespace BubbleBobble
 		/// Check whether all shells are in player's inventory.
 		/// </summary>
 		/// <returns> True if all shells are found in inventory, false if not. </returns>
-		private bool CheckInventory()
+		private void CheckInventory()
 		{
 			for (int i = 0; i < _shells.Length; i++)
 			{
@@ -72,18 +66,6 @@ namespace BubbleBobble
 				{
 					_shellIcons[i].color = Color.white;
 				}
-			}
-
-			if (_inventory.CheckInventoryContent(_shells[0], 1) &&
-				_inventory.CheckInventoryContent(_shells[1], 1) &&
-				_inventory.CheckInventoryContent(_shells[2], 1) &&
-				_inventory.CheckInventoryContent(_shells[3], 1))
-			{
-				return true;
-			}
-			else
-			{
-				return false;
 			}
 		}
 
@@ -103,17 +85,6 @@ namespace BubbleBobble
 					_powerUps[index].ActivatePowerUp();
 					_gameManager.Score -= _powerUps[index].PowerUpData.Price;
 					//_scoreText.UpdateScore(_powerUps[index].PowerUpData.Price);
-				}
-			}
-			else if (index == 4)
-			{
-				if (CheckInventory() && _health != null && _health.CurrentLives < _health.MaxLives)
-				{
-					_health.SetExtraLife(true);
-					_inventory.Remove(_shells[0], 1);
-					_inventory.Remove(_shells[1], 1);
-					_inventory.Remove(_shells[2], 1);
-					_inventory.Remove(_shells[3], 1);
 				}
 			}
 		}
