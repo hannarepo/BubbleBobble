@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 942501055259868610}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.9104103, y: 0.026487626, z: 0.078618504}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -45,13 +45,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a814fa0710ff4c43afc51a0f36d6dc1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _levelChangeDelay: 7
   _fireBubblesPopped: 0
   _maxProjectiles: 10
-  _player: {fileID: 0}
-  _levelChangeDelay: 4
   _bombSpawnThreshold: 4
-  _enemyList: []
   _projectileList: []
+  _enemyList: []
+  _undefeatableEnemy: {fileID: 0}
   _spawnableItemPrefabs:
   - {fileID: -2283527851575305965, guid: ad7a53059075e0c4281d43cff9e1c64d, type: 3}
   - {fileID: 8652366172581315155, guid: 0e4863e14e8b55b42bd414408140e5bd, type: 3}
@@ -73,11 +73,10 @@ MonoBehaviour:
   _pupleShell: {fileID: 2764295289126623760, guid: d5d8da1069ccaab43aef01d660117a91, type: 3}
   _purpleBlueShell: {fileID: 1563939291802659742, guid: 764fa96b0a7298e43b8c30869d40aeb7, type: 3}
   _redShell: {fileID: 3170962658924539482, guid: 761b7e78fef42b347b9d6cc512fc915b, type: 3}
-  _hurryUpText: {fileID: 0}
   _scoreText: {fileID: 0}
   _scoreEndScreen: {fileID: 0}
   _highscoreText: {fileID: 0}
-  _undefeatableEnemy: {fileID: 0}
+  _hurryUpText: {fileID: 0}
   _creditFade: {fileID: 0}
   _creditFadeDelay: 3
   _creditLoadDelay: 6
