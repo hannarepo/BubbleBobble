@@ -61,7 +61,8 @@ namespace BubbleBobble
 
 		// Score related variables
 		private int _scoreCount;
-		[SerializeField] ScoreText _scoreText;
+		[SerializeField] private ScoreText _scoreText;
+		[SerializeField] private ScoreText _shopScoreText;
 		[SerializeField] ScoreText _scoreEndScreen;
 		[SerializeField] TextMeshProUGUI _highscoreText;
 
@@ -84,6 +85,7 @@ namespace BubbleBobble
 			{
 				_scoreCount = value;
 				_scoreText.UpdateScore(_scoreCount);
+				_shopScoreText.UpdateScore(_scoreCount);
 			}
 		}
 
@@ -109,6 +111,7 @@ namespace BubbleBobble
 		{
 			_scoreCount += points;
 			_scoreText.UpdateScore(_scoreCount);
+			_shopScoreText.UpdateScore(_scoreCount);
 			_scoreEndScreen.UpdateScore(_scoreCount);
 			CheckHighScore();
 
@@ -118,6 +121,7 @@ namespace BubbleBobble
 		{
 			_scoreCount += points;
 			_scoreText.UpdateScore(_scoreCount);
+			_shopScoreText.UpdateScore(_scoreCount);
 			_scoreEndScreen.UpdateScore(_scoreCount);
 			CheckHighScore();
 		}
