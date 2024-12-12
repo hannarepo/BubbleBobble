@@ -88,9 +88,13 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Spawn an item in the level at set intervals.
+		/// Pick a random item from items list and spawn it at a random spawn point.
+		/// </summary>
+		/// <param name="index"></param>
 		private void SpawnItemAtInterval(int index)
 		{
-			// Pick a random item from items list and spawn it at a random spawn point.
 			// Remove spawn point from list after spawning item so that no two items spawn at the same point.
 			// Keep track of spawned item count so that only a set number of items can be spawned.
 			if (_spawnPoints.Count > 0 && _spawnableItemPrefabs.Count > 0 &&
@@ -99,13 +103,17 @@ namespace BubbleBobble
 				int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
 				Item item = null;
 
+				// If random item is a shell or an umbrella and they can't be spawned, randomize a new item index
+				// and call the method again to spawn the new item.
 				if ((_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell) ||
 					 (_spawnableItemPrefabs[index]. ItemData.ItemType == ItemType.Umbrella && !_canSpawnUmbrella))
 				{
 					index = Random.Range(0, _spawnableItemPrefabs.Count);
-					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-										transform);
+					SpawnItemAtInterval(index);
+					return;
 				}
+				// If item type is umbrella, and an umbrella can be spawned in the level,
+				// have a 50/50 chance at spawning the umbrella.
 				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Umbrella && _canSpawnUmbrella)
 				{
 					int spawnChance = Random.Range(0, 2);
@@ -115,14 +123,17 @@ namespace BubbleBobble
 						_canSpawnUmbrella = false;
 					}
 				}
-				else if (_spawnableItemPrefabs[index].ItemData.ItemType != ItemType.Umbrella)
+				// If item type is a shell and a shell can be spawned, spawn a shell
+				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && _canSpawnShell)
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
 										transform);
-					if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell)
-					{
-						_canSpawnShell = false;
-					}
+					_canSpawnShell = false;
+				}
+				else
+				{
+					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
+										transform);
 				}
 
 				_spawnedItemCount++;

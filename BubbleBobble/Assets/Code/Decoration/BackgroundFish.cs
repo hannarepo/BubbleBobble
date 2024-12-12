@@ -2,9 +2,12 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-    public class BackgroundFish : MonoBehaviour
-    {
-        [SerializeField] private Transform _startPos;
+	/// <summary>
+	/// Move background decoration fish from start position to end position.
+	/// </summary>
+	public class BackgroundFish : MonoBehaviour
+	{
+		[SerializeField] private Transform _startPos;
 		[SerializeField] private float _endXPos;
 		[SerializeField] private float _speed;
 		[SerializeField] Vector3 _direction = new Vector3(-1, -1, 0);
@@ -20,5 +23,5 @@ namespace BubbleBobble
 				transform.position = _startPos.position;
 			}
 		}
-    }
+	}
 }

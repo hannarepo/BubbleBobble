@@ -59,6 +59,7 @@ namespace BubbleBobble
 		{
 			_currentLevelMovePosY = Mathf.Abs(_newLevelSpawnPoint.position.y);
 			_playerControl = _player.GetComponent<PlayerControl>();
+			_playerControl.RestrainPlayer(false);
 			if (_currentLevel.name == "Level1")
 			{
 				// Call / invoke the intro thingies here
@@ -73,6 +74,8 @@ namespace BubbleBobble
 			{
 				LevelChangeMovement();
 
+				// If the next level is in a new world,
+				// wait for the fade in and fade out of the transition screen.
 				if (_waitForFade)
 				{
 					if (_newLevel.transform.position == Vector3.zero
@@ -89,6 +92,7 @@ namespace BubbleBobble
 					}
 				}
 
+				// Finish level change when the player and new level are in place.
 				if (_newLevel.transform.position == Vector3.zero
 					&& _player.transform.position == _playerReturnPoint.position
 					&& !_waitForFade)
@@ -131,7 +135,10 @@ namespace BubbleBobble
 			_player.transform.position = Vector3.MoveTowards(_player.transform.position, new Vector3(_playerReturnPoint.position.x, _playerReturnPoint.position.y, 0), _speed * Time.deltaTime);
 		}
 
-		
+		/// <summary>
+		/// Method to initiate level change with a delay
+		/// using Invoke.
+		/// </summary>
 		private void DelayedLevelChange()
 		{
 			_startLevelChange = true;
@@ -199,13 +206,18 @@ namespace BubbleBobble
 			SpriteFade.FadeComplete += OnFadeComplete;
 		}
 
+		/// <summary>
+		/// This method contains all the necessary actions
+		/// done after the intro.
+		/// </summary>
 		private void IntroDone()
 		{
-			// Unrestrain player
+			_playerControl.UnRestrainPlayer();
 			_intro.SetActive(false);
 			_skipIntroButton.SetButtonActive(false);
 			_isLevelStarted = true;
 			_audioManager.ChangeMusic(_underwaterMusic);
+			_intro = null;
 		}
 
 		public void SkipIntro()

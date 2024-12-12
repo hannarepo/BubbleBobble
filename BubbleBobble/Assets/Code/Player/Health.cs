@@ -117,9 +117,6 @@ namespace BubbleBobble
 
 		private void OnCollisionEnter2D(Collision2D collision)
 		{
-			// If player hits an enemy, they lose a life and are respawned to set location.
-			// A heart is disabled and a broken heart is instatiated in it's place to
-			// indicate loss of life to player.
 			if (collision.gameObject.CompareTag(Tags.Enemy) && !IsInvincible && _currentLives > 0)
 			{
 				LoseLife();
@@ -138,6 +135,12 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// If player is hit by normal enemy or enemy projectile player loses one life.
+		/// A heart is disabled and a broken heart is set in it's place.
+		/// Player gets a short invincibility time after being hit and respawns in a set location.
+		/// If player has lost all lives, Die method will be called.
+		/// </summary>
 		private void LoseLife()
 		{
 			_lostLife = true;
@@ -165,6 +168,12 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// If player is hit by undefeatable enemy, player will lose two lives.
+		/// Two hearts are disabled and broken hearts are set in their place.
+		/// Player gets a short invincibility time after being hit and respawns in a set location.
+		/// If player has lost all lives, Die method will be called.
+		/// </summary>
 		private void LoseTwoLives()
 		{
 			_lostLife = true;
@@ -197,11 +206,13 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// If player has collected all four shells, an extra life will be given.
+		/// If player has lost a life before getting the extra life, disble broken heart.
+		/// </summary>
+		/// <param name="value"></param>
 		public void SetExtraLife(bool value)
 		{
-			// If player has bought an extra life from the shop, a heart
-			// is set active. If player has lost a life before bying the extra
-			// life, disble broken heart.
 			if (value)
 			{
 				if (_brokenHearts[_currentLives] != null)
@@ -243,7 +254,6 @@ namespace BubbleBobble
 			Time.timeScale = 0;
 
 			EventSystem.current.SetSelectedGameObject(_gameOverFirstButton);
-
 		}
 	}
 }

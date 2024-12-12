@@ -3,6 +3,9 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Give player a movement speed boost.
+	/// </summary>
 	public class SpeedBoost : PowerUp
 	{
 		private PlayerMover _mover;

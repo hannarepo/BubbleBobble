@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Give player a fire rate boost to let them shoot bubbles faster.
+	/// </summary>
     public class FireRateBoost : PowerUp
     {
 		private PlayerControl _playerControl;

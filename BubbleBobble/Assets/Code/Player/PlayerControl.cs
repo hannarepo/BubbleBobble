@@ -16,17 +16,19 @@ namespace BubbleBobble
 	[RequireComponent(typeof(InputReader))]
 	public class PlayerControl : MonoBehaviour
 	{
-		private InputReader _inputReader;
-		private Inventory _inventory;
-		private PlayerMover _playerMover;
-		private ShootBubble _shootBubble;
-		private SpriteRenderer _spriteRenderer;
-		private bool _lookRight = true;
 		private PlayerAnimationController _playerAnimator;
 		[SerializeField] private float _fireRate = 1f;
 		[SerializeField] private float _fireRateWithBoost = 0.5f;
 		[SerializeField] private SpriteRenderer _playerBubbleRenderer;
 		[SerializeField] private GameManager _gameManager;
+		[SerializeField] private ItemData[] _shells;
+		private InputReader _inputReader;
+		private Inventory _inventory;
+		private PlayerMover _playerMover;
+		private ShootBubble _shootBubble;
+		private Health _health;
+		private SpriteRenderer _spriteRenderer;
+		private bool _lookRight = true;
 		private Rigidbody2D _rigidBody;
 		private Collider2D _playerCollider;
 		private float _originalFireRate = 0f;
@@ -66,6 +68,7 @@ namespace BubbleBobble
 			_inventory = new Inventory();
 			_playerMover = GetComponent<PlayerMover>();
 			_shootBubble = GetComponent<ShootBubble>();
+			_health = GetComponent<Health>();
 			_spriteRenderer = GetComponent<SpriteRenderer>();
 			_playerAnimator = GetComponent<PlayerAnimationController>();
 			_playerBubbleRenderer.GetComponent<SpriteRenderer>();
@@ -143,6 +146,7 @@ namespace BubbleBobble
 				item.Collect();
 				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
+			CheckInventory();
 		}
 
 		private void OnTriggerEnter2D(Collider2D other)
@@ -155,6 +159,25 @@ namespace BubbleBobble
 					other.GetComponent<Umbrella>().SkipLevels();
 				}
 				Collect(item);
+			}
+		}
+
+		/// <summary>
+		/// Check whether all shells are in player's inventory. If they are, add an extra life to player.
+		/// </summary>
+		private void CheckInventory()
+		{
+			if (_health.CurrentLives > 0 && _health.CurrentLives < _health.MaxLives &&
+				_inventory.CheckInventoryContent(_shells[0], 1) &&
+				_inventory.CheckInventoryContent(_shells[1], 1) &&
+				_inventory.CheckInventoryContent(_shells[2], 1) &&
+				_inventory.CheckInventoryContent(_shells[3], 1))
+			{
+				_health.SetExtraLife(true);
+				_inventory.Remove(_shells[0], 1);
+				_inventory.Remove(_shells[1], 1);
+				_inventory.Remove(_shells[2], 1);
+				_inventory.Remove(_shells[3], 1);
 			}
 		}
 

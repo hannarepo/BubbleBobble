@@ -47,9 +47,6 @@ namespace BubbleBobble
 
 		private void Update()
 		{
-			// Debug.Log($"Velocity: {_rb.velocity.y}");
-			// Debug.Log($"Grounded: {_grounded}, Jumping: {_jumping}, Falling: {_falling}");
-
 			// If player is moving down (falling), change gravity scale higher so player drops faster.
 			if (_rb.velocity.y < _fallingThreshold)
 			{
