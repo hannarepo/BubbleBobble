@@ -2,13 +2,13 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
-/// <remarks>
-/// author: Jose Mäntylä
-/// </remarks>
-/// 
 /// <summary>
 /// Defines the features and functions of the fire bubbles.
 /// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
 	public class FireBubble : Bubble
 	{
 		protected override BubbleType Type

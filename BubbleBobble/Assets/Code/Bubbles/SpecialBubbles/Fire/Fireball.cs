@@ -2,6 +2,13 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+/// <summary>
+/// Fireballs that spawn from fire bubbles.
+/// </summary>
+///
+/// <remarks>
+/// author: Jose Mäntylä
+/// </remarks>
 	public class Fireball : MonoBehaviour
 	{
 		[SerializeField] private GameObject _groundFirePrefab;

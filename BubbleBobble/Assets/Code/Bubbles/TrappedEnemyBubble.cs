@@ -50,6 +50,11 @@ namespace BubbleBobble
 		{
 			_timer += Time.deltaTime;
 
+			if (_enemy == null)
+			{
+				Destroy(gameObject);
+			}
+
 			// If time limit is reached, free the enemy from the bubble and destroy the bubble.
 			// Enemy's transform is set to bubble's transform so that enemy is freed at the same position where bubble is.
 			// Enemy is set to invincible so that it can't be trapped immiadetly again.
