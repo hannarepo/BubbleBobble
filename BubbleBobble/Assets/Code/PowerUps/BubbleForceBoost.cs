@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Give projectile bubble a force boost to make it move faster and further.
+	/// </summary>
     public class BubbleForceBoost : PowerUp
     {
 		private ShootBubble _shoot;

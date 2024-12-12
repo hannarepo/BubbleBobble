@@ -4,7 +4,6 @@ using UnityEngine;
 namespace BubbleBobble
 {
 	/// <summary>
-	/// Player movement script.
 	/// Moves the player based on the input from the PlayerControl script.
 	/// </summary>
 	///

@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Umbrella lets player skip one level.
+	/// </summary>
 	public class Umbrella : MonoBehaviour
 	{
 		private LevelChanger _levelChanger;
