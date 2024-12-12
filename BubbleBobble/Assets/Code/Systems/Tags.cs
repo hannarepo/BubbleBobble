@@ -2,6 +2,9 @@ using System;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Tag management. If tags are changed they can be modified here and not in the sctipts that use them.
+	/// </summary>
 	public static class Tags
 	{
 		public const String Player = "Player";

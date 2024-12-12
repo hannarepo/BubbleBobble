@@ -2,6 +2,9 @@ using UnityEngine;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Give projectile bubble a size boost.
+	/// </summary>
 	public class BubbleSizeBoost : PowerUp
 	{
 		private ShootBubble _shoot;

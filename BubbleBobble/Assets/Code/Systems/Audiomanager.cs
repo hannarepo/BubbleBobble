@@ -4,6 +4,13 @@ using UnityEngine.SceneManagement;
 
 namespace BubbleBobble
 {
+	/// <summary>
+	/// Manages game audio.
+	/// </summary>
+	/// 
+	/// <remarks>
+	/// author: Juho Kokkonen, Hanna Repo
+	/// </remarks>
 	public class Audiomanager : MonoBehaviour
 	{
 		[SerializeField] private float _musicFadeTime = 1f;
@@ -72,6 +79,12 @@ namespace BubbleBobble
 			_speedChangeCoroutine = StartCoroutine(FadeMusicSpeedDown());
 		}
 
+		/// <summary>
+		/// Fades volume of playing audio source down and simultaneously fades the volume of other audio source up
+		/// to create a smooth fade transition between two tracks.
+		/// </summary>
+		/// <param name="musicClip">The music clip to change into.</param>
+		/// <returns></returns>
 		private IEnumerator FadeMusic(AudioClip musicClip)
 		{
 			float timeElapsed = 0f;
@@ -108,6 +121,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Uses a given fading time to gradually turn down the volume of playing audio source.
+		/// </summary>
+		/// <returns></returns>
 		private IEnumerator FadeOutMusic()
 		{
 			float timeElapsed = 0f;
@@ -136,6 +153,10 @@ namespace BubbleBobble
 			}
 		}
 
+		/// <summary>
+		/// Uses a given fading time to gradually turn up the pitch of playing audio source.
+		/// </summary>
+		/// <returns></returns>
 		private IEnumerator FadeMusicSpeedUp()
 		{
 			AudioSource musicSource;
@@ -159,6 +180,10 @@ namespace BubbleBobble
 		}
 
 
+		/// <summary>
+		/// Uses a given fading time to gradually turn down the pitch of playing audio source.
+		/// </summary>
+		/// <returns></returns>
 		private IEnumerator FadeMusicSpeedDown()
 		{
 			AudioSource musicSource;

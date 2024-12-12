@@ -148,7 +148,10 @@ namespace BubbleBobble
 			{
 				case BubbleType.Fire:
 					_fireBubblesPopped++;
-					CheckCounters("Fire");
+					if (_fireBubblesPopped == _bombSpawnThreshold)
+					{
+						_bubbleSpawner.SpawnBomb();
+					}
 					break;
 				case BubbleType.Bomb:
 					DestroyEnemies();
@@ -233,47 +236,6 @@ namespace BubbleBobble
 		}
 
 		#region Counters
-		private void CheckCounters(string name)
-		{
-			switch (name)
-			{
-				case "Fire":
-					if (_fireBubblesPopped == _bombSpawnThreshold)
-					{
-						_bubbleSpawner.SpawnBomb();
-					}
-					break;
-				// case "Enemy":
-				// 	if (_enemyList.Count == 0 && _canChangeLevel)
-				// 	{
-				// 		_levelManager = FindObjectOfType<LevelManager>();
-				// 		_levelManager.ResetHurryUpTimer();
-				// 		if (_levelManager.IsHurryUpActive)
-				// 		{
-				// 			_levelManager.ResetHurryUp();
-				// 		}
-				// 		if (_levelChanger.LevelIndex == _levelChanger.LevelCount)
-				// 		{
-				// 			Invoke("DelayedFade", _creditFadeDelay);
-				// 			Invoke("LoadCredits", _creditLoadDelay);
-				// 			_audioManager.FadeOut();
-				// 			if (_levelManager.IsHurryUpActive)
-				// 			{
-				// 				_levelManager.ResetHurryUp();
-				// 			}
-				// 			break;
-				// 		}
-
-				// 		_levelManager.CanSpawnItem = false;
-
-				// 		AddItemToList();
-				// 		Invoke("NextLevel", _levelChangeDelay);
-				// 		_canChangeLevel = false;
-				// 	}
-					//break;
-			}
-		}
-
 		private void CounterReset()
 		{
 			// Reset counters here when loading a new level
@@ -351,7 +313,6 @@ namespace BubbleBobble
 		// Adds a projectile object to a list for keeping track of amount.
 		public void AddProjectileToList(GameObject projectileObject)
 		{
-			CheckCounters("Projectile");
 			_projectileList.Add(projectileObject);
 		}
 
