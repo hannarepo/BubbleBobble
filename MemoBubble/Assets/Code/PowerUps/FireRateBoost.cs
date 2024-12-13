@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Give player a fire rate boost to let them shoot bubbles faster.

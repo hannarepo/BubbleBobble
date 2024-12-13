@@ -1,4 +1,4 @@
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Enum for the different types of bubbles.

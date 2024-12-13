@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Move background decoration fish from start position to end position.

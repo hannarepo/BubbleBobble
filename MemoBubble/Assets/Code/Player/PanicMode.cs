@@ -1,7 +1,7 @@
 using Unity.Mathematics;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// This script activates panic mode when the player is standing in fire.

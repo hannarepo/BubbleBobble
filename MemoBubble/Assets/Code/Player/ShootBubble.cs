@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Gets shoot information from PlayerControl.

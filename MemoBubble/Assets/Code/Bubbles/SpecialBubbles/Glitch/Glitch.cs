@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Contains all the behaviour of the Glitches

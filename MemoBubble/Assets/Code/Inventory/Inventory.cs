@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Inventory class for storing items and their amounts.

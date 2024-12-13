@@ -2,7 +2,7 @@ using UnityEngine.UI;
 using UnityEngine;
 using TMPro;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	public class SpriteFade : MonoBehaviour
 	{

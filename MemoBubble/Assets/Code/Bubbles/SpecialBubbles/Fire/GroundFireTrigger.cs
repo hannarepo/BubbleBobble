@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 /// <summary>
 /// If enemies with "EnemyManagement" component collide with this trigger, they will die.

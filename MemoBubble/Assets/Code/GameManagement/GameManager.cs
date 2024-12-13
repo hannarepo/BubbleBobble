@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UIElements.Experimental;
 using Unity.VisualScripting;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Keeps track of most things that happen in-game,

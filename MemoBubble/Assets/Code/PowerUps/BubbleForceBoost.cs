@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Give projectile bubble a force boost to make it move faster and further.

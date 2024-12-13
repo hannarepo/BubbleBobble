@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	public class BasicEnemyBehavior : MonoBehaviour
 	{

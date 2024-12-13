@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Create after images for moving sprites.

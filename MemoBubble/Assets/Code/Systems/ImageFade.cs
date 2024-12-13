@@ -1,7 +1,7 @@
 using UnityEngine.UI;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	public class ImageFade : MonoBehaviour
 	{

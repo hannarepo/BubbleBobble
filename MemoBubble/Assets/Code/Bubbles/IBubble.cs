@@ -1,5 +1,5 @@
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	public interface IBubble
 	{

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 
     /// <summary>

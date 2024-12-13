@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// For animation event in intro cutscene to play keyboard sfx only in the second part of the cutscene.

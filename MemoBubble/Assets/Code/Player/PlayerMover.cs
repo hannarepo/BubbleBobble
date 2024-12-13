@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Moves the player based on the input from the PlayerControl script.

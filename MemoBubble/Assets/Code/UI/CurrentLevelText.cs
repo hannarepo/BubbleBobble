@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Updates current level and world texts.

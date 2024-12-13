@@ -2,7 +2,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Base class for all power ups.

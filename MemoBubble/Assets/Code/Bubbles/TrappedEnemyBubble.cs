@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 /// <summary>
 /// When enemy is trapped in a bubble, it is not destroyed immediately. Instead, it is hidden and

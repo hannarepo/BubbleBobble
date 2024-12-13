@@ -2,7 +2,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Script for controlling various player actions.

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Audio;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
     /// <summary>
     /// Handles the volume settings.

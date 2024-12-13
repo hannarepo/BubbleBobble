@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Manages the spawning of items in the level.

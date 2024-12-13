@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System.Runtime.CompilerServices;
 
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 
     /// <summary>

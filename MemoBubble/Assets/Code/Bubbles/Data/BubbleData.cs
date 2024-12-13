@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	// Create a new Asset to menu to build new prefab assets
 	[CreateAssetMenu(fileName = "New Bubble", menuName = "Bubble")]

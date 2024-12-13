@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 /// <summary>
 /// Fireballs that spawn from fire bubbles.

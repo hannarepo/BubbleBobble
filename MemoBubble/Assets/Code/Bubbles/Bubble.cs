@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 /// <summary>
 /// Abstract base class for the bubbles in the game.

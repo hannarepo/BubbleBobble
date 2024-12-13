@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Class for managing player health. Player has set number of

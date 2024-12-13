@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 /// <summary>
 /// After instantiating projectile bubble, check which direction bubble

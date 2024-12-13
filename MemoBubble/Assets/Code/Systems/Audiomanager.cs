@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace BubbleBobble
+namespace MemoBubble
 {
 	/// <summary>
 	/// Manages game audio.
