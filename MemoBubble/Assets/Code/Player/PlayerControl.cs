@@ -1,6 +1,7 @@
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MemoBubble
 {
@@ -22,6 +23,7 @@ namespace MemoBubble
 		[SerializeField] private SpriteRenderer _playerBubbleRenderer;
 		[SerializeField] private GameManager _gameManager;
 		[SerializeField] private ItemData[] _shells;
+		private int _itemsCollected = 0;
 		private InputReader _inputReader;
 		private Inventory _inventory;
 		private PlayerMover _playerMover;
@@ -51,6 +53,8 @@ namespace MemoBubble
 		}
 
 		public Inventory Inventory => _inventory;
+
+		public int ItemsCollected => _itemsCollected;
 
 		public bool Shoot => _shoot;
 
@@ -144,6 +148,7 @@ namespace MemoBubble
 			if (_inventory.Add(item.ItemData, 1))
 			{
 				item.Collect();
+				_itemsCollected++;
 				_gameManager.HandleItemPickup(item.ItemData.Points);
 			}
 			CheckInventory();

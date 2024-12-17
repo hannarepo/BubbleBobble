@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements.Experimental;
-using Unity.VisualScripting;
 
 namespace MemoBubble
 {
@@ -43,6 +41,7 @@ namespace MemoBubble
 		[SerializeField] private int _mp3SpawnThreshold = 20;
 		[SerializeField] private int _cdSpawnThreshold = 30;
 		[SerializeField] private int _butterflySpawnThreshold = 40;
+		[SerializeField] private int _shellSpawnThreshold = 5;
 		[SerializeField] private Item _soap;
 		[SerializeField] private Item _purpleFloppy;
 		[SerializeField] private Item _blueFloppy;
@@ -50,14 +49,10 @@ namespace MemoBubble
 		[SerializeField] private Item _mp3;
 		[SerializeField] private Item _cd;
 		[SerializeField] private Item _butterfly;
-		[SerializeField] private Item _blueShell;
-		[SerializeField] private Item _pupleShell;
-		[SerializeField] private Item _purpleBlueShell;
-		[SerializeField] private Item _redShell;
-		private bool _addedBlueShell = false;
-		private bool _addedPurpleShell = false;
-		private bool _addedPurpleBlueShell = false;
-		private bool _addedRedShell = false;
+		private bool _hasSpawnedBlueShell = false;
+		private bool _hasSpawnedPurpleShell = false;
+		private bool _hasSpawnedPurpleBlueShell = false;
+		private bool _hasSpawnedRedShell = false;
 
 		// Score related variables
 		private int _scoreCount;
@@ -183,51 +178,84 @@ namespace MemoBubble
 		/// </summary>
 		private void AddItemToList()
 		{
-			// If inventory contains three soap bottles, add a blue shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, 3) && !_addedBlueShell)
-			{
-				_spawnableItemPrefabs.Add(_blueShell);
-				_addedBlueShell = true;
-			}
-
-			// If inventory contains three purple floppy discs, add a purple shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_purpleFloppy.ItemData, 3) && !_addedPurpleShell)
-			{
-				_spawnableItemPrefabs.Add(_pupleShell);
-				_addedPurpleShell = true;
-			}
-
-			// If inventory contains three blue floppy discs, add purpleblue shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, 3) && !_addedPurpleBlueShell)
-			{
-				_spawnableItemPrefabs.Add(_purpleBlueShell);
-				_addedPurpleBlueShell = true;
-			}
-
-			// If inventory contains three cameras, add a red shell to the item list.
-			if (_playerControl.Inventory.CheckInventoryContent(_camera.ItemData, 3) && !_addedRedShell)
-			{
-				_spawnableItemPrefabs.Add(_redShell);
-				_addedRedShell = true;
-			}
-
 			// If inventory contains 20 number of items, add an mp3 player to the item list.
-			if (_playerControl.Inventory.Count(_mp3SpawnThreshold))
+			if (_playerControl.ItemsCollected == _mp3SpawnThreshold)
 			{
 				_spawnableItemPrefabs.Add(_mp3);
 			}
 
 			// If inventory contains x number of items, add a cd to the item list.
-			if (_playerControl.Inventory.Count(_cdSpawnThreshold))
+			if (_playerControl.ItemsCollected == _cdSpawnThreshold)
 			{
 				_spawnableItemPrefabs.Add(_cd);
 			}
 
 			// If inventory contains x number of items, add a butterfly to the item list.
-			if (_playerControl.Inventory.Count(_butterflySpawnThreshold))
+			if (_playerControl.ItemsCollected == _butterflySpawnThreshold)
 			{
 				_spawnableItemPrefabs.Add(_butterfly);
 			}
+		}
+
+		/// <summary>
+		/// If player has collected a set number of certain items and the shell has not been spawned before,
+		/// the shell can be spawnde in the level. If all shells have been spawned once, all _hasSpawned are
+		/// reset so that the shells can be spawned again. These are checked so that player doesn't have multiple
+		/// same shells and getting extra lives is easier and more consistent.
+		/// </summary>
+		/// <param name="shell">The shell to checked for spawning.</param>
+		/// <returns></returns>
+		public bool CanSpawnShell(Item shell)
+		{
+			// If inventory contains three soap bottles, add a blue shell to the item list.
+			if (_playerControl.Inventory.CheckInventoryContent(_soap.ItemData, _shellSpawnThreshold)
+				&& shell.ItemData.Name == "BlueShell"
+				&& !_hasSpawnedBlueShell)
+			{
+				_playerControl.Inventory.ClearItems(_soap.ItemData);
+				_hasSpawnedBlueShell = true;
+				return true;
+			}
+
+			// If inventory contains three purple floppy discs, add a purple shell to the item list.
+			if (_playerControl.Inventory.CheckInventoryContent(_purpleFloppy.ItemData, _shellSpawnThreshold)
+				&& shell.ItemData.Name == "PurpleShell"
+				&& !_hasSpawnedPurpleShell)
+			{
+				_playerControl.Inventory.ClearItems(_purpleFloppy.ItemData);
+				_hasSpawnedPurpleShell = true;
+				return true;
+			}
+
+			// If inventory contains three blue floppy discs, add purpleblue shell to the item list.
+			if (_playerControl.Inventory.CheckInventoryContent(_blueFloppy.ItemData, _shellSpawnThreshold)
+				&& shell.ItemData.Name == "PurpleBlueShell"
+				&& !_hasSpawnedPurpleBlueShell)
+			{
+				_playerControl.Inventory.ClearItems(_blueFloppy.ItemData);
+				_hasSpawnedPurpleBlueShell = true;
+				return true;
+			}
+
+			// If inventory contains three cameras, add a red shell to the item list.
+			if (_playerControl.Inventory.CheckInventoryContent(_camera.ItemData, _shellSpawnThreshold)
+				&& shell.ItemData.Name == "RedShell"
+				&& !_hasSpawnedRedShell)
+			{
+				_playerControl.Inventory.ClearItems(_camera.ItemData);
+				_hasSpawnedRedShell = true;
+				return true;
+			}
+
+			if (_hasSpawnedBlueShell && _hasSpawnedPurpleShell && _hasSpawnedPurpleBlueShell && _hasSpawnedRedShell)
+			{
+				_hasSpawnedBlueShell = false;
+				_hasSpawnedPurpleShell = false;
+				_hasSpawnedPurpleBlueShell = false;
+				_hasSpawnedRedShell = false;
+			}
+
+			return false;
 		}
 
 		/// <summary>
