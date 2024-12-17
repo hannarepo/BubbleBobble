@@ -70,6 +70,11 @@ namespace MemoBubble
 			_items.Clear();
 		}
 
+		public void ClearItems(ItemData item)
+		{
+			Remove(item, _items[item]);
+		}
+
 		public bool CheckInventoryContent(ItemData item, int amount)
 		{
 			if (_items.ContainsKey(item) && _items[item] >= amount)

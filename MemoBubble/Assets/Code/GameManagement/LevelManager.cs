@@ -17,10 +17,13 @@ namespace MemoBubble
 		[SerializeField] private List<Transform> _spawnPoints = new List<Transform>();
 		[SerializeField] private float _spawnInterval = 5f;
 		[SerializeField] private int _maxItemCount = 3;
+		[SerializeField] private Item _blueShell;
+		[SerializeField] private Item _purpleShell;
+		[SerializeField] private Item _purpleBlueShell;
+		[SerializeField] private Item _redShell;
+		[SerializeField] private bool _canSpawnUmbrella = false;
 		[SerializeField] private float _hurryUpTime = 30f;
 		[SerializeField] private float _textFlashTime = 2f;
-		[SerializeField] private bool _canSpawnShell = true;
-		[SerializeField] private bool _canSpawnUmbrella = false;
 		[SerializeField] GameObject _enemies;
 		[SerializeField] private float _spawnUndefeatableTime = 35f;
 		[SerializeField] private AudioClip _bossSFX;
@@ -53,6 +56,24 @@ namespace MemoBubble
 			_audioManager = FindObjectOfType<Audiomanager>();
 			_undefeatableEnemy = _gameManager.UndefeatableEnemy;
 			_playerHealth = FindObjectOfType<Health>();
+
+			// If a shell can be spawned, it is spawned at the start of the level.
+			if (_gameManager.CanSpawnShell(_blueShell))
+			{
+				SpawnShell(_blueShell);
+			}
+			else if (_gameManager.CanSpawnShell(_purpleShell))
+			{
+				SpawnShell(_purpleShell);
+			}
+			else if (_gameManager.CanSpawnShell(_purpleBlueShell))
+			{
+				SpawnShell(_purpleBlueShell);
+			}
+			else if (_gameManager.CanSpawnShell(_redShell))
+			{
+				SpawnShell(_redShell);
+			}
 		}
 
 		private void Update()
@@ -105,8 +126,7 @@ namespace MemoBubble
 
 				// If random item is a shell or an umbrella and they can't be spawned, randomize a new item index
 				// and call the method again to spawn the new item.
-				if ((_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && !_canSpawnShell) ||
-					 (_spawnableItemPrefabs[index]. ItemData.ItemType == ItemType.Umbrella && !_canSpawnUmbrella))
+				if (_spawnableItemPrefabs[index]. ItemData.ItemType == ItemType.Umbrella && !_canSpawnUmbrella)
 				{
 					index = Random.Range(0, _spawnableItemPrefabs.Count);
 					SpawnItemAtInterval(index);
@@ -123,13 +143,6 @@ namespace MemoBubble
 						_canSpawnUmbrella = false;
 					}
 				}
-				// If item type is a shell and a shell can be spawned, spawn a shell
-				else if (_spawnableItemPrefabs[index].ItemData.ItemType == ItemType.Shell && _canSpawnShell)
-				{
-					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
-										transform);
-					_canSpawnShell = false;
-				}
 				else
 				{
 					item = Instantiate(_spawnableItemPrefabs[index], _spawnPoints[randomSpawnPoint].position, Quaternion.identity,
@@ -142,6 +155,14 @@ namespace MemoBubble
 			}
 		}
 
+		private void SpawnShell(Item shell)
+		{
+			int randomSpawnPoint = Random.Range(0, _spawnPoints.Count);
+
+			Instantiate(shell, _spawnPoints[randomSpawnPoint].position, Quaternion.identity, transform);
+			_spawnedItemCount++;
+		}
+		
 		private void HurryUp()
 		{
 			FlashHurryUpText();

@@ -52,6 +52,7 @@ namespace MemoBubble
 
 			if (_enemy == null)
 			{
+				Debug.LogError("Enemy is not set for the bubble.");
 				Destroy(gameObject);
 			}
 
@@ -71,9 +72,24 @@ namespace MemoBubble
 		{
 			if (collision.gameObject.CompareTag(Tags.Player) && _canPop)
 			{
-				_enemy.SetActive(true);
-				_enemy.transform.position = transform.position;
-				_enemy.GetComponent<EnemyDeath>().LaunchAtDeath(true);
+				if (_enemy != null)
+				{
+					_enemy.SetActive(true);
+					_enemy.transform.position = transform.position;
+					if (_enemy.TryGetComponent<EnemyDeath>(out EnemyDeath enemyDeath))
+					{
+						enemyDeath.LaunchAtDeath(true);
+					}
+					else
+					{
+						_gameManager.RemoveEnemyFromList(_enemy);
+					}
+				}
+				else
+				{
+					Debug.LogError("Enemy is not set for the bubble. Clearing enemy list.");
+					_gameManager.ClearEnemyList();
+				}
 			}
 			base.OnCollisionEnter2D(collision);
 		}
